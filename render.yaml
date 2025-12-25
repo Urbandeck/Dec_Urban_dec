@@ -63,9 +63,8 @@ services:
         value: 8362554
 
 databases:
-  # MySQL Database
+  # PostgreSQL Database
   - name: urbandeck-db
     databaseName: digitalframes_shop
     user: digitalframes_user
     plan: free
-    region: oregon
