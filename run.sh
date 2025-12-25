@@ -87,10 +87,11 @@ echo ""
 
 # Step 3: Set up environment variables
 print_info "Setting up environment..."
-export MYSQL_ROOT_PASSWORD="${MYSQL_ROOT_PASSWORD:-root}"
-export DB_USERNAME="digitalframes_user"
-export DB_PASSWORD="DF@Shop2024!Secure"
-export DB_NAME="digitalframes_shop"
+export DB_USERNAME="${DB_USERNAME:-ajaypatil}"
+export DB_PASSWORD="${DB_PASSWORD:-}"
+export DB_NAME="${DB_NAME:-digitalframes_shop}"
+export DB_HOST="${DB_HOST:-localhost}"
+export DB_PORT="${DB_PORT:-5432}"
 export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 export JAVA_HOME="/opt/homebrew/opt/openjdk@17"
 
@@ -100,51 +101,51 @@ if [ -f .env ]; then
     export $(grep -v '^#' .env | xargs)
 fi
 
-# Step 4: Check and Start MySQL if needed
-print_info "Checking MySQL status..."
+# Step 4: Check and Start PostgreSQL if needed
+print_info "Checking PostgreSQL status..."
 
-# Check if MySQL is installed
-if ! command -v mysql &> /dev/null; then
-    print_warning "MySQL is not installed"
-    print_info "Installing MySQL..."
-    brew install mysql
+# Check if PostgreSQL is installed
+if ! command -v psql &> /dev/null; then
+    print_warning "PostgreSQL is not installed"
+    print_info "Installing PostgreSQL..."
+    brew install postgresql@15
     if [ $? -eq 0 ]; then
-        print_status "MySQL installed successfully"
+        print_status "PostgreSQL installed successfully"
     else
-        print_error "Failed to install MySQL"
-        print_info "Please install MySQL manually: brew install mysql"
+        print_error "Failed to install PostgreSQL"
+        print_info "Please install PostgreSQL manually: brew install postgresql@15"
         exit 1
     fi
 fi
 
-# Check if MySQL service is running
-if ! pgrep -x "mysqld" > /dev/null 2>&1; then
-    print_warning "MySQL is not running"
-    print_info "Starting MySQL service..."
+# Check if PostgreSQL service is running
+if ! pgrep -x "postgres" > /dev/null 2>&1; then
+    print_warning "PostgreSQL is not running"
+    print_info "Starting PostgreSQL service..."
 
-    # Try to start MySQL using brew services
-    brew services start mysql 2>/dev/null
+    # Try to start PostgreSQL using brew services
+    brew services start postgresql@15 2>/dev/null || brew services start postgresql 2>/dev/null
 
-    # Wait for MySQL to start
-    print_info "Waiting for MySQL to start..."
+    # Wait for PostgreSQL to start
+    print_info "Waiting for PostgreSQL to start..."
     for i in {1..10}; do
-        if pgrep -x "mysqld" > /dev/null 2>&1; then
-            print_status "MySQL service started successfully"
+        if pgrep -x "postgres" > /dev/null 2>&1; then
+            print_status "PostgreSQL service started successfully"
             sleep 2  # Give it a moment to fully initialize
             break
         fi
         if [ $i -eq 10 ]; then
-            print_error "MySQL failed to start"
+            print_error "PostgreSQL failed to start"
             print_info "Trying alternative start method..."
 
-            # Try alternative MySQL start command
-            mysql.server start 2>/dev/null
+            # Try alternative PostgreSQL start command
+            pg_ctl -D /opt/homebrew/var/postgresql@15 start 2>/dev/null || pg_ctl -D /opt/homebrew/var/postgres start 2>/dev/null
             sleep 3
 
-            if ! pgrep -x "mysqld" > /dev/null 2>&1; then
-                print_error "Could not start MySQL service"
-                print_info "Please start MySQL manually: brew services start mysql"
-                print_info "Continuing with H2 database fallback..."
+            if ! pgrep -x "postgres" > /dev/null 2>&1; then
+                print_error "Could not start PostgreSQL service"
+                print_info "Please start PostgreSQL manually: brew services start postgresql@15"
+                exit 1
             fi
         fi
         sleep 1
@@ -152,50 +153,27 @@ if ! pgrep -x "mysqld" > /dev/null 2>&1; then
     done
     echo ""
 else
-    print_status "MySQL service is already running"
+    print_status "PostgreSQL service is already running"
 fi
 
-# Step 5: Setup MySQL database and user (if MySQL is accessible)
-print_info "Checking MySQL connection..."
-if ! mysql -u root -p${MYSQL_ROOT_PASSWORD} -e "SELECT 1" >/dev/null 2>&1; then
-    # Try without password first
-    if mysql -u root -e "SELECT 1" >/dev/null 2>&1; then
-        print_warning "MySQL root has no password set"
-        print_info "Setting up database with no root password..."
+# Step 5: Setup PostgreSQL database (if PostgreSQL is accessible)
+print_info "Checking PostgreSQL connection..."
+if psql -U ${DB_USERNAME} -d postgres -c "SELECT 1" >/dev/null 2>&1; then
+    print_status "PostgreSQL connection successful"
 
-        mysql -u root <<EOF 2>/dev/null
-CREATE DATABASE IF NOT EXISTS ${DB_NAME};
-CREATE USER IF NOT EXISTS '${DB_USERNAME}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}';
-GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USERNAME}'@'localhost';
-FLUSH PRIVILEGES;
-EOF
-
-        if [ $? -eq 0 ]; then
-            print_status "Database setup completed"
-        else
-            print_warning "Could not setup database (may already exist)"
-        fi
-    else
-        print_warning "Cannot connect to MySQL with provided credentials"
-        print_info "The application will use H2 database as fallback"
-    fi
-else
-    print_status "MySQL connection successful"
-
-    # Setup MySQL database and user
-    print_info "Setting up MySQL database and user..."
-    mysql -u root -p${MYSQL_ROOT_PASSWORD} <<EOF 2>/dev/null
-CREATE DATABASE IF NOT EXISTS ${DB_NAME};
-CREATE USER IF NOT EXISTS '${DB_USERNAME}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}';
-GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USERNAME}'@'localhost';
-FLUSH PRIVILEGES;
-EOF
+    # Setup PostgreSQL database
+    print_info "Setting up PostgreSQL database..."
+    psql -U ${DB_USERNAME} -d postgres -c "CREATE DATABASE ${DB_NAME};" 2>/dev/null
 
     if [ $? -eq 0 ]; then
-        print_status "Database setup completed"
+        print_status "Database created successfully"
     else
-        print_warning "Database may already exist (continuing anyway)"
+        print_info "Database may already exist (continuing anyway)"
     fi
+else
+    print_warning "Cannot connect to PostgreSQL"
+    print_info "Trying to create database as current user..."
+    createdb ${DB_NAME} 2>/dev/null || print_info "Database may already exist"
 fi
 
 # Step 6: Check Java installation
