@@ -1,0 +1,13 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /account
+Disallow: /api
+Disallow: /checkout
+
+# Host
+Host: https://digitalframes.com
+
+# Sitemaps
+Sitemap: https://digitalframes.com/sitemap.xml
