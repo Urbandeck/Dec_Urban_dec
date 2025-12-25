@@ -39,3 +39,4 @@ frontend.log
 # Misc
 cookies*.txt
 *.csv
+client_secret_*.json

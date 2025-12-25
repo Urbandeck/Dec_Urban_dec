@@ -21,7 +21,7 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "https://frontend-tawny-psi-67.vercel.app"})
 public class AuthController {
 
     @Autowired
@@ -235,6 +235,72 @@ public class AuthController {
         ));
     }
 
+    @PostMapping("/google")
+    public ResponseEntity<?> googleAuth(@RequestBody GoogleAuthRequest request,
+                                        HttpServletRequest httpRequest) {
+        try {
+            // Check if user exists by email or googleId
+            var existingUser = userRepository.findByEmail(request.email);
+            com.digitalframes.shop.model.User user;
+
+            if (existingUser.isPresent()) {
+                user = existingUser.get();
+                // Update googleId if not set
+                if (user.getGoogleId() == null) {
+                    user.setGoogleId(request.googleId);
+                }
+                if (request.picture != null) {
+                    user.setProfilePicture(request.picture);
+                }
+                user.setLastLogin(java.time.LocalDateTime.now());
+                user.setEmailVerified(true);
+                userRepository.save(user);
+            } else {
+                // Create new user
+                user = new com.digitalframes.shop.model.User();
+                user.setEmail(request.email);
+                user.setName(request.name);
+                user.setGoogleId(request.googleId);
+                user.setProfilePicture(request.picture);
+                user.setPassword(org.springframework.security.crypto.bcrypt.BCrypt.hashpw(request.googleId, org.springframework.security.crypto.bcrypt.BCrypt.gensalt()));
+                user.setEmailVerified(true);
+                user.setActive(true);
+                user.setLastLogin(java.time.LocalDateTime.now());
+                user.getRoles().add("USER");
+                userRepository.save(user);
+            }
+
+            // Create session
+            HttpSession session = httpRequest.getSession(true);
+            session.setMaxInactiveInterval(30 * 24 * 60 * 60); // 30 days
+
+            // Create authentication token
+            UsernamePasswordAuthenticationToken authToken =
+                new UsernamePasswordAuthenticationToken(user.getEmail(), null,
+                    user.getRoles().stream()
+                        .map(role -> new org.springframework.security.core.authority.SimpleGrantedAuthority("ROLE_" + role))
+                        .collect(java.util.stream.Collectors.toList()));
+
+            SecurityContextHolder.getContext().setAuthentication(authToken);
+            session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+                               SecurityContextHolder.getContext());
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("user", Map.of(
+                "id", user.getId().toString(),
+                "email", user.getEmail(),
+                "name", user.getName(),
+                "roles", user.getRoles(),
+                "profilePicture", user.getProfilePicture() != null ? user.getProfilePicture() : ""
+            ));
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(Map.of("message", "Google authentication failed: " + e.getMessage()));
+        }
+    }
+
     static class LoginRequest {
         public String email;
         public String password;
@@ -258,5 +324,12 @@ public class AuthController {
     static class ResendOTPRequest {
         public String email;
         public String type;
+    }
+
+    static class GoogleAuthRequest {
+        public String email;
+        public String name;
+        public String googleId;
+        public String picture;
     }
 }

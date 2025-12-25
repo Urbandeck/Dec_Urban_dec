@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import CartProvider from '@/components/CartProvider'
 import AuthProvider from '@/components/AuthProvider'
+import GoogleAuthProvider from '@/components/GoogleAuthProvider'
 import { Toaster } from 'react-hot-toast'
 
 const inter = Inter({ 
@@ -102,16 +103,18 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
-        <AuthProvider>
-          <CartProvider>
-            <Toaster position="top-right" />
-            <div className="flex flex-col min-h-screen">
-              <Navbar />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </div>
-          </CartProvider>
-        </AuthProvider>
+        <GoogleAuthProvider>
+          <AuthProvider>
+            <CartProvider>
+              <Toaster position="top-right" />
+              <div className="flex flex-col min-h-screen">
+                <Navbar />
+                <main className="flex-1">{children}</main>
+                <Footer />
+              </div>
+            </CartProvider>
+          </AuthProvider>
+        </GoogleAuthProvider>
       </body>
     </html>
   )

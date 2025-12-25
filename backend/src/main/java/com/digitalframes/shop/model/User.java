@@ -29,6 +29,12 @@ public class User {
 
     private String phone;
 
+    @Column(name = "google_id")
+    private String googleId;
+
+    @Column(name = "profile_picture")
+    private String profilePicture;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
