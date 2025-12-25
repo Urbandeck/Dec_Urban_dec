@@ -3,9 +3,9 @@ spring:
     name: digital-frames-shop
 
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:digitalframes_shop}
-    username: ${DB_USERNAME:digitalframes_user}
-    password: ${DB_PASSWORD:DF@Shop2024!Secure}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:digitalframes_shop}?sslmode=disable
+    username: ${DB_USERNAME:ajaypatil}
+    password: ${DB_PASSWORD:}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10

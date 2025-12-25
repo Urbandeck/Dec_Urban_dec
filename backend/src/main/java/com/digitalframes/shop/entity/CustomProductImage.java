@@ -24,7 +24,7 @@ public class CustomProductImage {
     private Long fileSize;
 
     @Lob
-    @Column(name = "image_data", columnDefinition = "MEDIUMBLOB")
+    @Column(name = "image_data")
     private byte[] imageData;
 
     @ManyToOne
