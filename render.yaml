@@ -2,11 +2,11 @@ services:
   # Backend Spring Boot Application
   - type: web
     name: urbandeck-backend
-    env: java
+    env: docker
     region: oregon
     plan: free
-    buildCommand: cd backend && chmod +x mvnw && ./mvnw clean package -DskipTests
-    startCommand: cd backend && java -Dserver.port=$PORT -jar target/digital-frames-shop-0.0.1-SNAPSHOT.jar
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
     healthCheckPath: /api/health
     envVars:
       - key: DB_HOST
