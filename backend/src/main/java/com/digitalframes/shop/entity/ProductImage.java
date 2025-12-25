@@ -30,7 +30,7 @@ public class ProductImage {
     private String mimeType;
 
     @Lob
-    @Column(columnDefinition = "LONGBLOB", nullable = false)
+    @Column(nullable = false)
     private byte[] imageData;
 
     @Column(nullable = false)
