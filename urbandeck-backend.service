@@ -1,0 +1,35 @@
+[Unit]
+Description=UrbanDeck Spring Boot Backend
+After=network.target mysql.service
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/var/www/urbandeck/backend
+
+# Environment variables
+Environment="JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64"
+Environment="DB_USERNAME=digitalframes_user"
+Environment="DB_PASSWORD=DF@Shop2024!Secure"
+Environment="SPRING_PROFILES_ACTIVE=prod"
+
+# Alternatively, use EnvironmentFile to load from .env
+# EnvironmentFile=/var/www/urbandeck/.env.production
+
+# Start command
+ExecStart=/usr/bin/java -jar /var/www/urbandeck/backend/target/shop-1.0.0.jar
+
+# Restart policy
+Restart=always
+RestartSec=10
+
+# Logging
+StandardOutput=append:/var/log/urbandeck/backend.log
+StandardError=append:/var/log/urbandeck/backend-error.log
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

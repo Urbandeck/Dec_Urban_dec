@@ -1,0 +1,34 @@
+[Unit]
+Description=UrbanDeck Next.js Frontend
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/var/www/urbandeck/frontend
+
+# Environment variables
+Environment="NODE_ENV=production"
+Environment="PORT=3000"
+Environment="NEXT_PUBLIC_API_URL=https://yourdomain.com/api"
+
+# Alternatively, use EnvironmentFile to load from .env
+# EnvironmentFile=/var/www/urbandeck/.env.production
+
+# Start command
+ExecStart=/usr/bin/npm start
+
+# Restart policy
+Restart=always
+RestartSec=10
+
+# Logging
+StandardOutput=append:/var/log/urbandeck/frontend.log
+StandardError=append:/var/log/urbandeck/frontend-error.log
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
