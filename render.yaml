@@ -1,0 +1,71 @@
+services:
+  # Backend Spring Boot Application
+  - type: web
+    name: urbandeck-backend
+    env: java
+    region: oregon
+    plan: free
+    buildCommand: cd backend && chmod +x mvnw && ./mvnw clean package -DskipTests
+    startCommand: cd backend && java -Dserver.port=$PORT -jar target/digital-frames-shop-0.0.1-SNAPSHOT.jar
+    healthCheckPath: /api/health
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: urbandeck-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: urbandeck-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: urbandeck-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: urbandeck-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: urbandeck-db
+          property: password
+      - key: JWT_SECRET
+        value: dF$hop2024SecureJWT!Key@256BitLongSecretForAuthentication#Prod
+      - key: JWT_EXPIRATION
+        value: 3600000
+      - key: JWT_REFRESH_EXPIRATION
+        value: 604800000
+      - key: RAZORPAY_KEY_ID
+        value: rzp_test_RNNL8f3yxCGLmF
+      - key: RAZORPAY_KEY_SECRET
+        value: WbMLH3S3EHmzqkdWUG7CstsD
+      - key: RAZORPAY_WEBHOOK_SECRET
+        value: webhook_secret_DF2024_secure@123
+      - key: MAIL_HOST
+        value: smtp.gmail.com
+      - key: MAIL_PORT
+        value: 587
+      - key: MAIL_USERNAME
+        value: urbandec.in@gmail.com
+      - key: MAIL_PASSWORD
+        value: zjij kiuf yxfl gypd
+      - key: FRONTEND_URL
+        value: https://frontend-tawny-psi-67.vercel.app
+      - key: SPRING_PROFILES_ACTIVE
+        value: mysql
+      - key: SHIPROCKET_EMAIL
+        value: patilajayv2200@gmail.com
+      - key: SHIPROCKET_PASSWORD
+        value: nwpE9I!!1uhp6S4$
+      - key: SHIPROCKET_PICKUP_LOCATION
+        value: work
+      - key: SHIPROCKET_CHANNEL_ID
+        value: 8362554
+
+databases:
+  # MySQL Database
+  - name: urbandeck-db
+    databaseName: digitalframes_shop
+    user: digitalframes_user
+    plan: free
+    region: oregon
