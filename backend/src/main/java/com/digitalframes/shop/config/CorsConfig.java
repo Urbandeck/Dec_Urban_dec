@@ -21,7 +21,9 @@ public class CorsConfig {
             "http://localhost:3001",
             "http://127.0.0.1:3000",
             "http://127.0.0.1:3001",
-            "https://frontend-tawny-psi-67.vercel.app"
+            "https://frontend-tawny-psi-67.vercel.app",
+            "https://www.urbandec.in",
+            "https://urbandec.in"
         ));
         corsConfiguration.setAllowedHeaders(Arrays.asList(
             "Origin",
