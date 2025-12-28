@@ -1,4 +1,5 @@
 'use client';
+import { ENV_CONFIG } from '@/lib/env-config';
 
 import { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
@@ -31,7 +32,7 @@ export default function VideoManagerPage() {
 
   const fetchVideos = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/site-settings/cta-videos', {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/site-settings/cta-videos', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
         }
@@ -83,7 +84,7 @@ export default function VideoManagerPage() {
     if (!confirm('Are you sure you want to delete this video?')) return;
 
     try {
-      const response = await fetch(`http://localhost:8080/api/site-settings/cta-video/${id}`, {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/site-settings/cta-video/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
@@ -103,7 +104,7 @@ export default function VideoManagerPage() {
 
   const handleToggleActive = async (video: CTAVideo) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/site-settings/cta-video/${video.id}/toggle`, {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/site-settings/cta-video/${video.id}/toggle`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('adminToken')}`

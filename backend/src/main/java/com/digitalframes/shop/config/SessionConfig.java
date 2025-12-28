@@ -37,8 +37,9 @@ public class SessionConfig {
                                           RememberMeServices rememberMeServices) throws Exception {
         http
             // CSRF protection for session-based auth
+            // Disable CSRF for API endpoints (REST API with session cookies)
             .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/api/auth/**", "/api/orders/**", "/api/payment/**")
+                .ignoringRequestMatchers("/api/**")
             )
 
             // CORS configuration

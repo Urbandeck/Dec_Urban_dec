@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import axios from 'axios'
 
 interface User {
@@ -26,98 +27,109 @@ import { API_ENDPOINTS } from '@/lib/env-config'
 // Configure axios to always send cookies
 axios.defaults.withCredentials = true
 
-export const useAuthStore = create<AuthStore>((set, get) => ({
-  user: null,
-  isAuthenticated: false,
-  isLoading: false,
+export const useAuthStore = create<AuthStore>()(
+  persist(
+    (set, get) => ({
+      user: null,
+      isAuthenticated: false,
+      isLoading: false,
 
-  login: async (email, password, rememberMe = false) => {
-    set({ isLoading: true })
-    try {
-      const response = await axios.post(
-        API_ENDPOINTS.AUTH.LOGIN,
-        { email, password },
-        {
-          withCredentials: true,
-          params: { 'remember-me': rememberMe ? 'true' : 'false' }
+      login: async (email, password, rememberMe = false) => {
+        set({ isLoading: true })
+        try {
+          const response = await axios.post(
+            API_ENDPOINTS.AUTH.LOGIN,
+            { email, password },
+            {
+              withCredentials: true,
+              params: { 'remember-me': rememberMe ? 'true' : 'false' }
+            }
+          )
+
+          const { user } = response.data
+          set({
+            user,
+            isAuthenticated: true,
+            isLoading: false,
+          })
+        } catch (error) {
+          set({ isLoading: false })
+          throw error
         }
-      )
+      },
 
-      const { user } = response.data
-      set({
-        user,
-        isAuthenticated: true,
-        isLoading: false,
-      })
-    } catch (error) {
-      set({ isLoading: false })
-      throw error
+      register: async (email, password, name) => {
+        set({ isLoading: true })
+        try {
+          const response = await axios.post(
+            API_ENDPOINTS.AUTH.REGISTER,
+            { email, password, name },
+            { withCredentials: true }
+          )
+
+          const { user } = response.data
+          set({
+            user,
+            isAuthenticated: true,
+            isLoading: false,
+          })
+        } catch (error) {
+          set({ isLoading: false })
+          throw error
+        }
+      },
+
+      logout: async () => {
+        try {
+          await axios.post(
+            API_ENDPOINTS.AUTH.LOGOUT,
+            {},
+            { withCredentials: true }
+          )
+        } finally {
+          set({
+            user: null,
+            isAuthenticated: false,
+          })
+        }
+      },
+
+      checkSession: async () => {
+        set({ isLoading: true })
+        try {
+          const response = await axios.get(
+            API_ENDPOINTS.AUTH.ME,
+            { withCredentials: true }
+          )
+
+          const { user } = response.data
+          set({
+            user,
+            isAuthenticated: true,
+            isLoading: false,
+          })
+        } catch (error) {
+          set({
+            user: null,
+            isAuthenticated: false,
+            isLoading: false,
+          })
+        }
+      },
+
+      setUser: (user) => set({ user, isAuthenticated: !!user }),
+
+      isAdmin: () => {
+        const user = get().user
+        return user?.roles?.includes('ADMIN') || false
+      },
+    }),
+    {
+      name: 'auth-storage',
+      partialize: (state) => ({
+        user: state.user,
+        isAuthenticated: state.isAuthenticated,
+      }),
     }
-  },
-
-  register: async (email, password, name) => {
-    set({ isLoading: true })
-    try {
-      const response = await axios.post(
-        API_ENDPOINTS.AUTH.REGISTER,
-        { email, password, name },
-        { withCredentials: true }
-      )
-
-      const { user } = response.data
-      set({
-        user,
-        isAuthenticated: true,
-        isLoading: false,
-      })
-    } catch (error) {
-      set({ isLoading: false })
-      throw error
-    }
-  },
-
-  logout: async () => {
-    try {
-      await axios.post(
-        API_ENDPOINTS.AUTH.LOGOUT,
-        {},
-        { withCredentials: true }
-      )
-    } finally {
-      set({
-        user: null,
-        isAuthenticated: false,
-      })
-    }
-  },
-
-  checkSession: async () => {
-    set({ isLoading: true })
-    try {
-      const response = await axios.get(
-        API_ENDPOINTS.AUTH.ME,
-        { withCredentials: true }
-      )
-
-      const { user } = response.data
-      set({
-        user,
-        isAuthenticated: true,
-        isLoading: false,
-      })
-    } catch (error) {
-      set({
-        user: null,
-        isAuthenticated: false,
-        isLoading: false,
-      })
-    }
-  },
-
-  setUser: (user) => set({ user, isAuthenticated: !!user }),
-
-  isAdmin: () => {
-    const user = get().user
-    return user?.roles?.includes('ADMIN') || false
-  },
-}))
+  )
+)

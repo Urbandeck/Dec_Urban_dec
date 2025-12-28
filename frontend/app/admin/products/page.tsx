@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { api, Product } from '@/lib/api';
 import { formatPrice } from '@/lib/utils';
 import ProductImage from '@/components/ProductImage';
+import { ENV_CONFIG } from '@/lib/env-config';
 
 export default function AdminProducts() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -41,10 +42,13 @@ export default function AdminProducts() {
     try {
       setLoading(true);
       // Fetch with admin=true to see all products including drafts
-      const response = await fetch('http://localhost:8080/api/products?admin=true');
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/products?admin=true`, {
+        credentials: 'include',
+      });
       const data = await response.json();
       setProducts(data);
     } catch (error) {
+      console.error('Error fetching products:', error);
     } finally {
       setLoading(false);
     }
@@ -132,11 +136,12 @@ export default function AdminProducts() {
         const base64Data = await base64Promise;
 
         // Upload to backend
-        const response = await fetch(`http://localhost:8080/api/products/${productId}/images/base64`, {
+        const response = await fetch(`${ENV_CONFIG.API_URL}/api/products/${productId}/images/base64`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
+          credentials: 'include',
           body: JSON.stringify({
             base64Data,
             fileName: image.name,

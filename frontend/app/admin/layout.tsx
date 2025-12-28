@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { ENV_CONFIG } from '@/lib/env-config';
 
 export default function AdminLayout({
   children,
@@ -27,7 +28,9 @@ export default function AdminLayout({
   // Fetch pending custom requests count
   const fetchPendingCount = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/custom-products/pending-count');
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/custom-products/pending-count`, {
+        credentials: 'include',
+      });
       if (response.ok) {
         const data = await response.json();
         setPendingCustomRequests(data.count);
@@ -89,6 +92,7 @@ export default function AdminLayout({
     { name: 'Products', href: '/admin/products', icon: '📦' },
     { name: 'Custom Products', href: '/admin/custom-products', icon: '🎨' },
     { name: 'Orders', href: '/admin/orders', icon: '🛒' },
+    { name: 'Carousel', href: '/admin/carousel', icon: '🖼️' },
     { name: 'Video Manager', href: '/admin/video-manager', icon: '🎥' },
     { name: 'Analytics', href: '/admin/analytics', icon: '📈' },
     { name: 'Customers', href: '/admin/customers', icon: '👥' },
@@ -179,6 +183,7 @@ export default function AdminLayout({
                   {pathname === '/admin/products' ? 'Product Management' : ''}
                   {pathname === '/admin/custom-products' ? 'Custom Product Requests' : ''}
                   {pathname === '/admin/orders' ? 'Order Management' : ''}
+                  {pathname === '/admin/carousel' ? 'Carousel Management' : ''}
                   {pathname === '/admin/video-manager' ? 'CTA Video Manager' : ''}
                   {pathname === '/admin/analytics' ? 'Analytics' : ''}
                   {pathname === '/admin/customers' ? 'Customer Management' : ''}

@@ -1,4 +1,5 @@
 'use client';
+import { ENV_CONFIG } from '@/lib/env-config';
 
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
@@ -22,7 +23,7 @@ function OrderSuccessContent() {
 
       try {
         // Try to get from backend first
-        const response = await fetch(`http://localhost:8080/api/orders/by-order-id/${orderId}`);
+        const response = await fetch(`${ENV_CONFIG.API_URL}/api/orders/by-order-id/${orderId}`);
         if (response.ok) {
           const data = await response.json();
           setOrder(data);

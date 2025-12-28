@@ -1,4 +1,5 @@
 'use client';
+import { ENV_CONFIG } from '@/lib/env-config';
 
 import { useState, useEffect } from 'react';
 import { formatPrice } from '@/lib/utils';
@@ -42,7 +43,7 @@ export default function AdminOrders() {
 
   const fetchOrders = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/admin/orders');
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/admin/orders`, { credentials: 'include' });
       if (!response.ok) {
         throw new Error('Failed to fetch orders');
       }
@@ -111,7 +112,7 @@ export default function AdminOrders() {
       const order = orders.find(o => o.orderNumber === orderId);
       if (!order) return;
 
-      const response = await fetch(`http://localhost:8080/api/admin/orders/${order.orderNumber}/status`, {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/admin/orders/${order.orderNumber}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

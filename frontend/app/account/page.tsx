@@ -1,4 +1,5 @@
 'use client';
+import { ENV_CONFIG } from '@/lib/env-config';
 
 import { useAuthStore } from '@/store/auth';
 import { useRouter } from 'next/navigation';
@@ -90,7 +91,7 @@ export default function AccountPage() {
   const fetchOrders = async (email: string) => {
     try {
       // Fetch from backend
-      const response = await fetch(`http://localhost:8080/api/orders?email=${email}`);
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/orders?email=${email}`);
       if (response.ok) {
         const backendOrders = await response.json();
         

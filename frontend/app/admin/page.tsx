@@ -1,4 +1,5 @@
 'use client';
+import { ENV_CONFIG } from '@/lib/env-config';
 
 import { useState, useEffect } from 'react';
 import { formatPrice } from '@/lib/utils';
@@ -43,7 +44,7 @@ export default function AdminDashboard() {
 
   const fetchDashboardStats = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/admin/dashboard/stats');
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/admin/dashboard/stats`, { credentials: 'include' });
       if (!response.ok) {
         throw new Error('Failed to fetch dashboard stats');
       }

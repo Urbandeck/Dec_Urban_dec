@@ -68,13 +68,13 @@ server:
     include-binding-errors: always
   servlet:
     session:
-      timeout: 30m # 30 minutes session timeout
+      timeout: 24h # 24 hours session timeout
       cookie:
         name: SESSIONID
         http-only: true
-        secure: false # set to true in production with HTTPS
-        same-site: lax # CSRF protection
-        max-age: 1800 # 30 minutes in seconds
+        secure: true # HTTPS in production
+        same-site: none # Required for cross-origin with credentials
+        max-age: 2592000 # 30 days in seconds
 
 management:
   endpoints:

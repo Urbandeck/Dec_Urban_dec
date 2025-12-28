@@ -1,4 +1,5 @@
 'use client';
+import { ENV_CONFIG } from '@/lib/env-config';
 
 import { useState, useEffect } from 'react';
 import { formatPrice } from '@/lib/utils';
@@ -58,7 +59,7 @@ export default function AdminCustomers() {
       if (search) params.append('search', search);
       if (status && status !== 'all') params.append('status', status);
 
-      const response = await fetch(`http://localhost:8080/api/admin/customers?${params}`, {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/admin/customers?${params}`, {
         cache: 'no-store',
       });
       if (!response.ok) {
@@ -76,7 +77,7 @@ export default function AdminCustomers() {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/admin/customers/stats', {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/admin/customers/stats', {
         cache: 'no-store',
       });
       if (!response.ok) {
@@ -119,7 +120,7 @@ export default function AdminCustomers() {
     };
 
     try {
-      const response = await fetch(`http://localhost:8080/api/admin/customers/${selectedCustomer.id}`, {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/admin/customers/${selectedCustomer.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

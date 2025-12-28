@@ -243,6 +243,9 @@ public class AuthController {
             var existingUser = userRepository.findByEmail(request.email);
             com.digitalframes.shop.model.User user;
 
+            // Admin emails that should have ADMIN role
+            java.util.Set<String> adminEmails = java.util.Set.of("urbandec.in@gmail.com");
+
             if (existingUser.isPresent()) {
                 user = existingUser.get();
                 // Update googleId if not set
@@ -251,6 +254,10 @@ public class AuthController {
                 }
                 if (request.picture != null) {
                     user.setProfilePicture(request.picture);
+                }
+                // Grant admin role if this is an admin email and doesn't have it yet
+                if (adminEmails.contains(request.email) && !user.getRoles().contains("ADMIN")) {
+                    user.getRoles().add("ADMIN");
                 }
                 user.setLastLogin(java.time.LocalDateTime.now());
                 user.setEmailVerified(true);
@@ -267,6 +274,10 @@ public class AuthController {
                 user.setActive(true);
                 user.setLastLogin(java.time.LocalDateTime.now());
                 user.getRoles().add("USER");
+                // Grant admin role if this is an admin email
+                if (adminEmails.contains(request.email)) {
+                    user.getRoles().add("ADMIN");
+                }
                 userRepository.save(user);
             }
 

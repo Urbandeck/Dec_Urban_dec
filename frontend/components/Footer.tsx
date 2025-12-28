@@ -7,11 +7,54 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">UD</span>
-              </div>
-              <span className="font-bold text-xl text-white">UrbanDec</span>
+            <div className="flex items-center mb-4">
+              <svg viewBox="0 0 220 70" xmlns="http://www.w3.org/2000/svg" className="h-14 w-auto">
+                <defs>
+                  <linearGradient id="footerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style={{stopColor:'#3B82F6',stopOpacity:1}} />
+                    <stop offset="100%" style={{stopColor:'#2563EB',stopOpacity:1}} />
+                  </linearGradient>
+                </defs>
+
+                <text x="10" y="40"
+                      fontFamily="'SF Pro Display', 'Segoe UI', Arial, sans-serif"
+                      fontSize="32"
+                      fontWeight="600"
+                      fill="#FFFFFF"
+                      letterSpacing="1.5">
+                  Urban
+                </text>
+
+                <g>
+                  <text x="112" y="37"
+                        fontFamily="'SF Pro Display', 'Segoe UI', Arial, sans-serif"
+                        fontSize="32"
+                        fontWeight="700"
+                        fill="url(#footerGrad)"
+                        letterSpacing="1.5">
+                    Dec.
+                    <animateTransform
+                      attributeName="transform"
+                      attributeType="XML"
+                      type="translate"
+                      values="0 0; 0 -3; 0 0"
+                      dur="2s"
+                      repeatCount="indefinite"
+                      additive="sum"/>
+                  </text>
+
+                  <rect x="112" y="43" width="72" height="3.5" fill="url(#footerGrad)" rx="1.75">
+                    <animateTransform
+                      attributeName="transform"
+                      attributeType="XML"
+                      type="translate"
+                      values="0 0; 0 -3; 0 0"
+                      dur="2s"
+                      repeatCount="indefinite"
+                      additive="sum"/>
+                  </rect>
+                </g>
+              </svg>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed">
               Your trusted source for premium digital photo frames. Bringing memories to life.

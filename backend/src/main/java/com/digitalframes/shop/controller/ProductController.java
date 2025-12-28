@@ -118,20 +118,20 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+    public ResponseEntity<Map<String, Object>> createProduct(@RequestBody Product product) {
         try {
             Product createdProduct = productService.createProduct(product);
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
+            return ResponseEntity.status(HttpStatus.CREATED).body(convertProductToDto(createdProduct));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product productDetails) {
+    public ResponseEntity<Map<String, Object>> updateProduct(@PathVariable Long id, @RequestBody Product productDetails) {
         Product updatedProduct = productService.updateProduct(id, productDetails);
         if (updatedProduct != null) {
-            return ResponseEntity.ok(updatedProduct);
+            return ResponseEntity.ok(convertProductToDto(updatedProduct));
         }
         return ResponseEntity.notFound().build();
     }

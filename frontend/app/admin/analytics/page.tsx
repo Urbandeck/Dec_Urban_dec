@@ -1,4 +1,5 @@
 'use client';
+import { ENV_CONFIG } from '@/lib/env-config';
 
 import { useState, useEffect } from 'react';
 import { formatPrice } from '@/lib/utils';
@@ -50,7 +51,7 @@ export default function AdminAnalytics() {
   const fetchAnalytics = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:8080/api/admin/analytics?days=${dateRange}`);
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/admin/analytics?days=${dateRange}`);
       if (!response.ok) {
         throw new Error('Failed to fetch analytics data');
       }

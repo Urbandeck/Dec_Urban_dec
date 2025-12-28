@@ -1,4 +1,5 @@
 'use client';
+import { ENV_CONFIG } from '@/lib/env-config';
 
 import { useState, useRef } from 'react';
 import { toast } from 'react-hot-toast';
@@ -82,7 +83,7 @@ export default function CustomProductUpload() {
     formData.append('specialInstructions', productDetails.specialInstructions);
 
     try {
-      const response = await fetch('http://localhost:8080/api/custom-products', {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/custom-products', {
         method: 'POST',
         body: formData
       });

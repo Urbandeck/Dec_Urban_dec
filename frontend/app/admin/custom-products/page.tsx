@@ -1,4 +1,5 @@
 'use client';
+import { ENV_CONFIG } from '@/lib/env-config';
 
 import { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
@@ -44,7 +45,7 @@ export default function CustomProductsPage() {
 
   const fetchCustomRequests = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/custom-products', {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/custom-products', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
         }
@@ -73,7 +74,7 @@ export default function CustomProductsPage() {
 
   const handleStatusUpdate = async (requestId: number) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/custom-products/${requestId}/status`, {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/custom-products/${requestId}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -110,7 +111,7 @@ export default function CustomProductsPage() {
     try {
       const token = localStorage.getItem('adminToken');
 
-      const response = await fetch(`http://localhost:8080/api/custom-products/${requestId}`, {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/custom-products/${requestId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -383,7 +384,7 @@ export default function CustomProductsPage() {
                               onClick={(e) => {
                                 e.stopPropagation();
                                 // Download the image
-                                fetch(`http://localhost:8080/api/custom-products/image/${image.id}/download`)
+                                fetch(`${ENV_CONFIG.API_URL}/api/custom-products/image/${image.id}/download`)
                                   .then(response => response.blob())
                                   .then(blob => {
                                     const url = window.URL.createObjectURL(blob);

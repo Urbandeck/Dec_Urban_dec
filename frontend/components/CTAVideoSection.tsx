@@ -1,4 +1,5 @@
 'use client';
+import { ENV_CONFIG } from '@/lib/env-config';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -22,7 +23,7 @@ export default function CTAVideoSection() {
 
   const fetchActiveVideo = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/site-settings/cta-video');
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/site-settings/cta-video`, { credentials: 'include' });
       if (response.ok) {
         const data = await response.json();
         if (data && data.active) {

@@ -1,4 +1,5 @@
 'use client';
+import { ENV_CONFIG } from '@/lib/env-config';
 
 import { useState, useEffect } from 'react';
 
@@ -55,7 +56,7 @@ export default function AdminSettings() {
   const fetchSettings = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:8080/api/admin/settings', {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/admin/settings', {
         cache: 'no-store',
       });
       if (!response.ok) {
@@ -74,7 +75,7 @@ export default function AdminSettings() {
   const handleSave = async () => {
     try {
       setSaving(true);
-      const response = await fetch('http://localhost:8080/api/admin/settings', {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/admin/settings', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
