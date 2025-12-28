@@ -10,7 +10,7 @@ WorkingDirectory=/var/www/urbandeck/frontend
 # Environment variables
 Environment="NODE_ENV=production"
 Environment="PORT=3000"
-Environment="NEXT_PUBLIC_API_URL=https://yourdomain.com/api"
+Environment="NEXT_PUBLIC_API_URL=https://urbandec.in/api"
 
 # Alternatively, use EnvironmentFile to load from .env
 # EnvironmentFile=/var/www/urbandeck/.env.production
