@@ -50,7 +50,7 @@ export default function CTAVideoSection() {
               </p>
               <Link
                 href="/products"
-                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-block"
+                className="bg-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition-colors inline-block"
               >
                 Start Shopping
               </Link>

@@ -28,7 +28,7 @@ export default function LogsPage() {
     switch (level) {
       case 'error': return 'bg-red-100 text-red-800 border-red-200';
       case 'warning': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'info': return 'bg-blue-100 text-blue-800 border-blue-200';
+      case 'info': return 'bg-emerald-100 text-emerald-800 border-emerald-200';
       case 'debug': return 'bg-gray-100 text-gray-800 border-gray-200';
       default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
@@ -53,7 +53,7 @@ export default function LogsPage() {
               </button>
               <button
                 onClick={() => logger.downloadLogs()}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
+                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded"
               >
                 📥 Download Logs
               </button>
@@ -99,7 +99,7 @@ export default function LogsPage() {
             <button
               onClick={() => setFilter('info')}
               className={`px-3 py-1 rounded ${
-                filter === 'info' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
+                filter === 'info' ? 'bg-emerald-600 text-white' : 'bg-gray-200 text-gray-700'
               }`}
             >
               Info ({logs.filter(l => l.level === 'info').length})
@@ -148,9 +148,9 @@ export default function LogsPage() {
             )}
           </div>
 
-          <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-            <h2 className="font-semibold text-blue-900 mb-2">How to Use:</h2>
-            <ol className="list-decimal list-inside text-sm text-blue-800 space-y-1">
+          <div className="mt-6 p-4 bg-emerald-50 rounded-lg">
+            <h2 className="font-semibold text-emerald-900 mb-2">How to Use:</h2>
+            <ol className="list-decimal list-inside text-sm text-emerald-800 space-y-1">
               <li>Keep this page open while testing orders</li>
               <li>Auto-refresh will update logs every second</li>
               <li>Look for red ERROR entries to identify issues</li>

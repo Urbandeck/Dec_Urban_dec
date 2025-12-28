@@ -81,7 +81,7 @@ export default function RegisterPage() {
           <div className="mt-8 text-center">
             <p className="text-gray-600">
               Already have an account?{' '}
-              <Link href="/login" className="text-blue-600 hover:text-blue-700 font-semibold">
+              <Link href="/login" className="text-emerald-600 hover:text-emerald-700 font-semibold">
                 Sign in
               </Link>
             </p>
@@ -90,11 +90,11 @@ export default function RegisterPage() {
           <div className="mt-6 pt-6 border-t border-gray-200">
             <p className="text-center text-sm text-gray-500">
               By signing up, you agree to our{' '}
-              <Link href="/terms" className="text-blue-600 hover:text-blue-700">
+              <Link href="/terms" className="text-emerald-600 hover:text-emerald-700">
                 Terms of Service
               </Link>{' '}
               and{' '}
-              <Link href="/privacy" className="text-blue-600 hover:text-blue-700">
+              <Link href="/privacy" className="text-emerald-600 hover:text-emerald-700">
                 Privacy Policy
               </Link>
             </p>

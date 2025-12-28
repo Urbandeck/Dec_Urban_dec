@@ -60,7 +60,7 @@ export default function AdminDashboard() {
   const statusColors: { [key: string]: string } = {
     'Delivered': 'bg-green-100 text-green-800',
     'Processing': 'bg-yellow-100 text-yellow-800',
-    'Shipped': 'bg-blue-100 text-blue-800',
+    'Shipped': 'bg-emerald-100 text-emerald-800',
     'Pending': 'bg-gray-100 text-gray-800',
   };
 
@@ -117,8 +117,8 @@ export default function AdminDashboard() {
               <p className="text-sm text-gray-600 mb-1">Total Orders</p>
               <p className="text-2xl font-bold text-gray-900">{stats.totalOrders}</p>
             </div>
-            <div className="bg-blue-100 p-3 rounded-lg">
-              <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-emerald-100 p-3 rounded-lg">
+              <svg className="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
             </div>
@@ -205,7 +205,7 @@ export default function AdminDashboard() {
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div
-                      className="bg-blue-600 h-2 rounded-full"
+                      className="bg-emerald-600 h-2 rounded-full"
                       style={{ width: `${(state.revenue / stats.salesByState[0].revenue) * 100}%` }}
                     ></div>
                   </div>
@@ -221,7 +221,7 @@ export default function AdminDashboard() {
       <div className="bg-white rounded-lg shadow">
         <div className="p-6 border-b border-gray-200 flex items-center justify-between">
           <h3 className="text-lg font-semibold text-gray-900">Recent Orders</h3>
-          <Link href="/admin/orders" className="text-blue-600 hover:text-blue-700 text-sm font-medium">
+          <Link href="/admin/orders" className="text-emerald-600 hover:text-emerald-700 text-sm font-medium">
             View all →
           </Link>
         </div>

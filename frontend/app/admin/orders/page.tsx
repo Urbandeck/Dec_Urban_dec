@@ -99,7 +99,7 @@ export default function AdminOrders() {
   const getStatusColor = (status: OrderStatus) => {
     switch (status) {
       case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'processing': return 'bg-blue-100 text-blue-800';
+      case 'processing': return 'bg-emerald-100 text-emerald-800';
       case 'shipped': return 'bg-purple-100 text-purple-800';
       case 'delivered': return 'bg-green-100 text-green-800';
       case 'cancelled': return 'bg-red-100 text-red-800';
@@ -158,13 +158,13 @@ export default function AdminOrders() {
               placeholder="Search by order number, customer name or email..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value as OrderStatus | 'all')}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="all">All Status</option>
             <option value="pending">Pending</option>
@@ -173,7 +173,7 @@ export default function AdminOrders() {
             <option value="delivered">Delivered</option>
             <option value="cancelled">Cancelled</option>
           </select>
-          <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+          <button className="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors">
             Export Orders
           </button>
         </div>
@@ -254,7 +254,7 @@ export default function AdminOrders() {
                         setSelectedOrder(order);
                         setShowViewModal(true);
                       }}
-                      className="text-blue-600 hover:text-blue-900 mr-3"
+                      className="text-emerald-600 hover:text-emerald-900 mr-3"
                     >
                       View
                     </button>
@@ -289,7 +289,7 @@ export default function AdminOrders() {
         </div>
         <div className="bg-white p-4 rounded-lg shadow">
           <p className="text-sm text-gray-600">Processing</p>
-          <p className="text-2xl font-bold text-blue-600">
+          <p className="text-2xl font-bold text-emerald-600">
             {orders.filter(o => o.status === 'processing').length}
           </p>
         </div>
@@ -407,7 +407,7 @@ export default function AdminOrders() {
               <div className="border-2 border-gray-200 rounded-lg p-6 bg-white">
                 {/* Company Header */}
                 <div className="text-center mb-6">
-                  <h1 className="text-2xl font-bold text-blue-600">Urbandec</h1>
+                  <h1 className="text-2xl font-bold text-emerald-600">Urbandec</h1>
                   <p className="text-sm text-gray-600">Premium Digital Photo Frames</p>
                   <p className="text-sm text-gray-600">urbandec.in@gmail.com | +91 8105663269</p>
                 </div>
@@ -460,7 +460,7 @@ export default function AdminOrders() {
                       </tr>
                       <tr className="border-t font-bold">
                         <td colSpan={3} className="text-right py-2 px-4">Grand Total:</td>
-                        <td className="text-right py-2 px-4 text-lg text-blue-600">{formatPrice(selectedOrder.total * 1.18)}</td>
+                        <td className="text-right py-2 px-4 text-lg text-emerald-600">{formatPrice(selectedOrder.total * 1.18)}</td>
                       </tr>
                     </tfoot>
                   </table>
@@ -482,7 +482,7 @@ export default function AdminOrders() {
                         alert(`Invoice sent to ${email}`);
                       }
                     }}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
+                    className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 flex items-center gap-2"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />

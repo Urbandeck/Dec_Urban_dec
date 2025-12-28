@@ -145,7 +145,7 @@ export default function Footer() {
           <p className="text-sm text-gray-400">&copy; 2025 UrbanDec. All rights reserved.</p>
           <p className="mt-2 text-sm text-gray-400">
             Secure payments powered by{' '}
-            <span className="text-blue-400 font-medium">Razorpay</span>
+            <span className="text-emerald-400 font-medium">Razorpay</span>
           </p>
         </div>
       </div>

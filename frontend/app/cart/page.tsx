@@ -57,7 +57,7 @@ export default function CartPage() {
             </p>
             <Link
               href="/products"
-              className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 hover:scale-105 transition-all animate-fade-in stagger-4"
+              className="inline-block bg-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-emerald-700 hover:scale-105 transition-all animate-fade-in stagger-4"
             >
               Continue Shopping
             </Link>
@@ -221,14 +221,14 @@ export default function CartPage() {
 
               <button
                 onClick={handleProceedToCheckout}
-                className="block w-full bg-blue-600 text-white text-center py-3 rounded-lg font-semibold hover:bg-blue-700 hover:scale-105 transition-all mb-3 shadow-md hover:shadow-lg"
+                className="block w-full bg-emerald-600 text-white text-center py-3 rounded-lg font-semibold hover:bg-emerald-700 hover:scale-105 transition-all mb-3 shadow-md hover:shadow-lg"
               >
                 Proceed to Checkout
               </button>
 
               <Link
                 href="/products"
-                className="block w-full text-center text-blue-600 hover:text-blue-700 font-medium"
+                className="block w-full text-center text-emerald-600 hover:text-emerald-700 font-medium"
               >
                 Continue Shopping
               </Link>
@@ -243,7 +243,7 @@ export default function CartPage() {
                 </div>
                 <div className="flex items-center justify-center gap-2 text-sm text-gray-600 mt-2">
                   <span>Powered by</span>
-                  <span className="font-semibold text-blue-600">Razorpay</span>
+                  <span className="font-semibold text-emerald-600">Razorpay</span>
                 </div>
               </div>
             </div>

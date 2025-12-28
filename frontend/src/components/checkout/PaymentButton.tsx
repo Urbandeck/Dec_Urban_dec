@@ -44,7 +44,7 @@ export const PaymentButton: React.FC<PaymentButtonProps> = ({
     <button
       onClick={handlePayment}
       disabled={loading}
-      className={`bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
+      className={`bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
     >
       {loading ? 'Processing...' : `Pay ₹${amount.toFixed(2)}`}
     </button>

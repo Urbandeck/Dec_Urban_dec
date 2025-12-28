@@ -35,7 +35,7 @@ export default function TestImagesPage() {
         <a 
           href="/images/products/frame-10inch-black.jpg" 
           target="_blank" 
-          className="text-blue-600 underline"
+          className="text-emerald-600 underline"
         >
           Open frame-10inch-black.jpg directly
         </a>

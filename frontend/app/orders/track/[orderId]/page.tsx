@@ -221,7 +221,7 @@ export default function TrackOrderPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading tracking information...</p>
         </div>
       </div>
@@ -233,7 +233,7 @@ export default function TrackOrderPage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-600 mb-4">{error || 'Order not found'}</p>
-          <Link href="/orders" className="text-blue-600 hover:underline">
+          <Link href="/orders" className="text-emerald-600 hover:underline">
             ← Back to Orders
           </Link>
         </div>
@@ -250,7 +250,7 @@ export default function TrackOrderPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4">
-        <Link href="/orders" className="text-blue-600 hover:underline mb-6 inline-block">
+        <Link href="/orders" className="text-emerald-600 hover:underline mb-6 inline-block">
           ← Back to Orders
         </Link>
 
@@ -342,7 +342,7 @@ export default function TrackOrderPage() {
                     href={order.trackingUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline text-sm mt-2 inline-block"
+                    className="text-emerald-600 hover:underline text-sm mt-2 inline-block"
                   >
                     Track on carrier website →
                   </a>

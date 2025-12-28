@@ -124,8 +124,8 @@ export default function ShippingPage() {
             </div>
             
             <div className="text-center">
-              <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Clock className="text-blue-600" size={28} />
+              <div className="bg-emerald-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Clock className="text-emerald-600" size={28} />
               </div>
               <h3 className="font-semibold mb-2">Express Delivery</h3>
               <p className="text-gray-600 text-sm">Next day delivery available in select cities</p>
@@ -178,8 +178,8 @@ export default function ShippingPage() {
             </table>
           </div>
 
-          <div className="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4">
-            <p className="text-blue-800">
+          <div className="mt-6 bg-emerald-50 border-l-4 border-emerald-500 p-4">
+            <p className="text-emerald-800">
               <strong>Note:</strong> Delivery times are estimates and may vary during peak seasons, 
               festivals, or due to unforeseen circumstances.
             </p>
@@ -261,7 +261,7 @@ export default function ShippingPage() {
         {/* International Shipping */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <div className="flex items-center mb-6">
-            <Globe className="text-blue-600 mr-3" size={32} />
+            <Globe className="text-emerald-600 mr-3" size={32} />
             <h2 className="text-2xl font-bold">International Shipping</h2>
           </div>
           
@@ -300,23 +300,23 @@ export default function ShippingPage() {
               <h3 className="font-semibold text-lg mb-3">Important Information</h3>
               <ul className="space-y-2 text-gray-700">
                 <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
+                  <span className="text-emerald-500 mr-2">•</span>
                   Delivery time: 10-15 business days
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
+                  <span className="text-emerald-500 mr-2">•</span>
                   Shipping charges calculated at checkout
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
+                  <span className="text-emerald-500 mr-2">•</span>
                   Import duties and taxes may apply
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
+                  <span className="text-emerald-500 mr-2">•</span>
                   Tracking available throughout journey
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
+                  <span className="text-emerald-500 mr-2">•</span>
                   Insurance included for all shipments
                 </li>
               </ul>

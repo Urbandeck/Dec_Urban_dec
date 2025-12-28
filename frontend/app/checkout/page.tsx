@@ -499,7 +499,7 @@ export default function CheckoutPage() {
                         onClick={() => handleAddressSelection(address.id)}
                         className={`border rounded-lg p-4 cursor-pointer transition-all ${
                           selectedAddressId === address.id 
-                            ? 'border-blue-500 bg-blue-50' 
+                            ? 'border-emerald-500 bg-emerald-50' 
                             : 'border-gray-300 hover:border-gray-400'
                         }`}
                       >
@@ -518,7 +518,7 @@ export default function CheckoutPage() {
                                   {address.label}
                                 </span>
                                 {address.isDefault && (
-                                  <span className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded">
+                                  <span className="text-xs px-2 py-1 bg-emerald-100 text-emerald-700 rounded">
                                     Default
                                   </span>
                                 )}
@@ -543,9 +543,9 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={handleAddNewAddress}
-                      className="w-full border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-blue-500 transition-colors"
+                      className="w-full border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-emerald-500 transition-colors"
                     >
-                      <span className="text-blue-600 font-medium">+ Add New Address</span>
+                      <span className="text-emerald-600 font-medium">+ Add New Address</span>
                     </button>
                   </div>
                 </div>
@@ -562,7 +562,7 @@ export default function CheckoutPage() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
                       errors.email ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="recipient@example.com"
@@ -586,7 +586,7 @@ export default function CheckoutPage() {
                     name="fullName"
                     value={formData.fullName}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
                       errors.fullName ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="John Doe"
@@ -605,7 +605,7 @@ export default function CheckoutPage() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
                       errors.email ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="recipient@example.com"
@@ -625,7 +625,7 @@ export default function CheckoutPage() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
                       errors.phone ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="9876543210"
@@ -644,7 +644,7 @@ export default function CheckoutPage() {
                     value={formData.address}
                     onChange={handleInputChange}
                     rows={3}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
                       errors.address ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="123 Main Street, Apartment 4B"
@@ -663,7 +663,7 @@ export default function CheckoutPage() {
                     name="city"
                     value={formData.city}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
                       errors.city ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="Mumbai"
@@ -682,7 +682,7 @@ export default function CheckoutPage() {
                     name="state"
                     value={formData.state}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
                       errors.state ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="Maharashtra"
@@ -702,7 +702,7 @@ export default function CheckoutPage() {
                     value={formData.pincode}
                     onChange={handleInputChange}
                     maxLength={6}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
                       errors.pincode ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="400001"
@@ -783,7 +783,7 @@ export default function CheckoutPage() {
               <button
                 onClick={handlePayment}
                 disabled={isProcessing}
-                className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+                className="w-full bg-emerald-600 text-white py-3 rounded-lg font-semibold hover:bg-emerald-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
               >
                 {isProcessing ? (
                   <span className="flex items-center justify-center">
@@ -800,7 +800,7 @@ export default function CheckoutPage() {
 
               <Link
                 href="/cart"
-                className="block w-full text-center text-blue-600 hover:text-blue-700 font-medium mt-3"
+                className="block w-full text-center text-emerald-600 hover:text-emerald-700 font-medium mt-3"
               >
                 ← Back to Cart
               </Link>
@@ -815,7 +815,7 @@ export default function CheckoutPage() {
                 </div>
                 <div className="flex items-center justify-center gap-2 text-sm text-gray-600 mt-2">
                   <span>Powered by</span>
-                  <span className="font-semibold text-blue-600">Razorpay</span>
+                  <span className="font-semibold text-emerald-600">Razorpay</span>
                 </div>
               </div>
               )}
@@ -895,9 +895,9 @@ export default function CheckoutPage() {
 
               {/* Loading spinner */}
               <div className="flex space-x-1">
-                <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                <div className="w-2 h-2 bg-emerald-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                <div className="w-2 h-2 bg-emerald-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                <div className="w-2 h-2 bg-emerald-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
               </div>
             </div>
           </div>

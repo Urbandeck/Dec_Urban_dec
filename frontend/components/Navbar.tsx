@@ -127,7 +127,7 @@ export default function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 hover:text-blue-600 transition-colors"
+                className="text-gray-700 hover:text-emerald-600 transition-colors"
               >
                 {item.name}
               </Link>
@@ -146,13 +146,13 @@ export default function Navbar() {
                       value={searchQuery}
                       onChange={handleSearchInputChange}
                       placeholder="Search products..."
-                      className="px-3 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-48 md:w-64"
+                      className="px-3 py-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 w-48 md:w-64"
                       autoFocus
                       onFocus={() => searchQuery.length >= 2 && setShowSuggestions(true)}
                     />
                     <button
                       type="submit"
-                      className="ml-2 text-blue-600 hover:text-blue-700"
+                      className="ml-2 text-emerald-600 hover:text-emerald-700"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -183,7 +183,7 @@ export default function Navbar() {
               ) : (
                 <button
                   onClick={() => setShowSearch(true)}
-                  className="text-gray-700 hover:text-blue-600 transition-colors"
+                  className="text-gray-700 hover:text-emerald-600 transition-colors"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -195,7 +195,7 @@ export default function Navbar() {
             {/* User Account */}
             {user ? (
               <div className="relative group">
-                <button className="text-gray-700 hover:text-blue-600 transition-colors">
+                <button className="text-gray-700 hover:text-emerald-600 transition-colors">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
@@ -223,7 +223,7 @@ export default function Navbar() {
                 </div>
               </div>
             ) : (
-              <Link href="/login" className="text-gray-700 hover:text-blue-600 transition-colors">
+              <Link href="/login" className="text-gray-700 hover:text-emerald-600 transition-colors">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
@@ -232,7 +232,7 @@ export default function Navbar() {
 
             {/* Cart */}
             <Link href="/cart" className="relative">
-              <svg className="w-6 h-6 text-gray-700 hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-gray-700 hover:text-emerald-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
               {cartCount > 0 && (
@@ -244,7 +244,7 @@ export default function Navbar() {
 
             {/* Mobile menu button */}
             <button
-              className="md:hidden text-gray-700 hover:text-blue-600 transition-colors"
+              className="md:hidden text-gray-700 hover:text-emerald-600 transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -270,12 +270,12 @@ export default function Navbar() {
                     value={searchQuery}
                     onChange={handleSearchInputChange}
                     placeholder="Search products..."
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     onFocus={() => searchQuery.length >= 2 && setShowSuggestions(true)}
                   />
                   <button
                     type="submit"
-                    className="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700"
+                    className="bg-emerald-600 text-white px-4 py-2 rounded-r-lg hover:bg-emerald-700"
                   >
                     Search
                   </button>
@@ -298,7 +298,7 @@ export default function Navbar() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-emerald-600 transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}

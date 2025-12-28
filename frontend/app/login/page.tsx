@@ -95,7 +95,7 @@ export default function LoginPage() {
           <div className="mt-8 text-center">
             <p className="text-gray-600">
               Don't have an account?{' '}
-              <Link href="/register" className="text-blue-600 hover:text-blue-700 font-semibold">
+              <Link href="/register" className="text-emerald-600 hover:text-emerald-700 font-semibold">
                 Sign up
               </Link>
             </p>
@@ -104,11 +104,11 @@ export default function LoginPage() {
           <div className="mt-6 pt-6 border-t border-gray-200">
             <p className="text-center text-sm text-gray-500">
               By signing in, you agree to our{' '}
-              <Link href="/terms" className="text-blue-600 hover:text-blue-700">
+              <Link href="/terms" className="text-emerald-600 hover:text-emerald-700">
                 Terms of Service
               </Link>{' '}
               and{' '}
-              <Link href="/privacy" className="text-blue-600 hover:text-blue-700">
+              <Link href="/privacy" className="text-emerald-600 hover:text-emerald-700">
                 Privacy Policy
               </Link>
             </p>

@@ -66,7 +66,7 @@ export default function PaymentPage() {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-12 px-4">
       <div className="max-w-md mx-auto">
         <div className="bg-white rounded-lg shadow-xl overflow-hidden">
-          <div className="bg-blue-600 px-6 py-4">
+          <div className="bg-emerald-600 px-6 py-4">
             <h1 className="text-2xl font-bold text-white">Checkout</h1>
           </div>
           
@@ -84,7 +84,7 @@ export default function PaymentPage() {
                 </div>
                 <div className="flex justify-between py-3 text-lg font-bold">
                   <span>Total</span>
-                  <span className="text-blue-600">₹73,156</span>
+                  <span className="text-emerald-600">₹73,156</span>
                 </div>
               </div>
             </div>
@@ -92,7 +92,7 @@ export default function PaymentPage() {
             <button
               onClick={makePayment}
               disabled={!scriptLoaded}
-              className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-emerald-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-emerald-700 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {scriptLoaded ? 'Pay Now ₹73,156' : 'Loading...'}
             </button>

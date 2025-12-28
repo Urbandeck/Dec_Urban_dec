@@ -181,9 +181,9 @@ export default function OTPVerification({
                     border-2 rounded-lg transition-all
                     ${error
                       ? 'border-red-500 focus:border-red-500'
-                      : 'border-gray-300 focus:border-blue-500'
+                      : 'border-gray-300 focus:border-emerald-500'
                     }
-                    focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
+                    focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-opacity-50
                     ${isVerifying ? 'bg-gray-100' : 'bg-white'}
                   `}
                   disabled={isVerifying}
@@ -201,7 +201,7 @@ export default function OTPVerification({
               type="button"
               onClick={() => handleVerify()}
               disabled={isVerifying || otp.some(d => !d)}
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400 disabled:cursor-not-allowed"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
               {isVerifying ? (
                 <span className="flex items-center">
@@ -221,7 +221,7 @@ export default function OTPVerification({
                 type="button"
                 onClick={handleResend}
                 disabled={!canResend || isResending}
-                className="text-sm text-blue-600 hover:text-blue-500 disabled:text-gray-400 disabled:cursor-not-allowed"
+                className="text-sm text-emerald-600 hover:text-emerald-500 disabled:text-gray-400 disabled:cursor-not-allowed"
               >
                 {isResending ? (
                   'Resending...'

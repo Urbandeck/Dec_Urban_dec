@@ -221,7 +221,7 @@ export default function AdminProducts() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
       </div>
     );
   }
@@ -237,7 +237,7 @@ export default function AdminProducts() {
           </div>
           <button
             onClick={() => setShowAddModal(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+            className="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors flex items-center justify-center gap-2"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -253,7 +253,7 @@ export default function AdminProducts() {
             placeholder="Search products by name, category, or brand..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
           />
         </div>
       </div>
@@ -274,7 +274,7 @@ export default function AdminProducts() {
         </div>
         <div className="bg-white rounded-lg shadow p-4">
           <p className="text-sm text-gray-600">Categories</p>
-          <p className="text-2xl font-bold text-blue-600">3</p>
+          <p className="text-2xl font-bold text-emerald-600">3</p>
         </div>
       </div>
 
@@ -288,7 +288,7 @@ export default function AdminProducts() {
             <p className="text-gray-500">No products found</p>
             <button
               onClick={() => setShowAddModal(true)}
-              className="mt-4 text-blue-600 hover:text-blue-700 font-medium"
+              className="mt-4 text-emerald-600 hover:text-emerald-700 font-medium"
             >
               Add your first product
             </button>
@@ -335,7 +335,7 @@ export default function AdminProducts() {
                                   className="h-10 w-10 object-cover"
                                 />
                                 {product.images.length > 1 && (
-                                  <div className="absolute -bottom-1 -right-1 bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                                  <div className="absolute -bottom-1 -right-1 bg-emerald-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                                     {product.images.length}
                                   </div>
                                 )}
@@ -364,7 +364,7 @@ export default function AdminProducts() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                      <span className="px-2 py-1 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-800">
                         {product.category}
                       </span>
                     </td>
@@ -388,7 +388,7 @@ export default function AdminProducts() {
                     <td className="px-6 py-4 whitespace-nowrap text-center">
                       <button
                         onClick={() => handleEdit(product)}
-                        className="text-blue-600 hover:text-blue-900 mr-3"
+                        className="text-emerald-600 hover:text-emerald-900 mr-3"
                       >
                         Edit
                       </button>
@@ -440,7 +440,7 @@ export default function AdminProducts() {
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     placeholder="e.g., Premium 10-inch Frame"
                     required
                   />
@@ -454,7 +454,7 @@ export default function AdminProducts() {
                     type="text"
                     value={formData.brand}
                     onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-                    className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     placeholder="e.g., Urbandec"
                     required
                   />
@@ -469,7 +469,7 @@ export default function AdminProducts() {
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   rows={2}
-                  className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   placeholder="Enter product description..."
                   required
                 />
@@ -483,7 +483,7 @@ export default function AdminProducts() {
                   <select
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   >
                     <option value="Digital Frames">Digital Frames</option>
                     <option value="Professional">Professional</option>
@@ -499,7 +499,7 @@ export default function AdminProducts() {
                     type="number"
                     value={formData.basePrice}
                     onChange={(e) => setFormData({ ...formData, basePrice: e.target.value })}
-                    className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     placeholder="0.00"
                     required
                     min="0"
@@ -515,7 +515,7 @@ export default function AdminProducts() {
                     type="number"
                     value={formData.stock}
                     onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
-                    className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     placeholder="50"
                     min="0"
                   />
@@ -545,7 +545,7 @@ export default function AdminProducts() {
                       }
                     }}
                   />
-                  <label htmlFor="file-upload" className="cursor-pointer inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700">
+                  <label htmlFor="file-upload" className="cursor-pointer inline-flex items-center gap-2 text-sm text-emerald-600 hover:text-emerald-700">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                     </svg>
@@ -560,7 +560,7 @@ export default function AdminProducts() {
                   value={formData.imageUrl}
                   onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
                   placeholder="Or enter image URL"
-                  className="w-full mt-2 px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full mt-2 px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
 
                 {/* Compact Specs */}
@@ -585,7 +585,7 @@ export default function AdminProducts() {
                             />
                           </div>
                           {index === 0 && (
-                            <span className="absolute -top-1 -right-1 text-xs bg-blue-500 text-white px-1 rounded">Primary</span>
+                            <span className="absolute -top-1 -right-1 text-xs bg-emerald-500 text-white px-1 rounded">Primary</span>
                           )}
                         </div>
                       ))}
@@ -624,14 +624,14 @@ export default function AdminProducts() {
                       placeholder="Height (e.g., 25 cm)"
                       value={formData.specs.height}
                       onChange={(e) => setFormData({ ...formData, specs: { ...formData.specs, height: e.target.value } })}
-                      className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     />
                     <input
                       type="text"
                       placeholder="Length (e.g., 30 cm)"
                       value={formData.specs.length}
                       onChange={(e) => setFormData({ ...formData, specs: { ...formData.specs, length: e.target.value } })}
-                      className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     />
                   </div>
                 </div>
@@ -645,7 +645,7 @@ export default function AdminProducts() {
                     placeholder="Enter key features, one per line (e.g., High-resolution display)"
                     value={formData.specs.features}
                     onChange={(e) => setFormData({ ...formData, specs: { ...formData.specs, features: e.target.value } })}
-                    className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     rows={3}
                   />
                   <p className="text-xs text-gray-500 mt-1">Enter each feature on a new line</p>
@@ -659,7 +659,7 @@ export default function AdminProducts() {
                     type="checkbox"
                     checked={formData.isLive}
                     onChange={(e) => setFormData({ ...formData, isLive: e.target.checked })}
-                    className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+                    className="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500"
                   />
                   <div>
                     <span className="text-sm font-medium text-gray-700">
@@ -686,7 +686,7 @@ export default function AdminProducts() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-4 py-1.5 text-sm bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
                 >
                   {editingProduct ? 'Update' : 'Add'} Product
                 </button>

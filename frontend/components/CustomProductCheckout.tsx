@@ -429,10 +429,10 @@ export default function CustomProductCheckout() {
       <ScrollAnimationWrapper animation="scale" threshold={0.2} delay={100}>
         <div
           onClick={() => setShowModal(true)}
-          className="bg-gradient-to-br from-blue-50 to-sky-50 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer group border-2 border-dashed border-blue-300 hover:border-blue-400"
+          className="bg-gradient-to-br from-emerald-50 to-sky-50 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer group border-2 border-dashed border-emerald-300 hover:border-emerald-400"
         >
-          <div className="aspect-square relative bg-gradient-to-br from-blue-100 to-sky-100 rounded-t-lg overflow-hidden flex flex-col items-center justify-center p-6">
-            <div className="text-blue-600 mb-4 group-hover:scale-110 transition-transform">
+          <div className="aspect-square relative bg-gradient-to-br from-emerald-100 to-sky-100 rounded-t-lg overflow-hidden flex flex-col items-center justify-center p-6">
+            <div className="text-emerald-600 mb-4 group-hover:scale-110 transition-transform">
               <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
               </svg>
@@ -443,9 +443,9 @@ export default function CustomProductCheckout() {
           <div className="p-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm text-gray-600">Starting from</span>
-              <span className="text-2xl font-bold text-blue-600">{formatPrice(2499)}</span>
+              <span className="text-2xl font-bold text-emerald-600">{formatPrice(2499)}</span>
             </div>
-            <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
+            <button className="w-full bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-700 transition-colors font-semibold">
               Get Started
             </button>
           </div>
@@ -462,12 +462,12 @@ export default function CustomProductCheckout() {
                   {[1, 2, 3, 4, 5].map((step) => (
                     <div key={step} className="flex items-center">
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                        currentStep >= step ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+                        currentStep >= step ? 'bg-emerald-600 text-white' : 'bg-gray-200 text-gray-600'
                       }`}>
                         {step}
                       </div>
                       {step < 5 && (
-                        <div className={`w-12 h-1 ${currentStep > step ? 'bg-blue-600' : 'bg-gray-200'}`} />
+                        <div className={`w-12 h-1 ${currentStep > step ? 'bg-emerald-600' : 'bg-gray-200'}`} />
                       )}
                     </div>
                   ))}
@@ -505,7 +505,7 @@ export default function CustomProductCheckout() {
                     </svg>
                     <button
                       onClick={() => fileInputRef.current?.click()}
-                      className="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold text-lg mb-4"
+                      className="bg-emerald-600 text-white px-8 py-4 rounded-lg hover:bg-emerald-700 transition-colors font-semibold text-lg mb-4"
                     >
                       Select Images
                     </button>
@@ -597,8 +597,8 @@ export default function CustomProductCheckout() {
 
                   {/* Show info box for logged-in users */}
                   {isAuthenticated && user && (
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
-                      <p className="text-sm text-blue-800">
+                    <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 mb-4">
+                      <p className="text-sm text-emerald-800">
                         We've pre-filled your information from your account. Please verify and update if needed.
                       </p>
                     </div>
@@ -655,7 +655,7 @@ export default function CustomProductCheckout() {
                   {/* Show saved addresses for logged-in users */}
                   {isAuthenticated && savedAddresses.length > 0 && (
                     <div className="mb-6">
-                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
                         <div className="flex items-center mb-3">
                           <input
                             type="checkbox"
@@ -681,7 +681,7 @@ export default function CustomProductCheckout() {
                                 key={addr.id}
                                 className={`block p-3 border rounded-lg cursor-pointer transition-colors ${
                                   selectedAddressId === addr.id
-                                    ? 'border-blue-500 bg-blue-50'
+                                    ? 'border-emerald-500 bg-emerald-50'
                                     : 'border-gray-200 hover:border-gray-300'
                                 }`}
                               >
@@ -702,7 +702,7 @@ export default function CustomProductCheckout() {
                                   {addr.city}, {addr.state} - {addr.pincode}
                                 </span>
                                 {addr.isDefault && (
-                                  <span className="ml-2 text-xs text-blue-600 font-medium">Default</span>
+                                  <span className="ml-2 text-xs text-emerald-600 font-medium">Default</span>
                                 )}
                               </label>
                             ))}
@@ -820,7 +820,7 @@ export default function CustomProductCheckout() {
                       <hr className="my-2" />
                       <div className="flex justify-between text-lg font-semibold">
                         <span>Total Amount:</span>
-                        <span className="text-blue-600">{formatPrice(calculateTotalPrice())}</span>
+                        <span className="text-emerald-600">{formatPrice(calculateTotalPrice())}</span>
                       </div>
                     </div>
                   </div>
@@ -840,7 +840,7 @@ export default function CustomProductCheckout() {
                   <button
                     onClick={initiatePayment}
                     disabled={isProcessing}
-                    className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold disabled:bg-gray-400"
+                    className="w-full bg-emerald-600 text-white py-3 rounded-lg hover:bg-emerald-700 transition-colors font-semibold disabled:bg-gray-400"
                   >
                     {isProcessing ? 'Processing...' : `Pay ${formatPrice(calculateTotalPrice())} with Razorpay`}
                   </button>
@@ -864,7 +864,7 @@ export default function CustomProductCheckout() {
               {currentStep < 5 && (
                 <button
                   onClick={handleNext}
-                  className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+                  className="px-8 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-semibold"
                 >
                   Next
                 </button>

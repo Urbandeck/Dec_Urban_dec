@@ -93,7 +93,7 @@ export default function HelpCenterPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+      <div className="bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
         <div className="container mx-auto px-4 py-12">
           <h1 className="text-4xl font-bold mb-4">Help Center</h1>
           <p className="text-xl opacity-90">How can we help you today?</p>
@@ -105,7 +105,7 @@ export default function HelpCenterPage() {
               <input
                 type="text"
                 placeholder="Search for help articles..."
-                className="w-full pl-12 pr-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                className="w-full pl-12 pr-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-300"
               />
             </div>
           </div>
@@ -123,7 +123,7 @@ export default function HelpCenterPage() {
               <ul className="space-y-2">
                 {category.topics.map((topic) => (
                   <li key={topic}>
-                    <Link href="#" className="text-gray-600 hover:text-blue-600 flex items-center text-sm">
+                    <Link href="#" className="text-gray-600 hover:text-emerald-600 flex items-center text-sm">
                       <ChevronRight size={14} className="mr-1" />
                       {topic}
                     </Link>
@@ -154,8 +154,8 @@ export default function HelpCenterPage() {
           
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Phone className="text-blue-600" size={24} />
+              <div className="bg-emerald-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Phone className="text-emerald-600" size={24} />
               </div>
               <h3 className="font-semibold mb-2">Call Us</h3>
               <p className="text-gray-600 text-sm">+91 98765 43210</p>
@@ -186,11 +186,11 @@ export default function HelpCenterPage() {
         <div className="mt-12 text-center">
           <p className="text-gray-600 mb-4">Quick Links:</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/returns" className="text-blue-600 hover:underline">Return Policy</Link>
-            <Link href="/warranty" className="text-blue-600 hover:underline">Warranty Info</Link>
-            <Link href="/shipping" className="text-blue-600 hover:underline">Shipping Info</Link>
-            <Link href="/orders" className="text-blue-600 hover:underline">Track Order</Link>
-            <Link href="/contact" className="text-blue-600 hover:underline">Contact Us</Link>
+            <Link href="/returns" className="text-emerald-600 hover:underline">Return Policy</Link>
+            <Link href="/warranty" className="text-emerald-600 hover:underline">Warranty Info</Link>
+            <Link href="/shipping" className="text-emerald-600 hover:underline">Shipping Info</Link>
+            <Link href="/orders" className="text-emerald-600 hover:underline">Track Order</Link>
+            <Link href="/contact" className="text-emerald-600 hover:underline">Contact Us</Link>
           </div>
         </div>
       </div>

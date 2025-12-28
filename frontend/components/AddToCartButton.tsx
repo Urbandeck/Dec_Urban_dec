@@ -58,7 +58,7 @@ export default function AddToCartButton({ product, quantity = 1 }: AddToCartButt
       <button
         onClick={handleAddToCart}
         disabled={isAdding || !product.active}
-        className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
+        className="w-full bg-emerald-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-emerald-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
       >
         {isAdding ? (
           <>
