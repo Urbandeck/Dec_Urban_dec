@@ -19,12 +19,12 @@ export const generateInvoicePDF = (order: any) => {
   // Company header
   pdf.setFontSize(24);
   pdf.setTextColor(37, 99, 235); // Blue color
-  pdf.text('UrbanDeck', 20, 20);
+  pdf.text('Urbandec', 20, 20);
   
   pdf.setFontSize(10);
   pdf.setTextColor(107, 114, 128); // Gray color
   pdf.text('Digital Frames Shop', 20, 26);
-  pdf.text('support@urbandeck.com', 20, 31);
+  pdf.text('urbandec.in@gmail.com', 20, 31);
   pdf.text('1-800-FRAMES', 20, 36);
 
   // Invoice title and details
@@ -160,7 +160,7 @@ export const generateInvoicePDF = (order: any) => {
   pdf.text('Thank you for your business!', 105, pageHeight - 30, { align: 'center' });
   pdf.setFontSize(8);
   pdf.text('This is a computer-generated invoice. No signature is required.', 105, pageHeight - 25, { align: 'center' });
-  pdf.text('For any queries, please contact us at support@urbandeck.com', 105, pageHeight - 20, { align: 'center' });
+  pdf.text('For any queries, please contact us at urbandec.in@gmail.com', 105, pageHeight - 20, { align: 'center' });
 
   return pdf;
 };

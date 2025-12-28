@@ -407,9 +407,9 @@ export default function AdminOrders() {
               <div className="border-2 border-gray-200 rounded-lg p-6 bg-white">
                 {/* Company Header */}
                 <div className="text-center mb-6">
-                  <h1 className="text-2xl font-bold text-blue-600">UrbanDeck</h1>
+                  <h1 className="text-2xl font-bold text-blue-600">Urbandec</h1>
                   <p className="text-sm text-gray-600">Premium Digital Photo Frames</p>
-                  <p className="text-sm text-gray-600">support@urbandeck.com | +91 98765 43210</p>
+                  <p className="text-sm text-gray-600">urbandec.in@gmail.com | +91 8105663269</p>
                 </div>
 
                 <div className="border-t border-gray-200 pt-4">

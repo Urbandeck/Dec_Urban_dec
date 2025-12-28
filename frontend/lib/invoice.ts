@@ -142,10 +142,10 @@ export const generateInvoiceHTML = (order: any) => {
     <body>
       <div class="header">
         <div>
-          <div class="logo">UrbanDeck</div>
+          <div class="logo">Urbandec</div>
           <div style="margin-top: 10px; color: #6b7280; font-size: 14px;">
             Digital Frames Shop<br>
-            support@urbandeck.com<br>
+            urbandec.in@gmail.com<br>
             1-800-FRAMES
           </div>
         </div>
@@ -237,7 +237,7 @@ export const generateInvoiceHTML = (order: any) => {
       <div class="footer">
         <p><strong>Thank you for your business!</strong></p>
         <p>This is a computer-generated invoice. No signature is required.</p>
-        <p>For any queries, please contact us at support@urbandeck.com</p>
+        <p>For any queries, please contact us at urbandec.in@gmail.com</p>
       </div>
     </body>
     </html>

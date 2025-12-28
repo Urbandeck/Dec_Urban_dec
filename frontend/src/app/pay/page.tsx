@@ -54,7 +54,7 @@ export default function PayPage() {
           key: config.razorpayKeyId,
           amount: 7315600,
           currency: 'INR',
-          name: 'UrbanDeck',
+          name: 'Urbandec',
           description: 'Digital Photo Frames',
           handler: function (response: any) {
             alert(`Payment Successful!\nPayment ID: ${response.razorpay_payment_id}`);
@@ -78,7 +78,7 @@ export default function PayPage() {
           key: config.razorpayKeyId,
           amount: order.amount,
           currency: order.currency,
-          name: 'UrbanDeck',
+          name: 'Urbandec',
           description: 'Digital Photo Frames',
           order_id: order.id,
           handler: function (response: any) {
@@ -103,7 +103,7 @@ export default function PayPage() {
         key: config.razorpayKeyId,
         amount: 7315600,
         currency: 'INR',
-        name: 'UrbanDeck',
+        name: 'Urbandec',
         description: 'Digital Photo Frames',
         handler: function (response: any) {
           alert(`Payment Successful!\nPayment ID: ${response.razorpay_payment_id}`);

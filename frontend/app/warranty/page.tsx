@@ -8,7 +8,7 @@ export default function WarrantyPage() {
     {
       icon: '🛡️',
       title: '2-Year Coverage',
-      description: 'All UrbanDeck frames come with 24 months of manufacturer warranty'
+      description: 'All Urbandec frames come with 24 months of manufacturer warranty'
     },
     {
       icon: '🔧',

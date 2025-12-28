@@ -352,8 +352,8 @@ export default function TrackOrderPage() {
                 <h3 className="font-semibold mb-2">Need Help?</h3>
                 <p className="text-sm text-gray-600">
                   For any queries about your order, please contact our customer support.<br />
-                  Email: support@urbandeck.com<br />
-                  Phone: 1-800-URBANDECK
+                  Email: urbandec.in@gmail.com<br />
+                  Phone: +91 8105663269
                 </p>
               </div>
             </div>

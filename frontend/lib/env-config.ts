@@ -11,7 +11,7 @@ export const ENV_CONFIG = {
   RAZORPAY_KEY_ID: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '',
 
   // App Configuration
-  APP_NAME: process.env.NEXT_PUBLIC_APP_NAME || 'UrbanDeck',
+  APP_NAME: process.env.NEXT_PUBLIC_APP_NAME || 'Urbandec',
   APP_DESCRIPTION: process.env.NEXT_PUBLIC_APP_DESCRIPTION || 'Premium Digital Frames Shop',
 
   // Feature Flags

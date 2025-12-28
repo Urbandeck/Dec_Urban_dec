@@ -77,20 +77,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="canonical" href={process.env.NEXT_PUBLIC_SITE_URL || 'https://urbandeck.com'} />
+        <link rel="canonical" href={process.env.NEXT_PUBLIC_SITE_URL || 'https://urbandec.in'} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Organization',
-              name: 'UrbanDeck',
-              url: process.env.NEXT_PUBLIC_SITE_URL || 'https://urbandeck.com',
-              logo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://urbandeck.com'}/logo.png`,
+              name: 'Urbandec',
+              url: process.env.NEXT_PUBLIC_SITE_URL || 'https://urbandec.in',
+              logo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://urbandec.in'}/logo.png`,
               sameAs: [
-                'https://facebook.com/urbandeck',
-                'https://twitter.com/urbandeck',
-                'https://instagram.com/urbandeck',
+                'https://facebook.com/urbandec.in',
+                'https://twitter.com/urbandec_in',
+                'https://instagram.com/urbandec.in',
               ],
               contactPoint: {
                 '@type': 'ContactPoint',

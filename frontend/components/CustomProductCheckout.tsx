@@ -43,10 +43,8 @@ interface SavedAddress extends DeliveryAddress {
 }
 
 const FRAME_PRICES = {
-  '8x10': 2499,
-  '12x16': 3499,
-  '16x20': 4499,
-  '20x24': 5499
+  '18x23': 2499,
+  '19x24': 2499
 };
 
 const COLOR_PRICES = {
@@ -69,7 +67,7 @@ export default function CustomProductCheckout() {
 
   // Form states
   const [productDetails, setProductDetails] = useState({
-    frameSize: '8x10',
+    frameSize: '18x23',
     frameColor: 'black',
     quantity: 1,
     specialInstructions: ''
@@ -328,7 +326,7 @@ export default function CustomProductCheckout() {
         key: config.razorpayKeyId,
         amount: orderData.amount,
         currency: orderData.currency,
-        name: 'UrbanDeck Digital Frames',
+        name: 'Urbandec Digital Frames',
         description: `Custom Frame Order - ${productDetails.frameSize} ${productDetails.frameColor}`,
         order_id: orderData.id,
         handler: async function (response: any) {
@@ -405,7 +403,7 @@ export default function CustomProductCheckout() {
     setCurrentStep(1);
     setUploadedImages([]);
     setProductDetails({
-      frameSize: '8x10',
+      frameSize: '18x23',
       frameColor: 'black',
       quantity: 1,
       specialInstructions: ''
@@ -547,10 +545,8 @@ export default function CustomProductCheckout() {
                         onChange={(e) => setProductDetails({...productDetails, frameSize: e.target.value})}
                         className="w-full border border-gray-300 rounded-lg px-4 py-2"
                       >
-                        <option value="8x10">8x10 inches - {formatPrice(2499)}</option>
-                        <option value="12x16">12x16 inches - {formatPrice(3499)}</option>
-                        <option value="16x20">16x20 inches - {formatPrice(4499)}</option>
-                        <option value="20x24">20x24 inches - {formatPrice(5499)}</option>
+                        <option value="18x23">18cm x 23cm - {formatPrice(2499)}</option>
+                        <option value="19x24">19cm x 24cm - {formatPrice(2499)}</option>
                       </select>
                     </div>
 

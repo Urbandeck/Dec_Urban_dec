@@ -267,7 +267,7 @@ export default function CheckoutPage() {
         key: razorpayKey,
         amount: Math.round(totalAmount * 100), // Amount in paise
         currency: 'INR',
-        name: 'UrbanDeck',
+        name: 'Urbandec',
         description: 'Purchase of Digital Photo Frames',
         // image: '/logo.png', // Commented out - no logo file available
         handler: async function (response: any) {

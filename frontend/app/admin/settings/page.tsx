@@ -10,11 +10,11 @@ export default function AdminSettings() {
   const [saving, setSaving] = useState(false);
   const [settings, setSettings] = useState({
     // General Settings
-    storeName: 'UrbanDeck',
+    storeName: 'Urbandec',
     tagline: 'Your trusted source for premium digital photo frames',
-    email: 'support@urbandeck.com',
-    phone: '+91 98765 43210',
-    address: 'Mumbai, Maharashtra, India',
+    email: 'urbandec.in@gmail.com',
+    phone: '+91 8105663269',
+    address: 'Xrbia Hinjewadi Township, Marunji, Pune, Maharashtra, 411057',
     currency: 'INR',
     timezone: 'Asia/Kolkata',
     
@@ -38,15 +38,15 @@ export default function AdminSettings() {
     marketingEmails: false,
     
     // SEO Settings
-    metaTitle: 'UrbanDeck - Premium Digital Photo Frames Online',
-    metaDescription: 'Shop the best digital photo frames at UrbanDeck. WiFi enabled, cloud storage, and premium displays.',
+    metaTitle: 'Urbandec - Premium Digital Photo Frames Online',
+    metaDescription: 'Shop the best digital photo frames at Urbandec. Premium LED frames with USB support.',
     metaKeywords: 'digital photo frames, wifi frames, smart frames, digital displays',
     
     // Social Media
-    facebook: 'https://facebook.com/urbandeck',
-    instagram: 'https://instagram.com/urbandeck',
-    twitter: 'https://twitter.com/urbandeck',
-    youtube: 'https://youtube.com/urbandeck',
+    facebook: 'https://facebook.com/urbandec.in',
+    instagram: 'https://instagram.com/urbandec.in',
+    twitter: 'https://twitter.com/urbandec_in',
+    youtube: 'https://youtube.com/urbandec.in',
   });
 
   useEffect(() => {

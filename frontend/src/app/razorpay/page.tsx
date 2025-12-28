@@ -43,7 +43,7 @@ export default function RazorpayPage() {
         key: config.razorpayKeyId,
         amount: order.amount,
         currency: order.currency,
-        name: 'UrbanDeck',
+        name: 'Urbandec',
         description: 'Digital Frames Purchase',
         order_id: order.id,
         handler: function(response: any) {

@@ -34,7 +34,7 @@ export default function PaymentPage() {
       key: config.razorpayKeyId,
       amount: 7315600, // ₹73,156 in paise
       currency: 'INR',
-      name: 'UrbanDeck',
+      name: 'Urbandec',
       description: 'Digital Frames Purchase',
       image: 'https://via.placeholder.com/150',
       handler: function (response: any) {

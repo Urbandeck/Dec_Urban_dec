@@ -82,7 +82,7 @@ export default function HelpCenterPage() {
     },
     {
       question: 'What is the warranty period?',
-      answer: 'All UrbanDeck frames come with a 2-year manufacturer warranty covering defects.'
+      answer: 'All Urbandec frames come with a 2-year manufacturer warranty covering defects.'
     },
     {
       question: 'How do I track my order?',
@@ -167,7 +167,7 @@ export default function HelpCenterPage() {
                 <Mail className="text-green-600" size={24} />
               </div>
               <h3 className="font-semibold mb-2">Email Support</h3>
-              <p className="text-gray-600 text-sm">support@urbandeck.shop</p>
+              <p className="text-gray-600 text-sm">urbandec.in@gmail.com</p>
               <p className="text-gray-500 text-xs mt-1">24-48 hour response</p>
             </div>
             

@@ -16,18 +16,14 @@ export default function AdminProducts() {
     name: '',
     description: '',
     category: 'Digital Frames',
-    brand: 'UrbanDeck',
+    brand: 'Urbandec',
     basePrice: '',
     stock: '50',
     imageUrl: '',
     isLive: false,
     specs: {
-      display: '',
-      resolution: '',
-      storage: '',
-      wifi: '',
-      connectivity: '',
-      formats: '',
+      height: '',
+      length: '',
       features: '',
     },
   });
@@ -163,18 +159,14 @@ export default function AdminProducts() {
       name: '',
       description: '',
       category: 'Digital Frames',
-      brand: 'UrbanDeck',
+      brand: 'Urbandec',
       basePrice: '',
       stock: '50',
       imageUrl: '',
       isLive: false,
       specs: {
-        display: '',
-        resolution: '',
-        storage: '',
-        wifi: '',
-        connectivity: '',
-        formats: '',
+        height: '',
+        length: '',
         features: '',
       },
     });
@@ -190,18 +182,14 @@ export default function AdminProducts() {
       name: product.name,
       description: product.description,
       category: product.category || 'Digital Frames',
-      brand: product.brand || 'UrbanDeck',
+      brand: product.brand || 'Urbandec',
       basePrice: product.basePrice.toString(),
       stock: '50',
       imageUrl: product.imageUrl || '',
       isLive: product.isLive || false,
       specs: {
-        display: specs.display || '',
-        resolution: specs.resolution || '',
-        storage: specs.storage || '',
-        wifi: specs.wifi || '',
-        connectivity: specs.connectivity || '',
-        formats: specs.formats || '',
+        height: specs.height || '',
+        length: specs.length || '',
         features: specs.features || '',
       },
     });
@@ -467,7 +455,7 @@ export default function AdminProducts() {
                     value={formData.brand}
                     onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
                     className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="e.g., UrbanDeck"
+                    placeholder="e.g., Urbandec"
                     required
                   />
                 </div>
@@ -633,53 +621,23 @@ export default function AdminProducts() {
                   <div className="grid grid-cols-2 gap-2">
                     <input
                       type="text"
-                      placeholder="Display (e.g., 10-inch IPS)"
-                      value={formData.specs.display}
-                      onChange={(e) => setFormData({ ...formData, specs: { ...formData.specs, display: e.target.value } })}
+                      placeholder="Height (e.g., 25 cm)"
+                      value={formData.specs.height}
+                      onChange={(e) => setFormData({ ...formData, specs: { ...formData.specs, height: e.target.value } })}
                       className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                     <input
                       type="text"
-                      placeholder="Resolution (e.g., 1920x1200)"
-                      value={formData.specs.resolution}
-                      onChange={(e) => setFormData({ ...formData, specs: { ...formData.specs, resolution: e.target.value } })}
+                      placeholder="Length (e.g., 30 cm)"
+                      value={formData.specs.length}
+                      onChange={(e) => setFormData({ ...formData, specs: { ...formData.specs, length: e.target.value } })}
                       className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    <input
-                      type="text"
-                      placeholder="Storage (e.g., 16GB)"
-                      value={formData.specs.storage}
-                      onChange={(e) => setFormData({ ...formData, specs: { ...formData.specs, storage: e.target.value } })}
-                      className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                    <input
-                      type="text"
-                      placeholder="WiFi (e.g., Yes/No)"
-                      value={formData.specs.wifi}
-                      onChange={(e) => setFormData({ ...formData, specs: { ...formData.specs, wifi: e.target.value } })}
-                      className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Connectivity (e.g., WiFi, Bluetooth, USB)"
-                    value={formData.specs.connectivity}
-                    onChange={(e) => setFormData({ ...formData, specs: { ...formData.specs, connectivity: e.target.value } })}
-                    className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Supported Formats (e.g., JPEG, PNG, MP4)"
-                    value={formData.specs.formats}
-                    onChange={(e) => setFormData({ ...formData, specs: { ...formData.specs, formats: e.target.value } })}
-                    className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
                 </div>
 
                 {/* Key Features */}
-                <div className="col-span-2">
+                <div className="mt-2">
                   <label className="block text-xs font-medium text-gray-700 mb-1">
                     Key Features
                   </label>

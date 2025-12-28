@@ -13,7 +13,7 @@ export const config = {
 
   // Application Info
   appName: 'Digital Frames Shop',
-  companyName: 'UrbanDeck',
+  companyName: 'Urbandec',
   supportEmail: 'support@digitalframes.shop',
 
   // Feature Flags
