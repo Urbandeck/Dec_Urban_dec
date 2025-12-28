@@ -154,7 +154,7 @@ export default function PrivacyPolicyPage() {
           
           <div className="prose max-w-none text-gray-700">
             <p className="mb-4">
-              At UrbanDeck, we are committed to protecting your privacy and ensuring the security of your personal information. 
+              At Urbandec, we are committed to protecting your privacy and ensuring the security of your personal information. 
               This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our 
               website or make a purchase from our digital frames shop.
             </p>
@@ -263,7 +263,7 @@ export default function PrivacyPolicyPage() {
           </p>
           <p className="text-gray-700">
             If you are a parent or guardian and believe your child has provided us with personal information, 
-            please contact us immediately at support@urbandeck.shop.
+            please contact us immediately at urbandec.in@gmail.com.
           </p>
         </div>
 
@@ -312,39 +312,27 @@ export default function PrivacyPolicyPage() {
         <div className="bg-gradient-to-r from-indigo-600 to-purple-700 text-white rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold mb-4">Contact Us About Privacy</h2>
           <p className="mb-6 opacity-90">
-            If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, 
+            If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices,
             please don't hesitate to contact us.
           </p>
-          
+
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <div>
               <h3 className="font-semibold mb-2">Email</h3>
-              <a href="mailto:privacy@urbandeck.shop" className="underline">privacy@urbandeck.shop</a>
+              <a href="mailto:urbandec.in@gmail.com" className="underline">urbandec.in@gmail.com</a>
             </div>
             <div>
               <h3 className="font-semibold mb-2">Phone</h3>
-              <a href="tel:+919876543210" className="underline">+91 98765 43210</a>
+              <a href="tel:+918105663269" className="underline">+91 8105663269</a>
             </div>
             <div>
               <h3 className="font-semibold mb-2">Address</h3>
               <p className="text-sm">
-                UrbanDeck Digital Frames<br />
-                Mumbai, Maharashtra<br />
-                India - 400001
+                Xrbia Hinjewadi Township, Marunji<br />
+                Pune, Maharashtra<br />
+                India - 411057
               </p>
             </div>
-          </div>
-        </div>
-
-        {/* Quick Links */}
-        <div className="mt-12 text-center">
-          <p className="text-gray-600 mb-4">Related Policies:</p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/terms" className="text-blue-600 hover:underline">Terms of Service</Link>
-            <Link href="/returns" className="text-blue-600 hover:underline">Return Policy</Link>
-            <Link href="/warranty" className="text-blue-600 hover:underline">Warranty Policy</Link>
-            <Link href="/help" className="text-blue-600 hover:underline">Help Center</Link>
-            <Link href="/contact" className="text-blue-600 hover:underline">Contact Us</Link>
           </div>
         </div>
       </div>

@@ -269,7 +269,9 @@ public class AuthController {
                 user.setName(request.name);
                 user.setGoogleId(request.googleId);
                 user.setProfilePicture(request.picture);
-                user.setPassword(org.springframework.security.crypto.bcrypt.BCrypt.hashpw(request.googleId, org.springframework.security.crypto.bcrypt.BCrypt.gensalt()));
+                // Use googleId or generate a random password for Google-only users
+                String passwordSource = request.googleId != null ? request.googleId : java.util.UUID.randomUUID().toString();
+                user.setPassword(org.springframework.security.crypto.bcrypt.BCrypt.hashpw(passwordSource, org.springframework.security.crypto.bcrypt.BCrypt.gensalt()));
                 user.setEmailVerified(true);
                 user.setActive(true);
                 user.setLastLogin(java.time.LocalDateTime.now());

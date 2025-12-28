@@ -2,9 +2,9 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'About Us',
-  description: 'Learn about UrbanDeck - Your trusted source for premium digital photo frames.',
+  description: 'Learn about Urbandec - Your trusted source for premium digital photo frames.',
   openGraph: {
-    title: 'About UrbanDeck',
+    title: 'About Urbandec',
     description: 'Learn about our mission to bring memories to life through premium digital frames',
     type: 'website',
   },
@@ -15,11 +15,11 @@ export default function AboutPage() {
     <div className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold text-gray-900 mb-8">About UrbanDeck</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-8">About Urbandec</h1>
           
           <div className="prose prose-lg max-w-none">
             <p className="text-gray-700 mb-6">
-              Welcome to UrbanDeck, your premier destination for high-quality digital photo frames. 
+              Welcome to Urbandec, your premier destination for high-quality digital photo frames. 
               We believe that memories should be celebrated and displayed, not hidden away in digital devices.
             </p>
 
@@ -64,16 +64,17 @@ export default function AboutPage() {
 
             <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Our Commitment</h2>
             <p className="text-gray-700 mb-6">
-              We are committed to providing not just products, but complete solutions for displaying your 
-              digital memories. From WiFi-enabled frames that sync with your phone to frames with advanced 
-              features like motion sensors and automatic brightness adjustment, we have something for everyone.
+              We are committed to providing simple, reliable solutions for displaying your digital memories.
+              Our USB-powered LED digital frames are designed for easy use—just plug in a USB drive and enjoy
+              your photos instantly. With a clean, modern design and hassle-free setup, our frames offer a
+              straightforward way to showcase your favorite moments.
             </p>
 
             <div className="bg-blue-50 border-l-4 border-blue-500 p-6 mt-8">
               <p className="text-gray-800 italic">
                 "Every photo tells a story, and every frame should honor that story. That's our promise to you."
               </p>
-              <p className="text-gray-600 mt-2">- The UrbanDeck Team</p>
+              <p className="text-gray-600 mt-2">- The Urbandec Team</p>
             </div>
           </div>
         </div>

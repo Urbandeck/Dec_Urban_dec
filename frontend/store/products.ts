@@ -55,10 +55,14 @@ export const useProductStore = create<ProductStore>()(
           });
           if (response.ok) {
             const data = await response.json();
-            set({ products: data, lastFetched: Date.now() });
+            // Only cache if we got products
+            if (data && data.length > 0) {
+              set({ products: data, lastFetched: Date.now() });
+            }
           }
         } catch (err) {
           // Keep existing cached products on error
+          console.error('Failed to fetch products:', err);
         }
       },
     }),
