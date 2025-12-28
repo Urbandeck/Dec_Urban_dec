@@ -126,15 +126,15 @@ export default function ImageUpload({ productId, existingImages = [], onImagesCh
               file:mr-4 file:py-2 file:px-4
               file:rounded-full file:border-0
               file:text-sm file:font-semibold
-              file:bg-emerald-50 file:text-emerald-700
-              hover:file:bg-emerald-100"
+              file:bg-blue-50 file:text-blue-700
+              hover:file:bg-blue-100"
           />
           
           {previews.length > 0 && (
             <button
               onClick={handleUpload}
               disabled={uploading}
-              className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
             >
               {uploading ? 'Uploading...' : `Upload ${previews.length} image(s)`}
             </button>
@@ -187,7 +187,7 @@ export default function ImageUpload({ productId, existingImages = [], onImagesCh
                   {!image.isPrimary && (
                     <button
                       onClick={() => handleSetPrimary(image.id)}
-                      className="bg-emerald-500 text-white px-2 py-1 rounded text-xs hover:bg-emerald-600"
+                      className="bg-blue-500 text-white px-2 py-1 rounded text-xs hover:bg-blue-600"
                     >
                       Set Primary
                     </button>

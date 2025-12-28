@@ -79,14 +79,14 @@ export default function RazorpayPage() {
       <div className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full">
         <h1 className="text-2xl font-bold mb-6 text-center">Razorpay Payment</h1>
         
-        <div className="mb-6 p-4 bg-emerald-50 rounded">
+        <div className="mb-6 p-4 bg-blue-50 rounded">
           <h2 className="font-semibold mb-2">Order Details:</h2>
           <p>Digital Frames: ₹73,156</p>
         </div>
 
         <button
           onClick={handlePayment}
-          className="w-full bg-emerald-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-emerald-700 transition"
+          className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition"
         >
           Pay Now ₹73,156
         </button>

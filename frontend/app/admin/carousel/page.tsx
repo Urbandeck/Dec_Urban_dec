@@ -163,7 +163,7 @@ export default function CarouselManagement() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
   }
@@ -181,7 +181,7 @@ export default function CarouselManagement() {
         <button
           onClick={() => fileInputRef.current?.click()}
           disabled={isUploading}
-          className="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50 flex items-center gap-2"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center gap-2"
         >
           {isUploading ? (
             <>
@@ -208,14 +208,14 @@ export default function CarouselManagement() {
       </div>
 
       {/* Info Card */}
-      <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
         <div className="flex items-start gap-3">
-          <svg className="w-5 h-5 text-emerald-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-blue-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <div>
-            <h3 className="font-semibold text-emerald-800">How it works</h3>
-            <p className="text-sm text-emerald-700 mt-1">
+            <h3 className="font-semibold text-blue-800">How it works</h3>
+            <p className="text-sm text-blue-700 mt-1">
               Upload images to display in the homepage carousel. Only active images will be shown.
               Use the arrows to reorder images. For best results, use high-resolution images (1920x1080 or higher).
             </p>
@@ -233,7 +233,7 @@ export default function CarouselManagement() {
           <p className="text-gray-600 mb-4">Upload your first image to get started</p>
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-colors"
+            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
           >
             Upload Images
           </button>

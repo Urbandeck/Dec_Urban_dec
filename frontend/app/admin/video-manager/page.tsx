@@ -175,7 +175,7 @@ export default function VideoManagerPage() {
         </div>
         <button
           onClick={() => setShowForm(true)}
-          className="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
         >
           Add New Video
         </button>
@@ -250,7 +250,7 @@ export default function VideoManagerPage() {
             <div className="mt-4 flex gap-2">
               <button
                 type="submit"
-                className="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700"
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
               >
                 {editingVideo ? 'Update Video' : 'Add Video'}
               </button>
@@ -355,9 +355,9 @@ export default function VideoManagerPage() {
         )}
       </div>
 
-      <div className="mt-6 bg-emerald-50 border border-emerald-200 rounded-lg p-4">
-        <h3 className="text-sm font-semibold text-emerald-900 mb-2">Video Guidelines:</h3>
-        <ul className="text-sm text-emerald-700 space-y-1">
+      <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <h3 className="text-sm font-semibold text-blue-900 mb-2">Video Guidelines:</h3>
+        <ul className="text-sm text-blue-700 space-y-1">
           <li>• Only one video can be active at a time on the homepage</li>
           <li>• Recommended video aspect ratio: 16:9</li>
           <li>• YouTube and Vimeo URLs will be automatically embedded</li>

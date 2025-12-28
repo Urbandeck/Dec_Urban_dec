@@ -8,7 +8,7 @@ export default function PrivacyPolicyPage() {
     {
       id: 'information-we-collect',
       title: 'Information We Collect',
-      icon: <Database className="text-emerald-600" size={24} />,
+      icon: <Database className="text-blue-600" size={24} />,
       content: [
         {
           subtitle: 'Personal Information',
@@ -163,8 +163,8 @@ export default function PrivacyPolicyPage() {
               We encourage you to read this policy carefully to understand our practices regarding your personal data.
             </p>
             
-            <div className="bg-emerald-50 border-l-4 border-emerald-500 p-4 my-6">
-              <p className="text-emerald-800">
+            <div className="bg-blue-50 border-l-4 border-blue-500 p-4 my-6">
+              <p className="text-blue-800">
                 <strong>Quick Summary:</strong> We collect only necessary information to provide our services, 
                 never sell your data, use industry-standard security, and respect your privacy choices.
               </p>
@@ -180,7 +180,7 @@ export default function PrivacyPolicyPage() {
               <a 
                 key={section.id}
                 href={`#${section.id}`}
-                className="text-emerald-600 hover:text-emerald-800 hover:underline"
+                className="text-blue-600 hover:text-blue-800 hover:underline"
               >
                 → {section.title}
               </a>

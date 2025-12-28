@@ -70,7 +70,7 @@ export default function AboutPage() {
               straightforward way to showcase your favorite moments.
             </p>
 
-            <div className="bg-emerald-50 border-l-4 border-emerald-500 p-6 mt-8">
+            <div className="bg-blue-50 border-l-4 border-blue-500 p-6 mt-8">
               <p className="text-gray-800 italic">
                 "Every photo tells a story, and every frame should honor that story. That's our promise to you."
               </p>

@@ -154,7 +154,7 @@ export default function ImageSlideshow({
               onClick={() => goToSlide(index)}
               className={`w-2 h-2 rounded-full transition-colors ${
                 index === currentIndex
-                  ? 'bg-emerald-600'
+                  ? 'bg-blue-600'
                   : 'bg-gray-300 hover:bg-gray-400'
               }`}
               aria-label={`Go to image ${index + 1}`}
@@ -172,7 +172,7 @@ export default function ImageSlideshow({
               onClick={() => goToSlide(index)}
               className={`flex-shrink-0 w-20 h-20 rounded border-2 overflow-hidden transition-all ${
                 index === currentIndex
-                  ? 'border-emerald-600 shadow-lg'
+                  ? 'border-blue-600 shadow-lg'
                   : 'border-gray-300 hover:border-gray-400'
               }`}
             >

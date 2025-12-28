@@ -91,7 +91,7 @@ export default function TestOrderPage() {
               <div className="space-x-2">
                 <button
                   onClick={loadLocalOrders}
-                  className="px-3 py-1 bg-emerald-600 text-white rounded text-sm hover:bg-emerald-700"
+                  className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700"
                 >
                   Refresh
                 </button>
@@ -141,7 +141,7 @@ export default function TestOrderPage() {
               <h2 className="text-xl font-semibold">Database Orders ({backendOrders.length})</h2>
               <button
                 onClick={loadBackendOrders}
-                className="px-3 py-1 bg-emerald-600 text-white rounded text-sm hover:bg-emerald-700"
+                className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700"
                 disabled={loading}
               >
                 {loading ? 'Loading...' : 'Refresh'}
@@ -181,7 +181,7 @@ export default function TestOrderPage() {
         </div>
 
         {/* Instructions */}
-        <div className="mt-8 bg-emerald-50 rounded-lg p-6">
+        <div className="mt-8 bg-blue-50 rounded-lg p-6">
           <h2 className="text-lg font-semibold mb-3">How to Test:</h2>
           <ol className="list-decimal list-inside space-y-2 text-sm">
             <li>Click "Add Test" to create a test order in localStorage</li>

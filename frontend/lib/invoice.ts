@@ -36,7 +36,7 @@ export const generateInvoiceHTML = (order: any) => {
         .logo {
           font-size: 28px;
           font-weight: bold;
-          color: #059669;
+          color: #2563EB;
         }
         .invoice-details {
           text-align: right;

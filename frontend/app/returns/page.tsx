@@ -7,7 +7,7 @@ export default function ReturnsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-gradient-to-r from-emerald-600 to-emerald-800 text-white">
+      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div className="container mx-auto px-4 py-12">
           <h1 className="text-4xl font-bold mb-4">Returns & Exchange</h1>
           <p className="text-xl opacity-90">Easy returns within 7 days of purchase</p>
@@ -29,8 +29,8 @@ export default function ReturnsPage() {
             </div>
             
             <div className="text-center">
-              <div className="bg-emerald-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Package className="text-emerald-600" size={28} />
+              <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Package className="text-blue-600" size={28} />
               </div>
               <h3 className="font-semibold mb-2">Free Returns</h3>
               <p className="text-gray-600 text-sm">We provide prepaid return shipping labels</p>
@@ -45,7 +45,7 @@ export default function ReturnsPage() {
             </div>
           </div>
 
-          <div className="border-l-4 border-emerald-500 pl-4 py-2 bg-emerald-50">
+          <div className="border-l-4 border-blue-500 pl-4 py-2 bg-blue-50">
             <p className="text-gray-700">
               <strong>Note:</strong> Items must be returned in original condition with all accessories, manuals, and packaging materials.
             </p>
@@ -187,7 +187,7 @@ export default function ReturnsPage() {
           <h3 className="text-xl font-semibold mb-4">Need Help with Returns?</h3>
           <p className="text-gray-600 mb-6">Our customer support team is here to assist you</p>
           <div className="flex justify-center gap-4">
-            <Link href="/contact" className="px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition">
+            <Link href="/contact" className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
               Contact Support
             </Link>
           </div>

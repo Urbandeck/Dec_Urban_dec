@@ -42,7 +42,7 @@ const OrderSuccessPage = () => {
         <div className="space-y-3">
           <Link
             href="/orders"
-            className="block w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition"
+            className="block w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
           >
             View Order Details
           </Link>

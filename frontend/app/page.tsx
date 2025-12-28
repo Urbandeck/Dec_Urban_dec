@@ -57,7 +57,7 @@ export default function Home() {
                     )}
                   </div>
                   <div className="p-6">
-                    <h3 className="font-bold text-lg text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors">
+                    <h3 className="font-bold text-lg text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
                       {product.name}
                     </h3>
                     <p className="text-sm text-gray-600 mb-4 line-clamp-2">
@@ -99,7 +99,7 @@ export default function Home() {
           >
             <Link
               href="/products"
-              className="inline-block bg-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-emerald-700 hover:scale-105 transition-all shadow-md hover:shadow-lg"
+              className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 hover:scale-105 transition-all shadow-md hover:shadow-lg"
             >
               View All Products
             </Link>

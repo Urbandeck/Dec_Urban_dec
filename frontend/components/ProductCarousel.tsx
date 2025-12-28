@@ -70,10 +70,10 @@ export default function ProductCarousel({ autoPlayInterval = 4000 }: ProductCaro
     <div className="relative min-h-screen overflow-hidden bg-gray-900">
       {/* Fallback gradient background - only visible when no images */}
       {(isLoading || carouselImages.length === 0) && (
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-emerald-900 to-indigo-900">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
           <div className="absolute inset-0 opacity-30">
             <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
-            <div className="absolute top-0 -right-4 w-72 h-72 bg-emerald-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute top-0 -right-4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
             <div className="absolute -bottom-8 left-20 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse" style={{ animationDelay: '4s' }}></div>
           </div>
         </div>
@@ -112,7 +112,7 @@ export default function ProductCarousel({ autoPlayInterval = 4000 }: ProductCaro
         <div className="container mx-auto px-4 py-20">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-6xl font-extrabold mb-8 fade-in-text">
-              <span className="bg-gradient-to-r from-emerald-400 via-purple-400 to-pink-400 text-transparent bg-clip-text animate-gradient bg-300">
+              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 text-transparent bg-clip-text animate-gradient bg-300">
                 Transform Your Memories
               </span>
               <br />
@@ -126,7 +126,7 @@ export default function ProductCarousel({ autoPlayInterval = 4000 }: ProductCaro
             <div className="flex gap-4 fade-in-text" style={{ animationDelay: '0.4s' }}>
               <Link
                 href="/products"
-                className="bg-white text-emerald-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all hover:scale-105 shadow-lg inline-block"
+                className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all hover:scale-105 shadow-lg inline-block"
               >
                 Shop Now
                 <span className="ml-2">→</span>

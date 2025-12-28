@@ -213,32 +213,32 @@ export default function WarrantyPage() {
           
           <div className="grid md:grid-cols-4 gap-4">
             <div className="text-center">
-              <div className="bg-emerald-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-emerald-600">1</span>
+              <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-blue-600">1</span>
               </div>
               <h3 className="font-semibold mb-2">Register Claim</h3>
               <p className="text-gray-600 text-sm">Log in to your account and submit warranty claim with issue details</p>
             </div>
             
             <div className="text-center">
-              <div className="bg-emerald-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-emerald-600">2</span>
+              <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-blue-600">2</span>
               </div>
               <h3 className="font-semibold mb-2">Verification</h3>
               <p className="text-gray-600 text-sm">Our team verifies your purchase and warranty eligibility</p>
             </div>
             
             <div className="text-center">
-              <div className="bg-emerald-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-emerald-600">3</span>
+              <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-blue-600">3</span>
               </div>
               <h3 className="font-semibold mb-2">Pickup Scheduled</h3>
               <p className="text-gray-600 text-sm">Free doorstep pickup arranged at your convenient time</p>
             </div>
             
             <div className="text-center">
-              <div className="bg-emerald-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-emerald-600">4</span>
+              <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-blue-600">4</span>
               </div>
               <h3 className="font-semibold mb-2">Repair & Return</h3>
               <p className="text-gray-600 text-sm">Device repaired and delivered back within 7-10 days</p>
@@ -265,12 +265,12 @@ export default function WarrantyPage() {
               <div 
                 key={plan.duration}
                 className={`border rounded-lg p-6 relative ${
-                  plan.popular ? 'border-emerald-500 shadow-lg' : 'border-gray-200'
+                  plan.popular ? 'border-blue-500 shadow-lg' : 'border-gray-200'
                 }`}
               >
                 {plan.popular && (
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-emerald-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                    <span className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
                       Most Popular
                     </span>
                   </div>
@@ -293,7 +293,7 @@ export default function WarrantyPage() {
                 
                 <button className={`w-full py-2 rounded-lg transition ${
                   plan.popular 
-                    ? 'bg-emerald-600 text-white hover:bg-emerald-700' 
+                    ? 'bg-blue-600 text-white hover:bg-blue-700' 
                     : 'border border-gray-300 text-gray-700 hover:bg-gray-50'
                 }`}>
                   Select Plan
@@ -321,12 +321,12 @@ export default function WarrantyPage() {
         </div>
 
         {/* Warranty Registration */}
-        <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-lg p-8 text-center">
+        <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg p-8 text-center">
           <Award className="mx-auto mb-4" size={48} />
           <h2 className="text-2xl font-bold mb-2">Register Your Product</h2>
           <p className="mb-6 opacity-90">Register now to activate your warranty and get exclusive benefits</p>
           <div className="flex justify-center gap-4">
-            <Link href="/account" className="px-6 py-3 bg-white text-emerald-600 rounded-lg hover:bg-gray-100 transition font-semibold">
+            <Link href="/account" className="px-6 py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition font-semibold">
               Register Product
             </Link>
             <Link href="/help" className="px-6 py-3 border border-white text-white rounded-lg hover:bg-white/10 transition">

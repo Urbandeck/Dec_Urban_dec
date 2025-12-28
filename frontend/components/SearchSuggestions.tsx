@@ -73,7 +73,7 @@ export default function SearchSuggestions({ query, onClose, onSelect }: SearchSu
     <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-md shadow-lg border border-gray-200 z-50 max-h-80 overflow-y-auto">
       {loading ? (
         <div className="p-3 text-center">
-          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-emerald-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600 mx-auto"></div>
         </div>
       ) : suggestions.length > 0 ? (
         <>
@@ -106,7 +106,7 @@ export default function SearchSuggestions({ query, onClose, onSelect }: SearchSu
           <div className="border-t border-gray-100 px-3 py-2">
             <button
               onClick={handleViewAll}
-              className="w-full text-center text-xs text-emerald-600 hover:text-emerald-700 font-medium py-1.5 hover:bg-gray-50 rounded"
+              className="w-full text-center text-xs text-blue-600 hover:text-blue-700 font-medium py-1.5 hover:bg-gray-50 rounded"
             >
               View all results for "{query}"
             </button>
@@ -119,7 +119,7 @@ export default function SearchSuggestions({ query, onClose, onSelect }: SearchSu
           </p>
           <button
             onClick={onClose}
-            className="w-full mt-2 text-center text-sm text-emerald-600 hover:text-emerald-700 font-medium"
+            className="w-full mt-2 text-center text-sm text-blue-600 hover:text-blue-700 font-medium"
           >
             Try a different search
           </button>

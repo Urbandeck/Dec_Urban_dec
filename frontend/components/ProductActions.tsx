@@ -100,7 +100,7 @@ export default function ProductActions({ product, quantity = 1 }: ProductActions
         <button
           onClick={handleAddToCart}
           disabled={isAdding || !product.active}
-          className="flex-1 bg-emerald-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-emerald-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
+          className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
         >
           {isAdding ? (
             <>

@@ -96,7 +96,7 @@ export default function AdminAnalytics() {
         <select
           value={dateRange}
           onChange={(e) => setDateRange(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="7">Last 7 Days</option>
           <option value="30">Last 30 Days</option>
@@ -143,7 +143,7 @@ export default function AdminAnalytics() {
 
             return (
               <div key={idx} className="flex-1 flex flex-col items-center">
-                <div className="w-full bg-emerald-500 rounded-t" style={{ height: `${heightPercentage}%` }}>
+                <div className="w-full bg-blue-500 rounded-t" style={{ height: `${heightPercentage}%` }}>
                   <div className="text-xs text-white text-center p-1">
                     {formatPrice(data.revenue)}
                   </div>
@@ -177,7 +177,7 @@ export default function AdminAnalytics() {
                 <div className="text-sm text-gray-600">{formatPrice(state.revenue)}</div>
                 <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
                   <div
-                    className="bg-emerald-600 h-2 rounded-full"
+                    className="bg-blue-600 h-2 rounded-full"
                     style={{ width: `${Math.min((state.revenue / (analyticsData.topStates[0]?.revenue || 1)) * 100, 100)}%` }}
                   ></div>
                 </div>

@@ -195,9 +195,9 @@ export default function OrdersPage() {
     const statusConfig: { [key: string]: { label: string, color: string } } = {
       'PENDING': { label: 'Order Placed', color: 'text-yellow-600' },
       'PAID': { label: 'Payment Confirmed', color: 'text-green-600' },
-      'PROCESSING': { label: 'Processing', color: 'text-emerald-600' },
-      'SHIPPED': { label: 'Shipped', color: 'text-emerald-600' },
-      'OUT_FOR_DELIVERY': { label: 'Out for Delivery', color: 'text-emerald-600' },
+      'PROCESSING': { label: 'Processing', color: 'text-blue-600' },
+      'SHIPPED': { label: 'Shipped', color: 'text-blue-600' },
+      'OUT_FOR_DELIVERY': { label: 'Out for Delivery', color: 'text-blue-600' },
       'DELIVERED': { label: 'Delivered', color: 'text-green-600' },
       'CANCELLED': { label: 'Cancelled', color: 'text-red-600' },
       'FAILED': { label: 'Payment Failed', color: 'text-red-600' }
@@ -350,7 +350,7 @@ export default function OrdersPage() {
                         </p>
                         <Link
                           href={`/orders/${order.orderId || order.id}`}
-                          className="text-emerald-600 hover:text-emerald-700 hover:underline"
+                          className="text-blue-600 hover:text-blue-700 hover:underline"
                         >
                           View order details
                         </Link>
@@ -413,7 +413,7 @@ export default function OrdersPage() {
                           <div className="flex-1">
                             <Link
                               href={`/products/${item.productId || ''}`}
-                              className="text-base font-medium text-emerald-600 hover:text-emerald-700 hover:underline inline-block"
+                              className="text-base font-medium text-blue-600 hover:text-blue-700 hover:underline inline-block"
                             >
                               {item.productName || item.name}
                             </Link>
@@ -427,14 +427,14 @@ export default function OrdersPage() {
                             <div className="flex gap-3 mt-3">
                               <Link
                                 href={`/products/${item.productId || ''}`}
-                                className="text-sm text-emerald-600 hover:text-emerald-700 hover:underline"
+                                className="text-sm text-blue-600 hover:text-blue-700 hover:underline"
                               >
                                 Buy it again
                               </Link>
                               {order.status === 'DELIVERED' && (
                                 <>
                                   <span className="text-gray-300">|</span>
-                                  <button className="text-sm text-emerald-600 hover:text-emerald-700 hover:underline">
+                                  <button className="text-sm text-blue-600 hover:text-blue-700 hover:underline">
                                     Write a product review
                                   </button>
                                 </>
@@ -450,21 +450,21 @@ export default function OrdersPage() {
                     <div className="mt-6 pt-4 border-t border-gray-200 flex flex-wrap gap-3">
                       <button
                         onClick={() => downloadInvoicePDF(order)}
-                        className="text-sm text-emerald-600 hover:text-emerald-700 hover:underline"
+                        className="text-sm text-blue-600 hover:text-blue-700 hover:underline"
                       >
                         Download invoice
                       </button>
                       <span className="text-gray-300">|</span>
                       <button
                         onClick={() => shareInvoice(order)}
-                        className="text-sm text-emerald-600 hover:text-emerald-700 hover:underline"
+                        className="text-sm text-blue-600 hover:text-blue-700 hover:underline"
                       >
                         Share invoice
                       </button>
                       {!['CANCELLED', 'FAILED', 'DELIVERED'].includes(order.status) && (
                         <>
                           <span className="text-gray-300">|</span>
-                          <button className="text-sm text-emerald-600 hover:text-emerald-700 hover:underline">
+                          <button className="text-sm text-blue-600 hover:text-blue-700 hover:underline">
                             Cancel items
                           </button>
                         </>

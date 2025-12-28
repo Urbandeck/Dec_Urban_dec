@@ -57,7 +57,7 @@ function OrderSuccessContent() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
   }
@@ -184,7 +184,7 @@ function OrderSuccessContent() {
           <div className="space-y-3">
             <Link
               href="/orders"
-              className="block w-full bg-emerald-600 text-white py-3 rounded-lg font-semibold hover:bg-emerald-700 transition-colors text-center"
+              className="block w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-center"
             >
               View All Orders
             </Link>
@@ -198,7 +198,7 @@ function OrderSuccessContent() {
             
             <Link
               href="/"
-              className="block w-full text-center text-emerald-600 hover:text-emerald-700 font-medium"
+              className="block w-full text-center text-blue-600 hover:text-blue-700 font-medium"
             >
               Back to Home
             </Link>
@@ -214,7 +214,7 @@ export default function OrderSuccessPage() {
     <Suspense fallback={
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading...</p>
         </div>
       </div>

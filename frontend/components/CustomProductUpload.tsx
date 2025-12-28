@@ -111,7 +111,7 @@ export default function CustomProductUpload() {
   return (
     <>
       {/* Custom Product Card */}
-      <div className="bg-gradient-to-br from-purple-50 to-emerald-50 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300 h-full border-2 border-dashed border-purple-300">
+      <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300 h-full border-2 border-dashed border-purple-300">
         <div className="aspect-square relative bg-white rounded-t-lg overflow-hidden flex items-center justify-center">
           <div className="text-center p-6">
             <svg className="w-24 h-24 mx-auto mb-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

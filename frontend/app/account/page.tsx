@@ -320,7 +320,7 @@ export default function AccountPage() {
   if (!isHydrated) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
   }
@@ -339,7 +339,7 @@ export default function AccountPage() {
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-sm p-6">
               <div className="text-center mb-6">
-                <div className="w-20 h-20 bg-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
                   <span className="text-white text-2xl font-bold">
                     {user.name?.charAt(0).toUpperCase() || 'U'}
                   </span>
@@ -353,7 +353,7 @@ export default function AccountPage() {
                   onClick={() => setActiveTab('profile')}
                   className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
                     activeTab === 'profile'
-                      ? 'bg-emerald-50 text-emerald-600'
+                      ? 'bg-blue-50 text-blue-600'
                       : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
@@ -369,7 +369,7 @@ export default function AccountPage() {
                   onClick={() => setActiveTab('orders')}
                   className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
                     activeTab === 'orders'
-                      ? 'bg-emerald-50 text-emerald-600'
+                      ? 'bg-blue-50 text-blue-600'
                       : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
@@ -385,7 +385,7 @@ export default function AccountPage() {
                   onClick={() => setActiveTab('addresses')}
                   className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
                     activeTab === 'addresses'
-                      ? 'bg-emerald-50 text-emerald-600'
+                      ? 'bg-blue-50 text-blue-600'
                       : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
@@ -402,7 +402,7 @@ export default function AccountPage() {
                   onClick={() => setActiveTab('security')}
                   className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
                     activeTab === 'security'
-                      ? 'bg-emerald-50 text-emerald-600'
+                      ? 'bg-blue-50 text-blue-600'
                       : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
@@ -441,7 +441,7 @@ export default function AccountPage() {
                     {!isEditing ? (
                       <button
                         onClick={() => setIsEditing(true)}
-                        className="text-emerald-600 hover:text-emerald-700 font-medium"
+                        className="text-blue-600 hover:text-blue-700 font-medium"
                       >
                         Edit Profile
                       </button>
@@ -456,7 +456,7 @@ export default function AccountPage() {
                         <button
                           onClick={handleSaveProfile}
                           disabled={isSaving}
-                          className="bg-emerald-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-emerald-700 disabled:bg-gray-400"
+                          className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-400"
                         >
                           {isSaving ? 'Saving...' : 'Save Changes'}
                         </button>
@@ -474,7 +474,7 @@ export default function AccountPage() {
                         value={profileData.name}
                         onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
                         disabled={!isEditing}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 disabled:bg-gray-100"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
                         required
                       />
                     </div>
@@ -488,7 +488,7 @@ export default function AccountPage() {
                         value={profileData.email}
                         onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
                         disabled={!isEditing}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 disabled:bg-gray-100"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
                       />
                       {isEditing && (
                         <p className="text-xs text-gray-500 mt-1">
@@ -506,7 +506,7 @@ export default function AccountPage() {
                         value={profileData.phone}
                         onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
                         disabled={!isEditing}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 disabled:bg-gray-100"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
                         placeholder="Enter your phone number"
                       />
                     </div>
@@ -520,7 +520,7 @@ export default function AccountPage() {
                         onChange={(e) => setProfileData({ ...profileData, address: e.target.value })}
                         disabled={!isEditing}
                         rows={3}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 disabled:bg-gray-100"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
                         placeholder="Enter your street address"
                       />
                     </div>
@@ -534,7 +534,7 @@ export default function AccountPage() {
                         value={profileData.city}
                         onChange={(e) => setProfileData({ ...profileData, city: e.target.value })}
                         disabled={!isEditing}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 disabled:bg-gray-100"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
                         placeholder="Enter your city"
                       />
                     </div>
@@ -547,7 +547,7 @@ export default function AccountPage() {
                         value={profileData.state}
                         onChange={(e) => setProfileData({ ...profileData, state: e.target.value })}
                         disabled={!isEditing}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 disabled:bg-gray-100"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
                       >
                         <option value="">Select State</option>
                         <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -591,7 +591,7 @@ export default function AccountPage() {
                         value={profileData.pincode}
                         onChange={(e) => setProfileData({ ...profileData, pincode: e.target.value })}
                         disabled={!isEditing}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 disabled:bg-gray-100"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
                         placeholder="Enter 6-digit PIN code"
                         maxLength={6}
                         pattern="[0-9]{6}"
@@ -665,7 +665,7 @@ export default function AccountPage() {
                       <p className="text-gray-600 mb-4">You haven't placed any orders yet</p>
                       <Link
                         href="/products"
-                        className="inline-block bg-emerald-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-emerald-700"
+                        className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700"
                       >
                         Start Shopping
                       </Link>
@@ -681,7 +681,7 @@ export default function AccountPage() {
                     {!showAddressForm && (
                       <button 
                         onClick={() => setShowAddressForm(true)}
-                        className="bg-emerald-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-emerald-700"
+                        className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700"
                       >
                         Add New Address
                       </button>
@@ -699,7 +699,7 @@ export default function AccountPage() {
                           <select
                             value={newAddress.label}
                             onChange={(e) => setNewAddress({ ...newAddress, label: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                           >
                             <option value="Home">Home</option>
                             <option value="Work">Work</option>
@@ -715,7 +715,7 @@ export default function AccountPage() {
                             type="text"
                             value={newAddress.fullName}
                             onChange={(e) => setNewAddress({ ...newAddress, fullName: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter full name"
                           />
                         </div>
@@ -728,7 +728,7 @@ export default function AccountPage() {
                             type="email"
                             value={newAddress.email}
                             onChange={(e) => setNewAddress({ ...newAddress, email: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter email address"
                           />
                         </div>
@@ -741,7 +741,7 @@ export default function AccountPage() {
                             type="tel"
                             value={newAddress.phone}
                             onChange={(e) => setNewAddress({ ...newAddress, phone: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter phone number"
                           />
                         </div>
@@ -754,7 +754,7 @@ export default function AccountPage() {
                             type="text"
                             value={newAddress.pincode}
                             onChange={(e) => setNewAddress({ ...newAddress, pincode: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter pincode"
                           />
                         </div>
@@ -767,7 +767,7 @@ export default function AccountPage() {
                             type="text"
                             value={newAddress.addressLine1}
                             onChange={(e) => setNewAddress({ ...newAddress, addressLine1: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                             placeholder="House/Flat No, Building Name"
                           />
                         </div>
@@ -780,7 +780,7 @@ export default function AccountPage() {
                             type="text"
                             value={newAddress.addressLine2}
                             onChange={(e) => setNewAddress({ ...newAddress, addressLine2: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                             placeholder="Street, Landmark (Optional)"
                           />
                         </div>
@@ -793,7 +793,7 @@ export default function AccountPage() {
                             type="text"
                             value={newAddress.city}
                             onChange={(e) => setNewAddress({ ...newAddress, city: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter city"
                           />
                         </div>
@@ -806,7 +806,7 @@ export default function AccountPage() {
                             type="text"
                             value={newAddress.state}
                             onChange={(e) => setNewAddress({ ...newAddress, state: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter state"
                           />
                         </div>
@@ -828,7 +828,7 @@ export default function AccountPage() {
                         <button
                           onClick={handleAddAddress}
                           disabled={isSavingAddress}
-                          className="bg-emerald-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-emerald-700 disabled:bg-gray-400"
+                          className="bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-400"
                         >
                           {isSavingAddress ? 'Saving...' : 'Save Address'}
                         </button>
@@ -872,7 +872,7 @@ export default function AccountPage() {
                                   <select
                                     value={editAddressData.label || ''}
                                     onChange={(e) => setEditAddressData({ ...editAddressData, label: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                                   >
                                     <option value="Home">Home</option>
                                     <option value="Work">Work</option>
@@ -888,7 +888,7 @@ export default function AccountPage() {
                                     type="text"
                                     value={editAddressData.fullName || ''}
                                     onChange={(e) => setEditAddressData({ ...editAddressData, fullName: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                                   />
                                 </div>
 
@@ -900,7 +900,7 @@ export default function AccountPage() {
                                     type="email"
                                     value={editAddressData.email || ''}
                                     onChange={(e) => setEditAddressData({ ...editAddressData, email: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                                   />
                                 </div>
 
@@ -912,7 +912,7 @@ export default function AccountPage() {
                                     type="tel"
                                     value={editAddressData.phone || ''}
                                     onChange={(e) => setEditAddressData({ ...editAddressData, phone: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                                   />
                                 </div>
 
@@ -924,7 +924,7 @@ export default function AccountPage() {
                                     type="text"
                                     value={editAddressData.addressLine1 || ''}
                                     onChange={(e) => setEditAddressData({ ...editAddressData, addressLine1: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                                   />
                                 </div>
 
@@ -936,7 +936,7 @@ export default function AccountPage() {
                                     type="text"
                                     value={editAddressData.addressLine2 || ''}
                                     onChange={(e) => setEditAddressData({ ...editAddressData, addressLine2: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                                   />
                                 </div>
 
@@ -948,7 +948,7 @@ export default function AccountPage() {
                                     type="text"
                                     value={editAddressData.city || ''}
                                     onChange={(e) => setEditAddressData({ ...editAddressData, city: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                                   />
                                 </div>
 
@@ -960,7 +960,7 @@ export default function AccountPage() {
                                     type="text"
                                     value={editAddressData.state || ''}
                                     onChange={(e) => setEditAddressData({ ...editAddressData, state: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                                   />
                                 </div>
 
@@ -972,7 +972,7 @@ export default function AccountPage() {
                                     type="text"
                                     value={editAddressData.pincode || ''}
                                     onChange={(e) => setEditAddressData({ ...editAddressData, pincode: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                                   />
                                 </div>
                               </div>
@@ -981,7 +981,7 @@ export default function AccountPage() {
                                 <button
                                   onClick={handleUpdateAddress}
                                   disabled={isSavingAddress}
-                                  className="bg-emerald-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-emerald-700 disabled:bg-gray-400"
+                                  className="bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-400"
                                 >
                                   {isSavingAddress ? 'Updating...' : 'Update Address'}
                                 </button>
@@ -1000,7 +1000,7 @@ export default function AccountPage() {
                                 <div className="flex items-center gap-2 mb-2">
                                   <span className="font-semibold text-gray-900">{address.label}</span>
                                   {address.isDefault && (
-                                    <span className="px-2 py-1 bg-emerald-100 text-emerald-700 text-xs rounded-full">Default</span>
+                                    <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">Default</span>
                                   )}
                                 </div>
                                 <p className="text-gray-700">{address.fullName}</p>
@@ -1019,14 +1019,14 @@ export default function AccountPage() {
                               <div className="flex flex-col gap-2">
                                 <button
                                   onClick={() => handleEditAddress(address)}
-                                  className="text-sm text-emerald-600 hover:text-emerald-700"
+                                  className="text-sm text-blue-600 hover:text-blue-700"
                                 >
                                   Edit
                                 </button>
                                 {!address.isDefault && (
                                   <button
                                     onClick={() => handleSetDefaultAddress(address.id)}
-                                    className="text-sm text-emerald-600 hover:text-emerald-700"
+                                    className="text-sm text-blue-600 hover:text-blue-700"
                                   >
                                     Set as Default
                                   </button>
@@ -1067,7 +1067,7 @@ export default function AccountPage() {
                       <p className="text-sm text-gray-600 mb-4">
                         Update your password to keep your account secure
                       </p>
-                      <button className="text-emerald-600 hover:text-emerald-700 font-medium">
+                      <button className="text-blue-600 hover:text-blue-700 font-medium">
                         Update Password
                       </button>
                     </div>
@@ -1077,7 +1077,7 @@ export default function AccountPage() {
                       <p className="text-sm text-gray-600 mb-4">
                         Add an extra layer of security to your account
                       </p>
-                      <button className="text-emerald-600 hover:text-emerald-700 font-medium">
+                      <button className="text-blue-600 hover:text-blue-700 font-medium">
                         Enable 2FA
                       </button>
                     </div>
@@ -1087,7 +1087,7 @@ export default function AccountPage() {
                       <p className="text-sm text-gray-600 mb-4">
                         View recent login activity on your account
                       </p>
-                      <button className="text-emerald-600 hover:text-emerald-700 font-medium">
+                      <button className="text-blue-600 hover:text-blue-700 font-medium">
                         View History
                       </button>
                     </div>

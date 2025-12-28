@@ -43,7 +43,7 @@ export default function ProductsPage() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-emerald-600 transition-colors">
+                  <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
                     {product.name}
                   </h3>
                   <p className="text-sm text-gray-600 mb-2 line-clamp-2">

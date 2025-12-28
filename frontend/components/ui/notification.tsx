@@ -56,7 +56,7 @@ export default function Notification({ type, title, message, onClose, duration =
       case 'warning':
         return 'bg-yellow-50 text-yellow-800 border-yellow-200';
       default:
-        return 'bg-emerald-50 text-emerald-800 border-emerald-200';
+        return 'bg-blue-50 text-blue-800 border-blue-200';
     }
   };
 
