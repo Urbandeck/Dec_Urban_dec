@@ -77,7 +77,7 @@ export default function AdminCustomers() {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch(`${ENV_CONFIG.API_URL}/api/admin/customers/stats', {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/admin/customers/stats`, {
         cache: 'no-store',
       });
       if (!response.ok) {

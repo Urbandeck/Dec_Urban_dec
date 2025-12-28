@@ -56,7 +56,7 @@ export default function AdminSettings() {
   const fetchSettings = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${ENV_CONFIG.API_URL}/api/admin/settings', {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/admin/settings`, {
         cache: 'no-store',
       });
       if (!response.ok) {
@@ -75,7 +75,7 @@ export default function AdminSettings() {
   const handleSave = async () => {
     try {
       setSaving(true);
-      const response = await fetch(`${ENV_CONFIG.API_URL}/api/admin/settings', {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/admin/settings`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

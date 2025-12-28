@@ -45,7 +45,7 @@ export default function CustomProductsPage() {
 
   const fetchCustomRequests = async () => {
     try {
-      const response = await fetch(`${ENV_CONFIG.API_URL}/api/custom-products', {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/custom-products`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
         }

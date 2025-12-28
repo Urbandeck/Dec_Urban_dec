@@ -6,15 +6,19 @@ import HoverImageSwap from '@/components/HoverImageSwap';
 import CustomProductCheckout from '@/components/CustomProductCheckout';
 import CTAVideoSection from '@/components/CTAVideoSection';
 import ProductCarousel from '@/components/ProductCarousel';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useProductStore } from '@/store/products';
 
 export default function Home() {
   const { products, fetchProducts } = useProductStore();
   const featuredProducts = products.slice(0, 3);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     fetchProducts();
+    // Trigger animation after mount
+    const timer = setTimeout(() => setIsVisible(true), 50);
+    return () => clearTimeout(timer);
   }, [fetchProducts]);
 
   return (
@@ -25,7 +29,7 @@ export default function Home() {
       {/* Featured Products */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div className={`text-center mb-16 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Featured Products</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">Discover our handpicked selection of premium digital frames that bring your memories to life</p>
           </div>
@@ -36,7 +40,8 @@ export default function Home() {
               <Link
                 key={product.id}
                 href={`/products/${product.slug}`}
-                className="group block h-full"
+                className={`group block h-full transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                style={{ transitionDelay: `${(index + 1) * 100}ms` }}
               >
                 <div className="bg-white rounded-lg shadow-sm card-hover h-full transform transition-all duration-300 hover:scale-105">
                   <div className="aspect-square relative bg-gray-100 rounded-t-lg overflow-hidden">
@@ -80,10 +85,18 @@ export default function Home() {
             ))}
 
             {/* Custom Product Upload Card - at the end */}
-            <CustomProductCheckout />
+            <div
+              className={`transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              style={{ transitionDelay: `${(featuredProducts.length + 1) * 100}ms` }}
+            >
+              <CustomProductCheckout />
+            </div>
           </div>
 
-          <div className="text-center mt-12">
+          <div
+            className={`text-center mt-12 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            style={{ transitionDelay: `${(featuredProducts.length + 2) * 100}ms` }}
+          >
             <Link
               href="/products"
               className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 hover:scale-105 transition-all shadow-md hover:shadow-lg"

@@ -32,7 +32,7 @@ export default function VideoManagerPage() {
 
   const fetchVideos = async () => {
     try {
-      const response = await fetch(`${ENV_CONFIG.API_URL}/api/site-settings/cta-videos', {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/site-settings/cta-videos`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
         }
