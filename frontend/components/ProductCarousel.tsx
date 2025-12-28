@@ -117,12 +117,11 @@ export default function ProductCarousel({ autoPlayInterval = 4000 }: ProductCaro
               </span>
               <br />
               <span className="text-white mt-2 block text-3xl md:text-5xl">
-                into Stunning Displays
+                into Stunning Digital Displays
               </span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-white/90 fade-in-text drop-shadow-lg" style={{ animationDelay: '0.2s' }}>
-              Discover our premium collection of digital photo frames with WiFi connectivity,
-              high-resolution displays, and smart features.
+              Discover our premium collection of digital photo frames
             </p>
             <div className="flex gap-4 fade-in-text" style={{ animationDelay: '0.4s' }}>
               <Link

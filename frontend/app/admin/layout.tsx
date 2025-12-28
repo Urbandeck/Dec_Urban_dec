@@ -82,7 +82,7 @@ export default function AdminLayout({
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
       </div>
     );
   }
@@ -108,7 +108,7 @@ export default function AdminLayout({
             <div className="flex items-center justify-between mb-8">
               {sidebarOpen ? (
                 <div className="flex items-center space-x-2">
-                  <div className="w-10 h-10 bg-blue-600 rounded flex items-center justify-center">
+                  <div className="w-10 h-10 bg-emerald-600 rounded flex items-center justify-center">
                     <span className="text-white font-bold text-lg">UD</span>
                   </div>
                   <div>
@@ -117,7 +117,7 @@ export default function AdminLayout({
                   </div>
                 </div>
               ) : (
-                <div className="w-10 h-10 bg-blue-600 rounded flex items-center justify-center mx-auto">
+                <div className="w-10 h-10 bg-emerald-600 rounded flex items-center justify-center mx-auto">
                   <span className="text-white font-bold text-lg">UD</span>
                 </div>
               )}
@@ -195,7 +195,7 @@ export default function AdminLayout({
                   </span>
                   <button
                     onClick={handleLogout}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                    className="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors"
                   >
                     Logout
                   </button>

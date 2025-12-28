@@ -11,23 +11,25 @@ export default function Footer() {
               <svg viewBox="0 0 220 70" xmlns="http://www.w3.org/2000/svg" className="h-14 w-auto">
                 <defs>
                   <linearGradient id="footerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style={{stopColor:'#3B82F6',stopOpacity:1}} />
-                    <stop offset="100%" style={{stopColor:'#2563EB',stopOpacity:1}} />
+                    <stop offset="0%" style={{stopColor:'#10B981',stopOpacity:1}} />
+                    <stop offset="100%" style={{stopColor:'#059669',stopOpacity:1}} />
                   </linearGradient>
                 </defs>
 
                 <text x="10" y="40"
-                      fontFamily="'SF Pro Display', 'Segoe UI', Arial, sans-serif"
+                      fontFamily="'Poppins', 'Segoe UI', Arial, sans-serif"
                       fontSize="32"
-                      fontWeight="600"
+                      fontWeight="900"
                       fill="#FFFFFF"
-                      letterSpacing="1.5">
+                      letterSpacing="1.5"
+                      stroke="#FFFFFF"
+                      strokeWidth="1.5">
                   Urban
                 </text>
 
                 <g>
                   <text x="112" y="37"
-                        fontFamily="'SF Pro Display', 'Segoe UI', Arial, sans-serif"
+                        fontFamily="'Montserrat', 'Helvetica Neue', Arial, sans-serif"
                         fontSize="32"
                         fontWeight="700"
                         fill="url(#footerGrad)"

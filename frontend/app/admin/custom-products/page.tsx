@@ -46,9 +46,7 @@ export default function CustomProductsPage() {
   const fetchCustomRequests = async () => {
     try {
       const response = await fetch(`${ENV_CONFIG.API_URL}/api/custom-products`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
-        }
+        credentials: 'include',
       });
 
       if (response.ok) {
@@ -78,8 +76,8 @@ export default function CustomProductsPage() {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
         },
+        credentials: 'include',
         body: new URLSearchParams({
           status: statusUpdate.status,
           notes: statusUpdate.notes
@@ -109,12 +107,10 @@ export default function CustomProductsPage() {
   const handleDeleteRequest = async (requestId: number) => {
     setIsDeleting(true);
     try {
-      const token = localStorage.getItem('adminToken');
-
       const response = await fetch(`${ENV_CONFIG.API_URL}/api/custom-products/${requestId}`, {
         method: 'DELETE',
+        credentials: 'include',
         headers: {
-          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
