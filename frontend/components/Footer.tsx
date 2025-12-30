@@ -90,8 +90,18 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-4">Customer Service</h3>
             <ul className="space-y-2 text-sm">
               <li>
+                <Link href="/shipping" className="text-gray-400 hover:text-white transition-colors">
+                  Shipping Policy
+                </Link>
+              </li>
+              <li>
                 <Link href="/returns" className="text-gray-400 hover:text-white transition-colors">
                   Returns & Exchange
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">
+                  Terms & Conditions
                 </Link>
               </li>
               <li>
