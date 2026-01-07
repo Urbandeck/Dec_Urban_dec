@@ -193,48 +193,9 @@ export default function TermsPage() {
           </div>
         </div>
 
-        {/* Warranty */}
-        <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <h2 className="text-2xl font-bold mb-4">8. Warranty</h2>
-          <div className="space-y-4 text-gray-700">
-            <p>
-              <strong>Standard Manufacturer Warranty:</strong> All Urbandec digital photo frames come with a 2-year (24 months)
-              manufacturer warranty covering defects in materials and workmanship under normal use. The warranty period starts
-              from the date of delivery.
-            </p>
-            <p>
-              <strong>Warranty Coverage:</strong> The warranty covers manufacturing defects, hardware component failures,
-              display issues (dead pixels, backlight problems, color distortion), software problems, power supply issues,
-              connectivity issues, and defective buttons, ports, or speakers.
-            </p>
-            <p>
-              <strong>Free Warranty Service:</strong> We provide free repairs for all warranty-covered issues, including
-              free shipping both ways. Most warranty repairs are completed within 7-10 business days. Only genuine manufacturer
-              parts are used in all repairs.
-            </p>
-            <p>
-              <strong>Warranty Exclusions:</strong> The warranty does not cover physical damage (drops, impacts, screen cracks,
-              water damage), misuse or neglect (improper installation, voltage surges, unauthorized modifications), normal wear
-              and tear (cosmetic damage, minor scratches), unauthorized third-party repairs, or lost accessories.
-            </p>
-            <p>
-              <strong>Extended Warranty:</strong> Extended warranty plans are available to extend coverage up to 5 years total,
-              with additional benefits including accidental damage coverage and priority repair services.
-            </p>
-            <p>
-              <strong>Warranty Registration:</strong> Register your product within 15 days of purchase for hassle-free warranty claims.
-              Keep your original invoice/receipt safe as it is required for all warranty claims.
-            </p>
-            <p>
-              For warranty claims and complete warranty information, please visit our{' '}
-              <Link href="/warranty" className="text-blue-600 hover:underline">Warranty Information</Link> page.
-            </p>
-          </div>
-        </div>
-
         {/* Intellectual Property */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <h2 className="text-2xl font-bold mb-4">9. Intellectual Property</h2>
+          <h2 className="text-2xl font-bold mb-4">8. Intellectual Property</h2>
           <div className="space-y-4 text-gray-700">
             <p>
               All content on this website, including text, graphics, logos, images, and software, is the property of
@@ -253,7 +214,7 @@ export default function TermsPage() {
 
         {/* User Conduct */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <h2 className="text-2xl font-bold mb-4">10. User Conduct</h2>
+          <h2 className="text-2xl font-bold mb-4">9. User Conduct</h2>
           <p className="text-gray-700 mb-4">When using our website, you agree not to:</p>
           <ul className="list-disc list-inside space-y-2 text-gray-700">
             <li>Violate any applicable laws or regulations</li>
@@ -269,7 +230,7 @@ export default function TermsPage() {
 
         {/* Limitation of Liability */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <h2 className="text-2xl font-bold mb-4">11. Limitation of Liability</h2>
+          <h2 className="text-2xl font-bold mb-4">10. Limitation of Liability</h2>
           <div className="space-y-4 text-gray-700">
             <p>
               To the fullest extent permitted by law, Urbandec shall not be liable for any indirect, incidental,
@@ -288,7 +249,7 @@ export default function TermsPage() {
 
         {/* Indemnification */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <h2 className="text-2xl font-bold mb-4">12. Indemnification</h2>
+          <h2 className="text-2xl font-bold mb-4">11. Indemnification</h2>
           <p className="text-gray-700">
             You agree to indemnify, defend, and hold harmless Urbandec, its officers, directors, employees, and
             agents from any claims, damages, losses, liabilities, and expenses (including legal fees) arising from
@@ -298,7 +259,7 @@ export default function TermsPage() {
 
         {/* Privacy */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <h2 className="text-2xl font-bold mb-4">13. Privacy</h2>
+          <h2 className="text-2xl font-bold mb-4">12. Privacy</h2>
           <p className="text-gray-700">
             Your privacy is important to us. Our collection and use of personal information is governed by our
             Privacy Policy, which is incorporated into these Terms and Conditions by reference. Please review our{' '}
@@ -309,7 +270,7 @@ export default function TermsPage() {
 
         {/* Governing Law */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <h2 className="text-2xl font-bold mb-4">14. Governing Law and Jurisdiction</h2>
+          <h2 className="text-2xl font-bold mb-4">13. Governing Law and Jurisdiction</h2>
           <div className="space-y-4 text-gray-700">
             <p>
               These Terms and Conditions shall be governed by and construed in accordance with the laws of India,
@@ -324,7 +285,7 @@ export default function TermsPage() {
 
         {/* Severability */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <h2 className="text-2xl font-bold mb-4">15. Severability</h2>
+          <h2 className="text-2xl font-bold mb-4">14. Severability</h2>
           <p className="text-gray-700">
             If any provision of these Terms and Conditions is found to be invalid or unenforceable, the remaining
             provisions shall continue in full force and effect. The invalid or unenforceable provision shall be
@@ -334,7 +295,7 @@ export default function TermsPage() {
 
         {/* Contact Information */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <h2 className="text-2xl font-bold mb-4">16. Contact Information</h2>
+          <h2 className="text-2xl font-bold mb-4">15. Contact Information</h2>
           <p className="text-gray-700 mb-4">
             If you have any questions about these Terms and Conditions, please contact us:
           </p>
