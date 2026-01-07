@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Truck, Clock, Package, MapPin, Globe, CheckCircle, Info } from 'lucide-react';
+import { Truck, Globe, CheckCircle } from 'lucide-react';
 
 export default function ShippingPage() {
   const shippingZones = [
@@ -110,45 +110,6 @@ export default function ShippingPage() {
       </div>
 
       <div className="container mx-auto px-4 py-12">
-        {/* Shipping Features */}
-        <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <h2 className="text-2xl font-bold mb-6">Why Choose Our Shipping</h2>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="text-center">
-              <div className="bg-teal-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Truck className="text-teal-600" size={28} />
-              </div>
-              <h3 className="font-semibold mb-2">Free Shipping</h3>
-              <p className="text-gray-600 text-sm">On orders above ₹999 for metro cities</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Clock className="text-blue-600" size={28} />
-              </div>
-              <h3 className="font-semibold mb-2">Express Delivery</h3>
-              <p className="text-gray-600 text-sm">Next day delivery available in select cities</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Package className="text-purple-600" size={28} />
-              </div>
-              <h3 className="font-semibold mb-2">Secure Packaging</h3>
-              <p className="text-gray-600 text-sm">Extra protection for fragile electronics</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <MapPin className="text-green-600" size={28} />
-              </div>
-              <h3 className="font-semibold mb-2">Live Tracking</h3>
-              <p className="text-gray-600 text-sm">Track your order in real-time</p>
-            </div>
-          </div>
-        </div>
-
         {/* Delivery Zones */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-6">Delivery Zones & Timeframes</h2>
@@ -246,7 +207,7 @@ export default function ShippingPage() {
 
           <h3 className="font-semibold text-lg mb-4">Order Journey</h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {trackingSteps.map((step, index) => (
+            {trackingSteps.map((step) => (
               <div key={step.status} className="flex items-start">
                 <span className="text-2xl mr-3">{step.icon}</span>
                 <div>
