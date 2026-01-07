@@ -290,12 +290,9 @@ export default function ShippingPage() {
           <p className="mb-6 opacity-90">
             Our customer support team is available to assist with all shipping queries
           </p>
-          <div className="flex justify-center gap-4">
+          <div className="flex justify-center">
             <Link href="/contact" className="px-6 py-3 bg-white text-teal-600 rounded-lg hover:bg-gray-100 transition font-semibold">
               Contact Support
-            </Link>
-            <Link href="/help" className="px-6 py-3 border border-white text-white rounded-lg hover:bg-white/10 transition">
-              Visit Help Center
             </Link>
           </div>
         </div>
