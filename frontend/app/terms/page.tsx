@@ -10,7 +10,7 @@ export default function TermsPage() {
         <div className="container mx-auto px-4 py-12">
           <h1 className="text-4xl font-bold mb-4">Terms and Conditions</h1>
           <p className="text-xl opacity-90">Please read these terms carefully before using our services</p>
-          <p className="text-sm opacity-70 mt-2">Last updated: December 2024</p>
+          <p className="text-sm opacity-70 mt-2">Last updated: January 2025</p>
         </div>
       </div>
 
@@ -98,7 +98,8 @@ export default function TermsPage() {
             </p>
             <p>
               <strong>Payment Methods:</strong> We accept payments through Razorpay, including credit cards, debit cards,
-              UPI, net banking, and other supported payment methods. All payments must be made in full before order processing.
+              UPI, net banking, and other supported payment methods. Cash on Delivery (COD) is also available for eligible orders.
+              Additional charges may apply for COD orders. Prepaid orders are processed faster and may have priority in dispatch.
             </p>
             <p>
               <strong>Payment Security:</strong> All payment transactions are processed through secure, encrypted channels.
@@ -117,16 +118,32 @@ export default function TermsPage() {
           <h2 className="text-2xl font-bold mb-4">6. Shipping and Delivery</h2>
           <div className="space-y-4 text-gray-700">
             <p>
-              <strong>Delivery Areas:</strong> We currently ship to all serviceable pin codes across India. International
-              shipping is available to select countries.
+              <strong>Delivery Coverage:</strong> We currently ship across all serviceable locations within India only.
+              Remote or non-serviceable pin codes may take longer or may not be deliverable. Serviceability is verified at checkout.
             </p>
             <p>
-              <strong>Delivery Time:</strong> Estimated delivery times are provided at checkout. Standard delivery takes
-              5-7 business days for most locations. Express delivery options are available for select areas.
+              <strong>Order Processing:</strong> Orders are processed and dispatched within 1–3 business days after order
+              confirmation and payment verification.
             </p>
             <p>
-              <strong>Shipping Charges:</strong> Shipping charges are calculated based on delivery location and order weight.
-              Free shipping is available on orders above the specified minimum order value.
+              <strong>Delivery Time:</strong> Orders are usually delivered within 5–10 business days after dispatch, depending on
+              the delivery location. Metro cities typically receive orders faster than remote areas.
+            </p>
+            <p>
+              <strong>Shipping Charges:</strong> Shipping charges are calculated at checkout based on delivery location and package weight.
+              Typically, shipping charges range between ₹150 and ₹300 depending on the destination and courier availability.
+            </p>
+            <p>
+              <strong>Courier Partners:</strong> We ship orders using reliable courier partners such as Shiprocket and its associated
+              logistics providers. The courier partner is automatically selected based on your location and fastest available route.
+            </p>
+            <p>
+              <strong>Delivery Delays:</strong> Delivery timelines are estimates and may be affected by factors beyond our control
+              such as weather conditions, holidays, courier delays, or other unforeseen circumstances.
+            </p>
+            <p>
+              <strong>Failed Delivery (RTO):</strong> In case of unsuccessful delivery due to customer unavailability, incorrect address,
+              or refusal to accept the package, the return shipping cost may be deducted from any applicable refund amount.
             </p>
             <p>
               <strong>Risk of Loss:</strong> Risk of loss and title for products pass to you upon delivery to the carrier.
@@ -144,19 +161,30 @@ export default function TermsPage() {
           <div className="space-y-4 text-gray-700">
             <p>
               <strong>Return Period:</strong> We offer a 7-day return policy from the date of delivery. Products must be
-              returned in their original condition with all packaging and accessories.
+              returned in their original condition with all packaging, accessories, manuals, and packaging materials.
             </p>
             <p>
-              <strong>Eligibility:</strong> To be eligible for a return, the product must be unused, undamaged, and in
-              its original packaging. Products damaged due to misuse or negligence are not eligible for returns.
+              <strong>Free Returns:</strong> We provide prepaid return shipping labels for eligible returns. Return shipping
+              is free for manufacturing defects or wrong items received.
             </p>
             <p>
-              <strong>Refund Process:</strong> Once we receive and inspect the returned product, refunds will be processed
-              within 7-10 business days to the original payment method.
+              <strong>Eligibility:</strong> To be eligible for a return, the product must be unused, unopened (where applicable),
+              undamaged, and in its original packaging with all accessories included. Products damaged due to misuse or negligence
+              are not eligible for returns.
             </p>
             <p>
-              <strong>Non-Returnable Items:</strong> Custom-made products, products with personalized images, and products
-              marked as non-returnable are not eligible for returns.
+              <strong>Refund Process:</strong> Once we receive and inspect the returned product at our warehouse (1-2 days),
+              refunds will be initiated within 2-3 days and credited to your account within 5-7 business days depending on
+              the payment method (Credit/Debit Card: 5-7 days, UPI: 2-3 days, Net Banking: 5-7 days).
+            </p>
+            <p>
+              <strong>Non-Returnable Items:</strong> Customized or personalized products, used or damaged items by customer,
+              items without original packaging, items past the 7-day return window, and items with missing accessories are not
+              eligible for returns.
+            </p>
+            <p>
+              <strong>Exchange Policy:</strong> Free exchanges are available for items that are defective or if you received
+              the wrong product, subject to product availability. Exchanges must be initiated within 7 days of delivery.
             </p>
             <p>
               For complete details, please visit our{' '}
@@ -170,19 +198,35 @@ export default function TermsPage() {
           <h2 className="text-2xl font-bold mb-4">8. Warranty</h2>
           <div className="space-y-4 text-gray-700">
             <p>
-              <strong>Manufacturer Warranty:</strong> All digital photo frames come with a 1-year manufacturer warranty
-              covering defects in materials and workmanship under normal use.
+              <strong>Standard Manufacturer Warranty:</strong> All Urbandec digital photo frames come with a 2-year (24 months)
+              manufacturer warranty covering defects in materials and workmanship under normal use. The warranty period starts
+              from the date of delivery.
             </p>
             <p>
-              <strong>Warranty Coverage:</strong> The warranty covers hardware defects, display issues, and component
-              failures that occur during normal use.
+              <strong>Warranty Coverage:</strong> The warranty covers manufacturing defects, hardware component failures,
+              display issues (dead pixels, backlight problems, color distortion), software problems, power supply issues,
+              connectivity issues, and defective buttons, ports, or speakers.
             </p>
             <p>
-              <strong>Warranty Exclusions:</strong> The warranty does not cover damage caused by accidents, misuse,
-              unauthorized modifications, power surges, or normal wear and tear.
+              <strong>Free Warranty Service:</strong> We provide free repairs for all warranty-covered issues, including
+              free shipping both ways. Most warranty repairs are completed within 7-10 business days. Only genuine manufacturer
+              parts are used in all repairs.
             </p>
             <p>
-              For warranty claims, please visit our{' '}
+              <strong>Warranty Exclusions:</strong> The warranty does not cover physical damage (drops, impacts, screen cracks,
+              water damage), misuse or neglect (improper installation, voltage surges, unauthorized modifications), normal wear
+              and tear (cosmetic damage, minor scratches), unauthorized third-party repairs, or lost accessories.
+            </p>
+            <p>
+              <strong>Extended Warranty:</strong> Extended warranty plans are available to extend coverage up to 5 years total,
+              with additional benefits including accidental damage coverage and priority repair services.
+            </p>
+            <p>
+              <strong>Warranty Registration:</strong> Register your product within 15 days of purchase for hassle-free warranty claims.
+              Keep your original invoice/receipt safe as it is required for all warranty claims.
+            </p>
+            <p>
+              For warranty claims and complete warranty information, please visit our{' '}
               <Link href="/warranty" className="text-blue-600 hover:underline">Warranty Information</Link> page.
             </p>
           </div>
@@ -308,12 +352,9 @@ export default function TermsPage() {
           <p className="mb-6 opacity-90">
             Our team is here to help you understand our terms and policies
           </p>
-          <div className="flex justify-center gap-4 flex-wrap">
+          <div className="flex justify-center">
             <Link href="/contact" className="px-6 py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition font-semibold">
               Contact Us
-            </Link>
-            <Link href="/help" className="px-6 py-3 border border-white text-white rounded-lg hover:bg-white/10 transition">
-              Help Center
             </Link>
           </div>
         </div>
