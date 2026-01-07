@@ -4,67 +4,6 @@ import Link from 'next/link';
 import { Truck, Globe, CheckCircle } from 'lucide-react';
 
 export default function ShippingPage() {
-  const shippingZones = [
-    {
-      zone: 'Metro Cities',
-      cities: 'Mumbai, Delhi, Bangalore, Chennai, Kolkata, Hyderabad, Pune',
-      standardDelivery: '2-3 business days',
-      expressDelivery: 'Next day delivery',
-      freeShippingMin: 999
-    },
-    {
-      zone: 'Tier 1 Cities',
-      cities: 'Ahmedabad, Surat, Jaipur, Lucknow, Kanpur, Nagpur, Indore, Thane',
-      standardDelivery: '3-5 business days',
-      expressDelivery: '2-3 business days',
-      freeShippingMin: 1499
-    },
-    {
-      zone: 'Tier 2 & 3 Cities',
-      cities: 'Other major cities and towns',
-      standardDelivery: '5-7 business days',
-      expressDelivery: '3-4 business days',
-      freeShippingMin: 1999
-    },
-    {
-      zone: 'Remote Areas',
-      cities: 'Northeast states, J&K, Ladakh, Island territories',
-      standardDelivery: '7-10 business days',
-      expressDelivery: '5-7 business days',
-      freeShippingMin: 2499
-    }
-  ];
-
-  const shippingRates = [
-    {
-      weight: 'Up to 5 kg',
-      metro: 99,
-      tier1: 149,
-      tier23: 199,
-      remote: 299
-    },
-    {
-      weight: '5-10 kg',
-      metro: 149,
-      tier1: 199,
-      tier23: 249,
-      remote: 399
-    },
-    {
-      weight: '10-15 kg',
-      metro: 199,
-      tier1: 249,
-      tier23: 299,
-      remote: 499
-    },
-    {
-      weight: 'Above 15 kg',
-      metro: 249,
-      tier1: 299,
-      tier23: 349,
-      remote: 599
-    }
-  ];
 
   const trackingSteps = [
     {
@@ -110,77 +49,87 @@ export default function ShippingPage() {
       </div>
 
       <div className="container mx-auto px-4 py-12">
-        {/* Delivery Zones */}
+        {/* Shipping Policy Overview */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <h2 className="text-2xl font-bold mb-6">Delivery Zones & Timeframes</h2>
-          
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="border border-gray-200 px-4 py-3 text-left font-semibold">Zone</th>
-                  <th className="border border-gray-200 px-4 py-3 text-left font-semibold">Coverage</th>
-                  <th className="border border-gray-200 px-4 py-3 text-left font-semibold">Standard</th>
-                  <th className="border border-gray-200 px-4 py-3 text-left font-semibold">Express</th>
-                  <th className="border border-gray-200 px-4 py-3 text-left font-semibold">Free Shipping</th>
-                </tr>
-              </thead>
-              <tbody>
-                {shippingZones.map((zone) => (
-                  <tr key={zone.zone} className="hover:bg-gray-50">
-                    <td className="border border-gray-200 px-4 py-3 font-medium">{zone.zone}</td>
-                    <td className="border border-gray-200 px-4 py-3 text-sm text-gray-600">{zone.cities}</td>
-                    <td className="border border-gray-200 px-4 py-3">{zone.standardDelivery}</td>
-                    <td className="border border-gray-200 px-4 py-3">{zone.expressDelivery}</td>
-                    <td className="border border-gray-200 px-4 py-3">Above ₹{zone.freeShippingMin}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <h2 className="text-2xl font-bold mb-6">Shipping Policy</h2>
 
-          <div className="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4">
-            <p className="text-blue-800">
-              <strong>Note:</strong> Delivery times are estimates and may vary during peak seasons, 
-              festivals, or due to unforeseen circumstances.
-            </p>
-          </div>
-        </div>
+          <div className="space-y-6">
+            {/* Shipping Cost Calculation */}
+            <div className="border-l-4 border-teal-500 pl-4">
+              <h3 className="font-semibold text-lg mb-2 text-gray-800">How Shipping Charges Are Calculated</h3>
+              <p className="text-gray-700">
+                Shipping charges are calculated at checkout based on delivery location and package weight.
+                This ensures you only pay for the actual delivery cost to your area.
+              </p>
+            </div>
 
-        {/* Shipping Rates */}
-        <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <h2 className="text-2xl font-bold mb-6">Shipping Rates by Weight</h2>
-          
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="border border-gray-200 px-4 py-3 text-left font-semibold">Weight</th>
-                  <th className="border border-gray-200 px-4 py-3 text-center font-semibold">Metro</th>
-                  <th className="border border-gray-200 px-4 py-3 text-center font-semibold">Tier 1</th>
-                  <th className="border border-gray-200 px-4 py-3 text-center font-semibold">Tier 2&3</th>
-                  <th className="border border-gray-200 px-4 py-3 text-center font-semibold">Remote</th>
-                </tr>
-              </thead>
-              <tbody>
-                {shippingRates.map((rate) => (
-                  <tr key={rate.weight} className="hover:bg-gray-50">
-                    <td className="border border-gray-200 px-4 py-3 font-medium">{rate.weight}</td>
-                    <td className="border border-gray-200 px-4 py-3 text-center">₹{rate.metro}</td>
-                    <td className="border border-gray-200 px-4 py-3 text-center">₹{rate.tier1}</td>
-                    <td className="border border-gray-200 px-4 py-3 text-center">₹{rate.tier23}</td>
-                    <td className="border border-gray-200 px-4 py-3 text-center">₹{rate.remote}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+            {/* Estimated Charges */}
+            <div className="border-l-4 border-teal-500 pl-4">
+              <h3 className="font-semibold text-lg mb-2 text-gray-800">Estimated Shipping Charges</h3>
+              <p className="text-gray-700">
+                Shipping charges typically range between <strong>₹150 and ₹300</strong> depending on the destination
+                and courier availability. The exact amount will be displayed at checkout before you confirm your order.
+              </p>
+            </div>
 
-          <div className="mt-6 text-center">
-            <p className="text-gray-600 mb-4">Express delivery charges: Standard rate + 50%</p>
-            <button className="px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition">
-              Calculate Shipping Cost
-            </button>
+            {/* Shipping Coverage */}
+            <div className="border-l-4 border-teal-500 pl-4">
+              <h3 className="font-semibold text-lg mb-2 text-gray-800">Shipping Coverage</h3>
+              <p className="text-gray-700 mb-2">
+                We currently ship across all serviceable locations within India.
+              </p>
+              <p className="text-gray-600 text-sm">
+                <strong>Note:</strong> Remote or non-serviceable pin codes may take longer or may not be deliverable.
+                Serviceability will be checked during checkout.
+              </p>
+            </div>
+
+            {/* Order Processing Time */}
+            <div className="border-l-4 border-teal-500 pl-4">
+              <h3 className="font-semibold text-lg mb-2 text-gray-800">Order Processing Time</h3>
+              <p className="text-gray-700">
+                Orders are processed and dispatched within <strong>1–3 business days</strong> after order confirmation
+                and payment verification.
+              </p>
+            </div>
+
+            {/* Delivery Timeline */}
+            <div className="border-l-4 border-teal-500 pl-4">
+              <h3 className="font-semibold text-lg mb-2 text-gray-800">Delivery Timeline</h3>
+              <p className="text-gray-700">
+                Orders are usually delivered within <strong>5–10 business days</strong> after dispatch, depending on
+                the delivery location. Metro cities typically receive orders faster than remote areas.
+              </p>
+            </div>
+
+            {/* COD Charges */}
+            <div className="border-l-4 border-teal-500 pl-4">
+              <h3 className="font-semibold text-lg mb-2 text-gray-800">Cash on Delivery (COD)</h3>
+              <p className="text-gray-700">
+                Additional charges may apply for Cash on Delivery (COD) orders. Prepaid orders are processed faster
+                and may have priority in dispatch.
+              </p>
+            </div>
+
+            {/* Delivery Delays Clause */}
+            <div className="bg-amber-50 border-l-4 border-amber-500 p-4">
+              <h3 className="font-semibold text-lg mb-2 text-gray-800">Important Notice</h3>
+              <p className="text-gray-700">
+                Delivery timelines are estimates and may be affected by factors beyond our control such as weather
+                conditions, holidays, courier delays, or other unforeseen circumstances. We appreciate your
+                understanding and patience.
+              </p>
+            </div>
+
+            {/* RTO Policy */}
+            <div className="bg-red-50 border-l-4 border-red-500 p-4">
+              <h3 className="font-semibold text-lg mb-2 text-gray-800">Return to Origin (RTO) Policy</h3>
+              <p className="text-gray-700">
+                In case of unsuccessful delivery due to customer unavailability, incorrect address, or refusal to
+                accept the package, the return shipping cost may be deducted from the refund amount. Please ensure
+                you provide accurate delivery details and are available to receive the package.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -225,110 +174,69 @@ export default function ShippingPage() {
             <Globe className="text-blue-600 mr-3" size={32} />
             <h2 className="text-2xl font-bold">International Shipping</h2>
           </div>
-          
-          <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="font-semibold text-lg mb-3">Available Countries</h3>
-              <ul className="space-y-2">
-                <li className="flex items-center">
-                  <CheckCircle className="text-green-500 mr-2" size={18} />
-                  <span className="text-gray-700">United States</span>
-                </li>
-                <li className="flex items-center">
-                  <CheckCircle className="text-green-500 mr-2" size={18} />
-                  <span className="text-gray-700">United Kingdom</span>
-                </li>
-                <li className="flex items-center">
-                  <CheckCircle className="text-green-500 mr-2" size={18} />
-                  <span className="text-gray-700">Canada</span>
-                </li>
-                <li className="flex items-center">
-                  <CheckCircle className="text-green-500 mr-2" size={18} />
-                  <span className="text-gray-700">Australia</span>
-                </li>
-                <li className="flex items-center">
-                  <CheckCircle className="text-green-500 mr-2" size={18} />
-                  <span className="text-gray-700">Singapore</span>
-                </li>
-                <li className="flex items-center">
-                  <CheckCircle className="text-green-500 mr-2" size={18} />
-                  <span className="text-gray-700">UAE</span>
-                </li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 className="font-semibold text-lg mb-3">Important Information</h3>
-              <ul className="space-y-2 text-gray-700">
-                <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
-                  Delivery time: 10-15 business days
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
-                  Shipping charges calculated at checkout
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
-                  Import duties and taxes may apply
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
-                  Tracking available throughout journey
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
-                  Insurance included for all shipments
-                </li>
-              </ul>
-            </div>
+
+          <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
+            <p className="text-gray-700 mb-3">
+              <strong>Currently, we only ship within India.</strong>
+            </p>
+            <p className="text-gray-600">
+              We are working on expanding our services to international destinations. If you are interested in
+              international shipping, please contact our support team, and we will notify you once the service
+              becomes available.
+            </p>
           </div>
         </div>
 
         {/* Shipping Partners */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <h2 className="text-2xl font-bold mb-6">Our Trusted Shipping Partners</h2>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="text-center">
-              <div className="bg-gray-100 rounded-lg p-4 mb-2">
-                <span className="text-2xl font-bold text-gray-700">DTDC</span>
-              </div>
-              <p className="text-sm text-gray-600">Pan India</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-gray-100 rounded-lg p-4 mb-2">
-                <span className="text-2xl font-bold text-gray-700">BlueDart</span>
-              </div>
-              <p className="text-sm text-gray-600">Express</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-gray-100 rounded-lg p-4 mb-2">
-                <span className="text-2xl font-bold text-gray-700">Delhivery</span>
-              </div>
-              <p className="text-sm text-gray-600">E-commerce</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-gray-100 rounded-lg p-4 mb-2">
-                <span className="text-2xl font-bold text-gray-700">FedEx</span>
-              </div>
-              <p className="text-sm text-gray-600">International</p>
-            </div>
+          <h2 className="text-2xl font-bold mb-6">Our Courier Partners</h2>
+
+          <div className="bg-teal-50 border-l-4 border-teal-500 p-6">
+            <p className="text-gray-700 mb-4">
+              We ship orders using reliable courier partners such as <strong>Shiprocket</strong> and its associated
+              logistics providers to ensure safe and timely delivery of your products.
+            </p>
+            <p className="text-gray-600 text-sm">
+              The courier partner for your order will be automatically selected based on the delivery location,
+              package weight, and fastest available route to ensure optimal delivery.
+            </p>
           </div>
         </div>
 
         {/* FAQ Section */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
-          
+
           <div className="space-y-4">
             <details className="border-b pb-4">
               <summary className="cursor-pointer font-semibold text-gray-800 hover:text-teal-600">
-                Do you provide same-day delivery?
+                How much will shipping cost for my order?
               </summary>
               <p className="mt-2 text-gray-600">
-                Same-day delivery is available for select pin codes in Mumbai, Delhi, and Bangalore for orders 
-                placed before 12 PM. Additional charges apply.
+                Shipping charges are calculated at checkout based on your delivery location and package weight.
+                Typically, shipping charges range between ₹150 and ₹300. The exact amount will be displayed
+                before you confirm your order.
+              </p>
+            </details>
+
+            <details className="border-b pb-4">
+              <summary className="cursor-pointer font-semibold text-gray-800 hover:text-teal-600">
+                How long will it take for my order to be delivered?
+              </summary>
+              <p className="mt-2 text-gray-600">
+                Orders are processed within 1–3 business days and typically delivered within 5–10 business days
+                after dispatch. Delivery time depends on your location, with metro cities receiving orders faster
+                than remote areas.
+              </p>
+            </details>
+
+            <details className="border-b pb-4">
+              <summary className="cursor-pointer font-semibold text-gray-800 hover:text-teal-600">
+                Do you offer Cash on Delivery (COD)?
+              </summary>
+              <p className="mt-2 text-gray-600">
+                Yes, we offer COD for eligible orders. Please note that additional charges may apply for COD orders.
+                Prepaid orders are processed faster and may have priority in dispatch.
               </p>
             </details>
 
@@ -337,8 +245,8 @@ export default function ShippingPage() {
                 Can I change my delivery address after placing the order?
               </summary>
               <p className="mt-2 text-gray-600">
-                You can change the delivery address within 2 hours of placing the order. After that, address 
-                changes are subject to availability and may incur additional charges.
+                You can change the delivery address within 2 hours of placing the order by contacting our support team.
+                After that, address changes may not be possible once the order is dispatched.
               </p>
             </details>
 
@@ -347,18 +255,29 @@ export default function ShippingPage() {
                 What if I'm not available during delivery?
               </summary>
               <p className="mt-2 text-gray-600">
-                Our delivery partners will attempt delivery twice. You can also reschedule delivery through 
-                the tracking link. After two failed attempts, the order will be returned to our warehouse.
+                Our delivery partners will attempt delivery multiple times. You can also reschedule delivery through
+                the tracking link. If delivery fails due to customer unavailability or refusal, the return shipping
+                cost may be deducted from your refund amount.
               </p>
             </details>
 
             <details className="border-b pb-4">
               <summary className="cursor-pointer font-semibold text-gray-800 hover:text-teal-600">
-                Do you deliver to PO Box addresses?
+                Do you ship to my area?
               </summary>
               <p className="mt-2 text-gray-600">
-                Currently, we do not deliver to PO Box addresses. Please provide a complete street address 
-                for successful delivery.
+                We ship across all serviceable locations within India. Remote or non-serviceable pin codes may take
+                longer or may not be deliverable. Serviceability will be verified during checkout.
+              </p>
+            </details>
+
+            <details className="border-b pb-4">
+              <summary className="cursor-pointer font-semibold text-gray-800 hover:text-teal-600">
+                Which courier partner will deliver my order?
+              </summary>
+              <p className="mt-2 text-gray-600">
+                We use Shiprocket and its associated logistics providers for deliveries. The courier partner is
+                automatically selected based on your delivery location, package weight, and fastest available route.
               </p>
             </details>
           </div>
