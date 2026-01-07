@@ -133,15 +133,15 @@ export default function ShippingPage() {
           </div>
         </div>
 
-        {/* Order Tracking */}
-        <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+        {/* Order Tracking - Temporarily Removed */}
+        {/* <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-6">Track Your Order</h2>
-          
+
           <div className="mb-8">
             <p className="text-gray-700 mb-4">
               Stay updated with real-time tracking of your order from warehouse to doorstep.
             </p>
-            
+
             <div className="flex flex-wrap gap-4 mb-6">
               <input
                 type="text"
@@ -166,7 +166,7 @@ export default function ShippingPage() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* International Shipping */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
