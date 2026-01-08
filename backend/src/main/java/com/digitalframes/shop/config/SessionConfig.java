@@ -65,6 +65,8 @@ public class SessionConfig {
                 // Public endpoints
                 .requestMatchers("/api/auth/**", "/api/products/**", "/api/site-settings/**").permitAll()
                 .requestMatchers("/api/orders/guest/**").permitAll()
+                .requestMatchers("/api/orders/webhook").permitAll() // Razorpay webhook
+                .requestMatchers("/api/payments/webhook").permitAll() // Razorpay webhook (legacy)
                 .requestMatchers("/actuator/health").permitAll()
 
                 // Admin only endpoints

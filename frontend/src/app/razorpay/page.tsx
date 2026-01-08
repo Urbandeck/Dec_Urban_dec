@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { config } from '@/lib/config';
 
 export default function RazorpayPage() {
@@ -34,7 +35,7 @@ export default function RazorpayPage() {
 
       // Check if Razorpay is loaded
       if (typeof (window as any).Razorpay === 'undefined') {
-        alert('Razorpay SDK not loaded. Please refresh the page.');
+        toast.error('Razorpay SDK not loaded. Please refresh the page.');
         return;
       }
 
@@ -47,7 +48,14 @@ export default function RazorpayPage() {
         description: 'Digital Frames Purchase',
         order_id: order.id,
         handler: function(response: any) {
-          alert(`Payment Successful!\n\nPayment ID: ${response.razorpay_payment_id}\nOrder ID: ${response.razorpay_order_id}`);
+          toast.success(
+            <div className="space-y-1">
+              <p className="font-semibold">Payment Successful!</p>
+              <p className="text-sm">Payment ID: {response.razorpay_payment_id}</p>
+              <p className="text-sm">Order ID: {response.razorpay_order_id}</p>
+            </div>,
+            { duration: 5000 }
+          );
         },
         prefill: {
           name: 'Ajay Patil',
@@ -66,11 +74,11 @@ export default function RazorpayPage() {
       // Open Razorpay checkout
       const razorpay = new (window as any).Razorpay(options);
       razorpay.on('payment.failed', function (response: any) {
-        alert(`Payment failed: ${response.error.description}`);
+        toast.error(`Payment failed: ${response.error.description}`, { duration: 5000 });
       });
       razorpay.open();
     } catch (error) {
-      alert('Failed to initiate payment. Please check console.');
+      toast.error('Failed to initiate payment. Please check console.');
     }
   };
 

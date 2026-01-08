@@ -1,5 +1,6 @@
 'use client';
 import { ENV_CONFIG } from '@/lib/env-config';
+import toast from 'react-hot-toast';
 
 import { useState, useEffect } from 'react';
 import { formatPrice } from '@/lib/utils';
@@ -137,7 +138,7 @@ export default function AdminCustomers() {
       setShowEditModal(false);
       setSelectedCustomer(null);
     } catch (err) {
-      alert('Failed to update customer');
+      toast.error('Failed to update customer');
     }
   };
 

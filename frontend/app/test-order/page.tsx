@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { useAuthStore } from '@/store/auth';
 import { formatPrice } from '@/lib/utils';
 
@@ -63,7 +64,7 @@ export default function TestOrderPage() {
     existingOrders.push(testOrder);
     localStorage.setItem('orders', JSON.stringify(existingOrders));
     loadLocalOrders();
-    alert('Test order created in localStorage!');
+    toast.success('Test order created in localStorage!');
   };
 
   const clearLocalOrders = () => {

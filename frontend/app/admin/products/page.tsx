@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { api, Product } from '@/lib/api';
 import { formatPrice } from '@/lib/utils';
 import ProductImage from '@/components/ProductImage';
@@ -81,9 +82,9 @@ export default function AdminProducts() {
             await uploadImages(productId);
           }
           await fetchProducts(); // Refresh the list
-          alert('Product updated successfully!');
+          toast.success('Product updated successfully!');
         } else {
-          alert('Failed to update product. Please try again.');
+          toast.error('Failed to update product. Please try again.');
           return;
         }
       } else {
@@ -95,9 +96,9 @@ export default function AdminProducts() {
             await uploadImages(productId);
           }
           await fetchProducts(); // Refresh the list
-          alert('Product added successfully!');
+          toast.success('Product added successfully!');
         } else {
-          alert('Failed to add product. Please try again.');
+          toast.error('Failed to add product. Please try again.');
           return;
         }
       }
@@ -105,7 +106,7 @@ export default function AdminProducts() {
       resetForm();
       setShowAddModal(false);
     } catch (error) {
-      alert('An error occurred. Please try again.');
+      toast.error('An error occurred. Please try again.');
     }
   };
 
@@ -202,12 +203,12 @@ export default function AdminProducts() {
         const success = await api.deleteProduct(productId);
         if (success) {
           await fetchProducts(); // Refresh the list
-          alert('Product deleted successfully!');
+          toast.success('Product deleted successfully!');
         } else {
-          alert('Failed to delete product. Please try again.');
+          toast.error('Failed to delete product. Please try again.');
         }
       } catch (error) {
-        alert('An error occurred. Please try again.');
+        toast.error('An error occurred. Please try again.');
       }
     }
   };

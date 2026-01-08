@@ -66,9 +66,9 @@ export const initiateRazorpayPayment = async (
   onFailure: (error: any) => void
 ) => {
   const scriptLoaded = await loadRazorpayScript();
-  
+
   if (!scriptLoaded) {
-    alert('Failed to load Razorpay SDK. Please check your internet connection.');
+    onFailure({ message: 'Failed to load Razorpay SDK. Please check your internet connection.' });
     return;
   }
 

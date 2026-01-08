@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { config } from '@/lib/config';
 
 declare global {
@@ -26,7 +27,7 @@ export default function PaymentPage() {
 
   const makePayment = () => {
     if (!scriptLoaded) {
-      alert('Payment script is still loading. Please try again.');
+      toast.error('Payment script is still loading. Please try again.');
       return;
     }
 
@@ -38,8 +39,13 @@ export default function PaymentPage() {
       description: 'Digital Frames Purchase',
       image: 'https://via.placeholder.com/150',
       handler: function (response: any) {
-        alert(
-          `Payment Successful!\n\nPayment ID: ${response.razorpay_payment_id}\n\nYou can now close this window.`
+        toast.success(
+          <div className="space-y-1">
+            <p className="font-semibold">Payment Successful!</p>
+            <p className="text-sm">Payment ID: {response.razorpay_payment_id}</p>
+            <p className="text-sm">You can now close this window.</p>
+          </div>,
+          { duration: 5000 }
         );
       },
       prefill: {
@@ -57,7 +63,7 @@ export default function PaymentPage() {
 
     const paymentObject = new window.Razorpay(options);
     paymentObject.on('payment.failed', function (response: any) {
-      alert(`Payment failed: ${response.error.description}`);
+      toast.error(`Payment failed: ${response.error.description}`, { duration: 5000 });
     });
     paymentObject.open();
   };

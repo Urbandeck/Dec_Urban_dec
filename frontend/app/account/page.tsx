@@ -1,5 +1,6 @@
 'use client';
 import { ENV_CONFIG } from '@/lib/env-config';
+import toast from 'react-hot-toast';
 
 import { useAuthStore } from '@/store/auth';
 import { useRouter } from 'next/navigation';
@@ -139,14 +140,14 @@ export default function AccountPage() {
       // Validate required fields
       if (!newAddress.fullName || !newAddress.email || !newAddress.phone || !newAddress.addressLine1 || 
           !newAddress.city || !newAddress.state || !newAddress.pincode) {
-        alert('Please fill all required fields');
+        toast.error('Please fill all required fields', { duration: 5000 });
         setIsSavingAddress(false);
         return;
       }
 
       // Validate email format
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newAddress.email)) {
-        alert('Please enter a valid email address');
+        toast.error('Please enter a valid email address', { duration: 5000 });
         setIsSavingAddress(false);
         return;
       }
@@ -185,7 +186,7 @@ export default function AccountPage() {
       });
       setShowAddressForm(false);
     } catch (error) {
-      alert('Failed to save address');
+      toast.error('Failed to save address');
     } finally {
       setIsSavingAddress(false);
     }
@@ -218,14 +219,14 @@ export default function AccountPage() {
       if (!editAddressData.fullName || !editAddressData.email || !editAddressData.phone || 
           !editAddressData.addressLine1 || !editAddressData.city || !editAddressData.state || 
           !editAddressData.pincode) {
-        alert('Please fill all required fields');
+        toast.error('Please fill all required fields', { duration: 5000 });
         setIsSavingAddress(false);
         return;
       }
 
       // Validate email format
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(editAddressData.email)) {
-        alert('Please enter a valid email address');
+        toast.error('Please enter a valid email address', { duration: 5000 });
         setIsSavingAddress(false);
         return;
       }
@@ -242,7 +243,7 @@ export default function AccountPage() {
       setEditingAddress(null);
       setEditAddressData({});
     } catch (error) {
-      alert('Failed to update address');
+      toast.error('Failed to update address');
     } finally {
       setIsSavingAddress(false);
     }
@@ -280,7 +281,7 @@ export default function AccountPage() {
   const handleSaveProfile = async () => {
     const errors = validateForm();
     if (errors.length > 0) {
-      alert('Please fix the following errors:\n' + errors.join('\n'));
+      toast.error('Please fix the following errors:\n' + errors.join('\n'), { duration: 5000 });
       return;
     }
 
@@ -296,16 +297,16 @@ export default function AccountPage() {
       
       // If email changed, show warning
       if (profileData.email !== user?.email) {
-        alert('Email change will require verification. Please check your new email for verification link.');
+        toast('Email change will require verification. Please check your new email for verification link.', { duration: 5000, icon: 'ℹ️' });
       }
       
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 500));
       
       setIsEditing(false);
-      alert('Profile updated successfully!');
+      toast.success('Profile updated successfully!');
     } catch (error) {
-      alert('Failed to save profile. Please try again.');
+      toast.error('Failed to save profile. Please try again.');
     } finally {
       setIsSaving(false);
     }

@@ -1,5 +1,6 @@
 'use client';
 import { ENV_CONFIG } from '@/lib/env-config';
+import toast from 'react-hot-toast';
 
 import { useState, useEffect } from 'react';
 
@@ -85,9 +86,9 @@ export default function AdminSettings() {
       if (!response.ok) {
         throw new Error('Failed to save settings');
       }
-      alert('Settings saved successfully!');
+      toast.success('Settings saved successfully!');
     } catch (err) {
-      alert('Failed to save settings');
+      toast.error('Failed to save settings');
     } finally {
       setSaving(false);
     }

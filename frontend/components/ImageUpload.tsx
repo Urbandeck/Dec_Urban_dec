@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
+import toast from 'react-hot-toast';
 import { uploadProductImage, uploadMultipleImages, deleteProductImage, fileToBase64 } from '@/lib/imageUtils';
 import { ProductImage } from '@/lib/api';
 
@@ -51,7 +52,7 @@ export default function ImageUpload({ productId, existingImages = [], onImagesCh
         fileInputRef.current.value = '';
       }
     } catch (error) {
-      alert('Failed to upload images. Please try again.');
+      toast.error('Failed to upload images. Please try again.');
     } finally {
       setUploading(false);
     }
@@ -69,7 +70,7 @@ export default function ImageUpload({ productId, existingImages = [], onImagesCh
         onImagesChange(newImages);
       }
     } catch (error) {
-      alert('Failed to delete image. Please try again.');
+      toast.error('Failed to delete image. Please try again.');
     }
   };
 
@@ -100,7 +101,7 @@ export default function ImageUpload({ productId, existingImages = [], onImagesCh
         onImagesChange(newImages);
       }
     } catch (error) {
-      alert('Failed to set primary image. Please try again.');
+      toast.error('Failed to set primary image. Please try again.');
     }
   };
 

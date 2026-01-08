@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { config } from '@/lib/config';
 
 declare global {
@@ -29,7 +30,7 @@ export default function PayPage() {
 
   const handlePayment = async () => {
     if (!scriptLoaded) {
-      alert('Payment system is loading. Please try again.');
+      toast.error('Payment system is loading. Please try again.');
       return;
     }
 
@@ -57,7 +58,13 @@ export default function PayPage() {
           name: 'Urbandec',
           description: 'Digital Photo Frames',
           handler: function (response: any) {
-            alert(`Payment Successful!\nPayment ID: ${response.razorpay_payment_id}`);
+            toast.success(
+              <div className="space-y-1">
+                <p className="font-semibold">Payment Successful!</p>
+                <p className="text-sm">Payment ID: {response.razorpay_payment_id}</p>
+              </div>,
+              { duration: 5000 }
+            );
           },
           prefill: {
             name: 'Ajay Patil',
@@ -82,7 +89,14 @@ export default function PayPage() {
           description: 'Digital Photo Frames',
           order_id: order.id,
           handler: function (response: any) {
-            alert(`Payment Successful!\nPayment ID: ${response.razorpay_payment_id}\nOrder ID: ${response.razorpay_order_id}`);
+            toast.success(
+              <div className="space-y-1">
+                <p className="font-semibold">Payment Successful!</p>
+                <p className="text-sm">Payment ID: {response.razorpay_payment_id}</p>
+                <p className="text-sm">Order ID: {response.razorpay_order_id}</p>
+              </div>,
+              { duration: 5000 }
+            );
           },
           prefill: {
             name: 'Ajay Patil',

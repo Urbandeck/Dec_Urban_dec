@@ -26,6 +26,7 @@ public class OrderService {
     private final ShiprocketService shiprocketService;
     private final EmailService emailService;
     private final SmsService smsService;
+    private final com.razorpay.RazorpayClient razorpayClient;
     
     @Transactional
     public CustomerOrder createOrder(Map<String, Object> orderData) {
@@ -268,5 +269,219 @@ public class OrderService {
     @Transactional
     public CustomerOrder saveOrder(CustomerOrder order) {
         return orderRepository.save(order);
+    }
+
+    @Transactional
+    public Map<String, Object> processRefund(Long orderId, String reason) {
+        try {
+            // Get the customer order
+            CustomerOrder order = orderRepository.findById(orderId)
+                    .orElseThrow(() -> new RuntimeException("Order not found: " + orderId));
+
+            // Check if payment exists and is successful
+            if (order.getPaymentId() == null || order.getPaymentId().isEmpty()) {
+                throw new RuntimeException("No payment found for this order");
+            }
+
+            if (!"SUCCESS".equals(order.getPaymentStatus())) {
+                throw new RuntimeException("Cannot refund - payment status is: " + order.getPaymentStatus());
+            }
+
+            if ("REFUNDED".equals(order.getPaymentStatus())) {
+                throw new RuntimeException("Payment has already been refunded");
+            }
+
+            // First, check payment status and capture if needed
+            com.razorpay.Payment razorpayPayment = razorpayClient.payments.fetch(order.getPaymentId());
+            String paymentStatus = razorpayPayment.get("status");
+
+            log.info("Payment {} status: {}", order.getPaymentId(), paymentStatus);
+
+            // If payment is authorized but not captured, capture it first
+            if ("authorized".equals(paymentStatus)) {
+                log.info("Payment is authorized but not captured. Capturing payment first...");
+                org.json.JSONObject captureRequest = new org.json.JSONObject();
+                captureRequest.put("amount", (int)(order.getTotalAmount() * 100)); // Amount in paise
+                razorpayPayment = razorpayClient.payments.capture(order.getPaymentId(), captureRequest);
+                log.info("Payment captured successfully");
+            } else if (!"captured".equals(paymentStatus)) {
+                throw new RuntimeException("Payment status is '" + paymentStatus + "'. Can only refund captured payments.");
+            }
+
+            // Create refund request
+            org.json.JSONObject refundRequest = new org.json.JSONObject();
+            refundRequest.put("amount", (int)(order.getTotalAmount() * 100)); // Convert to paise
+            if (reason != null && !reason.isEmpty()) {
+                org.json.JSONObject notes = new org.json.JSONObject();
+                notes.put("reason", reason);
+                refundRequest.put("notes", notes);
+            }
+
+            // Call Razorpay refund API
+            com.razorpay.Refund refund = razorpayClient.payments.refund(order.getPaymentId(), refundRequest);
+
+            // Update order payment status
+            order.setPaymentStatus("REFUNDED");
+            orderRepository.save(order);
+
+            java.util.Map<String, Object> response = new java.util.HashMap<>();
+            response.put("success", true);
+            response.put("message", "Refund processed successfully");
+            response.put("refundId", refund.get("id"));
+            response.put("amount", order.getTotalAmount());
+            response.put("status", refund.get("status"));
+            response.put("orderId", orderId);
+
+            log.info("Refund processed successfully for order {} with refund ID {}", orderId, refund.get("id"));
+
+            return response;
+
+        } catch (com.razorpay.RazorpayException e) {
+            log.error("Error processing refund for order {}: ", orderId, e);
+            throw new RuntimeException("Failed to process refund: " + e.getMessage(), e);
+        } catch (Exception e) {
+            log.error("Unexpected error processing refund for order {}: ", orderId, e);
+            throw new RuntimeException("Failed to process refund: " + e.getMessage(), e);
+        }
+    }
+
+    public boolean canRefund(Long orderId) {
+        try {
+            CustomerOrder order = orderRepository.findById(orderId).orElse(null);
+
+            if (order == null) {
+                return false;
+            }
+
+            // Can only refund if payment exists, is successful and not already refunded
+            return order.getPaymentId() != null &&
+                   "SUCCESS".equals(order.getPaymentStatus()) &&
+                   !"REFUNDED".equals(order.getPaymentStatus());
+        } catch (Exception e) {
+            log.error("Error checking refund eligibility for order {}: ", orderId, e);
+            return false;
+        }
+    }
+
+    @Transactional
+    public void handleWebhook(Map<String, Object> payload, String signature) {
+        try {
+            String event = (String) payload.get("event");
+            log.info("Processing webhook event: {}", event);
+
+            // Handle payment events
+            if (event.startsWith("payment.")) {
+                handlePaymentWebhook(event, payload);
+            }
+            // Handle refund events
+            else if (event.startsWith("refund.")) {
+                handleRefundWebhook(event, payload);
+            }
+            else {
+                log.info("Unhandled webhook event type: {}", event);
+            }
+
+        } catch (Exception e) {
+            log.error("Error handling webhook: ", e);
+            throw new RuntimeException("Webhook processing failed", e);
+        }
+    }
+
+    private void handlePaymentWebhook(String event, Map<String, Object> payload) {
+        try {
+            Map<String, Object> payloadEntity = (Map<String, Object>) payload.get("payload");
+            Map<String, Object> paymentEntity = (Map<String, Object>) payloadEntity.get("payment");
+            Map<String, Object> entity = (Map<String, Object>) paymentEntity.get("entity");
+
+            String paymentId = (String) entity.get("id");
+            String status = (String) entity.get("status");
+
+            log.info("Payment webhook - ID: {}, Status: {}, Event: {}", paymentId, status, event);
+
+            // Find order by payment ID
+            List<CustomerOrder> orders = orderRepository.findAll();
+            CustomerOrder order = orders.stream()
+                .filter(o -> paymentId.equals(o.getPaymentId()))
+                .findFirst()
+                .orElse(null);
+
+            if (order == null) {
+                log.warn("No order found for payment ID: {}", paymentId);
+                return;
+            }
+
+            switch (event) {
+                case "payment.captured":
+                    order.setPaymentStatus("SUCCESS");
+                    order.setStatus("PAID");
+                    log.info("Payment captured for order: {}", order.getOrderId());
+                    break;
+                case "payment.failed":
+                    order.setPaymentStatus("FAILED");
+                    order.setStatus("FAILED");
+                    log.info("Payment failed for order: {}", order.getOrderId());
+                    break;
+                case "payment.authorized":
+                    order.setPaymentStatus("AUTHORIZED");
+                    log.info("Payment authorized for order: {}", order.getOrderId());
+                    break;
+                default:
+                    log.info("Unhandled payment event: {}", event);
+                    return;
+            }
+
+            orderRepository.save(order);
+
+        } catch (Exception e) {
+            log.error("Error handling payment webhook: ", e);
+        }
+    }
+
+    private void handleRefundWebhook(String event, Map<String, Object> payload) {
+        try {
+            Map<String, Object> payloadEntity = (Map<String, Object>) payload.get("payload");
+            Map<String, Object> refundEntity = (Map<String, Object>) payloadEntity.get("refund");
+            Map<String, Object> entity = (Map<String, Object>) refundEntity.get("entity");
+
+            String refundId = (String) entity.get("id");
+            String paymentId = (String) entity.get("payment_id");
+            String status = (String) entity.get("status");
+
+            log.info("Refund webhook - Refund ID: {}, Payment ID: {}, Status: {}, Event: {}",
+                refundId, paymentId, status, event);
+
+            // Find order by payment ID
+            List<CustomerOrder> orders = orderRepository.findAll();
+            CustomerOrder order = orders.stream()
+                .filter(o -> paymentId.equals(o.getPaymentId()))
+                .findFirst()
+                .orElse(null);
+
+            if (order == null) {
+                log.warn("No order found for payment ID: {}", paymentId);
+                return;
+            }
+
+            switch (event) {
+                case "refund.processed":
+                    order.setPaymentStatus("REFUNDED");
+                    log.info("Refund processed for order: {} - Refund ID: {}", order.getOrderId(), refundId);
+                    break;
+                case "refund.failed":
+                    log.error("Refund failed for order: {} - Refund ID: {}", order.getOrderId(), refundId);
+                    break;
+                case "refund.created":
+                    log.info("Refund created for order: {} - Refund ID: {}", order.getOrderId(), refundId);
+                    break;
+                default:
+                    log.info("Unhandled refund event: {}", event);
+                    return;
+            }
+
+            orderRepository.save(order);
+
+        } catch (Exception e) {
+            log.error("Error handling refund webhook: ", e);
+        }
     }
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { initiateRazorpayPayment } from '@/lib/razorpay';
 import { useRouter } from 'next/navigation';
 
@@ -34,7 +35,7 @@ export const PaymentButton: React.FC<PaymentButtonProps> = ({
         router.push(`/order-success/${orderId}`);
       },
       (error) => {
-        alert('Payment failed. Please try again.');
+        toast.error('Payment failed. Please try again.');
         setLoading(false);
       }
     );

@@ -1,5 +1,6 @@
 'use client';
 import { ENV_CONFIG } from '@/lib/env-config';
+import toast from 'react-hot-toast';
 
 import { useState, useEffect } from 'react';
 import { formatPrice } from '@/lib/utils';
@@ -32,10 +33,13 @@ export default function AdminOrders() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showViewModal, setShowViewModal] = useState(false);
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
+  const [showRefundModal, setShowRefundModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [refundReason, setRefundReason] = useState('');
+  const [refundingOrderId, setRefundingOrderId] = useState<string | null>(null);
 
   useEffect(() => {
     fetchOrders();
@@ -127,8 +131,44 @@ export default function AdminOrders() {
       // Refresh orders after successful update
       await fetchOrders();
     } catch (err) {
-      alert('Failed to update order status');
+      toast.error('Failed to update order status');
     }
+  };
+
+  const processRefund = async () => {
+    if (!selectedOrder) return;
+
+    setRefundingOrderId(selectedOrder.id);
+    try {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/orders/${selectedOrder.id}/refund`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ reason: refundReason }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to process refund');
+      }
+
+      toast.success(`Refund processed successfully! Refund ID: ${data.refundId}`, { duration: 5000 });
+      setShowRefundModal(false);
+      setRefundReason('');
+      await fetchOrders();
+    } catch (err) {
+      toast.error(`Failed to process refund: ${err instanceof Error ? err.message : 'Unknown error'}`, { duration: 5000 });
+    } finally {
+      setRefundingOrderId(null);
+    }
+  };
+
+  const canRefund = (order: Order): boolean => {
+    // Can refund if order is cancelled or delivered (for customer-initiated returns)
+    return order.status === 'cancelled' || order.status === 'delivered';
   };
 
   if (loading) {
@@ -249,7 +289,7 @@ export default function AdminOrders() {
                     {new Date(order.createdAt).toLocaleDateString()}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
-                    <button 
+                    <button
                       onClick={() => {
                         setSelectedOrder(order);
                         setShowViewModal(true);
@@ -258,15 +298,26 @@ export default function AdminOrders() {
                     >
                       View
                     </button>
-                    <button 
+                    <button
                       onClick={() => {
                         setSelectedOrder(order);
                         setShowInvoiceModal(true);
                       }}
-                      className="text-gray-600 hover:text-gray-900"
+                      className="text-gray-600 hover:text-gray-900 mr-3"
                     >
                       Invoice
                     </button>
+                    {canRefund(order) && (
+                      <button
+                        onClick={() => {
+                          setSelectedOrder(order);
+                          setShowRefundModal(true);
+                        }}
+                        className="text-red-600 hover:text-red-900"
+                      >
+                        Refund
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -479,7 +530,7 @@ export default function AdminOrders() {
                     onClick={() => {
                       const email = prompt('Enter email address to send invoice:', selectedOrder.customer.email);
                       if (email) {
-                        alert(`Invoice sent to ${email}`);
+                        toast.success(`Invoice sent to ${email}`);
                       }
                     }}
                     className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
@@ -504,6 +555,111 @@ export default function AdminOrders() {
                   className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300"
                 >
                   Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Refund Modal */}
+      {showRefundModal && selectedOrder && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full">
+            <div className="p-6">
+              {/* Modal Header */}
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-bold text-gray-900">Process Refund</h2>
+                <button
+                  onClick={() => {
+                    setShowRefundModal(false);
+                    setRefundReason('');
+                  }}
+                  className="text-gray-400 hover:text-gray-500"
+                  disabled={refundingOrderId !== null}
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Refund Information */}
+              <div className="space-y-4">
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                  <div className="flex items-start">
+                    <svg className="w-5 h-5 text-yellow-600 mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    <div>
+                      <h3 className="text-sm font-semibold text-yellow-900 mb-1">Refund Confirmation</h3>
+                      <p className="text-sm text-yellow-800">
+                        You are about to process a refund of <span className="font-bold">{formatPrice(selectedOrder.total)}</span> for order <span className="font-bold">{selectedOrder.orderNumber}</span>. This action cannot be undone.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Reason for Refund (Optional)
+                  </label>
+                  <textarea
+                    value={refundReason}
+                    onChange={(e) => setRefundReason(e.target.value)}
+                    placeholder="Enter reason for refund..."
+                    rows={3}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                    disabled={refundingOrderId !== null}
+                  />
+                </div>
+
+                <div className="bg-gray-50 p-3 rounded-lg">
+                  <div className="text-sm">
+                    <div className="flex justify-between mb-1">
+                      <span className="text-gray-600">Customer:</span>
+                      <span className="font-medium">{selectedOrder.customer.name}</span>
+                    </div>
+                    <div className="flex justify-between mb-1">
+                      <span className="text-gray-600">Email:</span>
+                      <span className="font-medium">{selectedOrder.customer.email}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Refund Amount:</span>
+                      <span className="font-bold text-red-600">{formatPrice(selectedOrder.total)}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="mt-6 flex justify-end gap-3">
+                <button
+                  onClick={() => {
+                    setShowRefundModal(false);
+                    setRefundReason('');
+                  }}
+                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 disabled:opacity-50"
+                  disabled={refundingOrderId !== null}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={processRefund}
+                  disabled={refundingOrderId !== null}
+                  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 flex items-center"
+                >
+                  {refundingOrderId === selectedOrder.id ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Processing...
+                    </>
+                  ) : (
+                    'Process Refund'
+                  )}
                 </button>
               </div>
             </div>

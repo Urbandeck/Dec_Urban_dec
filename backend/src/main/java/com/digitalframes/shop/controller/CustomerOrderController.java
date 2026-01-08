@@ -143,4 +143,51 @@ public class CustomerOrderController {
                 .body(Map.of("error", "Failed to send invoice: " + e.getMessage()));
         }
     }
+
+    @PostMapping("/{id}/refund")
+    public ResponseEntity<?> processRefund(
+            @PathVariable Long id,
+            @RequestBody(required = false) Map<String, String> request) {
+        try {
+            String reason = request != null ? request.get("reason") : null;
+            Map<String, Object> response = orderService.processRefund(id, reason);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error("Refund processing failed for order {}: ", id, e);
+            Map<String, Object> error = new java.util.HashMap<>();
+            error.put("success", false);
+            error.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+    }
+
+    @GetMapping("/{id}/can-refund")
+    public ResponseEntity<?> checkRefundEligibility(@PathVariable Long id) {
+        try {
+            boolean canRefund = orderService.canRefund(id);
+            return ResponseEntity.ok(Map.of(
+                "canRefund", canRefund,
+                "orderId", id
+            ));
+        } catch (Exception e) {
+            log.error("Error checking refund eligibility for order {}: ", id, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    @PostMapping("/webhook")
+    public ResponseEntity<String> handleWebhook(
+            @RequestBody Map<String, Object> payload,
+            @RequestHeader(value = "X-Razorpay-Signature", required = false) String signature) {
+        try {
+            log.info("Received Razorpay webhook: {}", payload);
+            orderService.handleWebhook(payload, signature);
+            return ResponseEntity.ok("Webhook processed successfully");
+        } catch (Exception e) {
+            log.error("Webhook processing failed: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Webhook processing failed: " + e.getMessage());
+        }
+    }
 }
