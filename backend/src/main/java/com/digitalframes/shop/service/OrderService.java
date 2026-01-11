@@ -111,10 +111,17 @@ public class OrderService {
         CustomerOrder savedOrder = orderRepository.save(order);
         log.info("Order created successfully with ID: {}, Status: {}", savedOrder.getOrderId(), savedOrder.getStatus());
 
-        // If order is PAID, create Shiprocket order immediately
-        if ("PAID".equals(savedOrder.getStatus())) {
+        // Check if order should be sent to Shiprocket (prepaid OR COD orders)
+        boolean isCODOrder = savedOrder.getPaymentId() != null && savedOrder.getPaymentId().startsWith("COD_");
+        boolean shouldCreateShiprocketOrder = "PAID".equals(savedOrder.getStatus()) ||
+                                              ("PENDING".equals(savedOrder.getStatus()) && isCODOrder);
+
+        // Create Shiprocket order for both prepaid and COD orders
+        if (shouldCreateShiprocketOrder) {
             try {
-                log.info("Order is PAID, creating Shiprocket order for: {}", savedOrder.getOrderId());
+                String orderType = isCODOrder ? "COD" : "Prepaid";
+                log.info("Order is {} ({}), creating Shiprocket order for: {}",
+                    savedOrder.getStatus(), orderType, savedOrder.getOrderId());
                 Map<String, Object> shiprocketResponse = shiprocketService.createShiprocketOrder(savedOrder);
 
                 if (shiprocketResponse != null && shiprocketResponse.get("order_id") != null) {
@@ -126,8 +133,8 @@ public class OrderService {
                         savedOrder.setAwbNumber(shiprocketResponse.get("awb").toString());
                     }
                     savedOrder = orderRepository.save(savedOrder);
-                    log.info("Shiprocket order created successfully. Shiprocket Order ID: {}",
-                        shiprocketResponse.get("order_id"));
+                    log.info("Shiprocket order created successfully for {} order. Shiprocket Order ID: {}",
+                        orderType, shiprocketResponse.get("order_id"));
                 } else {
                     log.error("Failed to create Shiprocket order - no order_id in response");
                 }
