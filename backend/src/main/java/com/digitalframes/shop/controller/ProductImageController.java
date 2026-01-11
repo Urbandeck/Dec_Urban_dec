@@ -112,11 +112,16 @@ public class ProductImageController {
     public ResponseEntity<?> getImage(@PathVariable Long imageId) {
         return productImageService.getImage(imageId)
                 .map(image -> {
+                    // Check if image data exists
+                    if (image.getImageData() == null || image.getImageData().length == 0) {
+                        return ResponseEntity.notFound().build();
+                    }
+
                     HttpHeaders headers = new HttpHeaders();
                     headers.setContentType(MediaType.parseMediaType(image.getMimeType()));
                     headers.setContentLength(image.getImageData().length);
                     headers.setCacheControl(CacheControl.maxAge(3600, java.util.concurrent.TimeUnit.SECONDS));
-                    
+
                     return new ResponseEntity<>(image.getImageData(), headers, HttpStatus.OK);
                 })
                 .orElse(ResponseEntity.notFound().build());
@@ -217,7 +222,7 @@ public class ProductImageController {
     }
 
     /**
-     * Convert ProductImage entity to DTO with base64 encoded image data
+     * Convert ProductImage entity to DTO (metadata only, no binary data)
      */
     private Map<String, Object> convertToDTO(ProductImage image) {
         Map<String, Object> dto = new HashMap<>();
@@ -231,12 +236,10 @@ public class ProductImageController {
         dto.put("displayOrder", image.getDisplayOrder());
         dto.put("createdAt", image.getCreatedAt());
         dto.put("updatedAt", image.getUpdatedAt());
-        
-        // Include base64 encoded image data for easy frontend consumption
+
+        // Return image URL instead of base64 data for better performance
         dto.put("imageUrl", "/api/products/images/" + image.getId());
-        dto.put("base64Data", "data:" + image.getMimeType() + ";base64," + 
-                Base64.getEncoder().encodeToString(image.getImageData()));
-        
+
         return dto;
     }
 }

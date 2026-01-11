@@ -108,11 +108,8 @@ public class ProductController {
         dto.put("createdAt", image.getCreatedAt());
         dto.put("updatedAt", image.getUpdatedAt());
 
-        // Always include base64 data for displaying images
-        if (image.getImageData() != null && image.getImageData().length > 0) {
-            dto.put("base64Data", "data:" + image.getMimeType() + ";base64," +
-                    Base64.getEncoder().encodeToString(image.getImageData()));
-        }
+        // Return image URL instead of base64 data for better performance
+        dto.put("imageUrl", "/api/products/images/" + image.getId());
 
         return dto;
     }

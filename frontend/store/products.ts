@@ -57,7 +57,20 @@ export const useProductStore = create<ProductStore>()(
             const data = await response.json();
             // Only cache if we got products
             if (data && data.length > 0) {
-              set({ products: data, lastFetched: Date.now() });
+              // Convert relative image URLs to absolute URLs
+              const productsWithAbsoluteUrls = data.map((product: Product) => ({
+                ...product,
+                images: product.images?.map((image: ProductImage) => ({
+                  ...image,
+                  // Generate imageUrl from image ID if not provided
+                  imageUrl: image.imageUrl
+                    ? (image.imageUrl.startsWith('http')
+                        ? image.imageUrl
+                        : `${ENV_CONFIG.API_URL}${image.imageUrl}`)
+                    : (image.id ? `${ENV_CONFIG.API_URL}/api/products/images/${image.id}` : undefined)
+                }))
+              }));
+              set({ products: productsWithAbsoluteUrls, lastFetched: Date.now() });
             }
           }
         } catch (err) {
