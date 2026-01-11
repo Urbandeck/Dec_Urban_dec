@@ -192,17 +192,13 @@ export default function CustomProductsPage() {
     const statusStyles: { [key: string]: string } = {
       'pending': 'bg-yellow-100 text-yellow-800',
       'processing': 'bg-blue-100 text-blue-800',
-      'ready_to_ship': 'bg-purple-100 text-purple-800',
       'shipped': 'bg-indigo-100 text-indigo-800',
       'delivered': 'bg-green-100 text-green-800',
       'cancelled': 'bg-red-100 text-red-800'
     };
 
     const formatStatus = (status: string) => {
-      const statusMap: { [key: string]: string } = {
-        'ready_to_ship': 'Ready to Ship'
-      };
-      return statusMap[status] || status.charAt(0).toUpperCase() + status.slice(1);
+      return status.charAt(0).toUpperCase() + status.slice(1);
     };
 
     return (
@@ -534,7 +530,6 @@ export default function CustomProductsPage() {
                     >
                       <option value="pending">Pending</option>
                       <option value="processing">Processing</option>
-                      <option value="ready_to_ship">Ready to Ship</option>
                       <option value="shipped">Shipped</option>
                       <option value="delivered">Delivered</option>
                       <option value="cancelled">Cancelled</option>

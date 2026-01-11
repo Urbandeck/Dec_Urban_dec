@@ -118,9 +118,9 @@ public class CustomProductService {
         }
         request.setUpdatedAt(LocalDateTime.now());
 
-        // Auto-create Shiprocket order when status changes to "ready_to_ship"
-        if ("ready_to_ship".equalsIgnoreCase(status) && !"ready_to_ship".equalsIgnoreCase(oldStatus)) {
-            logger.info("Status changed to ready_to_ship for custom product {}. Creating Shiprocket order...", id);
+        // Auto-create Shiprocket order when status changes to "shipped"
+        if ("shipped".equalsIgnoreCase(status) && !"shipped".equalsIgnoreCase(oldStatus)) {
+            logger.info("Status changed to shipped for custom product {}. Creating Shiprocket order...", id);
 
             try {
                 Map<String, Object> shiprocketResponse = shiprocketService.createShiprocketOrderForCustomProduct(request);
@@ -141,7 +141,8 @@ public class CustomProductService {
                         shiprocketOrderId, shiprocketShipmentId);
                 } else {
                     logger.error("Failed to create Shiprocket order. Response: {}", shiprocketResponse);
-                    // Keep status as ready_to_ship if Shiprocket creation fails
+                    // Revert to processing if Shiprocket creation fails
+                    request.setStatus("processing");
                     if (notes != null) {
                         request.setAdminNotes(notes + " | Shiprocket order creation failed");
                     } else {
@@ -150,7 +151,8 @@ public class CustomProductService {
                 }
             } catch (Exception e) {
                 logger.error("Error creating Shiprocket order for custom product {}: {}", id, e.getMessage(), e);
-                // Keep status as ready_to_ship if there's an error
+                // Revert to processing if there's an error
+                request.setStatus("processing");
                 if (notes != null) {
                     request.setAdminNotes(notes + " | Shiprocket error: " + e.getMessage());
                 } else {
