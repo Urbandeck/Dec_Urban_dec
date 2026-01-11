@@ -86,6 +86,9 @@ management:
       exposure:
         include: health, info, metrics
       base-path: /actuator
+  health:
+    mail:
+      enabled: false
 
 logging:
   level:
