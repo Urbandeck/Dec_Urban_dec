@@ -18,8 +18,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: false
-    show-sql: false
+        format_sql: true
+    show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
   flyway:

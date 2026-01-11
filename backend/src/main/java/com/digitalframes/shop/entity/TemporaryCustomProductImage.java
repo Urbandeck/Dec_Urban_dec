@@ -28,8 +28,7 @@ public class TemporaryCustomProductImage {
     @Column(nullable = false)
     private Long fileSize;
 
-    @Lob
-    @Column(nullable = false, columnDefinition = "BYTEA")
+    @Column(nullable = false, columnDefinition = "bytea")
     private byte[] imageData;
 
     private Integer displayOrder;
