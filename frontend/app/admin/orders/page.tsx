@@ -43,6 +43,8 @@ export default function AdminOrders() {
   const [error, setError] = useState<string | null>(null);
   const [refundReason, setRefundReason] = useState('');
   const [refundingOrderId, setRefundingOrderId] = useState<string | null>(null);
+  const [shippingCharge, setShippingCharge] = useState(50);
+  const [includeShipping, setIncludeShipping] = useState(true);
 
   useEffect(() => {
     fetchOrders();
@@ -532,6 +534,37 @@ export default function AdminOrders() {
                 </button>
               </div>
 
+              {/* Shipping Controls */}
+              <div className="bg-gray-50 p-4 rounded-lg mb-4 border border-gray-200">
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={includeShipping}
+                        onChange={(e) => setIncludeShipping(e.target.checked)}
+                        className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                      />
+                      <span className="text-sm font-medium text-gray-700">Include Shipping Charges</span>
+                    </label>
+                  </div>
+                  {includeShipping && (
+                    <div className="flex items-center gap-2">
+                      <label className="text-sm text-gray-600">Amount:</label>
+                      <input
+                        type="number"
+                        value={shippingCharge}
+                        onChange={(e) => setShippingCharge(Number(e.target.value))}
+                        className="w-24 px-3 py-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        min="0"
+                        step="10"
+                      />
+                      <span className="text-sm text-gray-600">₹</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
               {/* Invoice Content */}
               <div className="border-2 border-gray-200 rounded-lg p-6 bg-white">
                 {/* Company Header */}
@@ -583,13 +616,17 @@ export default function AdminOrders() {
                         <td colSpan={3} className="text-right py-2 px-4 text-sm">Subtotal:</td>
                         <td className="text-right py-2 px-4 text-sm font-medium">{formatPrice(selectedOrder.total)}</td>
                       </tr>
-                      <tr>
-                        <td colSpan={3} className="text-right py-2 px-4 text-sm">GST (18%):</td>
-                        <td className="text-right py-2 px-4 text-sm font-medium">{formatPrice(selectedOrder.total * 0.18)}</td>
-                      </tr>
+                      {includeShipping && (
+                        <tr>
+                          <td colSpan={3} className="text-right py-2 px-4 text-sm">Shipping Charges:</td>
+                          <td className="text-right py-2 px-4 text-sm font-medium">{formatPrice(shippingCharge)}</td>
+                        </tr>
+                      )}
                       <tr className="border-t font-bold">
                         <td colSpan={3} className="text-right py-2 px-4">Grand Total:</td>
-                        <td className="text-right py-2 px-4 text-lg text-blue-600">{formatPrice(selectedOrder.total * 1.18)}</td>
+                        <td className="text-right py-2 px-4 text-lg text-blue-600">
+                          {formatPrice(selectedOrder.total + (includeShipping ? shippingCharge : 0))}
+                        </td>
                       </tr>
                     </tfoot>
                   </table>
