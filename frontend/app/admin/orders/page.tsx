@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { formatPrice } from '@/lib/utils';
 
 type OrderStatus = 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
+type PaymentStatus = 'pending' | 'success' | 'failed' | 'refunded';
 
 interface Order {
   id: string;
@@ -22,6 +23,8 @@ interface Order {
   }[];
   total: number;
   status: OrderStatus;
+  paymentStatus: PaymentStatus;
+  paymentId: string;
   paymentMethod: string;
   shippingAddress: string;
   createdAt: string;
@@ -68,7 +71,9 @@ export default function AdminOrders() {
           price: item.price,
         })) || [],
         total: order.totalAmount,
-        status: mapBackendStatus(order.status, order.paymentStatus),
+        status: mapBackendStatus(order.status),
+        paymentStatus: mapPaymentStatus(order.paymentStatus),
+        paymentId: order.paymentId || '',
         paymentMethod: 'Razorpay',
         shippingAddress: `${order.shippingAddress || ''}, ${order.city || ''}, ${order.state || ''} ${order.pincode || ''}`.trim(),
         createdAt: order.createdAt,
@@ -83,11 +88,20 @@ export default function AdminOrders() {
     }
   };
 
-  const mapBackendStatus = (orderStatus: string, paymentStatus: string): OrderStatus => {
+  const mapBackendStatus = (orderStatus: string): OrderStatus => {
     if (orderStatus === 'CANCELLED') return 'cancelled';
     if (orderStatus === 'DELIVERED') return 'delivered';
     if (orderStatus === 'SHIPPED') return 'shipped';
-    if (orderStatus === 'PROCESSING' || paymentStatus === 'SUCCESS') return 'processing';
+    if (orderStatus === 'PROCESSING' || orderStatus === 'PAID') return 'processing';
+    return 'pending';
+  };
+
+  const mapPaymentStatus = (paymentStatus: string): PaymentStatus => {
+    if (!paymentStatus) return 'pending';
+    const status = paymentStatus.toLowerCase();
+    if (status === 'success') return 'success';
+    if (status === 'failed') return 'failed';
+    if (status === 'refunded') return 'refunded';
     return 'pending';
   };
 
@@ -108,6 +122,16 @@ export default function AdminOrders() {
       case 'delivered': return 'bg-green-100 text-green-800';
       case 'cancelled': return 'bg-red-100 text-red-800';
       default: return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  const getPaymentStatusColor = (status: PaymentStatus) => {
+    switch (status) {
+      case 'pending': return 'bg-amber-100 text-amber-800 border-amber-200';
+      case 'success': return 'bg-emerald-100 text-emerald-800 border-emerald-200';
+      case 'failed': return 'bg-red-100 text-red-800 border-red-200';
+      case 'refunded': return 'bg-purple-100 text-purple-800 border-purple-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
 
@@ -167,8 +191,8 @@ export default function AdminOrders() {
   };
 
   const canRefund = (order: Order): boolean => {
-    // Can refund if order is cancelled or delivered (for customer-initiated returns)
-    return order.status === 'cancelled' || order.status === 'delivered';
+    // Can refund only if payment was successful and not already refunded
+    return order.paymentStatus === 'success';
   };
 
   if (loading) {
@@ -226,22 +250,19 @@ export default function AdminOrders() {
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Order
+                  Order Details
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Customer
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Items
+                  Payment Info
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Total
+                  Amount
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Date
+                  Order Status
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Actions
@@ -251,32 +272,44 @@ export default function AdminOrders() {
             <tbody className="divide-y divide-gray-200">
               {filteredOrders.map((order) => (
                 <tr key={order.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">{order.orderNumber}</div>
-                    <div className="text-sm text-gray-500">{order.paymentMethod}</div>
+                  <td className="px-6 py-4">
+                    <div className="text-sm font-semibold text-gray-900">{order.orderNumber}</div>
+                    <div className="text-xs text-gray-500 mt-1">{new Date(order.createdAt).toLocaleDateString()}</div>
+                    <div className="text-xs text-gray-500">
+                      {order.items.length} item{order.items.length > 1 ? 's' : ''}
+                    </div>
                   </td>
                   <td className="px-6 py-4">
                     <div className="text-sm font-medium text-gray-900">{order.customer.name}</div>
-                    <div className="text-sm text-gray-500">{order.customer.email}</div>
-                    <div className="text-sm text-gray-500">{order.customer.phone}</div>
+                    <div className="text-xs text-gray-500">{order.customer.email}</div>
+                    <div className="text-xs text-gray-500">{order.customer.phone}</div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-gray-900">
-                      {order.items.map((item, idx) => (
-                        <div key={idx}>
-                          {item.quantity}x {item.product}
+                    <div className="space-y-1.5">
+                      <div className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${getPaymentStatusColor(order.paymentStatus)}`}>
+                        {order.paymentStatus === 'success' && '✓ Paid'}
+                        {order.paymentStatus === 'pending' && '⏱ Pending'}
+                        {order.paymentStatus === 'failed' && '✗ Failed'}
+                        {order.paymentStatus === 'refunded' && '↺ Refunded'}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {order.paymentMethod}
+                      </div>
+                      {order.paymentId && (
+                        <div className="text-xs text-gray-400 font-mono truncate max-w-[150px]" title={order.paymentId}>
+                          ID: {order.paymentId.substring(0, 16)}...
                         </div>
-                      ))}
+                      )}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-semibold text-gray-900">{formatPrice(order.total)}</div>
+                    <div className="text-base font-bold text-gray-900">{formatPrice(order.total)}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <select
                       value={order.status}
                       onChange={(e) => updateOrderStatus(order.orderNumber, e.target.value as OrderStatus)}
-                      className={`px-3 py-1 text-xs rounded-full font-semibold ${getStatusColor(order.status)}`}
+                      className={`px-3 py-1.5 text-xs rounded-full font-semibold ${getStatusColor(order.status)} border-0 cursor-pointer`}
                     >
                       <option value="pending">Pending</option>
                       <option value="processing">Processing</option>
@@ -285,39 +318,38 @@ export default function AdminOrders() {
                       <option value="cancelled">Cancelled</option>
                     </select>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {new Date(order.createdAt).toLocaleDateString()}
-                  </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
-                    <button
-                      onClick={() => {
-                        setSelectedOrder(order);
-                        setShowViewModal(true);
-                      }}
-                      className="text-blue-600 hover:text-blue-900 mr-3"
-                    >
-                      View
-                    </button>
-                    <button
-                      onClick={() => {
-                        setSelectedOrder(order);
-                        setShowInvoiceModal(true);
-                      }}
-                      className="text-gray-600 hover:text-gray-900 mr-3"
-                    >
-                      Invoice
-                    </button>
-                    {canRefund(order) && (
+                    <div className="flex gap-2">
                       <button
                         onClick={() => {
                           setSelectedOrder(order);
-                          setShowRefundModal(true);
+                          setShowViewModal(true);
                         }}
-                        className="text-red-600 hover:text-red-900"
+                        className="text-blue-600 hover:text-blue-900 font-medium"
                       >
-                        Refund
+                        View
                       </button>
-                    )}
+                      <button
+                        onClick={() => {
+                          setSelectedOrder(order);
+                          setShowInvoiceModal(true);
+                        }}
+                        className="text-gray-600 hover:text-gray-900 font-medium"
+                      >
+                        Invoice
+                      </button>
+                      {canRefund(order) && (
+                        <button
+                          onClick={() => {
+                            setSelectedOrder(order);
+                            setShowRefundModal(true);
+                          }}
+                          className="text-red-600 hover:text-red-900 font-medium"
+                        >
+                          Refund
+                        </button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -373,12 +405,58 @@ export default function AdminOrders() {
               {/* Order Information */}
               <div className="space-y-4">
                 <div className="bg-gray-50 p-4 rounded-lg">
-                  <h3 className="font-semibold text-gray-900 mb-2">Order Information</h3>
-                  <div className="grid grid-cols-2 gap-2 text-sm">
-                    <div><span className="text-gray-600">Order Number:</span> <span className="font-medium">{selectedOrder.orderNumber}</span></div>
-                    <div><span className="text-gray-600">Status:</span> <span className={`font-medium ${getStatusColor(selectedOrder.status)} px-2 py-1 rounded-full text-xs`}>{selectedOrder.status}</span></div>
-                    <div><span className="text-gray-600">Order Date:</span> {new Date(selectedOrder.createdAt).toLocaleDateString()}</div>
-                    <div><span className="text-gray-600">Payment:</span> {selectedOrder.paymentMethod}</div>
+                  <h3 className="font-semibold text-gray-900 mb-3">Order Information</h3>
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div>
+                      <span className="text-gray-600">Order Number:</span>
+                      <div className="font-medium text-gray-900">{selectedOrder.orderNumber}</div>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">Order Date:</span>
+                      <div className="font-medium text-gray-900">{new Date(selectedOrder.createdAt).toLocaleDateString()}</div>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">Order Status:</span>
+                      <div><span className={`${getStatusColor(selectedOrder.status)} px-3 py-1 rounded-full text-xs font-semibold`}>{selectedOrder.status.toUpperCase()}</span></div>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">Items Count:</span>
+                      <div className="font-medium text-gray-900">{selectedOrder.items.length} item(s)</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                  <h3 className="font-semibold text-blue-900 mb-3 flex items-center">
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                    </svg>
+                    Payment Information
+                  </h3>
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div>
+                      <span className="text-blue-700">Payment Status:</span>
+                      <div>
+                        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border ${getPaymentStatusColor(selectedOrder.paymentStatus)} mt-1`}>
+                          {selectedOrder.paymentStatus === 'success' && '✓ Payment Successful'}
+                          {selectedOrder.paymentStatus === 'pending' && '⏱ Payment Pending'}
+                          {selectedOrder.paymentStatus === 'failed' && '✗ Payment Failed'}
+                          {selectedOrder.paymentStatus === 'refunded' && '↺ Payment Refunded'}
+                        </span>
+                      </div>
+                    </div>
+                    <div>
+                      <span className="text-blue-700">Payment Method:</span>
+                      <div className="font-medium text-blue-900">{selectedOrder.paymentMethod}</div>
+                    </div>
+                    {selectedOrder.paymentId && (
+                      <div className="col-span-2">
+                        <span className="text-blue-700">Transaction ID:</span>
+                        <div className="font-mono text-xs bg-white px-3 py-2 rounded border border-blue-200 mt-1 break-all">
+                          {selectedOrder.paymentId}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
