@@ -315,6 +315,7 @@ export default function CheckoutPage() {
           };
 
           // Create order in backend
+          console.log('Creating COD order with data:', codOrderData);
           const orderResponse = await fetch(`${config.apiUrl}/api/orders`, {
             method: 'POST',
             headers: {
@@ -324,11 +325,16 @@ export default function CheckoutPage() {
             body: JSON.stringify(codOrderData),
           });
 
+          console.log('COD order response status:', orderResponse.status);
+
           if (!orderResponse.ok) {
-            throw new Error('Failed to create COD order');
+            const errorText = await orderResponse.text();
+            console.error('COD order failed:', errorText);
+            throw new Error(`Failed to create COD order: ${errorText || orderResponse.statusText}`);
           }
 
           const createdOrder = await orderResponse.json();
+          console.log('COD order created successfully:', createdOrder);
 
           // Save to localStorage as backup
           const existingOrders = JSON.parse(localStorage.getItem('orders') || '[]');
@@ -344,9 +350,11 @@ export default function CheckoutPage() {
 
           setIsProcessing(false);
           return;
-        } catch (error) {
-          setPaymentError('Failed to place COD order. Please try again.');
-          setTimeout(() => setPaymentError(null), 5000);
+        } catch (error: any) {
+          console.error('COD order error:', error);
+          const errorMessage = error.message || 'Failed to place COD order. Please try again.';
+          setPaymentError(errorMessage);
+          setTimeout(() => setPaymentError(null), 10000);
           setIsProcessing(false);
           return;
         }
