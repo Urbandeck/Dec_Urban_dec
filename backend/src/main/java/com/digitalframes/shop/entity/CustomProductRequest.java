@@ -83,6 +83,25 @@ public class CustomProductRequest {
     @Column(name = "order_id")
     private String orderId;
 
+    // Shiprocket Integration Fields
+    @Column(name = "shiprocket_order_id")
+    private String shiprocketOrderId;
+
+    @Column(name = "shiprocket_shipment_id")
+    private String shiprocketShipmentId;
+
+    @Column(name = "awb_number")
+    private String awbNumber;
+
+    @Column(name = "courier_name")
+    private String courierName;
+
+    @Column(name = "tracking_url", length = 500)
+    private String trackingUrl;
+
+    @Column(name = "shiprocket_status")
+    private String shiprocketStatus;
+
     // Getters and Setters
     public Long getId() {
         return id;
@@ -266,6 +285,54 @@ public class CustomProductRequest {
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
+    }
+
+    public String getShiprocketOrderId() {
+        return shiprocketOrderId;
+    }
+
+    public void setShiprocketOrderId(String shiprocketOrderId) {
+        this.shiprocketOrderId = shiprocketOrderId;
+    }
+
+    public String getShiprocketShipmentId() {
+        return shiprocketShipmentId;
+    }
+
+    public void setShiprocketShipmentId(String shiprocketShipmentId) {
+        this.shiprocketShipmentId = shiprocketShipmentId;
+    }
+
+    public String getAwbNumber() {
+        return awbNumber;
+    }
+
+    public void setAwbNumber(String awbNumber) {
+        this.awbNumber = awbNumber;
+    }
+
+    public String getCourierName() {
+        return courierName;
+    }
+
+    public void setCourierName(String courierName) {
+        this.courierName = courierName;
+    }
+
+    public String getTrackingUrl() {
+        return trackingUrl;
+    }
+
+    public void setTrackingUrl(String trackingUrl) {
+        this.trackingUrl = trackingUrl;
+    }
+
+    public String getShiprocketStatus() {
+        return shiprocketStatus;
+    }
+
+    public void setShiprocketStatus(String shiprocketStatus) {
+        this.shiprocketStatus = shiprocketStatus;
     }
 
     @PreUpdate

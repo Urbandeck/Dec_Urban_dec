@@ -155,13 +155,20 @@ export default function CustomProductsPage() {
     const statusStyles: { [key: string]: string } = {
       'pending': 'bg-yellow-100 text-yellow-800',
       'processing': 'bg-blue-100 text-blue-800',
+      'ready_to_ship': 'bg-purple-100 text-purple-800',
+      'shipped': 'bg-indigo-100 text-indigo-800',
       'completed': 'bg-green-100 text-green-800',
       'cancelled': 'bg-red-100 text-red-800'
     };
 
+    const formatStatus = (status: string) => {
+      if (status === 'ready_to_ship') return 'Ready to Ship';
+      return status.charAt(0).toUpperCase() + status.slice(1);
+    };
+
     return (
       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusStyles[status] || 'bg-gray-100 text-gray-800'}`}>
-        {status.charAt(0).toUpperCase() + status.slice(1)}
+        {formatStatus(status)}
       </span>
     );
   };
@@ -361,6 +368,52 @@ export default function CustomProductsPage() {
                 </div>
               )}
 
+              {/* Shipping Information */}
+              {selectedRequest.shiprocketOrderId && (
+                <div className="mb-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <h3 className="font-semibold mb-3 text-blue-900">Shipping Information</h3>
+                  <div className="grid md:grid-cols-2 gap-3 text-sm">
+                    <div>
+                      <span className="text-gray-600">Shiprocket Order ID:</span>{' '}
+                      <span className="font-medium text-gray-900">{selectedRequest.shiprocketOrderId}</span>
+                    </div>
+                    {selectedRequest.shiprocketShipmentId && (
+                      <div>
+                        <span className="text-gray-600">Shipment ID:</span>{' '}
+                        <span className="font-medium text-gray-900">{selectedRequest.shiprocketShipmentId}</span>
+                      </div>
+                    )}
+                    {selectedRequest.awbNumber && (
+                      <div>
+                        <span className="text-gray-600">AWB Number:</span>{' '}
+                        <span className="font-medium text-gray-900">{selectedRequest.awbNumber}</span>
+                      </div>
+                    )}
+                    {selectedRequest.courierName && (
+                      <div>
+                        <span className="text-gray-600">Courier:</span>{' '}
+                        <span className="font-medium text-gray-900">{selectedRequest.courierName}</span>
+                      </div>
+                    )}
+                    {selectedRequest.trackingUrl && (
+                      <div className="md:col-span-2">
+                        <a
+                          href={selectedRequest.trackingUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium"
+                        >
+                          Track Shipment
+                          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
               {/* Uploaded Images */}
               <div className="mb-6">
                 <h3 className="font-semibold mb-3">Uploaded Images ({selectedRequest.images.length})</h3>
@@ -435,6 +488,8 @@ export default function CustomProductsPage() {
                     >
                       <option value="pending">Pending</option>
                       <option value="processing">Processing</option>
+                      <option value="ready_to_ship">Ready to Ship</option>
+                      <option value="shipped">Shipped</option>
                       <option value="completed">Completed</option>
                       <option value="cancelled">Cancelled</option>
                     </select>

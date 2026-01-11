@@ -4,6 +4,8 @@ import com.digitalframes.shop.entity.CustomProductRequest;
 import com.digitalframes.shop.entity.CustomProductImage;
 import com.digitalframes.shop.repository.CustomProductRepository;
 import com.digitalframes.shop.repository.CustomProductImageRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,16 +14,22 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class CustomProductService {
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomProductService.class);
 
     @Autowired
     private CustomProductRepository customProductRepository;
 
     @Autowired
     private CustomProductImageRepository customProductImageRepository;
+
+    @Autowired
+    private ShiprocketService shiprocketService;
 
     @Transactional
     public CustomProductRequest createCustomProductRequest(
@@ -103,11 +111,53 @@ public class CustomProductService {
         CustomProductRequest request = customProductRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Custom product request not found"));
 
+        String oldStatus = request.getStatus();
         request.setStatus(status);
         if (notes != null) {
             request.setAdminNotes(notes);
         }
         request.setUpdatedAt(LocalDateTime.now());
+
+        // Auto-create Shiprocket order when status changes to "ready_to_ship"
+        if ("ready_to_ship".equalsIgnoreCase(status) && !"ready_to_ship".equalsIgnoreCase(oldStatus)) {
+            logger.info("Status changed to ready_to_ship for custom product {}. Creating Shiprocket order...", id);
+
+            try {
+                Map<String, Object> shiprocketResponse = shiprocketService.createShiprocketOrderForCustomProduct(request);
+
+                if (shiprocketResponse != null && shiprocketResponse.containsKey("order_id")) {
+                    // Extract Shiprocket IDs from response
+                    String shiprocketOrderId = shiprocketResponse.get("order_id").toString();
+                    String shiprocketShipmentId = shiprocketResponse.get("shipment_id") != null
+                        ? shiprocketResponse.get("shipment_id").toString() : null;
+
+                    // Update request with Shiprocket details
+                    request.setShiprocketOrderId(shiprocketOrderId);
+                    request.setShiprocketShipmentId(shiprocketShipmentId);
+                    request.setShiprocketStatus("NEW");
+                    request.setStatus("shipped"); // Auto-update status to shipped
+
+                    logger.info("Shiprocket order created successfully. Order ID: {}, Shipment ID: {}",
+                        shiprocketOrderId, shiprocketShipmentId);
+                } else {
+                    logger.error("Failed to create Shiprocket order. Response: {}", shiprocketResponse);
+                    // Keep status as ready_to_ship if Shiprocket creation fails
+                    if (notes != null) {
+                        request.setAdminNotes(notes + " | Shiprocket order creation failed");
+                    } else {
+                        request.setAdminNotes("Shiprocket order creation failed");
+                    }
+                }
+            } catch (Exception e) {
+                logger.error("Error creating Shiprocket order for custom product {}: {}", id, e.getMessage(), e);
+                // Keep status as ready_to_ship if there's an error
+                if (notes != null) {
+                    request.setAdminNotes(notes + " | Shiprocket error: " + e.getMessage());
+                } else {
+                    request.setAdminNotes("Shiprocket error: " + e.getMessage());
+                }
+            }
+        }
 
         return customProductRepository.save(request);
     }

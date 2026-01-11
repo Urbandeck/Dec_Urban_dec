@@ -414,6 +414,17 @@ public class CustomProductController {
             response.put("message", "Request status updated successfully");
             response.put("status", request.getStatus());
 
+            // Include Shiprocket info if available
+            if (request.getShiprocketOrderId() != null) {
+                Map<String, String> shiprocketInfo = new HashMap<>();
+                shiprocketInfo.put("orderId", request.getShiprocketOrderId());
+                shiprocketInfo.put("shipmentId", request.getShiprocketShipmentId());
+                shiprocketInfo.put("awbNumber", request.getAwbNumber());
+                shiprocketInfo.put("courierName", request.getCourierName());
+                shiprocketInfo.put("trackingUrl", request.getTrackingUrl());
+                response.put("shiprocket", shiprocketInfo);
+            }
+
             return ResponseEntity.ok(response);
 
         } catch (Exception e) {

@@ -6,6 +6,7 @@ import com.digitalframes.shop.entity.OrderItem;
 import com.digitalframes.shop.entity.Address;
 import com.digitalframes.shop.entity.Payment;
 import com.digitalframes.shop.entity.CustomerOrder;
+import com.digitalframes.shop.entity.CustomProductRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -372,6 +373,63 @@ public class ShiprocketService {
         request.setWeight(0.5);
 
         return request;
+    }
+
+    public Map<String, Object> createShiprocketOrderForCustomProduct(CustomProductRequest customRequest) {
+        try {
+            logger.info("Starting Shiprocket order creation for custom product request: {}", customRequest.getId());
+            logger.info("Shiprocket config - Email: {}, Channel ID: {}, Pickup Location: {}",
+                shiprocketEmail, channelId, defaultPickupLocation);
+
+            if (authToken == null) {
+                logger.info("Auth token is null, attempting authentication...");
+                authToken = authenticateAndGetToken();
+            }
+
+            if (authToken == null) {
+                logger.error("Failed to get auth token - check Shiprocket credentials");
+                return createErrorResponse("Authentication failed");
+            }
+
+            logger.info("Auth token obtained, converting custom product to Shiprocket format...");
+            ShiprocketOrderRequest shiprocketOrder = adapter.convertCustomProductRequestToShiprocketOrder(
+                customRequest, defaultPickupLocation, channelId);
+
+            // Log the request being sent
+            logger.info("Shiprocket order request: {}", objectMapper.writeValueAsString(shiprocketOrder));
+
+            String createOrderUrl = apiBaseUrl + "/orders/create/adhoc";
+            logger.info("Sending request to: {}", createOrderUrl);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setBearerAuth(authToken);
+
+            HttpEntity<ShiprocketOrderRequest> request = new HttpEntity<>(shiprocketOrder, headers);
+
+            ResponseEntity<Map> response = restTemplate.exchange(
+                createOrderUrl,
+                HttpMethod.POST,
+                request,
+                Map.class
+            );
+
+            if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+                logger.info("Shiprocket order created successfully for custom product ID: {}", customRequest.getId());
+                logger.info("Shiprocket response: {}", response.getBody());
+                return response.getBody();
+            } else {
+                logger.error("Shiprocket API returned status: {}, body: {}",
+                    response.getStatusCode(), response.getBody());
+            }
+
+        } catch (Exception e) {
+            logger.error("Failed to create Shiprocket order for custom product {}: {}",
+                customRequest.getId(), e.getMessage(), e);
+            return createErrorResponse(e.getMessage());
+        }
+
+        return createErrorResponse("Failed to create order in Shiprocket");
     }
 
     private Map<String, Object> createErrorResponse(String message) {
