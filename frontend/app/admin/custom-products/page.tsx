@@ -98,6 +98,43 @@ export default function CustomProductsPage() {
     }
   };
 
+  const handleSyncShiprocketStatus = async (requestId: number) => {
+    try {
+      toast.info('Syncing with Shiprocket...');
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/custom-products/${requestId}/sync-shiprocket`, {
+        method: 'POST',
+        credentials: 'include',
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        toast.success('Shiprocket status synced successfully');
+
+        // Update the selected request with new data
+        if (selectedRequest && result.status) {
+          setSelectedRequest(prev => ({
+            ...prev!,
+            status: result.status,
+            shiprocketStatus: result.shiprocketStatus,
+            shiprocketOrderId: result.shiprocket?.orderId || prev!.shiprocketOrderId,
+            shiprocketShipmentId: result.shiprocket?.shipmentId || prev!.shiprocketShipmentId,
+            awbNumber: result.shiprocket?.awbNumber || prev!.awbNumber,
+            courierName: result.shiprocket?.courierName || prev!.courierName,
+            trackingUrl: result.shiprocket?.trackingUrl || prev!.trackingUrl,
+          }));
+          setStatusUpdate(prev => ({ ...prev, status: result.status }));
+        }
+
+        fetchCustomRequests();
+      } else {
+        const error = await response.json();
+        toast.error(error.message || 'Failed to sync Shiprocket status');
+      }
+    } catch (error) {
+      toast.error('Error syncing Shiprocket status');
+    }
+  };
+
   const openRequestDetails = (request: CustomProductRequest) => {
     setSelectedRequest(request);
     setStatusUpdate({ status: request.status, notes: request.adminNotes || '' });
@@ -156,14 +193,28 @@ export default function CustomProductsPage() {
       'pending': 'bg-yellow-100 text-yellow-800',
       'processing': 'bg-blue-100 text-blue-800',
       'ready_to_ship': 'bg-purple-100 text-purple-800',
+      'order_created': 'bg-indigo-100 text-indigo-800',
+      'awaiting_pickup': 'bg-cyan-100 text-cyan-800',
+      'in_transit': 'bg-blue-100 text-blue-800',
+      'out_for_delivery': 'bg-orange-100 text-orange-800',
+      'delivered': 'bg-green-100 text-green-800',
+      'return_to_origin': 'bg-red-100 text-red-800',
       'shipped': 'bg-indigo-100 text-indigo-800',
       'completed': 'bg-green-100 text-green-800',
       'cancelled': 'bg-red-100 text-red-800'
     };
 
     const formatStatus = (status: string) => {
-      if (status === 'ready_to_ship') return 'Ready to Ship';
-      return status.charAt(0).toUpperCase() + status.slice(1);
+      const statusMap: { [key: string]: string } = {
+        'ready_to_ship': 'Ready to Ship',
+        'order_created': 'Order Created',
+        'awaiting_pickup': 'Awaiting Pickup',
+        'in_transit': 'In Transit',
+        'out_for_delivery': 'Out for Delivery',
+        'delivered': 'Delivered',
+        'return_to_origin': 'Return to Origin'
+      };
+      return statusMap[status] || status.charAt(0).toUpperCase() + status.slice(1);
     };
 
     return (
@@ -371,7 +422,14 @@ export default function CustomProductsPage() {
               {/* Shipping Information */}
               {selectedRequest.shiprocketOrderId && (
                 <div className="mb-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <h3 className="font-semibold mb-3 text-blue-900">Shipping Information</h3>
+                  <div className="flex justify-between items-center mb-3">
+                    <h3 className="font-semibold text-blue-900">Shipping Information</h3>
+                    {selectedRequest.shiprocketStatus && (
+                      <span className="text-xs px-2 py-1 bg-blue-200 text-blue-900 rounded-full font-medium">
+                        {selectedRequest.shiprocketStatus}
+                      </span>
+                    )}
+                  </div>
                   <div className="grid md:grid-cols-2 gap-3 text-sm">
                     <div>
                       <span className="text-gray-600">Shiprocket Order ID:</span>{' '}
@@ -489,6 +547,11 @@ export default function CustomProductsPage() {
                       <option value="pending">Pending</option>
                       <option value="processing">Processing</option>
                       <option value="ready_to_ship">Ready to Ship</option>
+                      <option value="order_created">Order Created</option>
+                      <option value="awaiting_pickup">Awaiting Pickup</option>
+                      <option value="in_transit">In Transit</option>
+                      <option value="out_for_delivery">Out for Delivery</option>
+                      <option value="delivered">Delivered</option>
                       <option value="shipped">Shipped</option>
                       <option value="completed">Completed</option>
                       <option value="cancelled">Cancelled</option>
@@ -526,6 +589,17 @@ export default function CustomProductsPage() {
                     >
                       Cancel
                     </button>
+                    {selectedRequest.shiprocketOrderId && (
+                      <button
+                        onClick={() => handleSyncShiprocketStatus(selectedRequest.id)}
+                        className="px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 flex items-center gap-2"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        Sync Status
+                      </button>
+                    )}
                     <button
                       onClick={() => handleStatusUpdate(selectedRequest.id)}
                       className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"

@@ -454,6 +454,39 @@ public class CustomProductController {
                 .body(image.getImageData());
     }
 
+    @PostMapping("/{id}/sync-shiprocket")
+    public ResponseEntity<Map<String, Object>> syncShiprocketStatus(@PathVariable Long id) {
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            CustomProductRequest request = customProductService.syncShiprocketStatus(id);
+
+            response.put("success", true);
+            response.put("message", "Shiprocket status synced successfully");
+            response.put("status", request.getStatus());
+            response.put("shiprocketStatus", request.getShiprocketStatus());
+
+            // Include updated Shiprocket info
+            if (request.getShiprocketOrderId() != null) {
+                Map<String, String> shiprocketInfo = new HashMap<>();
+                shiprocketInfo.put("orderId", request.getShiprocketOrderId());
+                shiprocketInfo.put("shipmentId", request.getShiprocketShipmentId());
+                shiprocketInfo.put("awbNumber", request.getAwbNumber());
+                shiprocketInfo.put("courierName", request.getCourierName());
+                shiprocketInfo.put("trackingUrl", request.getTrackingUrl());
+                shiprocketInfo.put("status", request.getShiprocketStatus());
+                response.put("shiprocket", shiprocketInfo);
+            }
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Failed to sync Shiprocket status: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> deleteCustomRequest(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();

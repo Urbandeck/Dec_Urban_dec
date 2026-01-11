@@ -135,7 +135,7 @@ public class CustomProductService {
                     request.setShiprocketOrderId(shiprocketOrderId);
                     request.setShiprocketShipmentId(shiprocketShipmentId);
                     request.setShiprocketStatus("NEW");
-                    request.setStatus("shipped"); // Auto-update status to shipped
+                    request.setStatus("order_created"); // Set to order_created instead of shipped
 
                     logger.info("Shiprocket order created successfully. Order ID: {}, Shipment ID: {}",
                         shiprocketOrderId, shiprocketShipmentId);
@@ -191,5 +191,83 @@ public class CustomProductService {
     public CustomProductRequest updateRequest(CustomProductRequest request) {
         request.setUpdatedAt(LocalDateTime.now());
         return customProductRepository.save(request);
+    }
+
+    @Transactional
+    public CustomProductRequest syncShiprocketStatus(Long customProductId) {
+        CustomProductRequest request = customProductRepository.findById(customProductId)
+                .orElseThrow(() -> new RuntimeException("Custom product request not found"));
+
+        if (request.getShiprocketOrderId() == null) {
+            throw new RuntimeException("No Shiprocket order associated with this request");
+        }
+
+        try {
+            // First try to get order details
+            String shiprocketOrderId = request.getShiprocketOrderId();
+
+            // If AWB number exists, use it to track shipment
+            if (request.getAwbNumber() != null && !request.getAwbNumber().isEmpty()) {
+                Map<String, Object> trackingResponse = shiprocketService.trackShipment(request.getAwbNumber());
+
+                if (trackingResponse != null && trackingResponse.containsKey("tracking_data")) {
+                    Map<String, Object> trackingData = (Map<String, Object>) trackingResponse.get("tracking_data");
+
+                    if (trackingData != null) {
+                        // Update shipment status
+                        if (trackingData.containsKey("shipment_status")) {
+                            String shipmentStatus = trackingData.get("shipment_status").toString();
+                            request.setShiprocketStatus(shipmentStatus);
+
+                            // Map Shiprocket status to our status
+                            String mappedStatus = mapShiprocketStatusToCustomStatus(shipmentStatus);
+                            request.setStatus(mappedStatus);
+                        }
+
+                        // Update courier name if available
+                        if (trackingData.containsKey("courier_name")) {
+                            request.setCourierName(trackingData.get("courier_name").toString());
+                        }
+
+                        // Update tracking URL if available
+                        if (trackingData.containsKey("track_url")) {
+                            request.setTrackingUrl(trackingData.get("track_url").toString());
+                        }
+                    }
+                }
+            }
+
+            request.setUpdatedAt(LocalDateTime.now());
+            return customProductRepository.save(request);
+
+        } catch (Exception e) {
+            logger.error("Error syncing Shiprocket status for custom product {}: {}", customProductId, e.getMessage(), e);
+            throw new RuntimeException("Failed to sync Shiprocket status: " + e.getMessage(), e);
+        }
+    }
+
+    private String mapShiprocketStatusToCustomStatus(String shiprocketStatus) {
+        if (shiprocketStatus == null) return "shipped";
+
+        switch (shiprocketStatus.toUpperCase()) {
+            case "NEW":
+            case "PICKUP_SCHEDULED":
+                return "awaiting_pickup";
+            case "PICKUP_COMPLETE":
+            case "IN_TRANSIT":
+            case "REACHED_AT_DESTINATION_HUB":
+                return "in_transit";
+            case "OUT_FOR_DELIVERY":
+                return "out_for_delivery";
+            case "DELIVERED":
+                return "delivered";
+            case "RTO":
+            case "RTO_IN_TRANSIT":
+                return "return_to_origin";
+            case "CANCELLED":
+                return "cancelled";
+            default:
+                return "shipped";
+        }
     }
 }
