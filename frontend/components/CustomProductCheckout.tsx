@@ -43,8 +43,7 @@ interface SavedAddress extends DeliveryAddress {
 }
 
 const FRAME_PRICES = {
-  '18x23': 2499,
-  '19x24': 2499
+  '18x23': 1
 };
 
 const COLOR_PRICES = {
@@ -443,7 +442,7 @@ export default function CustomProductCheckout() {
           <div className="p-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm text-gray-600">Starting from</span>
-              <span className="text-2xl font-bold text-blue-600">{formatPrice(2499)}</span>
+              <span className="text-2xl font-bold text-blue-600">{formatPrice(1)}</span>
             </div>
             <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
               Get Started
@@ -545,8 +544,7 @@ export default function CustomProductCheckout() {
                         onChange={(e) => setProductDetails({...productDetails, frameSize: e.target.value})}
                         className="w-full border border-gray-300 rounded-lg px-4 py-2"
                       >
-                        <option value="18x23">18cm x 23cm - {formatPrice(2499)}</option>
-                        <option value="19x24">19cm x 24cm - {formatPrice(2499)}</option>
+                        <option value="18x23">18cm x 23cm - {formatPrice(1)}</option>
                       </select>
                     </div>
 
