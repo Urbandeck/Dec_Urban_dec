@@ -135,9 +135,58 @@ export default function CheckoutPage() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    let sanitizedValue = value;
+
+    // Apply input restrictions based on field type
+    switch (name) {
+      case 'phone':
+        // Only allow digits, max 10 characters
+        sanitizedValue = value.replace(/\D/g, '').slice(0, 10);
+        break;
+      case 'pincode':
+        // Only allow digits, max 6 characters
+        sanitizedValue = value.replace(/\D/g, '').slice(0, 6);
+        break;
+      case 'fullName':
+        // Only allow letters, spaces, and common name characters
+        sanitizedValue = value.replace(/[^a-zA-Z\s.'-]/g, '');
+        break;
+      case 'email':
+        // Remove spaces from email
+        sanitizedValue = value.replace(/\s/g, '');
+        break;
+      case 'city':
+      case 'state':
+        // Only allow letters and spaces
+        sanitizedValue = value.replace(/[^a-zA-Z\s]/g, '');
+        break;
+    }
+
+    setFormData(prev => ({ ...prev, [name]: sanitizedValue }));
+
+    // Clear error for this field when user types
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
+    }
+
+    // Real-time validation for specific fields
+    if (name === 'email' && sanitizedValue) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(sanitizedValue)) {
+        setErrors(prev => ({ ...prev, email: 'Please enter a valid email address' }));
+      }
+    }
+
+    if (name === 'phone' && sanitizedValue) {
+      if (sanitizedValue.length < 10) {
+        setErrors(prev => ({ ...prev, phone: 'Phone number must be 10 digits' }));
+      }
+    }
+
+    if (name === 'pincode' && sanitizedValue) {
+      if (sanitizedValue.length < 6) {
+        setErrors(prev => ({ ...prev, pincode: 'Pincode must be 6 digits' }));
+      }
     }
   };
 
@@ -606,16 +655,26 @@ export default function CheckoutPage() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Recipient's Email Address *
                   </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      errors.email ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                    placeholder="recipient@example.com"
-                  />
+                  <div className="relative">
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        errors.email ? 'border-red-500' : formData.email && !errors.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) ? 'border-green-500' : 'border-gray-300'
+                      }`}
+                      placeholder="recipient@example.com"
+                      autoComplete="email"
+                    />
+                    {formData.email && !errors.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) && (
+                      <div className="absolute right-3 top-2.5 text-green-500">
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
                   <p className="text-xs text-gray-500 mt-1">Order confirmation will be sent to this email</p>
                   {errors.email && (
                     <p className="text-red-500 text-sm mt-1">{errors.email}</p>
@@ -636,9 +695,10 @@ export default function CheckoutPage() {
                     value={formData.fullName}
                     onChange={handleInputChange}
                     className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      errors.fullName ? 'border-red-500' : 'border-gray-300'
+                      errors.fullName ? 'border-red-500' : formData.fullName && formData.fullName.trim().length >= 3 ? 'border-green-500' : 'border-gray-300'
                     }`}
                     placeholder="John Doe"
+                    autoComplete="name"
                   />
                   {errors.fullName && (
                     <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>
@@ -649,16 +709,26 @@ export default function CheckoutPage() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Recipient's Email Address *
                   </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      errors.email ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                    placeholder="recipient@example.com"
-                  />
+                  <div className="relative">
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        errors.email ? 'border-red-500' : formData.email && !errors.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) ? 'border-green-500' : 'border-gray-300'
+                      }`}
+                      placeholder="recipient@example.com"
+                      autoComplete="email"
+                    />
+                    {formData.email && !errors.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) && (
+                      <div className="absolute right-3 top-2.5 text-green-500">
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
                   <p className="text-xs text-gray-500 mt-1">Order confirmation will be sent to this email</p>
                   {errors.email && (
                     <p className="text-red-500 text-sm mt-1">{errors.email}</p>
@@ -669,16 +739,31 @@ export default function CheckoutPage() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Phone Number *
                   </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      errors.phone ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                    placeholder="9876543210"
-                  />
+                  <div className="relative">
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        errors.phone ? 'border-red-500' : formData.phone && formData.phone.length === 10 ? 'border-green-500' : 'border-gray-300'
+                      }`}
+                      placeholder="9876543210"
+                      maxLength={10}
+                      inputMode="numeric"
+                      autoComplete="tel"
+                    />
+                    {formData.phone && formData.phone.length === 10 && (
+                      <div className="absolute right-3 top-2.5 text-green-500">
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                  {formData.phone && formData.phone.length > 0 && (
+                    <p className="text-xs text-gray-500 mt-1">{formData.phone.length}/10 digits</p>
+                  )}
                   {errors.phone && (
                     <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
                   )}
@@ -713,9 +798,10 @@ export default function CheckoutPage() {
                     value={formData.city}
                     onChange={handleInputChange}
                     className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      errors.city ? 'border-red-500' : 'border-gray-300'
+                      errors.city ? 'border-red-500' : formData.city && formData.city.trim().length >= 2 ? 'border-green-500' : 'border-gray-300'
                     }`}
                     placeholder="Mumbai"
+                    autoComplete="address-level2"
                   />
                   {errors.city && (
                     <p className="text-red-500 text-sm mt-1">{errors.city}</p>
@@ -732,9 +818,10 @@ export default function CheckoutPage() {
                     value={formData.state}
                     onChange={handleInputChange}
                     className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      errors.state ? 'border-red-500' : 'border-gray-300'
+                      errors.state ? 'border-red-500' : formData.state && formData.state.trim().length >= 2 ? 'border-green-500' : 'border-gray-300'
                     }`}
                     placeholder="Maharashtra"
+                    autoComplete="address-level1"
                   />
                   {errors.state && (
                     <p className="text-red-500 text-sm mt-1">{errors.state}</p>
@@ -745,17 +832,31 @@ export default function CheckoutPage() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Pincode *
                   </label>
-                  <input
-                    type="text"
-                    name="pincode"
-                    value={formData.pincode}
-                    onChange={handleInputChange}
-                    maxLength={6}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      errors.pincode ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                    placeholder="400001"
-                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      name="pincode"
+                      value={formData.pincode}
+                      onChange={handleInputChange}
+                      maxLength={6}
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        errors.pincode ? 'border-red-500' : formData.pincode && formData.pincode.length === 6 ? 'border-green-500' : 'border-gray-300'
+                      }`}
+                      placeholder="400001"
+                      inputMode="numeric"
+                      autoComplete="postal-code"
+                    />
+                    {formData.pincode && formData.pincode.length === 6 && (
+                      <div className="absolute right-3 top-2.5 text-green-500">
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                  {formData.pincode && formData.pincode.length > 0 && (
+                    <p className="text-xs text-gray-500 mt-1">{formData.pincode.length}/6 digits</p>
+                  )}
                   {errors.pincode && (
                     <p className="text-red-500 text-sm mt-1">{errors.pincode}</p>
                   )}
