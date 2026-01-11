@@ -612,7 +612,6 @@ export default function CustomProductCheckout() {
                         className="w-full border border-gray-300 rounded-lg px-4 py-2"
                         placeholder="Enter your full name"
                         required
-                        readOnly={isAuthenticated && !!user?.name}
                       />
                     </div>
 
@@ -625,7 +624,6 @@ export default function CustomProductCheckout() {
                         className="w-full border border-gray-300 rounded-lg px-4 py-2"
                         placeholder="your@email.com"
                         required
-                        readOnly={isAuthenticated && !!user?.email}
                       />
                     </div>
 
