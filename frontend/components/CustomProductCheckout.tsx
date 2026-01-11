@@ -318,7 +318,16 @@ export default function CustomProductCheckout() {
         })
       });
 
+      if (!orderResponse.ok) {
+        const errorData = await orderResponse.json();
+        throw new Error(errorData.error || 'Failed to create payment order');
+      }
+
       const orderData = await orderResponse.json();
+
+      if (!orderData.id) {
+        throw new Error('Invalid payment order response');
+      }
 
       // Configure Razorpay options
       const options = {
@@ -392,7 +401,9 @@ export default function CustomProductCheckout() {
       razorpay.open();
 
     } catch (error) {
-      toast.error('Failed to process payment. Please try again.');
+      console.error('Payment initiation error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Failed to process payment. Please try again.';
+      toast.error(errorMessage);
     } finally {
       setIsProcessing(false);
     }
