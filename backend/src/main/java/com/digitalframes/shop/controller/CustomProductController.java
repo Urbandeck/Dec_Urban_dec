@@ -2,6 +2,9 @@ package com.digitalframes.shop.controller;
 
 import com.digitalframes.shop.entity.CustomProductRequest;
 import com.digitalframes.shop.entity.CustomProductImage;
+import com.digitalframes.shop.entity.TemporaryCustomProduct;
+import com.digitalframes.shop.entity.TemporaryCustomProductImage;
+import com.digitalframes.shop.repository.TemporaryCustomProductRepository;
 import com.digitalframes.shop.service.CustomProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -10,14 +13,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import com.digitalframes.shop.util.ByteArrayMultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
 @RequestMapping("/api/custom-products")
@@ -27,8 +31,8 @@ public class CustomProductController {
     @Autowired
     private CustomProductService customProductService;
 
-    // Temporary storage for custom product data pending payment
-    private final Map<String, Map<String, Object>> temporaryStorage = new ConcurrentHashMap<>();
+    @Autowired
+    private TemporaryCustomProductRepository temporaryRepository;
 
     // New endpoint for temporary upload (before payment)
     @PostMapping(value = "/temporary", consumes = "multipart/form-data")
@@ -79,29 +83,46 @@ public class CustomProductController {
             // Generate temporary ID
             String tempId = UUID.randomUUID().toString();
 
-            // Store data temporarily
-            Map<String, Object> tempData = new HashMap<>();
-            tempData.put("images", images);
-            tempData.put("frameSize", frameSize);
-            tempData.put("frameColor", frameColor);
-            tempData.put("quantity", quantity);
-            tempData.put("specialInstructions", specialInstructions);
-            tempData.put("customerName", customerName);
-            tempData.put("customerEmail", customerEmail);
-            tempData.put("customerPhone", customerPhone);
-            tempData.put("addressLine1", addressLine1);
-            tempData.put("addressLine2", addressLine2);
-            tempData.put("city", city);
-            tempData.put("state", state);
-            tempData.put("pincode", pincode);
-            tempData.put("country", country);
-            tempData.put("totalAmount", totalAmount);
-            tempData.put("timestamp", System.currentTimeMillis());
+            // Create temporary product record
+            TemporaryCustomProduct tempProduct = new TemporaryCustomProduct();
+            tempProduct.setTempId(tempId);
+            tempProduct.setFrameSize(frameSize);
+            tempProduct.setFrameColor(frameColor);
+            tempProduct.setQuantity(quantity);
+            tempProduct.setSpecialInstructions(specialInstructions);
+            tempProduct.setCustomerName(customerName);
+            tempProduct.setCustomerEmail(customerEmail);
+            tempProduct.setCustomerPhone(customerPhone);
+            tempProduct.setAddressLine1(addressLine1);
+            tempProduct.setAddressLine2(addressLine2);
+            tempProduct.setCity(city);
+            tempProduct.setState(state);
+            tempProduct.setPincode(pincode);
+            tempProduct.setCountry(country);
+            tempProduct.setTotalAmount(totalAmount != null ? new java.math.BigDecimal(totalAmount) : null);
+            tempProduct.setCreatedAt(LocalDateTime.now());
+            tempProduct.setExpiresAt(LocalDateTime.now().plusHours(2));
 
-            temporaryStorage.put(tempId, tempData);
+            // Store images
+            List<TemporaryCustomProductImage> tempImages = new ArrayList<>();
+            for (int i = 0; i < images.length; i++) {
+                MultipartFile image = images[i];
+                TemporaryCustomProductImage tempImage = new TemporaryCustomProductImage();
+                tempImage.setTemporaryProduct(tempProduct);
+                tempImage.setFileName(image.getOriginalFilename());
+                tempImage.setMimeType(image.getContentType());
+                tempImage.setFileSize(image.getSize());
+                tempImage.setImageData(image.getBytes());
+                tempImage.setDisplayOrder(i);
+                tempImages.add(tempImage);
+            }
+            tempProduct.setImages(tempImages);
 
-            // Clean up old temporary data (older than 1 hour)
-            cleanupOldTemporaryData();
+            // Save to database
+            temporaryRepository.save(tempProduct);
+
+            // Clean up expired temporary data
+            cleanupExpiredTemporaryData();
 
             response.put("success", true);
             response.put("message", "Data uploaded temporarily");
@@ -127,48 +148,48 @@ public class CustomProductController {
         Map<String, Object> response = new HashMap<>();
 
         try {
-            Map<String, Object> tempData = temporaryStorage.get(tempId);
+            // Retrieve temporary data from database
+            Optional<TemporaryCustomProduct> tempProductOpt = temporaryRepository.findById(tempId);
 
-            if (tempData == null) {
+            if (tempProductOpt.isEmpty()) {
                 response.put("success", false);
                 response.put("message", "Temporary data not found or expired");
                 return ResponseEntity.badRequest().body(response);
             }
 
-            // Extract data from temporary storage
-            MultipartFile[] images = (MultipartFile[]) tempData.get("images");
-            String frameSize = (String) tempData.get("frameSize");
-            String frameColor = (String) tempData.get("frameColor");
-            Integer quantity = (Integer) tempData.get("quantity");
-            String specialInstructions = (String) tempData.get("specialInstructions");
-            String customerName = (String) tempData.get("customerName");
-            String customerEmail = (String) tempData.get("customerEmail");
-            String customerPhone = (String) tempData.get("customerPhone");
-            String addressLine1 = (String) tempData.get("addressLine1");
-            String addressLine2 = (String) tempData.get("addressLine2");
-            String city = (String) tempData.get("city");
-            String state = (String) tempData.get("state");
-            String pincode = (String) tempData.get("pincode");
-            String country = (String) tempData.get("country");
-            String totalAmount = (String) tempData.get("totalAmount");
+            TemporaryCustomProduct tempProduct = tempProductOpt.get();
+
+            // Convert temporary images to MultipartFile array for service
+            List<TemporaryCustomProductImage> tempImages = tempProduct.getImages();
+            MultipartFile[] images = new MultipartFile[tempImages.size()];
+
+            for (int i = 0; i < tempImages.size(); i++) {
+                TemporaryCustomProductImage tempImage = tempImages.get(i);
+                images[i] = new ByteArrayMultipartFile(
+                    tempImage.getImageData(),
+                    tempImage.getFileName(),
+                    tempImage.getFileName(),
+                    tempImage.getMimeType()
+                );
+            }
 
             // Create the actual product request
             CustomProductRequest request = customProductService.createCustomProductRequest(
                 images,
-                frameSize,
-                frameColor,
-                quantity,
-                specialInstructions,
-                customerName,
-                customerEmail,
-                customerPhone,
-                addressLine1,
-                addressLine2,
-                city,
-                state,
-                pincode,
-                country,
-                totalAmount != null ? new java.math.BigDecimal(totalAmount) : null
+                tempProduct.getFrameSize(),
+                tempProduct.getFrameColor(),
+                tempProduct.getQuantity(),
+                tempProduct.getSpecialInstructions(),
+                tempProduct.getCustomerName(),
+                tempProduct.getCustomerEmail(),
+                tempProduct.getCustomerPhone(),
+                tempProduct.getAddressLine1(),
+                tempProduct.getAddressLine2(),
+                tempProduct.getCity(),
+                tempProduct.getState(),
+                tempProduct.getPincode(),
+                tempProduct.getCountry(),
+                tempProduct.getTotalAmount()
             );
 
             // Update request with payment info
@@ -177,8 +198,8 @@ public class CustomProductController {
             request.setStatus("PAID");
             customProductService.updateRequest(request);
 
-            // Remove temporary data
-            temporaryStorage.remove(tempId);
+            // Remove temporary data from database
+            temporaryRepository.deleteById(tempId);
 
             response.put("success", true);
             response.put("message", "Custom product request created successfully");
@@ -190,17 +211,18 @@ public class CustomProductController {
         } catch (Exception e) {
             response.put("success", false);
             response.put("message", "Failed to create product request: " + e.getMessage());
+            e.printStackTrace(); // Log the full stack trace
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 
-    private void cleanupOldTemporaryData() {
-        long oneHourAgo = System.currentTimeMillis() - (60 * 60 * 1000);
-        temporaryStorage.entrySet().removeIf(entry -> {
-            Map<String, Object> data = entry.getValue();
-            Long timestamp = (Long) data.get("timestamp");
-            return timestamp != null && timestamp < oneHourAgo;
-        });
+    private void cleanupExpiredTemporaryData() {
+        try {
+            temporaryRepository.deleteExpired(LocalDateTime.now());
+        } catch (Exception e) {
+            // Log but don't fail the request
+            System.err.println("Error cleaning up expired temporary data: " + e.getMessage());
+        }
     }
 
     // Original endpoint - now deprecated but kept for backward compatibility
