@@ -24,6 +24,7 @@ export default function CheckoutPage() {
   const [savedAddresses, setSavedAddresses] = useState<any[]>([]);
   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null);
   const [showNewAddressForm, setShowNewAddressForm] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<'razorpay' | 'cod'>('razorpay');
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -219,7 +220,7 @@ export default function CheckoutPage() {
       if (!formData.city) missingFields.push('City');
       if (!formData.state) missingFields.push('State');
       if (!formData.pincode) missingFields.push('Pincode');
-      
+
       setPaymentError(`Please fill in the following required fields: ${missingFields.join(', ')}`);
       setTimeout(() => setPaymentError(null), 5000);
       return;
@@ -233,7 +234,7 @@ export default function CheckoutPage() {
     setIsProcessing(true);
 
     try {
-      const totalAmount = getTotalPrice() * 1.18; // Including tax
+      const totalAmount = getTotalPrice(); // No tax
       
       // Create order data
       const orderData = {
@@ -248,10 +249,59 @@ export default function CheckoutPage() {
         })),
         customerDetails: formData,
         subtotal: getTotalPrice(),
-        tax: getTotalPrice() * 0.18,
+        tax: 0,
         totalAmount: totalAmount,
         orderDate: new Date().toISOString(),
       };
+
+      // Handle Cash on Delivery
+      if (paymentMethod === 'cod') {
+        try {
+          const codOrderData = {
+            ...orderData,
+            paymentId: `COD_${Date.now()}`,
+            paymentStatus: 'PENDING',
+            status: 'PENDING',
+            purchaserEmail: user?.email || formData.email,
+          };
+
+          // Create order in backend
+          const orderResponse = await fetch(`${config.apiUrl}/api/orders`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: JSON.stringify(codOrderData),
+          });
+
+          if (!orderResponse.ok) {
+            throw new Error('Failed to create COD order');
+          }
+
+          const createdOrder = await orderResponse.json();
+
+          // Save to localStorage as backup
+          const existingOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+          existingOrders.push(codOrderData);
+          localStorage.setItem('orders', JSON.stringify(existingOrders));
+
+          // Clear cart and redirect
+          clearCart();
+          setPaymentSuccess(true);
+          setTimeout(() => {
+            router.push('/orders');
+          }, 1500);
+
+          setIsProcessing(false);
+          return;
+        } catch (error) {
+          setPaymentError('Failed to place COD order. Please try again.');
+          setTimeout(() => setPaymentError(null), 5000);
+          setIsProcessing(false);
+          return;
+        }
+      }
 
       // Check if Razorpay key is configured
       const razorpayKey = config.razorpayKeyId;
@@ -474,8 +524,7 @@ export default function CheckoutPage() {
   }
 
   const subtotal = getTotalPrice();
-  const tax = subtotal * 0.18;
-  const total = subtotal + tax;
+  const total = subtotal;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -768,15 +817,51 @@ export default function CheckoutPage() {
                   <span>Shipping</span>
                   <span className="text-green-600">Free</span>
                 </div>
-                <div className="flex justify-between text-gray-600">
-                  <span>Tax (18% GST)</span>
-                  <span>{formatPrice(tax)}</span>
-                </div>
                 <div className="border-t pt-3">
                   <div className="flex justify-between text-lg font-semibold text-gray-900">
                     <span>Total</span>
                     <span>{formatPrice(total)}</span>
                   </div>
+                </div>
+              </div>
+
+              {/* Payment Method Selection */}
+              <div className="mb-4">
+                <h3 className="text-sm font-medium text-gray-700 mb-3">Payment Method</h3>
+                <div className="space-y-2">
+                  <label className={`flex items-center p-3 border rounded-lg cursor-pointer transition-all ${
+                    paymentMethod === 'razorpay' ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-gray-400'
+                  }`}>
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="razorpay"
+                      checked={paymentMethod === 'razorpay'}
+                      onChange={(e) => setPaymentMethod(e.target.value as 'razorpay' | 'cod')}
+                      className="mr-3"
+                    />
+                    <div className="flex-1">
+                      <p className="font-medium text-gray-900">Online Payment</p>
+                      <p className="text-xs text-gray-600">Pay securely with Razorpay (Cards, UPI, Net Banking)</p>
+                    </div>
+                  </label>
+
+                  <label className={`flex items-center p-3 border rounded-lg cursor-pointer transition-all ${
+                    paymentMethod === 'cod' ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-gray-400'
+                  }`}>
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="cod"
+                      checked={paymentMethod === 'cod'}
+                      onChange={(e) => setPaymentMethod(e.target.value as 'razorpay' | 'cod')}
+                      className="mr-3"
+                    />
+                    <div className="flex-1">
+                      <p className="font-medium text-gray-900">Cash on Delivery</p>
+                      <p className="text-xs text-gray-600">Pay when you receive your order</p>
+                    </div>
+                  </label>
                 </div>
               </div>
 
@@ -793,6 +878,8 @@ export default function CheckoutPage() {
                     </svg>
                     Processing...
                   </span>
+                ) : paymentMethod === 'cod' ? (
+                  'Place Order (Cash on Delivery)'
                 ) : (
                   'Pay with Razorpay'
                 )}
@@ -890,8 +977,12 @@ export default function CheckoutPage() {
                 </svg>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Payment Successful!</h3>
-              <p className="text-gray-600 text-center mb-4">Processing your order...</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                {paymentMethod === 'cod' ? 'Order Placed Successfully!' : 'Payment Successful!'}
+              </h3>
+              <p className="text-gray-600 text-center mb-4">
+                {paymentMethod === 'cod' ? 'Your order has been confirmed...' : 'Processing your order...'}
+              </p>
 
               {/* Loading spinner */}
               <div className="flex space-x-1">
