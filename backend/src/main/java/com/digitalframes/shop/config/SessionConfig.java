@@ -69,6 +69,9 @@ public class SessionConfig {
                 .requestMatchers("/api/payments/webhook").permitAll() // Razorpay webhook (legacy)
                 .requestMatchers("/actuator/health").permitAll()
 
+                // Allow order creation for both authenticated and guest users
+                .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/orders").permitAll()
+
                 // Admin only endpoints
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
