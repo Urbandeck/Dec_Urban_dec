@@ -135,7 +135,7 @@ public class CustomProductService {
                     request.setShiprocketOrderId(shiprocketOrderId);
                     request.setShiprocketShipmentId(shiprocketShipmentId);
                     request.setShiprocketStatus("NEW");
-                    request.setStatus("order_created"); // Set to order_created instead of shipped
+                    request.setStatus("shipped"); // Set to shipped when order is created in Shiprocket
 
                     logger.info("Shiprocket order created successfully. Order ID: {}, Shipment ID: {}",
                         shiprocketOrderId, shiprocketShipmentId);
@@ -250,23 +250,12 @@ public class CustomProductService {
         if (shiprocketStatus == null) return "shipped";
 
         switch (shiprocketStatus.toUpperCase()) {
-            case "NEW":
-            case "PICKUP_SCHEDULED":
-                return "awaiting_pickup";
-            case "PICKUP_COMPLETE":
-            case "IN_TRANSIT":
-            case "REACHED_AT_DESTINATION_HUB":
-                return "in_transit";
-            case "OUT_FOR_DELIVERY":
-                return "out_for_delivery";
             case "DELIVERED":
                 return "delivered";
-            case "RTO":
-            case "RTO_IN_TRANSIT":
-                return "return_to_origin";
             case "CANCELLED":
                 return "cancelled";
             default:
+                // All other statuses (NEW, PICKUP_SCHEDULED, IN_TRANSIT, OUT_FOR_DELIVERY, etc.) map to "shipped"
                 return "shipped";
         }
     }
