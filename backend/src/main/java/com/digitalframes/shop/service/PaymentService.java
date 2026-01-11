@@ -250,4 +250,82 @@ public class PaymentService {
         log.info("Updated custom product {} payment status to {} with payment ID {}",
                 customProductId, status, paymentId);
     }
+
+    @Transactional
+    public Map<String, Object> processRefund(Long orderId, String reason) {
+        try {
+            Payment payment = paymentRepository.findByOrderId(orderId)
+                    .orElseThrow(() -> new RuntimeException("Payment not found for order: " + orderId));
+
+            // Check if payment is in SUCCESS status
+            if (payment.getStatus() != Payment.PaymentStatus.SUCCESS) {
+                throw new RuntimeException("Cannot refund payment that is not successful");
+            }
+
+            // Check if already refunded
+            if (payment.getStatus() == Payment.PaymentStatus.REFUNDED) {
+                throw new RuntimeException("Payment has already been refunded");
+            }
+
+            // Create refund request
+            JSONObject refundRequest = new JSONObject();
+            refundRequest.put("amount", payment.getAmount().multiply(new BigDecimal("100")).intValue());
+            if (reason != null && !reason.isEmpty()) {
+                JSONObject notes = new JSONObject();
+                notes.put("reason", reason);
+                refundRequest.put("notes", notes);
+            }
+
+            // Call Razorpay refund API
+            com.razorpay.Refund refund = razorpayClient.payments.refund(payment.getProviderPaymentId(), refundRequest);
+
+            // Update payment status
+            payment.setStatus(Payment.PaymentStatus.REFUNDED);
+            payment.setUpdatedAt(LocalDateTime.now());
+            payment = paymentRepository.save(payment);
+
+            // Update order status to cancelled if not already
+            Order order = payment.getOrder();
+            if (order.getStatus() != Order.OrderStatus.CANCELLED) {
+                order.setStatus(Order.OrderStatus.CANCELLED);
+            }
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("message", "Refund processed successfully");
+            response.put("refundId", refund.get("id"));
+            response.put("amount", payment.getAmount());
+            response.put("status", refund.get("status"));
+            response.put("paymentId", payment.getId());
+            response.put("orderId", orderId);
+
+            log.info("Refund processed successfully for order {} with refund ID {}", orderId, refund.get("id"));
+
+            return response;
+
+        } catch (RazorpayException e) {
+            log.error("Error processing refund for order {}: ", orderId, e);
+            throw new RuntimeException("Failed to process refund: " + e.getMessage(), e);
+        } catch (Exception e) {
+            log.error("Unexpected error processing refund for order {}: ", orderId, e);
+            throw new RuntimeException("Failed to process refund: " + e.getMessage(), e);
+        }
+    }
+
+    public boolean canRefund(Long orderId) {
+        try {
+            Payment payment = paymentRepository.findByOrderId(orderId)
+                    .orElse(null);
+
+            if (payment == null) {
+                return false;
+            }
+
+            // Can only refund if payment is successful and not already refunded
+            return payment.getStatus() == Payment.PaymentStatus.SUCCESS;
+        } catch (Exception e) {
+            log.error("Error checking refund eligibility for order {}: ", orderId, e);
+            return false;
+        }
+    }
 }

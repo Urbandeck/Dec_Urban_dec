@@ -114,4 +114,37 @@ public class PaymentController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }
+
+    @PostMapping("/refund/{orderId}")
+    public ResponseEntity<Map<String, Object>> processRefund(
+            @PathVariable Long orderId,
+            @RequestBody(required = false) Map<String, Object> request) {
+        try {
+            String reason = request != null ? (String) request.get("reason") : null;
+            Map<String, Object> response = paymentService.processRefund(orderId, reason);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error("Refund processing failed for order {}: ", orderId, e);
+            Map<String, Object> error = new HashMap<>();
+            error.put("success", false);
+            error.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+    }
+
+    @GetMapping("/can-refund/{orderId}")
+    public ResponseEntity<Map<String, Object>> checkRefundEligibility(@PathVariable Long orderId) {
+        try {
+            boolean canRefund = paymentService.canRefund(orderId);
+            Map<String, Object> response = new HashMap<>();
+            response.put("canRefund", canRefund);
+            response.put("orderId", orderId);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error("Error checking refund eligibility for order {}: ", orderId, e);
+            Map<String, Object> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+        }
+    }
 }
