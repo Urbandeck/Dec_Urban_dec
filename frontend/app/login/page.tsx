@@ -53,17 +53,10 @@ export default function LoginPage() {
       );
 
       if (response.data.success) {
-        // Set user in store
+        // Set user in store - this will trigger useEffect to handle redirect
         setUser(response.data.user);
         toast.success('Signed in successfully!');
-
-        const redirectUrl = sessionStorage.getItem('redirectAfterLogin');
-        if (redirectUrl) {
-          sessionStorage.removeItem('redirectAfterLogin');
-          router.push(redirectUrl);
-        } else {
-          router.push('/');
-        }
+        // Don't redirect here - let useEffect handle it to avoid race condition
       }
     } catch (error: any) {
       console.error('Google login error:', error);

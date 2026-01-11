@@ -24,7 +24,13 @@ export default function RegisterPage() {
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      router.push('/');
+      const redirectUrl = sessionStorage.getItem('redirectAfterLogin');
+      if (redirectUrl) {
+        sessionStorage.removeItem('redirectAfterLogin');
+        router.push(redirectUrl);
+      } else {
+        router.push('/');
+      }
     }
   }, [isAuthenticated, router]);
 
@@ -47,10 +53,10 @@ export default function RegisterPage() {
       );
 
       if (response.data.success) {
-        // Set user in store
+        // Set user in store - this will trigger useEffect to handle redirect
         setUser(response.data.user);
         toast.success('Account created successfully!');
-        router.push('/');
+        // Don't redirect here - let useEffect handle it to avoid race condition
       }
     } catch (error: any) {
       console.error('Google signup error:', error);
