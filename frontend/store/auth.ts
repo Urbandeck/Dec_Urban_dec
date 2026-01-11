@@ -108,12 +108,21 @@ export const useAuthStore = create<AuthStore>()(
             isAuthenticated: true,
             isLoading: false,
           })
-        } catch (error) {
-          set({
-            user: null,
-            isAuthenticated: false,
-            isLoading: false,
-          })
+        } catch (error: any) {
+          // Only logout if it's an authentication error (401, 403)
+          // Keep session if it's a network error (no response from server)
+          if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+            // Server says user is not authenticated
+            set({
+              user: null,
+              isAuthenticated: false,
+              isLoading: false,
+            })
+          } else {
+            // Network error or other error - keep current auth state
+            // Just set loading to false
+            set({ isLoading: false })
+          }
         }
       },
 

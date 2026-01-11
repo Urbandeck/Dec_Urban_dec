@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/store/cart';
+import { useAuthStore } from '@/store/auth';
 import { Product } from '@/lib/api';
 
 interface ProductActionsProps {
@@ -15,6 +16,7 @@ export default function ProductActions({ product, quantity = 1 }: ProductActions
   const [isBuying, setIsBuying] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
+  const { isAuthenticated } = useAuthStore();
   const router = useRouter();
 
   const handleAddToCart = async () => {
@@ -46,6 +48,18 @@ export default function ProductActions({ product, quantity = 1 }: ProductActions
   };
 
   const handleBuyNow = async () => {
+    // Check if user is authenticated
+    if (!isAuthenticated) {
+      // Store redirect intent
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('redirectAfterLogin', '/checkout');
+      }
+
+      // Redirect to login page
+      router.push('/login');
+      return;
+    }
+
     setIsBuying(true);
 
     // Add to cart first
