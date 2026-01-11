@@ -77,10 +77,22 @@ public class PaymentController {
     @PostMapping("/create-order")
     public ResponseEntity<Map<String, Object>> createCustomProductOrder(@RequestBody Map<String, Object> request) {
         try {
-            java.math.BigDecimal amount = new java.math.BigDecimal(request.get("amount").toString());
-            Long customProductId = Long.parseLong(request.get("customProductId").toString());
+            // Validate required parameters
+            if (request.get("amount") == null) {
+                Map<String, Object> error = new HashMap<>();
+                error.put("error", "Amount is required");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+            }
 
-            Map<String, Object> response = paymentService.createRazorpayOrderForCustomProduct(customProductId, amount);
+            java.math.BigDecimal amount = new java.math.BigDecimal(request.get("amount").toString());
+            String currency = request.getOrDefault("currency", "INR").toString();
+            String receipt = request.getOrDefault("receipt", "receipt_" + System.currentTimeMillis()).toString();
+
+            @SuppressWarnings("unchecked")
+            Map<String, Object> notes = (Map<String, Object>) request.get("notes");
+
+            // Create Razorpay order directly for temporary custom products
+            Map<String, Object> response = paymentService.createRazorpayOrderDirect(amount, currency, receipt, notes);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Error creating custom product payment order: ", e);

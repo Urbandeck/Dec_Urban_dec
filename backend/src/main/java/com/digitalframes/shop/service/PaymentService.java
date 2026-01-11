@@ -203,6 +203,35 @@ public class PaymentService {
     }
 
     @Transactional
+    public Map<String, Object> createRazorpayOrderDirect(BigDecimal amount, String currency, String receipt, Map<String, Object> notes) throws RazorpayException {
+        try {
+            JSONObject orderRequest = new JSONObject();
+            orderRequest.put("amount", amount.multiply(new BigDecimal("100")).intValue());
+            orderRequest.put("currency", currency);
+            orderRequest.put("receipt", receipt);
+
+            if (notes != null && !notes.isEmpty()) {
+                JSONObject notesJson = new JSONObject(notes);
+                orderRequest.put("notes", notesJson);
+            }
+
+            com.razorpay.Order razorpayOrder = razorpayClient.orders.create(orderRequest);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("id", razorpayOrder.get("id"));
+            response.put("amount", razorpayOrder.get("amount"));
+            response.put("currency", razorpayOrder.get("currency"));
+            response.put("receipt", receipt);
+
+            return response;
+
+        } catch (Exception e) {
+            log.error("Error creating Razorpay order: ", e);
+            throw new RuntimeException("Failed to create payment order: " + e.getMessage(), e);
+        }
+    }
+
+    @Transactional
     public Map<String, Object> verifyCustomProductPayment(Long customProductId, String razorpayOrderId,
                                                           String razorpayPaymentId, String razorpaySignature) {
         try {
