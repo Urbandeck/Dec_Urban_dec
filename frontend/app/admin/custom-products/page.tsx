@@ -24,9 +24,17 @@ interface CustomProductRequest {
   adminNotes?: string;
   customerEmail?: string;
   customerPhone?: string;
+  customerOrderId?: string;
+  totalAmount?: number;
   createdAt: string;
   updatedAt: string;
   images: CustomProductImage[];
+  shiprocketOrderId?: string;
+  shiprocketShipmentId?: string;
+  shiprocketStatus?: string;
+  awbNumber?: string;
+  courierName?: string;
+  trackingUrl?: string;
 }
 
 export default function CustomProductsPage() {
@@ -189,8 +197,10 @@ export default function CustomProductsPage() {
   };
 
   const getStatusBadge = (status: string) => {
+    const normalizedStatus = status?.toLowerCase() || 'pending';
     const statusStyles: { [key: string]: string } = {
       'pending': 'bg-yellow-100 text-yellow-800',
+      'paid': 'bg-green-100 text-green-800',
       'processing': 'bg-blue-100 text-blue-800',
       'shipped': 'bg-indigo-100 text-indigo-800',
       'delivered': 'bg-green-100 text-green-800',
@@ -202,7 +212,7 @@ export default function CustomProductsPage() {
     };
 
     return (
-      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusStyles[status] || 'bg-gray-100 text-gray-800'}`}>
+      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusStyles[normalizedStatus] || 'bg-gray-100 text-gray-800'}`}>
         {formatStatus(status)}
       </span>
     );
@@ -229,13 +239,16 @@ export default function CustomProductsPage() {
           <thead className="bg-gray-50">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                ID
+                Order #
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Customer
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Frame Details
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Amount
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Images
@@ -254,7 +267,7 @@ export default function CustomProductsPage() {
           <tbody className="bg-white divide-y divide-gray-200">
             {requests.length === 0 ? (
               <tr>
-                <td colSpan={7} className="px-6 py-4 text-center text-gray-500">
+                <td colSpan={8} className="px-6 py-4 text-center text-gray-500">
                   No custom product requests yet
                 </td>
               </tr>
@@ -262,7 +275,8 @@ export default function CustomProductsPage() {
               requests.map((request) => (
                 <tr key={request.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    #{request.id}
+                    <div className="font-medium">{request.customerOrderId || `REQ-${request.id}`}</div>
+                    <div className="text-xs text-gray-500">ID: {request.id}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     <div>
@@ -278,6 +292,13 @@ export default function CustomProductsPage() {
                       <div>Color: {request.frameColor}</div>
                       <div>Qty: {request.quantity}</div>
                     </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    {request.totalAmount ? (
+                      <span className="font-medium">₹{request.totalAmount.toLocaleString()}</span>
+                    ) : (
+                      <span className="text-gray-400">-</span>
+                    )}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     <div className="flex -space-x-2">
@@ -337,7 +358,14 @@ export default function CustomProductsPage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center">
-              <h2 className="text-xl font-bold">Custom Request #{selectedRequest.id}</h2>
+              <div>
+                <h2 className="text-xl font-bold">
+                  {selectedRequest.customerOrderId || `Custom Request #${selectedRequest.id}`}
+                </h2>
+                {selectedRequest.customerOrderId && (
+                  <p className="text-sm text-gray-500">Request ID: {selectedRequest.id}</p>
+                )}
+              </div>
               <button
                 onClick={() => {
                   setShowModal(false);
@@ -389,6 +417,12 @@ export default function CustomProductsPage() {
                       <span className="text-gray-500">Quantity:</span>{' '}
                       <span className="font-medium">{selectedRequest.quantity}</span>
                     </div>
+                    {selectedRequest.totalAmount && (
+                      <div>
+                        <span className="text-gray-500">Total Amount:</span>{' '}
+                        <span className="font-medium text-green-600">₹{selectedRequest.totalAmount.toLocaleString()}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

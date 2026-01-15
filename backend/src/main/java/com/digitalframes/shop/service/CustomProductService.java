@@ -2,8 +2,10 @@ package com.digitalframes.shop.service;
 
 import com.digitalframes.shop.entity.CustomProductRequest;
 import com.digitalframes.shop.entity.CustomProductImage;
+import com.digitalframes.shop.entity.CustomerOrder;
 import com.digitalframes.shop.repository.CustomProductRepository;
 import com.digitalframes.shop.repository.CustomProductImageRepository;
+import com.digitalframes.shop.repository.CustomerOrderRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class CustomProductService {
 
     @Autowired
     private CustomProductImageRepository customProductImageRepository;
+
+    @Autowired
+    private CustomerOrderRepository customerOrderRepository;
 
     @Autowired
     private ShiprocketService shiprocketService;
@@ -158,6 +163,21 @@ public class CustomProductService {
                 } else {
                     request.setAdminNotes("Shiprocket error: " + e.getMessage());
                 }
+            }
+        }
+
+        // Sync status with associated CustomerOrder
+        if (request.getCustomerOrderId() != null) {
+            try {
+                Optional<CustomerOrder> customerOrderOpt = customerOrderRepository.findByOrderId(request.getCustomerOrderId());
+                if (customerOrderOpt.isPresent()) {
+                    CustomerOrder customerOrder = customerOrderOpt.get();
+                    customerOrder.setStatus(request.getStatus().toUpperCase());
+                    customerOrderRepository.save(customerOrder);
+                    logger.info("Synced status '{}' to CustomerOrder {}", request.getStatus(), request.getCustomerOrderId());
+                }
+            } catch (Exception e) {
+                logger.error("Failed to sync status with CustomerOrder: {}", e.getMessage());
             }
         }
 

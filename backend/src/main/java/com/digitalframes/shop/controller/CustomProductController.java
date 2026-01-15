@@ -4,7 +4,10 @@ import com.digitalframes.shop.entity.CustomProductRequest;
 import com.digitalframes.shop.entity.CustomProductImage;
 import com.digitalframes.shop.entity.TemporaryCustomProduct;
 import com.digitalframes.shop.entity.TemporaryCustomProductImage;
+import com.digitalframes.shop.entity.CustomerOrder;
+import com.digitalframes.shop.entity.CustomerOrderItem;
 import com.digitalframes.shop.repository.TemporaryCustomProductRepository;
+import com.digitalframes.shop.repository.CustomerOrderRepository;
 import com.digitalframes.shop.service.CustomProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -33,6 +36,9 @@ public class CustomProductController {
 
     @Autowired
     private TemporaryCustomProductRepository temporaryRepository;
+
+    @Autowired
+    private CustomerOrderRepository customerOrderRepository;
 
     // New endpoint for temporary upload (before payment)
     @PostMapping(value = "/temporary", consumes = "multipart/form-data")
@@ -198,12 +204,69 @@ public class CustomProductController {
             request.setStatus("PAID");
             customProductService.updateRequest(request);
 
+            // Also create a CustomerOrder entry so it shows in the user's orders page
+            CustomerOrder customerOrder = new CustomerOrder();
+            String customerOrderId = "ORD" + System.currentTimeMillis();
+            customerOrder.setOrderId(customerOrderId);
+            customerOrder.setCustomerName(tempProduct.getCustomerName());
+            customerOrder.setCustomerEmail(tempProduct.getCustomerEmail());
+            customerOrder.setCustomerPhone(tempProduct.getCustomerPhone());
+            customerOrder.setPurchaserEmail(tempProduct.getCustomerEmail());
+
+            // Build shipping address
+            StringBuilder addressBuilder = new StringBuilder();
+            addressBuilder.append(tempProduct.getAddressLine1());
+            if (tempProduct.getAddressLine2() != null && !tempProduct.getAddressLine2().isEmpty()) {
+                addressBuilder.append(", ").append(tempProduct.getAddressLine2());
+            }
+            customerOrder.setShippingAddress(addressBuilder.toString());
+            customerOrder.setCity(tempProduct.getCity());
+            customerOrder.setState(tempProduct.getState());
+            customerOrder.setPincode(tempProduct.getPincode());
+
+            // Set amounts
+            double totalAmount = tempProduct.getTotalAmount() != null ? tempProduct.getTotalAmount().doubleValue() : 0;
+            customerOrder.setSubtotal(totalAmount);
+            customerOrder.setTax(0.0);
+            customerOrder.setTotalAmount(totalAmount);
+
+            // Set payment info
+            customerOrder.setPaymentId(paymentId);
+            customerOrder.setPaymentStatus("PAID");
+            customerOrder.setStatus("PAID");
+            customerOrder.setCreatedAt(LocalDateTime.now());
+
+            // Create order item for custom frame
+            CustomerOrderItem orderItem = new CustomerOrderItem();
+            orderItem.setProductId(0L); // No product ID for custom frames
+            orderItem.setProductName("Custom Frame - " + tempProduct.getFrameSize() + " (" + tempProduct.getFrameColor() + ")");
+            orderItem.setProductAttributes("Size: " + tempProduct.getFrameSize() + ", Color: " + tempProduct.getFrameColor());
+            orderItem.setQuantity(tempProduct.getQuantity());
+            orderItem.setPrice(totalAmount / tempProduct.getQuantity());
+            orderItem.setTotal(totalAmount);
+            orderItem.setOrder(customerOrder);
+
+            // Get first image URL if available
+            if (!tempProduct.getImages().isEmpty()) {
+                orderItem.setImageUrl("/api/custom-products/image/" + request.getImages().get(0).getId() + "/download");
+            }
+
+            customerOrder.getItems().add(orderItem);
+
+            // Save the customer order
+            customerOrderRepository.save(customerOrder);
+
+            // Link custom product request to customer order
+            request.setCustomerOrderId(customerOrderId);
+            customProductService.updateRequest(request);
+
             // Remove temporary data from database
             temporaryRepository.deleteById(tempId);
 
             response.put("success", true);
             response.put("message", "Custom product request created successfully");
             response.put("requestId", request.getId());
+            response.put("orderId", customerOrderId);
             response.put("status", request.getStatus());
 
             return ResponseEntity.ok(response);
@@ -328,8 +391,18 @@ public class CustomProductController {
             requestData.put("adminNotes", request.getAdminNotes());
             requestData.put("customerEmail", request.getCustomerEmail());
             requestData.put("customerPhone", request.getCustomerPhone());
+            requestData.put("customerOrderId", request.getCustomerOrderId());
+            requestData.put("totalAmount", request.getTotalAmount());
             requestData.put("createdAt", request.getCreatedAt());
             requestData.put("updatedAt", request.getUpdatedAt());
+
+            // Add Shiprocket fields
+            requestData.put("shiprocketOrderId", request.getShiprocketOrderId());
+            requestData.put("shiprocketShipmentId", request.getShiprocketShipmentId());
+            requestData.put("shiprocketStatus", request.getShiprocketStatus());
+            requestData.put("awbNumber", request.getAwbNumber());
+            requestData.put("courierName", request.getCourierName());
+            requestData.put("trackingUrl", request.getTrackingUrl());
 
             // Convert images to base64
             List<Map<String, Object>> imagesList = new ArrayList<>();

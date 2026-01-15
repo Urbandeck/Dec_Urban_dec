@@ -47,10 +47,7 @@ const FRAME_PRICES = {
 };
 
 const COLOR_PRICES = {
-  'black': 0,
-  'white': 0,
-  'gold': 500,
-  'silver': 300
+  'walnut': 0
 };
 
 export default function CustomProductCheckout() {
@@ -67,7 +64,7 @@ export default function CustomProductCheckout() {
   // Form states
   const [productDetails, setProductDetails] = useState({
     frameSize: '18x23',
-    frameColor: 'black',
+    frameColor: 'walnut',
     quantity: 1,
     specialInstructions: ''
   });
@@ -396,7 +393,7 @@ export default function CustomProductCheckout() {
     setUploadedImages([]);
     setProductDetails({
       frameSize: '18x23',
-      frameColor: 'black',
+      frameColor: 'walnut',
       quantity: 1,
       specialInstructions: ''
     });
@@ -421,23 +418,38 @@ export default function CustomProductCheckout() {
       <ScrollAnimationWrapper animation="scale" threshold={0.2} delay={100}>
         <div
           onClick={() => setShowModal(true)}
-          className="bg-gradient-to-br from-blue-50 to-sky-50 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer group border-2 border-dashed border-blue-300 hover:border-blue-400"
+          className="bg-white rounded-2xl transition-all duration-300 cursor-pointer group border border-stone-200 hover:border-amber-300 overflow-hidden h-full hover:shadow-lg"
         >
-          <div className="aspect-square relative bg-gradient-to-br from-blue-100 to-sky-100 rounded-t-lg overflow-hidden flex flex-col items-center justify-center p-6">
-            <div className="text-blue-600 mb-4 group-hover:scale-110 transition-transform">
-              <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="aspect-square relative bg-slate-800 overflow-hidden flex flex-col items-center justify-center p-6">
+            {/* Icon */}
+            <div className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">Create Custom Frame</h3>
-            <p className="text-sm text-gray-600 text-center">Upload your photos for a personalized frame</p>
-          </div>
-          <div className="p-4">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-gray-600">Starting from</span>
-              <span className="text-2xl font-bold text-blue-600">{formatPrice(1)}</span>
+            <h3 className="text-xl font-bold text-white mb-2 text-center">Create Custom Frame</h3>
+            <p className="text-sm text-slate-300 text-center">Upload your photos for a personalized frame</p>
+            {/* Badge */}
+            <div className="absolute top-3 left-3 bg-amber-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+              CUSTOM
             </div>
-            <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
+          </div>
+          <div className="p-5">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <span className="text-xs text-slate-400">Starting from</span>
+                <p className="text-xl font-bold text-slate-800">
+                  {formatPrice(1)}
+                </p>
+              </div>
+              <div className="flex items-center gap-1">
+                <svg className="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
+                <span className="text-sm font-medium text-slate-600">Personalized</span>
+              </div>
+            </div>
+            <button className="w-full bg-amber-500 text-white py-3 rounded-lg hover:bg-amber-600 transition-colors font-semibold">
               Get Started
             </button>
           </div>
@@ -529,6 +541,19 @@ export default function CustomProductCheckout() {
               {currentStep === 2 && (
                 <div>
                   <h3 className="text-lg font-semibold mb-4">Step 2: Customize Your Frame</h3>
+
+                  {/* Non-refundable notice */}
+                  <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4">
+                    <div className="flex items-start">
+                      <svg className="w-5 h-5 text-amber-600 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                      </svg>
+                      <p className="text-sm text-amber-800">
+                        <strong>Please Note:</strong> Custom products are made-to-order and are <strong>non-refundable</strong>. Please review your images and specifications carefully before placing your order.
+                      </p>
+                    </div>
+                  </div>
+
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">Frame Size</label>
@@ -548,10 +573,7 @@ export default function CustomProductCheckout() {
                         onChange={(e) => setProductDetails({...productDetails, frameColor: e.target.value})}
                         className="w-full border border-gray-300 rounded-lg px-4 py-2"
                       >
-                        <option value="black">Black</option>
-                        <option value="white">White</option>
-                        <option value="gold">Gold (+{formatPrice(500)})</option>
-                        <option value="silver">Silver (+{formatPrice(300)})</option>
+                        <option value="walnut">Walnut</option>
                       </select>
                     </div>
 
@@ -823,6 +845,21 @@ export default function CustomProductCheckout() {
                       {deliveryAddress.addressLine2 && <p>{deliveryAddress.addressLine2}</p>}
                       <p>{deliveryAddress.city}, {deliveryAddress.state} - {deliveryAddress.pincode}</p>
                       <p className="text-gray-600">{customerInfo.email} | {customerInfo.phone}</p>
+                    </div>
+                  </div>
+
+                  {/* Non-refundable warning before payment */}
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                    <div className="flex items-start">
+                      <svg className="w-6 h-6 text-red-600 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                      </svg>
+                      <div>
+                        <h5 className="font-semibold text-red-800 mb-1">Non-Refundable Order</h5>
+                        <p className="text-sm text-red-700">
+                          Custom products are personalized items made specifically for you. Once your order is placed, it <strong>cannot be cancelled or refunded</strong>. Please ensure all details are correct before proceeding with payment.
+                        </p>
+                      </div>
                     </div>
                   </div>
 

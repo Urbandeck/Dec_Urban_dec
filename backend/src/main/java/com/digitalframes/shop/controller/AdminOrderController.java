@@ -38,6 +38,19 @@ public class AdminOrderController {
         try {
             List<CustomerOrder> orders = orderService.getAllOrders();
 
+            // Filter out custom orders (orders where all items have productId = 0)
+            // Custom orders should only appear in admin custom products page
+            orders = orders.stream()
+                .filter(order -> {
+                    if (order.getItems() == null || order.getItems().isEmpty()) {
+                        return true; // Keep orders with no items
+                    }
+                    // Check if ANY item has a non-zero productId (i.e., it's a regular product)
+                    return order.getItems().stream()
+                        .anyMatch(item -> item.getProductId() != null && item.getProductId() != 0L);
+                })
+                .toList();
+
             // Apply filters if provided
             if (status != null && !status.isEmpty() && !status.equals("all")) {
                 orders = orders.stream()
@@ -155,6 +168,17 @@ public class AdminOrderController {
     public ResponseEntity<?> getOrderStats() {
         try {
             List<CustomerOrder> orders = orderService.getAllOrders();
+
+            // Filter out custom orders (orders where all items have productId = 0)
+            orders = orders.stream()
+                .filter(order -> {
+                    if (order.getItems() == null || order.getItems().isEmpty()) {
+                        return true;
+                    }
+                    return order.getItems().stream()
+                        .anyMatch(item -> item.getProductId() != null && item.getProductId() != 0L);
+                })
+                .toList();
 
             long totalOrders = orders.size();
             long pendingOrders = orders.stream()

@@ -47,6 +47,17 @@ public class ProductController {
     @GetMapping("/{slug}")
     public ResponseEntity<Map<String, Object>> getProductBySlug(@PathVariable String slug) {
         Optional<Product> product = productService.getProductBySlug(slug);
+
+        // If not found by slug, try to find by ID (for backwards compatibility with order items)
+        if (product.isEmpty()) {
+            try {
+                Long id = Long.parseLong(slug);
+                product = productService.getProductById(id);
+            } catch (NumberFormatException e) {
+                // Not a number, product simply doesn't exist
+            }
+        }
+
         if (product.isPresent()) {
             return ResponseEntity.ok(convertProductToDto(product.get()));
         }

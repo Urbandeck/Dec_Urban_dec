@@ -83,6 +83,9 @@ public class CustomProductRequest {
     @Column(name = "order_id")
     private String orderId;
 
+    @Column(name = "customer_order_id")
+    private String customerOrderId;
+
     // Shiprocket Integration Fields
     @Column(name = "shiprocket_order_id")
     private String shiprocketOrderId;
@@ -285,6 +288,14 @@ public class CustomProductRequest {
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
+    }
+
+    public String getCustomerOrderId() {
+        return customerOrderId;
+    }
+
+    public void setCustomerOrderId(String customerOrderId) {
+        this.customerOrderId = customerOrderId;
     }
 
     public String getShiprocketOrderId() {

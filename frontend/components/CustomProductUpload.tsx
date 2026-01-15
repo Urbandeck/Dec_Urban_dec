@@ -16,7 +16,7 @@ export default function CustomProductUpload() {
   const [isUploading, setIsUploading] = useState(false);
   const [productDetails, setProductDetails] = useState({
     frameSize: '8x10',
-    frameColor: 'black',
+    frameColor: 'walnut',
     quantity: 1,
     specialInstructions: ''
   });
@@ -93,7 +93,7 @@ export default function CustomProductUpload() {
         setUploadedImages([]);
         setProductDetails({
           frameSize: '8x10',
-          frameColor: 'black',
+          frameColor: 'walnut',
           quantity: 1,
           specialInstructions: ''
         });
@@ -229,11 +229,7 @@ export default function CustomProductUpload() {
                     onChange={(e) => setProductDetails(prev => ({ ...prev, frameColor: e.target.value }))}
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                   >
-                    <option value="black">Black</option>
-                    <option value="white">White</option>
-                    <option value="silver">Silver</option>
-                    <option value="gold">Gold</option>
-                    <option value="wood">Wood Finish</option>
+                    <option value="walnut">Walnut</option>
                   </select>
                 </div>
 

@@ -16,10 +16,7 @@ export default function OrdersPage() {
   const [filteredOrders, setFilteredOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [isHydrated, setIsHydrated] = useState(false);
-  const [showShareModal, setShowShareModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<any>(null);
-  const [shareEmail, setShareEmail] = useState('');
-  const [sharing, setSharing] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [cancellingOrder, setCancellingOrder] = useState(false);
   const [cancelReason, setCancelReason] = useState('');
@@ -145,54 +142,6 @@ export default function OrdersPage() {
 
     setFilteredOrders(filtered);
   }, [orders, filterPeriod, orderStatus, searchQuery]);
-
-  const shareInvoice = (order: any) => {
-    setSelectedOrder(order);
-    setShareEmail(order.customerEmail || user?.email || '');
-    setShowShareModal(true);
-  };
-
-  const handleShareInvoice = async () => {
-    if (!shareEmail || !selectedOrder) return;
-
-    setSharing(true);
-    try {
-      const response = await fetch(`${ENV_CONFIG.API_URL}/api/orders/${selectedOrder.orderId}/send-invoice`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({ email: shareEmail }),
-      });
-
-      if (response.ok) {
-        setNotification({
-          type: 'success',
-          title: 'Invoice sent successfully',
-          message: `Invoice has been sent to ${shareEmail}`
-        });
-        setShowShareModal(false);
-        setShareEmail('');
-        setSelectedOrder(null);
-      } else {
-        const error = await response.json();
-        setNotification({
-          type: 'error',
-          title: 'Failed to send invoice',
-          message: error.error || 'Unknown error occurred'
-        });
-      }
-    } catch (error) {
-      setNotification({
-        type: 'error',
-        title: 'Failed to send invoice',
-        message: 'Please try again later'
-      });
-    } finally {
-      setSharing(false);
-    }
-  };
 
   const openCancelModal = (order: any) => {
     setSelectedOrder(order);
@@ -508,6 +457,12 @@ export default function OrdersPage() {
                             >
                               {item.productName || item.name}
                             </Link>
+                            {/* Non-refundable badge for custom orders */}
+                            {(item.productId === 0 || (item.productName || item.name || '').includes('Custom Frame')) && (
+                              <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-100 text-amber-800">
+                                Non-refundable
+                              </span>
+                            )}
                             {(item.productAttributes || item.attributes) && (
                               <p className="text-sm text-gray-600 mt-1">{item.productAttributes || item.attributes}</p>
                             )}
@@ -516,15 +471,18 @@ export default function OrdersPage() {
                               {formatPrice(item.total || (item.price * item.quantity))}
                             </p>
                             <div className="flex gap-3 mt-3">
-                              <Link
-                                href={`/products/${item.productId || ''}`}
-                                className="text-sm text-blue-600 hover:text-blue-700 hover:underline"
-                              >
-                                Buy it again
-                              </Link>
-                              {order.status === 'DELIVERED' && (
+                              {/* Hide "Buy it again" for custom orders (productId is 0 or name contains "Custom Frame") */}
+                              {item.productId && item.productId !== 0 && !(item.productName || item.name || '').includes('Custom Frame') && (
+                                <Link
+                                  href={`/products/${item.productId}`}
+                                  className="text-sm text-blue-600 hover:text-blue-700 hover:underline"
+                                >
+                                  Buy it again
+                                </Link>
+                              )}
+                              {order.status === 'DELIVERED' && item.productId && item.productId !== 0 && (
                                 <>
-                                  <span className="text-gray-300">|</span>
+                                  {!(item.productName || item.name || '').includes('Custom Frame') && <span className="text-gray-300">|</span>}
                                   <button className="text-sm text-blue-600 hover:text-blue-700 hover:underline">
                                     Write a product review
                                   </button>
@@ -545,24 +503,37 @@ export default function OrdersPage() {
                       >
                         Download invoice
                       </button>
-                      <span className="text-gray-300">|</span>
-                      <button
-                        onClick={() => shareInvoice(order)}
-                        className="text-sm text-blue-600 hover:text-blue-700 hover:underline"
-                      >
-                        Share invoice
-                      </button>
-                      {!['CANCELLED', 'FAILED', 'DELIVERED'].includes(order.status) && (
-                        <>
-                          <span className="text-gray-300">|</span>
-                          <button
-                            onClick={() => openCancelModal(order)}
-                            className="text-sm text-blue-600 hover:text-blue-700 hover:underline"
-                          >
-                            Cancel items
-                          </button>
-                        </>
-                      )}
+                      {/* Check if order contains custom items (non-cancellable) */}
+                      {(() => {
+                        const isCustomOrder = order.items?.some((item: any) =>
+                          item.productId === 0 || (item.productName || item.name || '').includes('Custom Frame')
+                        );
+                        const canCancel = !['CANCELLED', 'FAILED', 'DELIVERED'].includes(order.status) && !isCustomOrder;
+
+                        if (isCustomOrder && !['CANCELLED', 'FAILED', 'DELIVERED'].includes(order.status)) {
+                          return (
+                            <>
+                              <span className="text-gray-300">|</span>
+                              <span className="text-sm text-gray-500 italic">
+                                Custom orders cannot be cancelled
+                              </span>
+                            </>
+                          );
+                        } else if (canCancel) {
+                          return (
+                            <>
+                              <span className="text-gray-300">|</span>
+                              <button
+                                onClick={() => openCancelModal(order)}
+                                className="text-sm text-blue-600 hover:text-blue-700 hover:underline"
+                              >
+                                Cancel items
+                              </button>
+                            </>
+                          );
+                        }
+                        return null;
+                      })()}
                     </div>
 
                     {/* Failure Reason for Failed Orders */}
@@ -607,58 +578,6 @@ export default function OrdersPage() {
           </div>
         )}
       </div>
-
-      {/* Share Invoice Modal */}
-      {showShareModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-medium text-gray-900">Share Invoice</h2>
-              <button
-                onClick={() => setShowShareModal(false)}
-                className="text-gray-400 hover:text-gray-600"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            <p className="text-sm text-gray-600 mb-4">
-              Enter the email address where you want to send the invoice for Order #{selectedOrder?.orderId?.slice(0, 16).toUpperCase()}
-            </p>
-
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Email Address
-              </label>
-              <input
-                type="email"
-                value={shareEmail}
-                onChange={(e) => setShareEmail(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-yellow-500 focus:border-yellow-500"
-                placeholder="recipient@example.com"
-              />
-            </div>
-
-            <div className="flex gap-3">
-              <button
-                onClick={handleShareInvoice}
-                disabled={sharing || !shareEmail}
-                className="flex-1 bg-yellow-400 hover:bg-yellow-500 disabled:bg-gray-300 text-gray-900 px-4 py-2 rounded-md font-medium disabled:cursor-not-allowed transition-colors"
-              >
-                {sharing ? 'Sending...' : 'Send Invoice'}
-              </button>
-              <button
-                onClick={() => setShowShareModal(false)}
-                className="flex-1 border border-gray-300 text-gray-700 px-4 py-2 rounded-md font-medium hover:bg-gray-50 transition-colors"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Cancel Order Modal */}
       {showCancelModal && (
