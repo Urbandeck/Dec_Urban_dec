@@ -242,7 +242,7 @@ export default function OrdersPage() {
       'CANCELLED': { label: 'Cancelled', color: 'text-red-600' },
       'FAILED': { label: 'Payment Failed', color: 'text-red-600' }
     };
-    return statusConfig[status] || { label: status, color: 'text-gray-600' };
+    return statusConfig[status] || { label: status, color: 'text-slate-500' };
   };
 
   const getDeliveryDate = (order: any) => {
@@ -283,7 +283,7 @@ export default function OrdersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-stone-50">
       {/* Notification */}
       {notification && (
         <Notification
@@ -298,8 +298,8 @@ export default function OrdersPage() {
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-medium text-gray-900">Your Orders</h1>
-              <p className="text-sm text-gray-600 mt-1">{orders.length} order{orders.length !== 1 ? 's' : ''} placed</p>
+              <h1 className="text-2xl font-medium text-slate-800">Your Orders</h1>
+              <p className="text-sm text-slate-500 mt-1">{orders.length} order{orders.length !== 1 ? 's' : ''} placed</p>
             </div>
 
             {/* Search Bar */}
@@ -310,7 +310,7 @@ export default function OrdersPage() {
                   placeholder="Search all orders"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500"
+                  className="w-full px-4 py-2 pr-10 border border-stone-200 rounded-lg focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30"
                 />
                 <svg className="absolute right-3 top-2.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -322,13 +322,13 @@ export default function OrdersPage() {
           {/* Filters */}
           <div className="flex flex-wrap gap-3 mt-4">
             <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-700 font-medium">Filter by:</span>
+              <span className="text-sm text-slate-600 font-medium">Filter by:</span>
             </div>
 
             <select
               value={filterPeriod}
               onChange={(e) => setFilterPeriod(e.target.value)}
-              className="px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-yellow-500"
+              className="px-3 py-1.5 text-sm border border-stone-200 rounded-md focus:outline-none focus:border-yellow-500"
             >
               <option value="all">All time</option>
               <option value="3months">Last 3 months</option>
@@ -339,7 +339,7 @@ export default function OrdersPage() {
             <select
               value={orderStatus}
               onChange={(e) => setOrderStatus(e.target.value)}
-              className="px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:border-yellow-500"
+              className="px-3 py-1.5 text-sm border border-stone-200 rounded-md focus:outline-none focus:border-yellow-500"
             >
               <option value="all">All orders</option>
               <option value="active">Active orders</option>
@@ -358,14 +358,14 @@ export default function OrdersPage() {
               const deliveryInfo = getDeliveryDate(order);
 
               return (
-                <div key={order.id || order.orderId} className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+                <div key={order.id || order.orderId} className="bg-white border border-stone-200 rounded-lg overflow-hidden">
                   {/* Order Header */}
-                  <div className="bg-gray-50 px-6 py-3 border-b border-gray-200">
+                  <div className="bg-stone-100 px-6 py-3 border-b border-stone-200">
                     <div className="flex flex-wrap items-center justify-between gap-4 text-sm">
                       <div className="flex flex-wrap items-center gap-6">
                         <div>
-                          <span className="text-gray-600">ORDER PLACED</span>
-                          <p className="font-medium text-gray-900">
+                          <span className="text-slate-500">ORDER PLACED</span>
+                          <p className="font-medium text-slate-800">
                             {new Date(order.createdAt).toLocaleDateString('en-US', {
                               month: 'long',
                               day: 'numeric',
@@ -374,23 +374,23 @@ export default function OrdersPage() {
                           </p>
                         </div>
                         <div>
-                          <span className="text-gray-600">TOTAL</span>
-                          <p className="font-medium text-gray-900">{formatPrice(order.totalAmount)}</p>
+                          <span className="text-slate-500">TOTAL</span>
+                          <p className="font-medium text-slate-800">{formatPrice(order.totalAmount)}</p>
                         </div>
                         <div>
-                          <span className="text-gray-600">SHIP TO</span>
-                          <p className="font-medium text-gray-900">
+                          <span className="text-slate-500">SHIP TO</span>
+                          <p className="font-medium text-slate-800">
                             {order.customerName || order.customerDetails?.fullName}
                           </p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-gray-600">
+                        <p className="text-slate-500">
                           ORDER # {(order.orderId || order.id || '').slice(0, 16).toUpperCase()}
                         </p>
                         <Link
                           href={`/orders/${order.orderId || order.id}`}
-                          className="text-blue-600 hover:text-blue-700 hover:underline"
+                          className="text-amber-600 hover:text-amber-700 hover:underline"
                         >
                           View order details
                         </Link>
@@ -406,18 +406,18 @@ export default function OrdersPage() {
                           {statusInfo.label}
                         </h3>
                         {deliveryInfo && (
-                          <p className="text-sm text-gray-600 mt-1">{deliveryInfo}</p>
+                          <p className="text-sm text-slate-500 mt-1">{deliveryInfo}</p>
                         )}
                       </div>
                       <div className="flex gap-3">
                         <button
                           onClick={() => router.push(`/orders/track/${order.orderId}`)}
-                          className="px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-gray-900 text-sm font-medium rounded-md transition-colors"
+                          className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-slate-800 text-sm font-medium rounded-md transition-colors"
                         >
                           Track package
                         </button>
                         {order.status === 'DELIVERED' && (
-                          <button className="px-4 py-2 border border-gray-300 hover:bg-gray-50 text-gray-700 text-sm font-medium rounded-md transition-colors">
+                          <button className="px-4 py-2 border border-stone-200 hover:bg-stone-100 text-slate-600 text-sm font-medium rounded-md transition-colors">
                             Return items
                           </button>
                         )}
@@ -435,7 +435,7 @@ export default function OrdersPage() {
 
                         return (
                           <div key={index} className="flex gap-4">
-                            <div className="w-24 h-24 bg-gray-100 rounded flex-shrink-0">
+                            <div className="w-24 h-24 bg-stone-50 rounded flex-shrink-0">
                               {imageUrl ? (
                                 <img
                                   src={imageUrl}
@@ -453,7 +453,7 @@ export default function OrdersPage() {
                           <div className="flex-1">
                             <Link
                               href={`/products/${item.productId || ''}`}
-                              className="text-base font-medium text-blue-600 hover:text-blue-700 hover:underline inline-block"
+                              className="text-base font-medium text-amber-600 hover:text-amber-700 hover:underline inline-block"
                             >
                               {item.productName || item.name}
                             </Link>
@@ -464,10 +464,10 @@ export default function OrdersPage() {
                               </span>
                             )}
                             {(item.productAttributes || item.attributes) && (
-                              <p className="text-sm text-gray-600 mt-1">{item.productAttributes || item.attributes}</p>
+                              <p className="text-sm text-slate-500 mt-1">{item.productAttributes || item.attributes}</p>
                             )}
-                            <p className="text-sm text-gray-600 mt-1">Qty: {item.quantity}</p>
-                            <p className="text-sm font-medium text-gray-900 mt-1">
+                            <p className="text-sm text-slate-500 mt-1">Qty: {item.quantity}</p>
+                            <p className="text-sm font-medium text-slate-800 mt-1">
                               {formatPrice(item.total || (item.price * item.quantity))}
                             </p>
                             <div className="flex gap-3 mt-3">
@@ -475,7 +475,7 @@ export default function OrdersPage() {
                               {item.productId && item.productId !== 0 && !(item.productName || item.name || '').includes('Custom Frame') && (
                                 <Link
                                   href={`/products/${item.productId}`}
-                                  className="text-sm text-blue-600 hover:text-blue-700 hover:underline"
+                                  className="text-sm text-amber-600 hover:text-amber-700 hover:underline"
                                 >
                                   Buy it again
                                 </Link>
@@ -483,7 +483,7 @@ export default function OrdersPage() {
                               {order.status === 'DELIVERED' && item.productId && item.productId !== 0 && (
                                 <>
                                   {!(item.productName || item.name || '').includes('Custom Frame') && <span className="text-gray-300">|</span>}
-                                  <button className="text-sm text-blue-600 hover:text-blue-700 hover:underline">
+                                  <button className="text-sm text-amber-600 hover:text-amber-700 hover:underline">
                                     Write a product review
                                   </button>
                                 </>
@@ -496,10 +496,10 @@ export default function OrdersPage() {
                     </div>
 
                     {/* Additional Actions */}
-                    <div className="mt-6 pt-4 border-t border-gray-200 flex flex-wrap gap-3">
+                    <div className="mt-6 pt-4 border-t border-stone-200 flex flex-wrap gap-3">
                       <button
                         onClick={() => downloadInvoicePDF(order)}
-                        className="text-sm text-blue-600 hover:text-blue-700 hover:underline"
+                        className="text-sm text-amber-600 hover:text-amber-700 hover:underline"
                       >
                         Download invoice
                       </button>
@@ -525,7 +525,7 @@ export default function OrdersPage() {
                               <span className="text-gray-300">|</span>
                               <button
                                 onClick={() => openCancelModal(order)}
-                                className="text-sm text-blue-600 hover:text-blue-700 hover:underline"
+                                className="text-sm text-amber-600 hover:text-amber-700 hover:underline"
                               >
                                 Cancel items
                               </button>
@@ -556,13 +556,13 @@ export default function OrdersPage() {
               <svg className="w-20 h-20 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
-              <h2 className="text-xl font-medium text-gray-900 mb-2">
+              <h2 className="text-xl font-medium text-slate-800 mb-2">
                 {searchQuery || filterPeriod !== 'all' || orderStatus !== 'all'
                   ? 'No orders found matching your criteria'
                   : 'Looking for your orders?'
                 }
               </h2>
-              <p className="text-gray-600 mb-6">
+              <p className="text-slate-500 mb-6">
                 {searchQuery || filterPeriod !== 'all' || orderStatus !== 'all'
                   ? 'Try adjusting your filters or search terms'
                   : 'Start shopping and your orders will appear here'
@@ -570,7 +570,7 @@ export default function OrdersPage() {
               </p>
               <Link
                 href="/products"
-                className="inline-block bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-8 py-2 rounded-md font-medium transition-colors"
+                className="inline-block bg-amber-500 hover:bg-amber-600 text-slate-800 px-8 py-2 rounded-md font-medium transition-colors"
               >
                 Continue Shopping
               </Link>
@@ -584,14 +584,14 @@ export default function OrdersPage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg max-w-md w-full p-6">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-medium text-gray-900">Cancel Order</h2>
+              <h2 className="text-xl font-medium text-slate-800">Cancel Order</h2>
               <button
                 onClick={() => {
                   setShowCancelModal(false);
                   setSelectedOrder(null);
                   setCancelReason('');
                 }}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-gray-400 hover:text-slate-500"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -605,18 +605,18 @@ export default function OrdersPage() {
               </p>
             </div>
 
-            <p className="text-sm text-gray-600 mb-4">
+            <p className="text-sm text-slate-500 mb-4">
               Are you sure you want to cancel Order #{getOrderId(selectedOrder).slice(0, 16).toUpperCase()}?
             </p>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-slate-600 mb-2">
                 Reason for cancellation (optional)
               </label>
               <select
                 value={cancelReason}
                 onChange={(e) => setCancelReason(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-yellow-500 focus:border-yellow-500"
+                className="w-full px-3 py-2 border border-stone-200 rounded-md focus:outline-none focus:ring-1 focus:ring-yellow-500 focus:border-yellow-500"
               >
                 <option value="">Select a reason...</option>
                 <option value="Changed my mind">Changed my mind</option>
@@ -641,7 +641,7 @@ export default function OrdersPage() {
                   setSelectedOrder(null);
                   setCancelReason('');
                 }}
-                className="flex-1 border border-gray-300 text-gray-700 px-4 py-2 rounded-md font-medium hover:bg-gray-50 transition-colors"
+                className="flex-1 border border-stone-200 text-slate-600 px-4 py-2 rounded-md font-medium hover:bg-stone-100 transition-colors"
               >
                 No, Keep Order
               </button>

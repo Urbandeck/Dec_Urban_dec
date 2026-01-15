@@ -8,7 +8,7 @@ export default function PrivacyPolicyPage() {
     {
       id: 'information-we-collect',
       title: 'Information We Collect',
-      icon: <Database className="text-blue-600" size={24} />,
+      icon: <Database className="text-amber-600" size={24} />,
       content: [
         {
           subtitle: 'Personal Information',
@@ -134,9 +134,9 @@ export default function PrivacyPolicyPage() {
   const lastUpdated = 'January 5, 2025';
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-stone-50">
       {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-700 text-white">
+      <div className="bg-slate-800 text-white">
         <div className="container mx-auto px-4 py-12">
           <h1 className="text-4xl font-bold mb-4">Privacy Policy</h1>
           <p className="text-xl opacity-90">Your privacy is important to us</p>
@@ -148,11 +148,11 @@ export default function PrivacyPolicyPage() {
         {/* Introduction */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <div className="flex items-center mb-6">
-            <Shield className="text-indigo-600 mr-3" size={32} />
+            <Shield className="text-amber-500 mr-3" size={32} />
             <h2 className="text-2xl font-bold">Our Commitment to Privacy</h2>
           </div>
           
-          <div className="prose max-w-none text-gray-700">
+          <div className="prose max-w-none text-slate-600">
             <p className="mb-4">
               At Urbandec, we are committed to protecting your privacy and ensuring the security of your personal information. 
               This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our 
@@ -163,8 +163,8 @@ export default function PrivacyPolicyPage() {
               We encourage you to read this policy carefully to understand our practices regarding your personal data.
             </p>
             
-            <div className="bg-blue-50 border-l-4 border-blue-500 p-4 my-6">
-              <p className="text-blue-800">
+            <div className="bg-amber-50 border-l-4 border-amber-500 p-4 my-6">
+              <p className="text-amber-800">
                 <strong>Quick Summary:</strong> We collect only necessary information to provide our services, 
                 never sell your data, use industry-standard security, and respect your privacy choices.
               </p>
@@ -180,7 +180,7 @@ export default function PrivacyPolicyPage() {
               <a 
                 key={section.id}
                 href={`#${section.id}`}
-                className="text-blue-600 hover:text-blue-800 hover:underline"
+                className="text-amber-600 hover:text-amber-800 hover:underline"
               >
                 → {section.title}
               </a>
@@ -198,12 +198,12 @@ export default function PrivacyPolicyPage() {
             
             {section.content.map((subsection, index) => (
               <div key={index} className="mb-6">
-                <h3 className="font-semibold text-lg mb-3 text-gray-800">{subsection.subtitle}</h3>
+                <h3 className="font-semibold text-lg mb-3 text-slate-700">{subsection.subtitle}</h3>
                 <ul className="space-y-2">
                   {subsection.items.map((item, itemIndex) => (
                     <li key={itemIndex} className="flex items-start">
-                      <span className="text-indigo-500 mr-2">•</span>
-                      <span className="text-gray-700">{item}</span>
+                      <span className="text-amber-500 mr-2">•</span>
+                      <span className="text-slate-600">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -217,34 +217,34 @@ export default function PrivacyPolicyPage() {
           <h2 className="text-2xl font-bold mb-6">Cookie Policy</h2>
           
           <div className="space-y-4">
-            <p className="text-gray-700">
+            <p className="text-slate-600">
               We use cookies and similar tracking technologies to improve your browsing experience on our website. 
               Cookies are small data files stored on your device that help us:
             </p>
             
             <ul className="space-y-2 ml-4">
               <li className="flex items-start">
-                <span className="text-indigo-500 mr-2">•</span>
-                <span className="text-gray-700">Remember your preferences and settings</span>
+                <span className="text-amber-500 mr-2">•</span>
+                <span className="text-slate-600">Remember your preferences and settings</span>
               </li>
               <li className="flex items-start">
-                <span className="text-indigo-500 mr-2">•</span>
-                <span className="text-gray-700">Keep you signed in to your account</span>
+                <span className="text-amber-500 mr-2">•</span>
+                <span className="text-slate-600">Keep you signed in to your account</span>
               </li>
               <li className="flex items-start">
-                <span className="text-indigo-500 mr-2">•</span>
-                <span className="text-gray-700">Understand how you use our website</span>
+                <span className="text-amber-500 mr-2">•</span>
+                <span className="text-slate-600">Understand how you use our website</span>
               </li>
               <li className="flex items-start">
-                <span className="text-indigo-500 mr-2">•</span>
-                <span className="text-gray-700">Show relevant advertisements</span>
+                <span className="text-amber-500 mr-2">•</span>
+                <span className="text-slate-600">Show relevant advertisements</span>
               </li>
             </ul>
             
             <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 mt-6">
               <div className="flex items-start">
                 <AlertCircle className="text-yellow-600 mt-1 mr-2" size={20} />
-                <p className="text-gray-700">
+                <p className="text-slate-600">
                   You can control cookies through your browser settings. However, disabling cookies may affect 
                   the functionality of our website and your user experience.
                 </p>
@@ -256,12 +256,12 @@ export default function PrivacyPolicyPage() {
         {/* Children's Privacy */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-6">Children's Privacy</h2>
-          <p className="text-gray-700 mb-4">
+          <p className="text-slate-600 mb-4">
             Our services are not directed to individuals under the age of 18. We do not knowingly collect 
             personal information from children under 18. If we become aware that we have collected personal 
             information from a child under 18, we will take steps to delete such information.
           </p>
-          <p className="text-gray-700">
+          <p className="text-slate-600">
             If you are a parent or guardian and believe your child has provided us with personal information, 
             please contact us immediately at urbandec.in@gmail.com.
           </p>
@@ -270,12 +270,12 @@ export default function PrivacyPolicyPage() {
         {/* International Transfers */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-6">International Data Transfers</h2>
-          <p className="text-gray-700 mb-4">
+          <p className="text-slate-600 mb-4">
             Your information may be transferred to and maintained on servers located outside of your state, 
             province, country, or other governmental jurisdiction where data protection laws may differ from 
             those in your jurisdiction.
           </p>
-          <p className="text-gray-700">
+          <p className="text-slate-600">
             We take appropriate measures to ensure that your personal information receives an adequate level 
             of protection in the jurisdictions in which we process it.
           </p>
@@ -284,32 +284,32 @@ export default function PrivacyPolicyPage() {
         {/* Updates to Policy */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-6">Changes to This Policy</h2>
-          <p className="text-gray-700 mb-4">
+          <p className="text-slate-600 mb-4">
             We may update our Privacy Policy from time to time to reflect changes in our practices or for 
             legal, operational, or regulatory reasons. We will notify you of any material changes by:
           </p>
           <ul className="space-y-2 ml-4 mb-4">
             <li className="flex items-start">
-              <span className="text-indigo-500 mr-2">•</span>
-              <span className="text-gray-700">Posting the new Privacy Policy on this page</span>
+              <span className="text-amber-500 mr-2">•</span>
+              <span className="text-slate-600">Posting the new Privacy Policy on this page</span>
             </li>
             <li className="flex items-start">
-              <span className="text-indigo-500 mr-2">•</span>
-              <span className="text-gray-700">Updating the "Last updated" date at the top</span>
+              <span className="text-amber-500 mr-2">•</span>
+              <span className="text-slate-600">Updating the "Last updated" date at the top</span>
             </li>
             <li className="flex items-start">
-              <span className="text-indigo-500 mr-2">•</span>
-              <span className="text-gray-700">Sending you an email notification (for significant changes)</span>
+              <span className="text-amber-500 mr-2">•</span>
+              <span className="text-slate-600">Sending you an email notification (for significant changes)</span>
             </li>
           </ul>
-          <p className="text-gray-700">
+          <p className="text-slate-600">
             We encourage you to review this Privacy Policy periodically to stay informed about how we are 
             protecting your information.
           </p>
         </div>
 
         {/* Contact Information */}
-        <div className="bg-gradient-to-r from-indigo-600 to-purple-700 text-white rounded-lg p-8 text-center">
+        <div className="bg-slate-800 text-white rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold mb-4">Contact Us About Privacy</h2>
           <p className="mb-6 opacity-90">
             If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices,

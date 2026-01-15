@@ -182,7 +182,7 @@ export default function OrderDetailsPage() {
       'CANCELLED': { label: 'Cancelled', color: 'text-red-700', bgColor: 'bg-red-100' },
       'FAILED': { label: 'Payment Failed', color: 'text-red-700', bgColor: 'bg-red-100' }
     }
-    return statusConfig[status] || { label: status, color: 'text-gray-700', bgColor: 'bg-gray-100' }
+    return statusConfig[status] || { label: status, color: 'text-slate-600', bgColor: 'bg-stone-100' }
   }
 
   // Show loading during hydration
@@ -200,10 +200,10 @@ export default function OrderDetailsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-stone-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-500 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading order details...</p>
+          <p className="mt-4 text-slate-500">Loading order details...</p>
         </div>
       </div>
     )
@@ -211,14 +211,14 @@ export default function OrderDetailsPage() {
 
   if (error || !order) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-stone-50 flex items-center justify-center">
         <div className="text-center">
           <svg className="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <h2 className="text-xl font-medium text-gray-900 mb-2">{error || 'Order not found'}</h2>
-          <p className="text-gray-600 mb-4">We couldn't find the order you're looking for.</p>
-          <Link href="/orders" className="text-blue-600 hover:underline">
+          <h2 className="text-xl font-medium text-slate-800 mb-2">{error || 'Order not found'}</h2>
+          <p className="text-slate-500 mb-4">We couldn't find the order you're looking for.</p>
+          <Link href="/orders" className="text-amber-600 hover:underline">
             ← Back to Orders
           </Link>
         </div>
@@ -230,7 +230,7 @@ export default function OrderDetailsPage() {
   const shippingAddress = order.shippingAddress || order.customerDetails
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-stone-100">
       {/* Notification */}
       {notification && (
         <Notification
@@ -243,7 +243,7 @@ export default function OrderDetailsPage() {
 
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Back Link */}
-        <Link href="/orders" className="text-blue-600 hover:underline mb-6 inline-flex items-center gap-1">
+        <Link href="/orders" className="text-amber-600 hover:underline mb-6 inline-flex items-center gap-1">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
@@ -254,9 +254,9 @@ export default function OrderDetailsPage() {
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Order Details</h1>
-              <p className="text-gray-600 mt-1">Order #{order.orderId || order.id}</p>
-              <p className="text-sm text-gray-500 mt-1">
+              <h1 className="text-2xl font-bold text-slate-800">Order Details</h1>
+              <p className="text-slate-500 mt-1">Order #{order.orderId || order.id}</p>
+              <p className="text-sm text-slate-400 mt-1">
                 Placed on {new Date(order.createdAt).toLocaleDateString('en-US', {
                   weekday: 'long',
                   year: 'numeric',
@@ -270,7 +270,7 @@ export default function OrderDetailsPage() {
                 {statusInfo.label}
               </span>
               {order.paymentMethod && (
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-slate-500">
                   Payment: {order.paymentMethod === 'cod' ? 'Cash on Delivery' : order.paymentMethod}
                 </span>
               )}
@@ -302,7 +302,7 @@ export default function OrderDetailsPage() {
 
                   return (
                     <div key={index} className="flex gap-4 pb-4 border-b last:border-0 last:pb-0">
-                      <div className="w-20 h-20 bg-gray-100 rounded flex-shrink-0">
+                      <div className="w-20 h-20 bg-stone-100 rounded flex-shrink-0">
                         {imageUrl ? (
                           <img
                             src={imageUrl}
@@ -320,16 +320,16 @@ export default function OrderDetailsPage() {
                       <div className="flex-1">
                         <Link
                           href={`/products/${item.productId || ''}`}
-                          className="text-base font-medium text-blue-600 hover:text-blue-700 hover:underline"
+                          className="text-base font-medium text-amber-600 hover:text-amber-700 hover:underline"
                         >
                           {item.productName || item.name}
                         </Link>
                         {(item.productAttributes || item.attributes) && (
-                          <p className="text-sm text-gray-600 mt-1">{item.productAttributes || item.attributes}</p>
+                          <p className="text-sm text-slate-500 mt-1">{item.productAttributes || item.attributes}</p>
                         )}
                         <div className="flex justify-between items-center mt-2">
-                          <span className="text-sm text-gray-600">Qty: {item.quantity}</span>
-                          <span className="font-medium text-gray-900">
+                          <span className="text-sm text-slate-500">Qty: {item.quantity}</span>
+                          <span className="font-medium text-slate-800">
                             {formatPrice(item.total || (item.price * item.quantity))}
                           </span>
                         </div>
@@ -344,7 +344,7 @@ export default function OrderDetailsPage() {
             {shippingAddress && (
               <div className="bg-white rounded-lg shadow-sm p-6">
                 <h2 className="text-lg font-semibold mb-4">Shipping Address</h2>
-                <div className="text-gray-700">
+                <div className="text-slate-600">
                   <p className="font-medium">{shippingAddress.fullName || order.customerName}</p>
                   <p>{shippingAddress.addressLine1}</p>
                   {shippingAddress.addressLine2 && <p>{shippingAddress.addressLine2}</p>}
@@ -353,7 +353,7 @@ export default function OrderDetailsPage() {
                   </p>
                   <p>{shippingAddress.country || 'India'}</p>
                   {(shippingAddress.phone || order.customerPhone) && (
-                    <p className="mt-2 text-gray-600">Phone: {shippingAddress.phone || order.customerPhone}</p>
+                    <p className="mt-2 text-slate-500">Phone: {shippingAddress.phone || order.customerPhone}</p>
                   )}
                 </div>
               </div>
@@ -363,7 +363,7 @@ export default function OrderDetailsPage() {
             {(order.awbNumber || order.courierName) && (
               <div className="bg-white rounded-lg shadow-sm p-6">
                 <h2 className="text-lg font-semibold mb-4">Tracking Information</h2>
-                <div className="space-y-2 text-gray-700">
+                <div className="space-y-2 text-slate-600">
                   {order.courierName && <p>Courier: {order.courierName}</p>}
                   {order.awbNumber && <p>AWB Number: {order.awbNumber}</p>}
                   {order.trackingUrl && (
@@ -371,7 +371,7 @@ export default function OrderDetailsPage() {
                       href={order.trackingUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline inline-flex items-center gap-1"
+                      className="text-amber-600 hover:underline inline-flex items-center gap-1"
                     >
                       Track on carrier website
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -389,15 +389,15 @@ export default function OrderDetailsPage() {
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
               <div className="space-y-3">
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-slate-500">
                   <span>Subtotal</span>
                   <span>{formatPrice(order.subtotal || order.totalAmount)}</span>
                 </div>
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-slate-500">
                   <span>Shipping</span>
                   <span>{order.shippingCost ? formatPrice(order.shippingCost) : 'Free'}</span>
                 </div>
-                <div className="pt-3 border-t flex justify-between font-semibold text-gray-900">
+                <div className="pt-3 border-t flex justify-between font-semibold text-slate-800">
                   <span>Total</span>
                   <span>{formatPrice(order.totalAmount)}</span>
                 </div>
@@ -410,13 +410,13 @@ export default function OrderDetailsPage() {
               <div className="space-y-3">
                 <button
                   onClick={() => router.push(`/orders/track/${order.orderId}`)}
-                  className="w-full px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-medium rounded-md transition-colors"
+                  className="w-full px-4 py-2 bg-amber-500 hover:bg-amber-500 text-slate-800 font-medium rounded-md transition-colors"
                 >
                   Track Package
                 </button>
                 <button
                   onClick={() => downloadInvoicePDF(order)}
-                  className="w-full px-4 py-2 border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium rounded-md transition-colors"
+                  className="w-full px-4 py-2 border border-stone-200 hover:bg-stone-50 text-slate-600 font-medium rounded-md transition-colors"
                 >
                   Download Invoice
                 </button>
@@ -434,10 +434,10 @@ export default function OrderDetailsPage() {
             {/* Need Help */}
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h2 className="text-lg font-semibold mb-4">Need Help?</h2>
-              <p className="text-sm text-gray-600 mb-3">
+              <p className="text-sm text-slate-500 mb-3">
                 For any queries about your order, please contact our customer support.
               </p>
-              <div className="text-sm text-gray-700 space-y-1">
+              <div className="text-sm text-slate-600 space-y-1">
                 <p>Email: urbandec.in@gmail.com</p>
                 <p>Phone: +91 8105663269</p>
               </div>
@@ -451,13 +451,13 @@ export default function OrderDetailsPage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg max-w-md w-full p-6">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-medium text-gray-900">Cancel Order</h2>
+              <h2 className="text-xl font-medium text-slate-800">Cancel Order</h2>
               <button
                 onClick={() => {
                   setShowCancelModal(false)
                   setCancelReason('')
                 }}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-gray-400 hover:text-slate-500"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -471,18 +471,18 @@ export default function OrderDetailsPage() {
               </p>
             </div>
 
-            <p className="text-sm text-gray-600 mb-4">
+            <p className="text-sm text-slate-500 mb-4">
               Are you sure you want to cancel Order #{(order.orderId || order.id).toString().slice(0, 16).toUpperCase()}?
             </p>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-slate-600 mb-2">
                 Reason for cancellation (optional)
               </label>
               <select
                 value={cancelReason}
                 onChange={(e) => setCancelReason(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-yellow-500 focus:border-yellow-500"
+                className="w-full px-3 py-2 border border-stone-200 rounded-md focus:outline-none focus:ring-1 focus:ring-yellow-500 focus:border-yellow-500"
               >
                 <option value="">Select a reason...</option>
                 <option value="Changed my mind">Changed my mind</option>
@@ -506,7 +506,7 @@ export default function OrderDetailsPage() {
                   setShowCancelModal(false)
                   setCancelReason('')
                 }}
-                className="flex-1 border border-gray-300 text-gray-700 px-4 py-2 rounded-md font-medium hover:bg-gray-50 transition-colors"
+                className="flex-1 border border-stone-200 text-slate-600 px-4 py-2 rounded-md font-medium hover:bg-stone-50 transition-colors"
               >
                 No, Keep Order
               </button>

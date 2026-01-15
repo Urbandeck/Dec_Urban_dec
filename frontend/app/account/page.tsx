@@ -320,7 +320,7 @@ export default function AccountPage() {
   // Show loading during hydration
   if (!isHydrated) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-stone-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
@@ -331,22 +331,22 @@ export default function AccountPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-stone-50">
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">My Account</h1>
+        <h1 className="text-3xl font-bold text-slate-800 mb-8">My Account</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-sm p-6">
               <div className="text-center mb-6">
-                <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="w-20 h-20 bg-amber-500 rounded-full flex items-center justify-center mx-auto mb-3">
                   <span className="text-white text-2xl font-bold">
                     {user.name?.charAt(0).toUpperCase() || 'U'}
                   </span>
                 </div>
-                <h2 className="font-semibold text-gray-900">{user.name}</h2>
-                <p className="text-sm text-gray-600">{user.email}</p>
+                <h2 className="font-semibold text-slate-800">{user.name}</h2>
+                <p className="text-sm text-slate-500">{user.email}</p>
               </div>
 
               <nav className="space-y-2">
@@ -354,8 +354,8 @@ export default function AccountPage() {
                   onClick={() => setActiveTab('profile')}
                   className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
                     activeTab === 'profile'
-                      ? 'bg-blue-50 text-blue-600'
-                      : 'text-gray-700 hover:bg-gray-100'
+                      ? 'bg-amber-50 text-amber-600'
+                      : 'text-slate-600 hover:bg-stone-100'
                   }`}
                 >
                   <div className="flex items-center">
@@ -370,8 +370,8 @@ export default function AccountPage() {
                   onClick={() => setActiveTab('orders')}
                   className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
                     activeTab === 'orders'
-                      ? 'bg-blue-50 text-blue-600'
-                      : 'text-gray-700 hover:bg-gray-100'
+                      ? 'bg-amber-50 text-amber-600'
+                      : 'text-slate-600 hover:bg-stone-100'
                   }`}
                 >
                   <div className="flex items-center">
@@ -386,8 +386,8 @@ export default function AccountPage() {
                   onClick={() => setActiveTab('addresses')}
                   className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
                     activeTab === 'addresses'
-                      ? 'bg-blue-50 text-blue-600'
-                      : 'text-gray-700 hover:bg-gray-100'
+                      ? 'bg-amber-50 text-amber-600'
+                      : 'text-slate-600 hover:bg-stone-100'
                   }`}
                 >
                   <div className="flex items-center">
@@ -403,8 +403,8 @@ export default function AccountPage() {
                   onClick={() => setActiveTab('security')}
                   className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
                     activeTab === 'security'
-                      ? 'bg-blue-50 text-blue-600'
-                      : 'text-gray-700 hover:bg-gray-100'
+                      ? 'bg-amber-50 text-amber-600'
+                      : 'text-slate-600 hover:bg-stone-100'
                   }`}
                 >
                   <div className="flex items-center">
@@ -438,11 +438,11 @@ export default function AccountPage() {
               {activeTab === 'profile' && (
                 <div>
                   <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-xl font-semibold text-gray-900">Profile Information</h2>
+                    <h2 className="text-xl font-semibold text-slate-800">Profile Information</h2>
                     {!isEditing ? (
                       <button
                         onClick={() => setIsEditing(true)}
-                        className="text-blue-600 hover:text-blue-700 font-medium"
+                        className="text-amber-600 hover:text-amber-700 font-medium"
                       >
                         Edit Profile
                       </button>
@@ -450,14 +450,14 @@ export default function AccountPage() {
                       <div className="space-x-3">
                         <button
                           onClick={() => setIsEditing(false)}
-                          className="text-gray-600 hover:text-gray-700 font-medium"
+                          className="text-slate-500 hover:text-slate-600 font-medium"
                         >
                           Cancel
                         </button>
                         <button
                           onClick={handleSaveProfile}
                           disabled={isSaving}
-                          className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-400"
+                          className="bg-amber-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-amber-600 disabled:bg-gray-400"
                         >
                           {isSaving ? 'Saving...' : 'Save Changes'}
                         </button>
@@ -467,7 +467,7 @@ export default function AccountPage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-600 mb-1">
                         Full Name <span className="text-red-500">*</span>
                       </label>
                       <input
@@ -475,13 +475,13 @@ export default function AccountPage() {
                         value={profileData.name}
                         onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
                         disabled={!isEditing}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
+                        className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-amber-500 disabled:bg-stone-100"
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-600 mb-1">
                         Email Address <span className="text-red-500">*</span>
                       </label>
                       <input
@@ -489,17 +489,17 @@ export default function AccountPage() {
                         value={profileData.email}
                         onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
                         disabled={!isEditing}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
+                        className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-amber-500 disabled:bg-stone-100"
                       />
                       {isEditing && (
-                        <p className="text-xs text-gray-500 mt-1">
+                        <p className="text-xs text-slate-400 mt-1">
                           Note: Changing your email will require verification
                         </p>
                       )}
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-600 mb-1">
                         Phone Number
                       </label>
                       <input
@@ -507,13 +507,13 @@ export default function AccountPage() {
                         value={profileData.phone}
                         onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
                         disabled={!isEditing}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
+                        className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-amber-500 disabled:bg-stone-100"
                         placeholder="Enter your phone number"
                       />
                     </div>
 
                     <div className="md:col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-600 mb-1">
                         Address
                       </label>
                       <textarea
@@ -521,13 +521,13 @@ export default function AccountPage() {
                         onChange={(e) => setProfileData({ ...profileData, address: e.target.value })}
                         disabled={!isEditing}
                         rows={3}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
+                        className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-amber-500 disabled:bg-stone-100"
                         placeholder="Enter your street address"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-600 mb-1">
                         City
                       </label>
                       <input
@@ -535,20 +535,20 @@ export default function AccountPage() {
                         value={profileData.city}
                         onChange={(e) => setProfileData({ ...profileData, city: e.target.value })}
                         disabled={!isEditing}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
+                        className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-amber-500 disabled:bg-stone-100"
                         placeholder="Enter your city"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-600 mb-1">
                         State
                       </label>
                       <select
                         value={profileData.state}
                         onChange={(e) => setProfileData({ ...profileData, state: e.target.value })}
                         disabled={!isEditing}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
+                        className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-amber-500 disabled:bg-stone-100"
                       >
                         <option value="">Select State</option>
                         <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -584,7 +584,7 @@ export default function AccountPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-slate-600 mb-1">
                         PIN Code
                       </label>
                       <input
@@ -592,7 +592,7 @@ export default function AccountPage() {
                         value={profileData.pincode}
                         onChange={(e) => setProfileData({ ...profileData, pincode: e.target.value })}
                         disabled={!isEditing}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100"
+                        className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-amber-500 disabled:bg-stone-100"
                         placeholder="Enter 6-digit PIN code"
                         maxLength={6}
                         pattern="[0-9]{6}"
@@ -604,17 +604,17 @@ export default function AccountPage() {
 
               {activeTab === 'orders' && (
                 <div>
-                  <h2 className="text-xl font-semibold text-gray-900 mb-6">Order History</h2>
+                  <h2 className="text-xl font-semibold text-slate-800 mb-6">Order History</h2>
                   {orders.length > 0 ? (
                     <div className="space-y-4">
                       {orders.map((order) => (
                         <div key={order.orderId || order.id} className="border rounded-lg p-4">
                           <div className="flex justify-between items-start mb-3">
                             <div>
-                              <p className="font-semibold text-gray-900">
+                              <p className="font-semibold text-slate-800">
                                 Order #{(order.orderId || order.id || '').toString().slice(0, 8)}
                               </p>
-                              <p className="text-sm text-gray-600">
+                              <p className="text-sm text-slate-500">
                                 {new Date(order.createdAt).toLocaleDateString('en-US', {
                                   year: 'numeric',
                                   month: 'long',
@@ -625,7 +625,7 @@ export default function AccountPage() {
                             <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                               order.status === 'PAID' ? 'bg-green-100 text-green-700' :
                               order.status === 'PENDING' ? 'bg-yellow-100 text-yellow-700' :
-                              'bg-gray-100 text-gray-700'
+                              'bg-stone-100 text-slate-600'
                             }`}>
                               {order.status || 'PENDING'}
                             </span>
@@ -634,23 +634,23 @@ export default function AccountPage() {
                           <div className="space-y-2 mb-3">
                             {(order.items || []).map((item: any, index: number) => (
                               <div key={index} className="flex justify-between text-sm">
-                                <span className="text-gray-600">
+                                <span className="text-slate-500">
                                   {item.productName || item.name} {(item.productAttributes || item.attributes) && `(${item.productAttributes || item.attributes})`} × {item.quantity}
                                 </span>
-                                <span className="text-gray-900">₹{((item.price || 0) * (item.quantity || 1)).toFixed(2)}</span>
+                                <span className="text-slate-800">₹{((item.price || 0) * (item.quantity || 1)).toFixed(2)}</span>
                               </div>
                             ))}
                           </div>
                           
                           <div className="border-t pt-3">
                             <div className="flex justify-between items-center">
-                              <span className="font-semibold text-gray-900">Total</span>
-                              <span className="font-semibold text-lg text-gray-900">
+                              <span className="font-semibold text-slate-800">Total</span>
+                              <span className="font-semibold text-lg text-slate-800">
                                 ₹{order.totalAmount.toFixed(2)}
                               </span>
                             </div>
                             {order.paymentId && (
-                              <p className="text-xs text-gray-500 mt-1">
+                              <p className="text-xs text-slate-400 mt-1">
                                 Payment ID: {order.paymentId}
                               </p>
                             )}
@@ -663,10 +663,10 @@ export default function AccountPage() {
                       <svg className="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                       </svg>
-                      <p className="text-gray-600 mb-4">You haven't placed any orders yet</p>
+                      <p className="text-slate-500 mb-4">You haven't placed any orders yet</p>
                       <Link
                         href="/products"
-                        className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700"
+                        className="inline-block bg-amber-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-amber-600"
                       >
                         Start Shopping
                       </Link>
@@ -678,11 +678,11 @@ export default function AccountPage() {
               {activeTab === 'addresses' && (
                 <div>
                   <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-xl font-semibold text-gray-900">Saved Addresses</h2>
+                    <h2 className="text-xl font-semibold text-slate-800">Saved Addresses</h2>
                     {!showAddressForm && (
                       <button 
                         onClick={() => setShowAddressForm(true)}
-                        className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700"
+                        className="bg-amber-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-amber-600"
                       >
                         Add New Address
                       </button>
@@ -691,16 +691,16 @@ export default function AccountPage() {
 
                   {showAddressForm && (
                     <div className="border rounded-lg p-6 mb-6">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-4">Add New Address</h3>
+                      <h3 className="text-lg font-semibold text-slate-800 mb-4">Add New Address</h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                          <label className="block text-sm font-medium text-slate-600 mb-1">
                             Address Label *
                           </label>
                           <select
                             value={newAddress.label}
                             onChange={(e) => setNewAddress({ ...newAddress, label: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                           >
                             <option value="Home">Home</option>
                             <option value="Work">Work</option>
@@ -709,105 +709,105 @@ export default function AccountPage() {
                         </div>
 
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                          <label className="block text-sm font-medium text-slate-600 mb-1">
                             Full Name <span className="text-red-500">*</span>
                           </label>
                           <input
                             type="text"
                             value={newAddress.fullName}
                             onChange={(e) => setNewAddress({ ...newAddress, fullName: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter full name"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                          <label className="block text-sm font-medium text-slate-600 mb-1">
                             Email Address <span className="text-red-500">*</span>
                           </label>
                           <input
                             type="email"
                             value={newAddress.email}
                             onChange={(e) => setNewAddress({ ...newAddress, email: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter email address"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                          <label className="block text-sm font-medium text-slate-600 mb-1">
                             Phone Number <span className="text-red-500">*</span>
                           </label>
                           <input
                             type="tel"
                             value={newAddress.phone}
                             onChange={(e) => setNewAddress({ ...newAddress, phone: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter phone number"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                          <label className="block text-sm font-medium text-slate-600 mb-1">
                             Pincode <span className="text-red-500">*</span>
                           </label>
                           <input
                             type="text"
                             value={newAddress.pincode}
                             onChange={(e) => setNewAddress({ ...newAddress, pincode: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter pincode"
                           />
                         </div>
 
                         <div className="md:col-span-2">
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                          <label className="block text-sm font-medium text-slate-600 mb-1">
                             Address Line 1 <span className="text-red-500">*</span>
                           </label>
                           <input
                             type="text"
                             value={newAddress.addressLine1}
                             onChange={(e) => setNewAddress({ ...newAddress, addressLine1: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                             placeholder="House/Flat No, Building Name"
                           />
                         </div>
 
                         <div className="md:col-span-2">
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                          <label className="block text-sm font-medium text-slate-600 mb-1">
                             Address Line 2
                           </label>
                           <input
                             type="text"
                             value={newAddress.addressLine2}
                             onChange={(e) => setNewAddress({ ...newAddress, addressLine2: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                             placeholder="Street, Landmark (Optional)"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                          <label className="block text-sm font-medium text-slate-600 mb-1">
                             City <span className="text-red-500">*</span>
                           </label>
                           <input
                             type="text"
                             value={newAddress.city}
                             onChange={(e) => setNewAddress({ ...newAddress, city: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter city"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                          <label className="block text-sm font-medium text-slate-600 mb-1">
                             State <span className="text-red-500">*</span>
                           </label>
                           <input
                             type="text"
                             value={newAddress.state}
                             onChange={(e) => setNewAddress({ ...newAddress, state: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter state"
                           />
                         </div>
@@ -820,7 +820,7 @@ export default function AccountPage() {
                               onChange={(e) => setNewAddress({ ...newAddress, isDefault: e.target.checked })}
                               className="mr-2"
                             />
-                            <span className="text-sm text-gray-700">Set as default address</span>
+                            <span className="text-sm text-slate-600">Set as default address</span>
                           </label>
                         </div>
                       </div>
@@ -829,7 +829,7 @@ export default function AccountPage() {
                         <button
                           onClick={handleAddAddress}
                           disabled={isSavingAddress}
-                          className="bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-400"
+                          className="bg-amber-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-amber-600 disabled:bg-gray-400"
                         >
                           {isSavingAddress ? 'Saving...' : 'Save Address'}
                         </button>
@@ -849,7 +849,7 @@ export default function AccountPage() {
                               isDefault: false,
                             });
                           }}
-                          className="border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-medium hover:bg-gray-50"
+                          className="border border-stone-200 text-slate-600 px-6 py-2 rounded-lg font-medium hover:bg-stone-50"
                         >
                           Cancel
                         </button>
@@ -864,16 +864,16 @@ export default function AccountPage() {
                           {editingAddress === address.id ? (
                             // Edit mode
                             <div>
-                              <h3 className="text-lg font-semibold text-gray-900 mb-4">Edit Address</h3>
+                              <h3 className="text-lg font-semibold text-slate-800 mb-4">Edit Address</h3>
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  <label className="block text-sm font-medium text-slate-600 mb-1">
                                     Address Label <span className="text-red-500">*</span>
                                   </label>
                                   <select
                                     value={editAddressData.label || ''}
                                     onChange={(e) => setEditAddressData({ ...editAddressData, label: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                    className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                                   >
                                     <option value="Home">Home</option>
                                     <option value="Work">Work</option>
@@ -882,98 +882,98 @@ export default function AccountPage() {
                                 </div>
 
                                 <div>
-                                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  <label className="block text-sm font-medium text-slate-600 mb-1">
                                     Full Name <span className="text-red-500">*</span>
                                   </label>
                                   <input
                                     type="text"
                                     value={editAddressData.fullName || ''}
                                     onChange={(e) => setEditAddressData({ ...editAddressData, fullName: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                    className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                                   />
                                 </div>
 
                                 <div>
-                                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  <label className="block text-sm font-medium text-slate-600 mb-1">
                                     Email Address <span className="text-red-500">*</span>
                                   </label>
                                   <input
                                     type="email"
                                     value={editAddressData.email || ''}
                                     onChange={(e) => setEditAddressData({ ...editAddressData, email: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                    className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                                   />
                                 </div>
 
                                 <div>
-                                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  <label className="block text-sm font-medium text-slate-600 mb-1">
                                     Phone Number <span className="text-red-500">*</span>
                                   </label>
                                   <input
                                     type="tel"
                                     value={editAddressData.phone || ''}
                                     onChange={(e) => setEditAddressData({ ...editAddressData, phone: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                    className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                                   />
                                 </div>
 
                                 <div className="md:col-span-2">
-                                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  <label className="block text-sm font-medium text-slate-600 mb-1">
                                     Address Line 1 <span className="text-red-500">*</span>
                                   </label>
                                   <input
                                     type="text"
                                     value={editAddressData.addressLine1 || ''}
                                     onChange={(e) => setEditAddressData({ ...editAddressData, addressLine1: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                    className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                                   />
                                 </div>
 
                                 <div className="md:col-span-2">
-                                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  <label className="block text-sm font-medium text-slate-600 mb-1">
                                     Address Line 2
                                   </label>
                                   <input
                                     type="text"
                                     value={editAddressData.addressLine2 || ''}
                                     onChange={(e) => setEditAddressData({ ...editAddressData, addressLine2: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                    className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                                   />
                                 </div>
 
                                 <div>
-                                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  <label className="block text-sm font-medium text-slate-600 mb-1">
                                     City <span className="text-red-500">*</span>
                                   </label>
                                   <input
                                     type="text"
                                     value={editAddressData.city || ''}
                                     onChange={(e) => setEditAddressData({ ...editAddressData, city: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                    className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                                   />
                                 </div>
 
                                 <div>
-                                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  <label className="block text-sm font-medium text-slate-600 mb-1">
                                     State <span className="text-red-500">*</span>
                                   </label>
                                   <input
                                     type="text"
                                     value={editAddressData.state || ''}
                                     onChange={(e) => setEditAddressData({ ...editAddressData, state: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                    className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                                   />
                                 </div>
 
                                 <div>
-                                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                                  <label className="block text-sm font-medium text-slate-600 mb-1">
                                     Pincode <span className="text-red-500">*</span>
                                   </label>
                                   <input
                                     type="text"
                                     value={editAddressData.pincode || ''}
                                     onChange={(e) => setEditAddressData({ ...editAddressData, pincode: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                    className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                                   />
                                 </div>
                               </div>
@@ -982,13 +982,13 @@ export default function AccountPage() {
                                 <button
                                   onClick={handleUpdateAddress}
                                   disabled={isSavingAddress}
-                                  className="bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-400"
+                                  className="bg-amber-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-amber-600 disabled:bg-gray-400"
                                 >
                                   {isSavingAddress ? 'Updating...' : 'Update Address'}
                                 </button>
                                 <button
                                   onClick={handleCancelEdit}
-                                  className="border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-medium hover:bg-gray-50"
+                                  className="border border-stone-200 text-slate-600 px-6 py-2 rounded-lg font-medium hover:bg-stone-50"
                                 >
                                   Cancel
                                 </button>
@@ -999,35 +999,35 @@ export default function AccountPage() {
                             <div className="flex justify-between items-start">
                               <div className="flex-1">
                                 <div className="flex items-center gap-2 mb-2">
-                                  <span className="font-semibold text-gray-900">{address.label}</span>
+                                  <span className="font-semibold text-slate-800">{address.label}</span>
                                   {address.isDefault && (
                                     <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">Default</span>
                                   )}
                                 </div>
-                                <p className="text-gray-700">{address.fullName}</p>
+                                <p className="text-slate-600">{address.fullName}</p>
                                 {address.email && (
-                                  <p className="text-sm text-gray-600">Email: {address.email}</p>
+                                  <p className="text-sm text-slate-500">Email: {address.email}</p>
                                 )}
-                                <p className="text-sm text-gray-600">{address.addressLine1}</p>
+                                <p className="text-sm text-slate-500">{address.addressLine1}</p>
                                 {address.addressLine2 && (
-                                  <p className="text-sm text-gray-600">{address.addressLine2}</p>
+                                  <p className="text-sm text-slate-500">{address.addressLine2}</p>
                                 )}
-                                <p className="text-sm text-gray-600">
+                                <p className="text-sm text-slate-500">
                                   {address.city}, {address.state} - {address.pincode}
                                 </p>
-                                <p className="text-sm text-gray-600 mt-1">Phone: {address.phone}</p>
+                                <p className="text-sm text-slate-500 mt-1">Phone: {address.phone}</p>
                               </div>
                               <div className="flex flex-col gap-2">
                                 <button
                                   onClick={() => handleEditAddress(address)}
-                                  className="text-sm text-blue-600 hover:text-blue-700"
+                                  className="text-sm text-amber-600 hover:text-amber-700"
                                 >
                                   Edit
                                 </button>
                                 {!address.isDefault && (
                                   <button
                                     onClick={() => handleSetDefaultAddress(address.id)}
-                                    className="text-sm text-blue-600 hover:text-blue-700"
+                                    className="text-sm text-amber-600 hover:text-amber-700"
                                   >
                                     Set as Default
                                   </button>
@@ -1051,7 +1051,7 @@ export default function AccountPage() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
-                        <p className="text-gray-600">No saved addresses yet</p>
+                        <p className="text-slate-500">No saved addresses yet</p>
                       </div>
                     )
                   )}
@@ -1060,35 +1060,35 @@ export default function AccountPage() {
 
               {activeTab === 'security' && (
                 <div>
-                  <h2 className="text-xl font-semibold text-gray-900 mb-6">Security Settings</h2>
+                  <h2 className="text-xl font-semibold text-slate-800 mb-6">Security Settings</h2>
                   
                   <div className="space-y-6">
                     <div className="border rounded-lg p-4">
-                      <h3 className="font-medium text-gray-900 mb-2">Change Password</h3>
-                      <p className="text-sm text-gray-600 mb-4">
+                      <h3 className="font-medium text-slate-800 mb-2">Change Password</h3>
+                      <p className="text-sm text-slate-500 mb-4">
                         Update your password to keep your account secure
                       </p>
-                      <button className="text-blue-600 hover:text-blue-700 font-medium">
+                      <button className="text-amber-600 hover:text-amber-700 font-medium">
                         Update Password
                       </button>
                     </div>
 
                     <div className="border rounded-lg p-4">
-                      <h3 className="font-medium text-gray-900 mb-2">Two-Factor Authentication</h3>
-                      <p className="text-sm text-gray-600 mb-4">
+                      <h3 className="font-medium text-slate-800 mb-2">Two-Factor Authentication</h3>
+                      <p className="text-sm text-slate-500 mb-4">
                         Add an extra layer of security to your account
                       </p>
-                      <button className="text-blue-600 hover:text-blue-700 font-medium">
+                      <button className="text-amber-600 hover:text-amber-700 font-medium">
                         Enable 2FA
                       </button>
                     </div>
 
                     <div className="border rounded-lg p-4">
-                      <h3 className="font-medium text-gray-900 mb-2">Login History</h3>
-                      <p className="text-sm text-gray-600 mb-4">
+                      <h3 className="font-medium text-slate-800 mb-2">Login History</h3>
+                      <p className="text-sm text-slate-500 mb-4">
                         View recent login activity on your account
                       </p>
-                      <button className="text-blue-600 hover:text-blue-700 font-medium">
+                      <button className="text-amber-600 hover:text-amber-700 font-medium">
                         View History
                       </button>
                     </div>

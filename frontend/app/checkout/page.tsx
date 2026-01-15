@@ -568,10 +568,10 @@ export default function CheckoutPage() {
   // Show loading or redirect message if not authenticated
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-stone-50 flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-2">Please login to continue</h2>
-          <p className="text-gray-600">Redirecting to login page...</p>
+          <h2 className="text-2xl font-semibold text-slate-700 mb-2">Please login to continue</h2>
+          <p className="text-slate-500">Redirecting to login page...</p>
         </div>
       </div>
     );
@@ -585,20 +585,20 @@ export default function CheckoutPage() {
   const total = subtotal;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-stone-50">
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Checkout</h1>
+        <h1 className="text-3xl font-bold text-slate-800 mb-8">Checkout</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Shipping Information */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-sm p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">Shipping Information</h2>
+              <h2 className="text-xl font-semibold text-slate-800 mb-6">Shipping Information</h2>
               
               {/* Saved Addresses Section */}
               {isAuthenticated && savedAddresses.length > 0 && (
                 <div className="mb-6">
-                  <h3 className="text-sm font-medium text-gray-700 mb-3">Select Delivery Address</h3>
+                  <h3 className="text-sm font-medium text-slate-600 mb-3">Select Delivery Address</h3>
                   <div className="space-y-3">
                     {savedAddresses.map(address => (
                       <div 
@@ -606,8 +606,8 @@ export default function CheckoutPage() {
                         onClick={() => handleAddressSelection(address.id)}
                         className={`border rounded-lg p-4 cursor-pointer transition-all ${
                           selectedAddressId === address.id 
-                            ? 'border-blue-500 bg-blue-50' 
-                            : 'border-gray-300 hover:border-gray-400'
+                            ? 'border-amber-500 bg-amber-50' 
+                            : 'border-stone-200 hover:border-gray-400'
                         }`}
                       >
                         <div className="flex items-start justify-between">
@@ -620,8 +620,8 @@ export default function CheckoutPage() {
                             />
                             <div>
                               <div className="flex items-center gap-2">
-                                <p className="font-medium text-gray-900">{address.fullName}</p>
-                                <span className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded">
+                                <p className="font-medium text-slate-800">{address.fullName}</p>
+                                <span className="text-xs px-2 py-1 bg-stone-100 text-slate-500 rounded">
                                   {address.label}
                                 </span>
                                 {address.isDefault && (
@@ -630,17 +630,17 @@ export default function CheckoutPage() {
                                   </span>
                                 )}
                               </div>
-                              <p className="text-sm text-gray-600 mt-1">
+                              <p className="text-sm text-slate-500 mt-1">
                                 {address.addressLine1}
                                 {address.addressLine2 && `, ${address.addressLine2}`}
                               </p>
-                              <p className="text-sm text-gray-600">
+                              <p className="text-sm text-slate-500">
                                 {address.city}, {address.state} - {address.pincode}
                               </p>
                               {address.email && (
-                                <p className="text-sm text-gray-600">Email: {address.email}</p>
+                                <p className="text-sm text-slate-500">Email: {address.email}</p>
                               )}
-                              <p className="text-sm text-gray-600">Phone: {address.phone}</p>
+                              <p className="text-sm text-slate-500">Phone: {address.phone}</p>
                             </div>
                           </div>
                         </div>
@@ -650,9 +650,9 @@ export default function CheckoutPage() {
                     <button
                       type="button"
                       onClick={handleAddNewAddress}
-                      className="w-full border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-blue-500 transition-colors"
+                      className="w-full border-2 border-dashed border-stone-200 rounded-lg p-4 text-center hover:border-amber-500 transition-colors"
                     >
-                      <span className="text-blue-600 font-medium">+ Add New Address</span>
+                      <span className="text-amber-600 font-medium">+ Add New Address</span>
                     </button>
                   </div>
                 </div>
@@ -661,7 +661,7 @@ export default function CheckoutPage() {
               {/* Email Field - Always visible for recipient email */}
               {!showNewAddressForm && savedAddresses.length > 0 && selectedAddressId && (
                 <div className="mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     Recipient's Email Address *
                   </label>
                   <div className="relative">
@@ -670,8 +670,8 @@ export default function CheckoutPage() {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                        errors.email ? 'border-red-500' : formData.email && !errors.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) ? 'border-green-500' : 'border-gray-300'
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 ${
+                        errors.email ? 'border-red-500' : formData.email && !errors.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) ? 'border-green-500' : 'border-stone-200'
                       }`}
                       placeholder="recipient@example.com"
                       autoComplete="email"
@@ -695,7 +695,7 @@ export default function CheckoutPage() {
               {(showNewAddressForm || savedAddresses.length === 0) && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     Full Name *
                   </label>
                   <input
@@ -703,8 +703,8 @@ export default function CheckoutPage() {
                     name="fullName"
                     value={formData.fullName}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      errors.fullName ? 'border-red-500' : formData.fullName && formData.fullName.trim().length >= 3 ? 'border-green-500' : 'border-gray-300'
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 ${
+                      errors.fullName ? 'border-red-500' : formData.fullName && formData.fullName.trim().length >= 3 ? 'border-green-500' : 'border-stone-200'
                     }`}
                     placeholder="John Doe"
                     autoComplete="name"
@@ -715,7 +715,7 @@ export default function CheckoutPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     Recipient's Email Address *
                   </label>
                   <div className="relative">
@@ -724,8 +724,8 @@ export default function CheckoutPage() {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                        errors.email ? 'border-red-500' : formData.email && !errors.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) ? 'border-green-500' : 'border-gray-300'
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 ${
+                        errors.email ? 'border-red-500' : formData.email && !errors.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) ? 'border-green-500' : 'border-stone-200'
                       }`}
                       placeholder="recipient@example.com"
                       autoComplete="email"
@@ -745,7 +745,7 @@ export default function CheckoutPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     Phone Number *
                   </label>
                   <div className="relative">
@@ -754,8 +754,8 @@ export default function CheckoutPage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                        errors.phone ? 'border-red-500' : formData.phone && formData.phone.length === 10 ? 'border-green-500' : 'border-gray-300'
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 ${
+                        errors.phone ? 'border-red-500' : formData.phone && formData.phone.length === 10 ? 'border-green-500' : 'border-stone-200'
                       }`}
                       placeholder="9876543210"
                       maxLength={10}
@@ -779,7 +779,7 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     Address *
                   </label>
                   <textarea
@@ -787,8 +787,8 @@ export default function CheckoutPage() {
                     value={formData.address}
                     onChange={handleInputChange}
                     rows={3}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      errors.address ? 'border-red-500' : 'border-gray-300'
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 ${
+                      errors.address ? 'border-red-500' : 'border-stone-200'
                     }`}
                     placeholder="123 Main Street, Apartment 4B"
                   />
@@ -798,7 +798,7 @@ export default function CheckoutPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     City *
                   </label>
                   <input
@@ -806,8 +806,8 @@ export default function CheckoutPage() {
                     name="city"
                     value={formData.city}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      errors.city ? 'border-red-500' : formData.city && formData.city.trim().length >= 2 ? 'border-green-500' : 'border-gray-300'
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 ${
+                      errors.city ? 'border-red-500' : formData.city && formData.city.trim().length >= 2 ? 'border-green-500' : 'border-stone-200'
                     }`}
                     placeholder="Mumbai"
                     autoComplete="address-level2"
@@ -818,7 +818,7 @@ export default function CheckoutPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     State *
                   </label>
                   <input
@@ -826,8 +826,8 @@ export default function CheckoutPage() {
                     name="state"
                     value={formData.state}
                     onChange={handleInputChange}
-                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      errors.state ? 'border-red-500' : formData.state && formData.state.trim().length >= 2 ? 'border-green-500' : 'border-gray-300'
+                    className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 ${
+                      errors.state ? 'border-red-500' : formData.state && formData.state.trim().length >= 2 ? 'border-green-500' : 'border-stone-200'
                     }`}
                     placeholder="Maharashtra"
                     autoComplete="address-level1"
@@ -838,7 +838,7 @@ export default function CheckoutPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     Pincode *
                   </label>
                   <div className="relative">
@@ -848,8 +848,8 @@ export default function CheckoutPage() {
                       value={formData.pincode}
                       onChange={handleInputChange}
                       maxLength={6}
-                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                        errors.pincode ? 'border-red-500' : formData.pincode && formData.pincode.length === 6 ? 'border-green-500' : 'border-gray-300'
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 ${
+                        errors.pincode ? 'border-red-500' : formData.pincode && formData.pincode.length === 6 ? 'border-green-500' : 'border-stone-200'
                       }`}
                       placeholder="400001"
                       inputMode="numeric"
@@ -876,11 +876,11 @@ export default function CheckoutPage() {
 
             {/* Order Items */}
             <div className="bg-white rounded-lg shadow-sm p-6 mt-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Order Items</h2>
+              <h2 className="text-xl font-semibold text-slate-800 mb-4">Order Items</h2>
               <div className="space-y-4">
                 {items.map((item) => (
                   <div key={item.skuId} className="flex items-center gap-4 pb-4 border-b last:border-b-0">
-                    <div className="w-16 h-16 bg-gray-100 rounded overflow-hidden flex-shrink-0">
+                    <div className="w-16 h-16 bg-stone-100 rounded overflow-hidden flex-shrink-0">
                       {item.imageUrl && item.imageUrl.startsWith('data:image') ? (
                         <img
                           src={item.imageUrl}
@@ -896,14 +896,14 @@ export default function CheckoutPage() {
                       )}
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-semibold text-gray-900">{item.name}</h4>
+                      <h4 className="font-semibold text-slate-800">{item.name}</h4>
                       {item.attributes && (
-                        <p className="text-sm text-gray-600">{item.attributes}</p>
+                        <p className="text-sm text-slate-500">{item.attributes}</p>
                       )}
-                      <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
+                      <p className="text-sm text-slate-500">Qty: {item.quantity}</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold text-gray-900">
+                      <p className="font-semibold text-slate-800">
                         {formatPrice(item.price * item.quantity)}
                       </p>
                     </div>
@@ -916,19 +916,19 @@ export default function CheckoutPage() {
           {/* Order Summary */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-sm p-6 sticky top-20">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Order Summary</h2>
+              <h2 className="text-xl font-semibold text-slate-800 mb-4">Order Summary</h2>
               
               <div className="space-y-3 mb-6">
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-slate-500">
                   <span>Subtotal</span>
                   <span>{formatPrice(subtotal)}</span>
                 </div>
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-slate-500">
                   <span>Shipping</span>
                   <span className="text-green-600">Free</span>
                 </div>
                 <div className="border-t pt-3">
-                  <div className="flex justify-between text-lg font-semibold text-gray-900">
+                  <div className="flex justify-between text-lg font-semibold text-slate-800">
                     <span>Total</span>
                     <span>{formatPrice(total)}</span>
                   </div>
@@ -937,10 +937,10 @@ export default function CheckoutPage() {
 
               {/* Payment Method Selection */}
               <div className="mb-4">
-                <h3 className="text-sm font-medium text-gray-700 mb-3">Payment Method</h3>
+                <h3 className="text-sm font-medium text-slate-600 mb-3">Payment Method</h3>
                 <div className="space-y-2">
                   <label className={`flex items-center p-3 border rounded-lg cursor-pointer transition-all ${
-                    paymentMethod === 'razorpay' ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-gray-400'
+                    paymentMethod === 'razorpay' ? 'border-amber-500 bg-amber-50' : 'border-stone-200 hover:border-gray-400'
                   }`}>
                     <input
                       type="radio"
@@ -951,13 +951,13 @@ export default function CheckoutPage() {
                       className="mr-3"
                     />
                     <div className="flex-1">
-                      <p className="font-medium text-gray-900">Online Payment</p>
-                      <p className="text-xs text-gray-600">Pay securely with Razorpay (Cards, UPI, Net Banking)</p>
+                      <p className="font-medium text-slate-800">Online Payment</p>
+                      <p className="text-xs text-slate-500">Pay securely with Razorpay (Cards, UPI, Net Banking)</p>
                     </div>
                   </label>
 
                   <label className={`flex items-center p-3 border rounded-lg cursor-pointer transition-all ${
-                    paymentMethod === 'cod' ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-gray-400'
+                    paymentMethod === 'cod' ? 'border-amber-500 bg-amber-50' : 'border-stone-200 hover:border-gray-400'
                   }`}>
                     <input
                       type="radio"
@@ -968,8 +968,8 @@ export default function CheckoutPage() {
                       className="mr-3"
                     />
                     <div className="flex-1">
-                      <p className="font-medium text-gray-900">Cash on Delivery</p>
-                      <p className="text-xs text-gray-600">Pay when you receive your order</p>
+                      <p className="font-medium text-slate-800">Cash on Delivery</p>
+                      <p className="text-xs text-slate-500">Pay when you receive your order</p>
                     </div>
                   </label>
                 </div>
@@ -978,7 +978,7 @@ export default function CheckoutPage() {
               <button
                 onClick={handlePayment}
                 disabled={isProcessing}
-                className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+                className="w-full bg-amber-500 text-white py-3 rounded-lg font-semibold hover:bg-amber-600 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
               >
                 {isProcessing ? (
                   <span className="flex items-center justify-center">
@@ -997,22 +997,22 @@ export default function CheckoutPage() {
 
               <Link
                 href="/cart"
-                className="block w-full text-center text-blue-600 hover:text-blue-700 font-medium mt-3"
+                className="block w-full text-center text-amber-600 hover:text-blue-700 font-medium mt-3"
               >
                 ← Back to Cart
               </Link>
 
               {/* Security badges */}
               <div className="mt-6 pt-6 border-t">
-                <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
+                <div className="flex items-center justify-center gap-2 text-sm text-slate-500">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                   <span>256-bit SSL Encryption</span>
                 </div>
-                <div className="flex items-center justify-center gap-2 text-sm text-gray-600 mt-2">
+                <div className="flex items-center justify-center gap-2 text-sm text-slate-500 mt-2">
                   <span>Powered by</span>
-                  <span className="font-semibold text-blue-600">Razorpay</span>
+                  <span className="font-semibold text-amber-600">Razorpay</span>
                 </div>
               </div>
               )}
@@ -1087,18 +1087,18 @@ export default function CheckoutPage() {
                 </svg>
               </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <h3 className="text-xl font-semibold text-slate-800 mb-2">
                 {paymentMethod === 'cod' ? 'Order Placed Successfully!' : 'Payment Successful!'}
               </h3>
-              <p className="text-gray-600 text-center mb-4">
+              <p className="text-slate-500 text-center mb-4">
                 {paymentMethod === 'cod' ? 'Your order has been confirmed...' : 'Processing your order...'}
               </p>
 
               {/* Loading spinner */}
               <div className="flex space-x-1">
-                <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                <div className="w-2 h-2 bg-amber-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                <div className="w-2 h-2 bg-amber-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                <div className="w-2 h-2 bg-amber-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
               </div>
             </div>
           </div>

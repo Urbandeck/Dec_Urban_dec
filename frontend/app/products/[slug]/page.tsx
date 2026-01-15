@@ -108,9 +108,9 @@ export default async function ProductPage({ params }: { params: { slug: string }
           <div className="space-y-6">
             <div>
               {product.brand && (
-                <p className="text-sm text-gray-600 mb-2">{product.brand}</p>
+                <p className="text-sm text-slate-500 mb-2">{product.brand}</p>
               )}
-              <h1 className="text-3xl font-bold text-gray-900 mb-4">{product.name}</h1>
+              <h1 className="text-3xl font-bold text-slate-800 mb-4">{product.name}</h1>
 
               {/* Rating */}
               {product.rating > 0 && (
@@ -130,23 +130,23 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     ))}
                   </div>
-                  <span className="text-gray-600">
+                  <span className="text-slate-500">
                     {product.rating} ({product.reviewCount} reviews)
                   </span>
                 </div>
               )}
 
-              <p className="text-gray-700 mb-6">{product.description}</p>
+              <p className="text-slate-600 mb-6">{product.description}</p>
             </div>
 
             {/* Price and Add to Cart */}
             <div className="border-t border-b py-6">
               <div className="flex items-center justify-between mb-4">
-                <span className="text-3xl font-bold text-gray-900">
+                <span className="text-3xl font-bold text-slate-800">
                   {formatPrice(product.basePrice)}
                 </span>
                 {product.category && (
-                  <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
+                  <span className="bg-stone-100 text-slate-600 px-3 py-1 rounded-full text-sm">
                     {product.category}
                   </span>
                 )}
@@ -156,7 +156,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
             </div>
 
             {/* Trust Badges */}
-            <div className="flex items-center gap-4 text-sm text-gray-600">
+            <div className="flex items-center gap-4 text-sm text-slate-500">
               <div className="flex items-center gap-1">
                 <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -164,7 +164,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
                 <span>Secure Payment</span>
               </div>
               <div className="flex items-center gap-1">
-                <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
                 </svg>
                 <span>7-Day Return</span>
@@ -174,14 +174,14 @@ export default async function ProductPage({ params }: { params: { slug: string }
             {/* Specifications */}
             {Object.keys(specs).length > 0 && (
               <div>
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Specifications</h2>
+                <h2 className="text-lg font-semibold text-slate-800 mb-4">Specifications</h2>
                 <dl className="space-y-3">
                   {Object.entries(specs).map(([key, value]) => (
                     <div key={key} className="flex">
-                      <dt className="w-1/3 text-gray-600">
+                      <dt className="w-1/3 text-slate-500">
                         {formatSpecLabel(key)}:
                       </dt>
-                      <dd className="w-2/3 text-gray-900">{String(value)}</dd>
+                      <dd className="w-2/3 text-slate-800">{String(value)}</dd>
                     </div>
                   ))}
                 </dl>
@@ -191,7 +191,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
             {/* Features - Dynamic from database or default */}
             {(features.length > 0 || Object.keys(specs).length === 0) && (
               <div>
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Key Features</h2>
+                <h2 className="text-lg font-semibold text-slate-800 mb-4">Key Features</h2>
                 <ul className="space-y-2">
                   {features.length > 0 ? (
                     features.map((feature, index) => (
@@ -199,7 +199,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
                         <svg className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
-                        <span className="text-gray-700">{feature}</span>
+                        <span className="text-slate-600">{feature}</span>
                       </li>
                     ))
                   ) : (
@@ -209,7 +209,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
                           <svg className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                           </svg>
-                          <span className="text-gray-700">{specs.display}</span>
+                          <span className="text-slate-600">{specs.display}</span>
                         </li>
                       )}
                       {specs.wifi && (
@@ -217,7 +217,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
                           <svg className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                           </svg>
-                          <span className="text-gray-700">{specs.wifi} connectivity</span>
+                          <span className="text-slate-600">{specs.wifi} connectivity</span>
                         </li>
                       )}
                       {specs.storage && (
@@ -225,7 +225,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
                           <svg className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                           </svg>
-                          <span className="text-gray-700">{specs.storage} storage capacity</span>
+                          <span className="text-slate-600">{specs.storage} storage capacity</span>
                         </li>
                       )}
                       {specs.formats && (
@@ -233,7 +233,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
                           <svg className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                           </svg>
-                          <span className="text-gray-700">Supports {specs.formats}</span>
+                          <span className="text-slate-600">Supports {specs.formats}</span>
                         </li>
                       )}
                     </>
@@ -244,8 +244,8 @@ export default async function ProductPage({ params }: { params: { slug: string }
 
             {/* Additional Information */}
             {Object.keys(specs).length === 0 && features.length === 0 && (
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="text-gray-600 text-sm">
+              <div className="bg-stone-50 p-4 rounded-lg">
+                <p className="text-slate-500 text-sm">
                   Product specifications and features will be updated soon.
                 </p>
               </div>
@@ -258,95 +258,95 @@ export default async function ProductPage({ params }: { params: { slug: string }
           <div className="mt-16 space-y-12">
             {/* Perfect For Section */}
             <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Perfect For:</h2>
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">Perfect For:</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
-                  <svg className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Anime enthusiasts and Naruto fans</span>
+                  <span className="text-slate-600">Anime enthusiasts and Naruto fans</span>
                 </div>
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
-                  <svg className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Gaming room or bedroom décor</span>
+                  <span className="text-slate-600">Gaming room or bedroom décor</span>
                 </div>
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
-                  <svg className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Office desk display</span>
+                  <span className="text-slate-600">Office desk display</span>
                 </div>
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
-                  <svg className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Gift for manga/anime collectors</span>
+                  <span className="text-slate-600">Gift for manga/anime collectors</span>
                 </div>
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
-                  <svg className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Creating an immersive otaku atmosphere</span>
+                  <span className="text-slate-600">Creating an immersive otaku atmosphere</span>
                 </div>
               </div>
             </div>
 
             {/* Detailed Specifications */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Frame Specifications</h2>
-              <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">Frame Specifications</h2>
+              <div className="bg-white rounded-xl border border-stone-200 overflow-hidden">
                 <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-200">
                   <div className="p-6 space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Display Size</span>
-                      <span className="text-gray-900 font-semibold">24cm x 19cm (9.4" x 7.5")</span>
+                      <span className="text-slate-500 font-medium">Display Size</span>
+                      <span className="text-slate-800 font-semibold">24cm x 19cm (9.4" x 7.5")</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Frame Material</span>
-                      <span className="text-gray-900 font-semibold">Premium engineered wood</span>
+                      <span className="text-slate-500 font-medium">Frame Material</span>
+                      <span className="text-slate-800 font-semibold">Premium engineered wood</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Finish</span>
-                      <span className="text-gray-900 font-semibold">Oak finish</span>
+                      <span className="text-slate-500 font-medium">Finish</span>
+                      <span className="text-slate-800 font-semibold">Oak finish</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Display Type</span>
-                      <span className="text-gray-900 font-semibold">LED backlit</span>
+                      <span className="text-slate-500 font-medium">Display Type</span>
+                      <span className="text-slate-800 font-semibold">LED backlit</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Power Source</span>
-                      <span className="text-gray-900 font-semibold">USB powered</span>
+                      <span className="text-slate-500 font-medium">Power Source</span>
+                      <span className="text-slate-800 font-semibold">USB powered</span>
                     </div>
                   </div>
                   <div className="p-6 space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Power Consumption</span>
-                      <span className="text-gray-900 font-semibold">5W</span>
+                      <span className="text-slate-500 font-medium">Power Consumption</span>
+                      <span className="text-slate-800 font-semibold">5W</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">LED Temperature</span>
-                      <span className="text-gray-900 font-semibold">Warm White</span>
+                      <span className="text-slate-500 font-medium">LED Temperature</span>
+                      <span className="text-slate-800 font-semibold">Warm White</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Brightness</span>
-                      <span className="text-gray-900 font-semibold">Adjustable</span>
+                      <span className="text-slate-500 font-medium">Brightness</span>
+                      <span className="text-slate-800 font-semibold">Adjustable</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Weight</span>
-                      <span className="text-gray-900 font-semibold">600g</span>
+                      <span className="text-slate-500 font-medium">Weight</span>
+                      <span className="text-slate-800 font-semibold">600g</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Mounting</span>
-                      <span className="text-gray-900 font-semibold">Wall-mountable</span>
+                      <span className="text-slate-500 font-medium">Mounting</span>
+                      <span className="text-slate-800 font-semibold">Wall-mountable</span>
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
+                <div className="bg-stone-50 px-6 py-4 border-t border-stone-200">
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600 font-medium">Cable Length</span>
-                    <span className="text-gray-900 font-semibold">1.5m USB cable</span>
+                    <span className="text-slate-500 font-medium">Cable Length</span>
+                    <span className="text-slate-800 font-semibold">1.5m USB cable</span>
                   </div>
                 </div>
               </div>
@@ -354,23 +354,23 @@ export default async function ProductPage({ params }: { params: { slug: string }
 
             {/* Premium Features */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">✨ Premium Features</h2>
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">✨ Premium Features</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">High-Quality Print</h3>
-                      <p className="text-sm text-gray-600">Fade-resistant coating ensures lasting vibrant colors</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">High-Quality Print</h3>
+                      <p className="text-sm text-slate-500">Fade-resistant coating ensures lasting vibrant colors</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -378,13 +378,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Energy Efficient LED</h3>
-                      <p className="text-sm text-gray-600">Consumes less than 5W power</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Energy Efficient LED</h3>
+                      <p className="text-sm text-slate-500">Consumes less than 5W power</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -392,13 +392,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Plug & Play</h3>
-                      <p className="text-sm text-gray-600">Ready to use straight out of the box</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Plug & Play</h3>
+                      <p className="text-sm text-slate-500">Ready to use straight out of the box</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -406,13 +406,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Soft Glow</h3>
-                      <p className="text-sm text-gray-600">Perfect ambient lighting for any room</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Soft Glow</h3>
+                      <p className="text-sm text-slate-500">Perfect ambient lighting for any room</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -420,13 +420,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Easy Maintenance</h3>
-                      <p className="text-sm text-gray-600">Dust-resistant glass front panel</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Easy Maintenance</h3>
+                      <p className="text-sm text-slate-500">Dust-resistant glass front panel</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -434,8 +434,8 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Handcrafted Frame</h3>
-                      <p className="text-sm text-gray-600">Each piece individually finished</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Handcrafted Frame</h3>
+                      <p className="text-sm text-slate-500">Each piece individually finished</p>
                     </div>
                   </div>
                 </div>
@@ -443,8 +443,8 @@ export default async function ProductPage({ params }: { params: { slug: string }
             </div>
 
             {/* What's in the Box */}
-            <div className="bg-gray-50 rounded-2xl p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">📦 Package Contents</h2>
+            <div className="bg-stone-50 rounded-2xl p-8">
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">📦 Package Contents</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex items-center space-x-3 bg-white p-4 rounded-lg">
                   <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
@@ -452,7 +452,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <span className="text-gray-700">1x Kakashi Hatake LED Digital Frame</span>
+                  <span className="text-slate-600">1x Kakashi Hatake LED Digital Frame</span>
                 </div>
                 <div className="flex items-center space-x-3 bg-white p-4 rounded-lg">
                   <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
@@ -460,35 +460,35 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <span className="text-gray-700">1x USB Cable (1.5m)</span>
+                  <span className="text-slate-600">1x USB Cable (1.5m)</span>
                 </div>
               </div>
             </div>
 
             {/* Why Choose This Frame */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Why Choose This Frame?</h2>
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">Why Choose This Frame?</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">🎨</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Exceptional Artwork Quality</h3>
-                      <p className="text-gray-600">Museum-grade printing ensures every detail of Kakashi's iconic look is captured perfectly</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Exceptional Artwork Quality</h3>
+                      <p className="text-slate-500">Museum-grade printing ensures every detail of Kakashi's iconic look is captured perfectly</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">💡</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Ambient LED Lighting</h3>
-                      <p className="text-gray-600">Soft backlighting creates a stunning visual effect without being harsh on the eyes</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Ambient LED Lighting</h3>
+                      <p className="text-slate-500">Soft backlighting creates a stunning visual effect without being harsh on the eyes</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">🌟</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Premium Build Quality</h3>
-                      <p className="text-gray-600">Solid wood frame construction ensures durability and a premium feel</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Premium Build Quality</h3>
+                      <p className="text-slate-500">Solid wood frame construction ensures durability and a premium feel</p>
                     </div>
                   </div>
                 </div>
@@ -496,22 +496,22 @@ export default async function ProductPage({ params }: { params: { slug: string }
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">🔌</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Energy Efficient</h3>
-                      <p className="text-gray-600">Uses minimal power - can run 24/7 for less than ₹10/month</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Energy Efficient</h3>
+                      <p className="text-slate-500">Uses minimal power - can run 24/7 for less than ₹10/month</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">🎁</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Perfect Gift</h3>
-                      <p className="text-gray-600">Comes in premium packaging, ideal for birthdays, anniversaries, or special occasions</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Perfect Gift</h3>
+                      <p className="text-slate-500">Comes in premium packaging, ideal for birthdays, anniversaries, or special occasions</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">🛡️</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Built to Last</h3>
-                      <p className="text-gray-600">High-quality materials and construction for years of enjoyment</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Built to Last</h3>
+                      <p className="text-slate-500">High-quality materials and construction for years of enjoyment</p>
                     </div>
                   </div>
                 </div>
@@ -525,95 +525,95 @@ export default async function ProductPage({ params }: { params: { slug: string }
           <div className="mt-16 space-y-12">
             {/* Perfect For Section */}
             <div className="bg-gradient-to-r from-red-50 to-orange-50 rounded-2xl p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Perfect For:</h2>
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">Perfect For:</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
                   <svg className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Japanese culture enthusiasts and samurai fans</span>
+                  <span className="text-slate-600">Japanese culture enthusiasts and samurai fans</span>
                 </div>
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
                   <svg className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Gaming room or home office décor</span>
+                  <span className="text-slate-600">Gaming room or home office décor</span>
                 </div>
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
                   <svg className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Meditation and zen spaces</span>
+                  <span className="text-slate-600">Meditation and zen spaces</span>
                 </div>
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
                   <svg className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Gift for history buffs and warriors at heart</span>
+                  <span className="text-slate-600">Gift for history buffs and warriors at heart</span>
                 </div>
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
                   <svg className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Creating an authentic Japanese aesthetic atmosphere</span>
+                  <span className="text-slate-600">Creating an authentic Japanese aesthetic atmosphere</span>
                 </div>
               </div>
             </div>
 
             {/* Detailed Specifications */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Frame Specifications</h2>
-              <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">Frame Specifications</h2>
+              <div className="bg-white rounded-xl border border-stone-200 overflow-hidden">
                 <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-200">
                   <div className="p-6 space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Display Size</span>
-                      <span className="text-gray-900 font-semibold">23cm x 18cm</span>
+                      <span className="text-slate-500 font-medium">Display Size</span>
+                      <span className="text-slate-800 font-semibold">23cm x 18cm</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Frame Material</span>
-                      <span className="text-gray-900 font-semibold">Premium engineered wood</span>
+                      <span className="text-slate-500 font-medium">Frame Material</span>
+                      <span className="text-slate-800 font-semibold">Premium engineered wood</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Finish</span>
-                      <span className="text-gray-900 font-semibold">Walnut finish</span>
+                      <span className="text-slate-500 font-medium">Finish</span>
+                      <span className="text-slate-800 font-semibold">Walnut finish</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Display Type</span>
-                      <span className="text-gray-900 font-semibold">LED backlit</span>
+                      <span className="text-slate-500 font-medium">Display Type</span>
+                      <span className="text-slate-800 font-semibold">LED backlit</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Power Source</span>
-                      <span className="text-gray-900 font-semibold">USB powered</span>
+                      <span className="text-slate-500 font-medium">Power Source</span>
+                      <span className="text-slate-800 font-semibold">USB powered</span>
                     </div>
                   </div>
                   <div className="p-6 space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Power Consumption</span>
-                      <span className="text-gray-900 font-semibold">5W</span>
+                      <span className="text-slate-500 font-medium">Power Consumption</span>
+                      <span className="text-slate-800 font-semibold">5W</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">LED Temperature</span>
-                      <span className="text-gray-900 font-semibold">Warm White</span>
+                      <span className="text-slate-500 font-medium">LED Temperature</span>
+                      <span className="text-slate-800 font-semibold">Warm White</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Brightness</span>
-                      <span className="text-gray-900 font-semibold">Adjustable</span>
+                      <span className="text-slate-500 font-medium">Brightness</span>
+                      <span className="text-slate-800 font-semibold">Adjustable</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Weight</span>
-                      <span className="text-gray-900 font-semibold">650 to 700g</span>
+                      <span className="text-slate-500 font-medium">Weight</span>
+                      <span className="text-slate-800 font-semibold">650 to 700g</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Mounting</span>
-                      <span className="text-gray-900 font-semibold">Wall-mountable</span>
+                      <span className="text-slate-500 font-medium">Mounting</span>
+                      <span className="text-slate-800 font-semibold">Wall-mountable</span>
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
+                <div className="bg-stone-50 px-6 py-4 border-t border-stone-200">
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600 font-medium">Cable Length</span>
-                    <span className="text-gray-900 font-semibold">1.5m USB cable</span>
+                    <span className="text-slate-500 font-medium">Cable Length</span>
+                    <span className="text-slate-800 font-semibold">1.5m USB cable</span>
                   </div>
                 </div>
               </div>
@@ -621,9 +621,9 @@ export default async function ProductPage({ params }: { params: { slug: string }
 
             {/* Premium Features */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">✨ Premium Features</h2>
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">✨ Premium Features</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -631,13 +631,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">High-Quality Print</h3>
-                      <p className="text-sm text-gray-600">Fade-resistant, weather-resistant coating</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">High-Quality Print</h3>
+                      <p className="text-sm text-slate-500">Fade-resistant, weather-resistant coating</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -645,13 +645,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Energy Efficient LED</h3>
-                      <p className="text-sm text-gray-600">Consumes less than 5W power</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Energy Efficient LED</h3>
+                      <p className="text-sm text-slate-500">Consumes less than 5W power</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -659,13 +659,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Plug & Play</h3>
-                      <p className="text-sm text-gray-600">Ready to use out of the box</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Plug & Play</h3>
+                      <p className="text-sm text-slate-500">Ready to use out of the box</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -673,13 +673,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Dramatic Glow</h3>
-                      <p className="text-sm text-gray-600">Perfect ambient lighting with warrior spirit</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Dramatic Glow</h3>
+                      <p className="text-sm text-slate-500">Perfect ambient lighting with warrior spirit</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -687,13 +687,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Easy Maintenance</h3>
-                      <p className="text-sm text-gray-600">Dust-resistant glass front panel</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Easy Maintenance</h3>
+                      <p className="text-sm text-slate-500">Dust-resistant glass front panel</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -701,8 +701,8 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Handcrafted Frame</h3>
-                      <p className="text-sm text-gray-600">Each piece individually finished</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Handcrafted Frame</h3>
+                      <p className="text-sm text-slate-500">Each piece individually finished</p>
                     </div>
                   </div>
                 </div>
@@ -710,8 +710,8 @@ export default async function ProductPage({ params }: { params: { slug: string }
             </div>
 
             {/* What's in the Box */}
-            <div className="bg-gray-50 rounded-2xl p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">📦 Package Contents</h2>
+            <div className="bg-stone-50 rounded-2xl p-8">
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">📦 Package Contents</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex items-center space-x-3 bg-white p-4 rounded-lg">
                   <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
@@ -719,7 +719,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <span className="text-gray-700">1x Samurai LED Digital Frame</span>
+                  <span className="text-slate-600">1x Samurai LED Digital Frame</span>
                 </div>
                 <div className="flex items-center space-x-3 bg-white p-4 rounded-lg">
                   <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
@@ -727,35 +727,35 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <span className="text-gray-700">1x USB Cable (1.5m)</span>
+                  <span className="text-slate-600">1x USB Cable (1.5m)</span>
                 </div>
               </div>
             </div>
 
             {/* Why Choose This Frame */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Why Choose This Frame?</h2>
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">Why Choose This Frame?</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">🎨</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Authentic Samurai Artwork</h3>
-                      <p className="text-gray-600">Traditional Japanese warrior design with intricate details captured in museum-quality printing</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Authentic Samurai Artwork</h3>
+                      <p className="text-slate-500">Traditional Japanese warrior design with intricate details captured in museum-quality printing</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">💡</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Dramatic LED Backlighting</h3>
-                      <p className="text-gray-600">Soft warm glow enhances the powerful samurai presence and creates an immersive atmosphere</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Dramatic LED Backlighting</h3>
+                      <p className="text-slate-500">Soft warm glow enhances the powerful samurai presence and creates an immersive atmosphere</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">🌟</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Premium Walnut Frame</h3>
-                      <p className="text-gray-600">Handcrafted wood frame with rich walnut finish complements the traditional Japanese aesthetic</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Premium Walnut Frame</h3>
+                      <p className="text-slate-500">Handcrafted wood frame with rich walnut finish complements the traditional Japanese aesthetic</p>
                     </div>
                   </div>
                 </div>
@@ -763,22 +763,22 @@ export default async function ProductPage({ params }: { params: { slug: string }
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">🔌</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Energy Efficient</h3>
-                      <p className="text-gray-600">Uses minimal power - can run 24/7 for less than ₹10/month while maintaining warrior vigil</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Energy Efficient</h3>
+                      <p className="text-slate-500">Uses minimal power - can run 24/7 for less than ₹10/month while maintaining warrior vigil</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">🎁</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Meaningful Gift</h3>
-                      <p className="text-gray-600">Symbolizes strength, honor, and discipline - perfect for warriors, martial artists, and history lovers</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Meaningful Gift</h3>
+                      <p className="text-slate-500">Symbolizes strength, honor, and discipline - perfect for warriors, martial artists, and history lovers</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">🛡️</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Built to Last</h3>
-                      <p className="text-gray-600">High-quality materials honor the samurai legacy with construction built for generations</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Built to Last</h3>
+                      <p className="text-slate-500">High-quality materials honor the samurai legacy with construction built for generations</p>
                     </div>
                   </div>
                 </div>
@@ -792,95 +792,95 @@ export default async function ProductPage({ params }: { params: { slug: string }
           <div className="mt-16 space-y-12">
             {/* Perfect For Section */}
             <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Perfect For:</h2>
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">Perfect For:</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
                   <svg className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Anime enthusiasts and Your Name (Kimi no Na wa) fans</span>
+                  <span className="text-slate-600">Anime enthusiasts and Your Name (Kimi no Na wa) fans</span>
                 </div>
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
                   <svg className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Romantic bedroom or couple's space décor</span>
+                  <span className="text-slate-600">Romantic bedroom or couple's space décor</span>
                 </div>
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
                   <svg className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Gift for anime lovers and significant others</span>
+                  <span className="text-slate-600">Gift for anime lovers and significant others</span>
                 </div>
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
                   <svg className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Living room or entertainment area display</span>
+                  <span className="text-slate-600">Living room or entertainment area display</span>
                 </div>
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
                   <svg className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Creating a dreamy, nostalgic atmosphere</span>
+                  <span className="text-slate-600">Creating a dreamy, nostalgic atmosphere</span>
                 </div>
               </div>
             </div>
 
             {/* Detailed Specifications */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Frame Specifications</h2>
-              <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">Frame Specifications</h2>
+              <div className="bg-white rounded-xl border border-stone-200 overflow-hidden">
                 <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-200">
                   <div className="p-6 space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Display Size</span>
-                      <span className="text-gray-900 font-semibold">23cm x 18cm</span>
+                      <span className="text-slate-500 font-medium">Display Size</span>
+                      <span className="text-slate-800 font-semibold">23cm x 18cm</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Frame Material</span>
-                      <span className="text-gray-900 font-semibold">Premium engineered wood</span>
+                      <span className="text-slate-500 font-medium">Frame Material</span>
+                      <span className="text-slate-800 font-semibold">Premium engineered wood</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Finish</span>
-                      <span className="text-gray-900 font-semibold">Natural finish</span>
+                      <span className="text-slate-500 font-medium">Finish</span>
+                      <span className="text-slate-800 font-semibold">Natural finish</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Display Type</span>
-                      <span className="text-gray-900 font-semibold">LED backlit</span>
+                      <span className="text-slate-500 font-medium">Display Type</span>
+                      <span className="text-slate-800 font-semibold">LED backlit</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Power Source</span>
-                      <span className="text-gray-900 font-semibold">USB powered</span>
+                      <span className="text-slate-500 font-medium">Power Source</span>
+                      <span className="text-slate-800 font-semibold">USB powered</span>
                     </div>
                   </div>
                   <div className="p-6 space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Power Consumption</span>
-                      <span className="text-gray-900 font-semibold">5W</span>
+                      <span className="text-slate-500 font-medium">Power Consumption</span>
+                      <span className="text-slate-800 font-semibold">5W</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">LED Temperature</span>
-                      <span className="text-gray-900 font-semibold">Warm White</span>
+                      <span className="text-slate-500 font-medium">LED Temperature</span>
+                      <span className="text-slate-800 font-semibold">Warm White</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Brightness</span>
-                      <span className="text-gray-900 font-semibold">Adjustable</span>
+                      <span className="text-slate-500 font-medium">Brightness</span>
+                      <span className="text-slate-800 font-semibold">Adjustable</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Weight</span>
-                      <span className="text-gray-900 font-semibold">650 to 700g</span>
+                      <span className="text-slate-500 font-medium">Weight</span>
+                      <span className="text-slate-800 font-semibold">650 to 700g</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Mounting</span>
-                      <span className="text-gray-900 font-semibold">Wall-mountable</span>
+                      <span className="text-slate-500 font-medium">Mounting</span>
+                      <span className="text-slate-800 font-semibold">Wall-mountable</span>
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
+                <div className="bg-stone-50 px-6 py-4 border-t border-stone-200">
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600 font-medium">Cable Length</span>
-                    <span className="text-gray-900 font-semibold">1.5m USB cable</span>
+                    <span className="text-slate-500 font-medium">Cable Length</span>
+                    <span className="text-slate-800 font-semibold">1.5m USB cable</span>
                   </div>
                 </div>
               </div>
@@ -888,9 +888,9 @@ export default async function ProductPage({ params }: { params: { slug: string }
 
             {/* Premium Features */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">✨ Premium Features</h2>
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">✨ Premium Features</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -898,13 +898,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">High-Quality Print</h3>
-                      <p className="text-sm text-gray-600">Fade-resistant, vibrant color reproduction</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">High-Quality Print</h3>
+                      <p className="text-sm text-slate-500">Fade-resistant, vibrant color reproduction</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -912,13 +912,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Energy Efficient LED</h3>
-                      <p className="text-sm text-gray-600">Consumes less than 5W power</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Energy Efficient LED</h3>
+                      <p className="text-sm text-slate-500">Consumes less than 5W power</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -926,13 +926,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Plug & Play</h3>
-                      <p className="text-sm text-gray-600">Ready to use out of the box</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Plug & Play</h3>
+                      <p className="text-sm text-slate-500">Ready to use out of the box</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -940,27 +940,27 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Romantic Glow</h3>
-                      <p className="text-sm text-gray-600">Perfect ambient lighting for intimate spaces</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Romantic Glow</h3>
+                      <p className="text-sm text-slate-500">Perfect ambient lighting for intimate spaces</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Easy Maintenance</h3>
-                      <p className="text-sm text-gray-600">Dust-resistant glass front panel</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Easy Maintenance</h3>
+                      <p className="text-sm text-slate-500">Dust-resistant glass front panel</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-rose-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -968,8 +968,8 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Handcrafted Frame</h3>
-                      <p className="text-sm text-gray-600">Each piece individually finished</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Handcrafted Frame</h3>
+                      <p className="text-sm text-slate-500">Each piece individually finished</p>
                     </div>
                   </div>
                 </div>
@@ -977,8 +977,8 @@ export default async function ProductPage({ params }: { params: { slug: string }
             </div>
 
             {/* What's in the Box */}
-            <div className="bg-gray-50 rounded-2xl p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">📦 Package Contents</h2>
+            <div className="bg-stone-50 rounded-2xl p-8">
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">📦 Package Contents</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex items-center space-x-3 bg-white p-4 rounded-lg">
                   <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
@@ -986,7 +986,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <span className="text-gray-700">1x Your Name LED Digital Frame</span>
+                  <span className="text-slate-600">1x Your Name LED Digital Frame</span>
                 </div>
                 <div className="flex items-center space-x-3 bg-white p-4 rounded-lg">
                   <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
@@ -994,35 +994,35 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <span className="text-gray-700">1x USB Cable (1.5m)</span>
+                  <span className="text-slate-600">1x USB Cable (1.5m)</span>
                 </div>
               </div>
             </div>
 
             {/* Why Choose This Frame */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Why Choose This Frame?</h2>
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">Why Choose This Frame?</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">🎨</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Iconic Movie Artwork</h3>
-                      <p className="text-gray-600">Captures the breathtaking scenery and emotional moments from the beloved anime film in stunning detail</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Iconic Movie Artwork</h3>
+                      <p className="text-slate-500">Captures the breathtaking scenery and emotional moments from the beloved anime film in stunning detail</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">💡</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Dreamy LED Backlighting</h3>
-                      <p className="text-gray-600">Soft warm glow creates a romantic and nostalgic atmosphere reminiscent of the film's twilight scenes</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Dreamy LED Backlighting</h3>
+                      <p className="text-slate-500">Soft warm glow creates a romantic and nostalgic atmosphere reminiscent of the film's twilight scenes</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">🌟</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Premium Natural Frame</h3>
-                      <p className="text-gray-600">Handcrafted wood frame with natural finish complements the organic beauty of the artwork</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Premium Natural Frame</h3>
+                      <p className="text-slate-500">Handcrafted wood frame with natural finish complements the organic beauty of the artwork</p>
                     </div>
                   </div>
                 </div>
@@ -1030,22 +1030,22 @@ export default async function ProductPage({ params }: { params: { slug: string }
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">🔌</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Energy Efficient</h3>
-                      <p className="text-gray-600">Uses minimal power - can run 24/7 for less than ₹10/month while keeping memories alive</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Energy Efficient</h3>
+                      <p className="text-slate-500">Uses minimal power - can run 24/7 for less than ₹10/month while keeping memories alive</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">🎁</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Perfect Romantic Gift</h3>
-                      <p className="text-gray-600">Symbolizes connection and destiny - ideal for couples, anniversaries, and anime fans</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Perfect Romantic Gift</h3>
+                      <p className="text-slate-500">Symbolizes connection and destiny - ideal for couples, anniversaries, and anime fans</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">🛡️</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Built to Last</h3>
-                      <p className="text-gray-600">High-quality materials preserve the magic of Your Name for years to come</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Built to Last</h3>
+                      <p className="text-slate-500">High-quality materials preserve the magic of Your Name for years to come</p>
                     </div>
                   </div>
                 </div>
@@ -1059,101 +1059,101 @@ export default async function ProductPage({ params }: { params: { slug: string }
           <div className="mt-16 space-y-12">
             {/* Perfect For Section */}
             <div className="bg-gradient-to-r from-amber-50 to-yellow-50 rounded-2xl p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Perfect For:</h2>
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">Perfect For:</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
                   <svg className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Students and scholars seeking study motivation</span>
+                  <span className="text-slate-600">Students and scholars seeking study motivation</span>
                 </div>
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
                   <svg className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Home office or study room décor</span>
+                  <span className="text-slate-600">Home office or study room décor</span>
                 </div>
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
                   <svg className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Gift for college students or book lovers</span>
+                  <span className="text-slate-600">Gift for college students or book lovers</span>
                 </div>
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
                   <svg className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Bedroom ambiance for peaceful nights</span>
+                  <span className="text-slate-600">Bedroom ambiance for peaceful nights</span>
                 </div>
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
                   <svg className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Creating a calm, focused atmosphere</span>
+                  <span className="text-slate-600">Creating a calm, focused atmosphere</span>
                 </div>
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
                   <svg className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-gray-700">Lofi aesthetic and minimalist room setups</span>
+                  <span className="text-slate-600">Lofi aesthetic and minimalist room setups</span>
                 </div>
               </div>
             </div>
 
             {/* Detailed Specifications */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Frame Specifications</h2>
-              <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">Frame Specifications</h2>
+              <div className="bg-white rounded-xl border border-stone-200 overflow-hidden">
                 <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-200">
                   <div className="p-6 space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Display Size</span>
-                      <span className="text-gray-900 font-semibold">23cm x 18cm</span>
+                      <span className="text-slate-500 font-medium">Display Size</span>
+                      <span className="text-slate-800 font-semibold">23cm x 18cm</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Frame Material</span>
-                      <span className="text-gray-900 font-semibold">Premium engineered wood</span>
+                      <span className="text-slate-500 font-medium">Frame Material</span>
+                      <span className="text-slate-800 font-semibold">Premium engineered wood</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Finish</span>
-                      <span className="text-gray-900 font-semibold">Dark walnut finish</span>
+                      <span className="text-slate-500 font-medium">Finish</span>
+                      <span className="text-slate-800 font-semibold">Dark walnut finish</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Display Type</span>
-                      <span className="text-gray-900 font-semibold">LED backlit silhouette</span>
+                      <span className="text-slate-500 font-medium">Display Type</span>
+                      <span className="text-slate-800 font-semibold">LED backlit silhouette</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Power Source</span>
-                      <span className="text-gray-900 font-semibold">USB powered</span>
+                      <span className="text-slate-500 font-medium">Power Source</span>
+                      <span className="text-slate-800 font-semibold">USB powered</span>
                     </div>
                   </div>
                   <div className="p-6 space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Power Consumption</span>
-                      <span className="text-gray-900 font-semibold">5W</span>
+                      <span className="text-slate-500 font-medium">Power Consumption</span>
+                      <span className="text-slate-800 font-semibold">5W</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">LED Temperature</span>
-                      <span className="text-gray-900 font-semibold">Warm White</span>
+                      <span className="text-slate-500 font-medium">LED Temperature</span>
+                      <span className="text-slate-800 font-semibold">Warm White</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Brightness</span>
-                      <span className="text-gray-900 font-semibold">Adjustable</span>
+                      <span className="text-slate-500 font-medium">Brightness</span>
+                      <span className="text-slate-800 font-semibold">Adjustable</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Weight</span>
-                      <span className="text-gray-900 font-semibold">650 to 700g</span>
+                      <span className="text-slate-500 font-medium">Weight</span>
+                      <span className="text-slate-800 font-semibold">650 to 700g</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Mounting</span>
-                      <span className="text-gray-900 font-semibold">Wall-mountable</span>
+                      <span className="text-slate-500 font-medium">Mounting</span>
+                      <span className="text-slate-800 font-semibold">Wall-mountable</span>
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
+                <div className="bg-stone-50 px-6 py-4 border-t border-stone-200">
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600 font-medium">Cable Length</span>
-                    <span className="text-gray-900 font-semibold">1.5m USB cable</span>
+                    <span className="text-slate-500 font-medium">Cable Length</span>
+                    <span className="text-slate-800 font-semibold">1.5m USB cable</span>
                   </div>
                 </div>
               </div>
@@ -1161,9 +1161,9 @@ export default async function ProductPage({ params }: { params: { slug: string }
 
             {/* Premium Features */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">✨ Premium Features</h2>
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">✨ Premium Features</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1171,13 +1171,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Silhouette Art Design</h3>
-                      <p className="text-sm text-gray-600">Elegant minimalist aesthetic</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Silhouette Art Design</h3>
+                      <p className="text-sm text-slate-500">Elegant minimalist aesthetic</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1185,13 +1185,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Warm LED Glow</h3>
-                      <p className="text-sm text-gray-600">Creates perfect study ambiance</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Warm LED Glow</h3>
+                      <p className="text-sm text-slate-500">Creates perfect study ambiance</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1199,13 +1199,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Energy Efficient LED</h3>
-                      <p className="text-sm text-gray-600">Consumes less than 5W power</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Energy Efficient LED</h3>
+                      <p className="text-sm text-slate-500">Consumes less than 5W power</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1213,27 +1213,27 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Plug & Play</h3>
-                      <p className="text-sm text-gray-600">Ready to use out of the box</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Plug & Play</h3>
+                      <p className="text-sm text-slate-500">Ready to use out of the box</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Easy Maintenance</h3>
-                      <p className="text-sm text-gray-600">Dust-resistant glass front panel</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Easy Maintenance</h3>
+                      <p className="text-sm text-slate-500">Dust-resistant glass front panel</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+                <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1241,8 +1241,8 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">Handcrafted Frame</h3>
-                      <p className="text-sm text-gray-600">Premium dark walnut finish</p>
+                      <h3 className="font-semibold text-slate-800 mb-1">Handcrafted Frame</h3>
+                      <p className="text-sm text-slate-500">Premium dark walnut finish</p>
                     </div>
                   </div>
                 </div>
@@ -1250,8 +1250,8 @@ export default async function ProductPage({ params }: { params: { slug: string }
             </div>
 
             {/* What's in the Box */}
-            <div className="bg-gray-50 rounded-2xl p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">📦 Package Contents</h2>
+            <div className="bg-stone-50 rounded-2xl p-8">
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">📦 Package Contents</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex items-center space-x-3 bg-white p-4 rounded-lg">
                   <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
@@ -1259,7 +1259,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <span className="text-gray-700">1x Lofi Study Girl LED Frame</span>
+                  <span className="text-slate-600">1x Lofi Study Girl LED Frame</span>
                 </div>
                 <div className="flex items-center space-x-3 bg-white p-4 rounded-lg">
                   <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
@@ -1267,35 +1267,35 @@ export default async function ProductPage({ params }: { params: { slug: string }
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <span className="text-gray-700">1x USB Cable (1.5m)</span>
+                  <span className="text-slate-600">1x USB Cable (1.5m)</span>
                 </div>
               </div>
             </div>
 
             {/* Why Choose This Frame */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Why Choose This Frame?</h2>
+              <h2 className="text-2xl font-bold text-slate-800 mb-6">Why Choose This Frame?</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">📚</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Study Motivation</h3>
-                      <p className="text-gray-600">Inspiring silhouette of dedication and focus - perfect reminder during long study sessions</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Study Motivation</h3>
+                      <p className="text-slate-500">Inspiring silhouette of dedication and focus - perfect reminder during long study sessions</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">💡</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Perfect Study Lighting</h3>
-                      <p className="text-gray-600">Warm LED backlighting provides gentle illumination ideal for late-night reading without eye strain</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Perfect Study Lighting</h3>
+                      <p className="text-slate-500">Warm LED backlighting provides gentle illumination ideal for late-night reading without eye strain</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">🎨</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Minimalist Aesthetic</h3>
-                      <p className="text-gray-600">Clean silhouette design fits any room style from modern to traditional, dorm to home office</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Minimalist Aesthetic</h3>
+                      <p className="text-slate-500">Clean silhouette design fits any room style from modern to traditional, dorm to home office</p>
                     </div>
                   </div>
                 </div>
@@ -1303,22 +1303,22 @@ export default async function ProductPage({ params }: { params: { slug: string }
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">🔌</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Energy Efficient</h3>
-                      <p className="text-gray-600">Uses minimal power - can run all night during study sessions for less than ₹10/month</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Energy Efficient</h3>
+                      <p className="text-slate-500">Uses minimal power - can run all night during study sessions for less than ₹10/month</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">🎁</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Meaningful Gift</h3>
-                      <p className="text-gray-600">Perfect for students, graduates, teachers, or anyone pursuing their dreams and goals</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Meaningful Gift</h3>
+                      <p className="text-slate-500">Perfect for students, graduates, teachers, or anyone pursuing their dreams and goals</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
                     <span className="text-3xl">🌙</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">Calming Atmosphere</h3>
-                      <p className="text-gray-600">Creates a peaceful, focused environment that enhances concentration and productivity</p>
+                      <h3 className="font-semibold text-slate-800 mb-2">Calming Atmosphere</h3>
+                      <p className="text-slate-500">Creates a peaceful, focused environment that enhances concentration and productivity</p>
                     </div>
                   </div>
                 </div>

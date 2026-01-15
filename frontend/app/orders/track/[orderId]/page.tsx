@@ -219,10 +219,10 @@ export default function TrackOrderPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-stone-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading tracking information...</p>
+          <p className="mt-4 text-slate-500">Loading tracking information...</p>
         </div>
       </div>
     )
@@ -230,10 +230,10 @@ export default function TrackOrderPage() {
 
   if (error || !order) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-stone-50 flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-600 mb-4">{error || 'Order not found'}</p>
-          <Link href="/orders" className="text-blue-600 hover:underline">
+          <Link href="/orders" className="text-amber-600 hover:underline">
             ← Back to Orders
           </Link>
         </div>
@@ -248,20 +248,20 @@ export default function TrackOrderPage() {
   const allStatuses = ['Order Placed', 'Processing', 'Shipped', 'Out for Delivery', 'Delivered']
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-stone-50 py-8">
       <div className="max-w-4xl mx-auto px-4">
-        <Link href="/orders" className="text-blue-600 hover:underline mb-6 inline-block">
+        <Link href="/orders" className="text-amber-600 hover:underline mb-6 inline-block">
           ← Back to Orders
         </Link>
 
         <div className="bg-white rounded-lg shadow-sm p-6">
           <h1 className="text-2xl font-bold mb-2">Track Your Order</h1>
-          <p className="text-gray-600 mb-6">Order ID: {orderId}</p>
+          <p className="text-slate-500 mb-6">Order ID: {orderId}</p>
 
           <div className="mb-8">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold">Delivery Status</h2>
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-slate-400">
                 Expected delivery: {new Date(Date.now() + 259200000).toLocaleDateString()}
               </span>
             </div>
@@ -310,12 +310,12 @@ export default function TrackOrderPage() {
                   <div className="flex-grow">
                     <div className="flex justify-between items-start mb-1">
                       <h3 className="font-medium">{event.status}</h3>
-                      <span className="text-sm text-gray-500">
+                      <span className="text-sm text-slate-400">
                         {event.date} at {event.time}
                       </span>
                     </div>
-                    <p className="text-gray-600 text-sm">{event.description}</p>
-                    <p className="text-gray-500 text-sm mt-1">📍 {event.location}</p>
+                    <p className="text-slate-500 text-sm">{event.description}</p>
+                    <p className="text-slate-400 text-sm mt-1">📍 {event.location}</p>
                   </div>
                 </div>
               ))}
@@ -327,7 +327,7 @@ export default function TrackOrderPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <h3 className="font-semibold mb-2">Shipping Information</h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-slate-500">
                   {order.courierName && <span>Carrier: {order.courierName}<br /></span>}
                   {order.awbNumber ? (
                     <span>Tracking Number: {order.awbNumber}<br /></span>
@@ -342,7 +342,7 @@ export default function TrackOrderPage() {
                     href={order.trackingUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline text-sm mt-2 inline-block"
+                    className="text-amber-600 hover:underline text-sm mt-2 inline-block"
                   >
                     Track on carrier website →
                   </a>
@@ -350,7 +350,7 @@ export default function TrackOrderPage() {
               </div>
               <div>
                 <h3 className="font-semibold mb-2">Need Help?</h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-slate-500">
                   For any queries about your order, please contact our customer support.<br />
                   Email: urbandec.in@gmail.com<br />
                   Phone: +91 8105663269

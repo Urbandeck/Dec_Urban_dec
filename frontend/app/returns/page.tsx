@@ -5,7 +5,7 @@ import { Package, Clock, CheckCircle, XCircle, AlertCircle } from 'lucide-react'
 
 export default function ReturnsPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-stone-50">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div className="container mx-auto px-4 py-12">
@@ -25,15 +25,15 @@ export default function ReturnsPage() {
                 <Clock className="text-green-600" size={28} />
               </div>
               <h3 className="font-semibold mb-2">7-Day Returns</h3>
-              <p className="text-gray-600 text-sm">Return any item within 7 days of delivery</p>
+              <p className="text-slate-500 text-sm">Return any item within 7 days of delivery</p>
             </div>
             
             <div className="text-center">
               <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Package className="text-blue-600" size={28} />
+                <Package className="text-amber-600" size={28} />
               </div>
               <h3 className="font-semibold mb-2">Free Returns</h3>
-              <p className="text-gray-600 text-sm">We provide prepaid return shipping labels</p>
+              <p className="text-slate-500 text-sm">We provide prepaid return shipping labels</p>
             </div>
             
             <div className="text-center">
@@ -41,12 +41,12 @@ export default function ReturnsPage() {
                 <CheckCircle className="text-purple-600" size={28} />
               </div>
               <h3 className="font-semibold mb-2">Full Refund</h3>
-              <p className="text-gray-600 text-sm">100% refund on eligible returns</p>
+              <p className="text-slate-500 text-sm">100% refund on eligible returns</p>
             </div>
           </div>
 
-          <div className="border-l-4 border-blue-500 pl-4 py-2 bg-blue-50">
-            <p className="text-gray-700">
+          <div className="border-l-4 border-amber-500 pl-4 py-2 bg-amber-50">
+            <p className="text-slate-600">
               <strong>Note:</strong> Items must be returned in original condition with all accessories, manuals, and packaging materials.
             </p>
           </div>
@@ -62,23 +62,23 @@ export default function ReturnsPage() {
             <ul className="space-y-2">
               <li className="flex items-start">
                 <span className="text-green-500 mr-2">✓</span>
-                <span className="text-gray-700">Unopened items in original packaging</span>
+                <span className="text-slate-600">Unopened items in original packaging</span>
               </li>
               <li className="flex items-start">
                 <span className="text-green-500 mr-2">✓</span>
-                <span className="text-gray-700">Items with manufacturing defects</span>
+                <span className="text-slate-600">Items with manufacturing defects</span>
               </li>
               <li className="flex items-start">
                 <span className="text-green-500 mr-2">✓</span>
-                <span className="text-gray-700">Wrong or damaged items received</span>
+                <span className="text-slate-600">Wrong or damaged items received</span>
               </li>
               <li className="flex items-start">
                 <span className="text-green-500 mr-2">✓</span>
-                <span className="text-gray-700">Items within 7-day return window</span>
+                <span className="text-slate-600">Items within 7-day return window</span>
               </li>
               <li className="flex items-start">
                 <span className="text-green-500 mr-2">✓</span>
-                <span className="text-gray-700">Items with all accessories included</span>
+                <span className="text-slate-600">Items with all accessories included</span>
               </li>
             </ul>
           </div>
@@ -91,23 +91,23 @@ export default function ReturnsPage() {
             <ul className="space-y-2">
               <li className="flex items-start">
                 <span className="text-red-500 mr-2">✗</span>
-                <span className="text-gray-700">Used or damaged items by customer</span>
+                <span className="text-slate-600">Used or damaged items by customer</span>
               </li>
               <li className="flex items-start">
                 <span className="text-red-500 mr-2">✗</span>
-                <span className="text-gray-700">Items without original packaging</span>
+                <span className="text-slate-600">Items without original packaging</span>
               </li>
               <li className="flex items-start">
                 <span className="text-red-500 mr-2">✗</span>
-                <span className="text-gray-700">Customized or personalized products</span>
+                <span className="text-slate-600">Customized or personalized products</span>
               </li>
               <li className="flex items-start">
                 <span className="text-red-500 mr-2">✗</span>
-                <span className="text-gray-700">Items past 7-day return window</span>
+                <span className="text-slate-600">Items past 7-day return window</span>
               </li>
               <li className="flex items-start">
                 <span className="text-red-500 mr-2">✗</span>
-                <span className="text-gray-700">Missing accessories</span>
+                <span className="text-slate-600">Missing accessories</span>
               </li>
             </ul>
           </div>
@@ -117,7 +117,7 @@ export default function ReturnsPage() {
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-6">Exchange Policy</h2>
           <div className="space-y-4">
-            <p className="text-gray-700">
+            <p className="text-slate-600">
               We offer free exchanges for items that are defective or if you received the wrong product. 
               Exchanges are subject to product availability.
             </p>
@@ -125,8 +125,8 @@ export default function ReturnsPage() {
               <div className="flex items-start">
                 <AlertCircle className="text-yellow-600 mt-1 mr-2" size={20} />
                 <div>
-                  <h4 className="font-semibold text-gray-800 mb-1">Important Exchange Information</h4>
-                  <ul className="text-sm text-gray-700 space-y-1">
+                  <h4 className="font-semibold text-slate-700 mb-1">Important Exchange Information</h4>
+                  <ul className="text-sm text-slate-600 space-y-1">
                     <li>• Exchanges must be initiated within 7 days of delivery</li>
                     <li>• Size or color exchanges are available for the same model only</li>
                     <li>• If the exchange item costs more, you'll need to pay the difference</li>
@@ -145,22 +145,22 @@ export default function ReturnsPage() {
           <div className="space-y-6">
             <div>
               <h3 className="font-semibold text-lg mb-3">Refund Timeline</h3>
-              <div className="bg-gray-50 rounded-lg p-4">
+              <div className="bg-stone-50 rounded-lg p-4">
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-700">Item received at warehouse</span>
+                    <span className="text-slate-600">Item received at warehouse</span>
                     <span className="font-semibold">Day 1</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-700">Quality inspection</span>
+                    <span className="text-slate-600">Quality inspection</span>
                     <span className="font-semibold">1-2 days</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-700">Refund initiated</span>
+                    <span className="text-slate-600">Refund initiated</span>
                     <span className="font-semibold">2-3 days</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-700">Amount credited to account</span>
+                    <span className="text-slate-600">Amount credited to account</span>
                     <span className="font-semibold">5-7 days</span>
                   </div>
                 </div>
@@ -169,10 +169,10 @@ export default function ReturnsPage() {
 
             <div>
               <h3 className="font-semibold text-lg mb-3">Refund Methods</h3>
-              <p className="text-gray-700">
+              <p className="text-slate-600">
                 Refunds will be processed to the original payment method used during purchase:
               </p>
-              <ul className="mt-2 space-y-1 text-gray-600">
+              <ul className="mt-2 space-y-1 text-slate-500">
                 <li>• Credit/Debit Card: 5-7 business days</li>
                 <li>• UPI: 2-3 business days</li>
                 <li>• Net Banking: 5-7 business days</li>
@@ -185,9 +185,9 @@ export default function ReturnsPage() {
         {/* Contact Section */}
         <div className="mt-12 text-center">
           <h3 className="text-xl font-semibold mb-4">Need Help with Returns?</h3>
-          <p className="text-gray-600 mb-6">Our customer support team is here to assist you</p>
+          <p className="text-slate-500 mb-6">Our customer support team is here to assist you</p>
           <div className="flex justify-center gap-4">
-            <Link href="/contact" className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+            <Link href="/contact" className="px-6 py-3 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition">
               Contact Support
             </Link>
           </div>

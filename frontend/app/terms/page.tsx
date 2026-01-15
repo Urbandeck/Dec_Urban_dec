@@ -4,9 +4,9 @@ import Link from 'next/link';
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-stone-50">
       {/* Header */}
-      <div className="bg-gradient-to-r from-gray-800 to-gray-900 text-white">
+      <div className="bg-slate-800 text-white">
         <div className="container mx-auto px-4 py-12">
           <h1 className="text-4xl font-bold mb-4">Terms and Conditions</h1>
           <p className="text-xl opacity-90">Please read these terms carefully before using our services</p>
@@ -18,15 +18,15 @@ export default function TermsPage() {
         {/* Introduction */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-4">1. Introduction</h2>
-          <p className="text-gray-700 mb-4">
+          <p className="text-slate-600 mb-4">
             Welcome to Urbandec ("we," "our," or "us"). These Terms and Conditions govern your use of our website
             located at urbandec.in and any related services provided by Urbandec.
           </p>
-          <p className="text-gray-700 mb-4">
+          <p className="text-slate-600 mb-4">
             By accessing or using our website and services, you agree to be bound by these Terms and Conditions.
             If you disagree with any part of these terms, you may not access our website or use our services.
           </p>
-          <p className="text-gray-700">
+          <p className="text-slate-600">
             We reserve the right to modify these terms at any time. Changes will be effective immediately upon
             posting on the website. Your continued use of the website after any changes indicates your acceptance
             of the modified terms.
@@ -36,7 +36,7 @@ export default function TermsPage() {
         {/* Definitions */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-4">2. Definitions</h2>
-          <ul className="list-disc list-inside space-y-2 text-gray-700">
+          <ul className="list-disc list-inside space-y-2 text-slate-600">
             <li><strong>"Website"</strong> refers to urbandec.in and all its subdomains</li>
             <li><strong>"Products"</strong> refers to digital photo frames and related items sold through our website</li>
             <li><strong>"User"</strong> or <strong>"Customer"</strong> refers to any individual who accesses or uses our website</li>
@@ -48,17 +48,17 @@ export default function TermsPage() {
         {/* Account Registration */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-4">3. Account Registration</h2>
-          <p className="text-gray-700 mb-4">
+          <p className="text-slate-600 mb-4">
             To access certain features of our website, you may need to create an account. When creating an account, you agree to:
           </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 mb-4">
+          <ul className="list-disc list-inside space-y-2 text-slate-600 mb-4">
             <li>Provide accurate, current, and complete information</li>
             <li>Maintain and update your information to keep it accurate</li>
             <li>Keep your account credentials confidential</li>
             <li>Be responsible for all activities under your account</li>
             <li>Notify us immediately of any unauthorized access</li>
           </ul>
-          <p className="text-gray-700">
+          <p className="text-slate-600">
             We reserve the right to suspend or terminate accounts that violate these terms or engage in fraudulent activity.
           </p>
         </div>
@@ -66,7 +66,7 @@ export default function TermsPage() {
         {/* Products and Pricing */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-4">4. Products and Pricing</h2>
-          <div className="space-y-4 text-gray-700">
+          <div className="space-y-4 text-slate-600">
             <p>
               <strong>Product Information:</strong> We strive to provide accurate product descriptions, images, and
               specifications. However, we do not warrant that product descriptions or other content is accurate,
@@ -91,7 +91,7 @@ export default function TermsPage() {
         {/* Orders and Payment */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-4">5. Orders and Payment</h2>
-          <div className="space-y-4 text-gray-700">
+          <div className="space-y-4 text-slate-600">
             <p>
               <strong>Order Acceptance:</strong> Your order constitutes an offer to purchase. We reserve the right to
               accept or decline any order. An order is confirmed only when you receive a confirmation email from us.
@@ -116,7 +116,7 @@ export default function TermsPage() {
         {/* Shipping and Delivery */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-4">6. Shipping and Delivery</h2>
-          <div className="space-y-4 text-gray-700">
+          <div className="space-y-4 text-slate-600">
             <p>
               <strong>Delivery Coverage:</strong> We currently ship across all serviceable locations within India only.
               Remote or non-serviceable pin codes may take longer or may not be deliverable. Serviceability is verified at checkout.
@@ -150,7 +150,7 @@ export default function TermsPage() {
             </p>
             <p>
               For complete shipping information, please visit our{' '}
-              <Link href="/shipping" className="text-blue-600 hover:underline">Shipping Policy</Link> page.
+              <Link href="/shipping" className="text-amber-600 hover:underline">Shipping Policy</Link> page.
             </p>
           </div>
         </div>
@@ -158,7 +158,7 @@ export default function TermsPage() {
         {/* Returns and Refunds */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-4">7. Returns and Refunds</h2>
-          <div className="space-y-4 text-gray-700">
+          <div className="space-y-4 text-slate-600">
             <p>
               <strong>Return Period:</strong> We offer a 7-day return policy from the date of delivery. Products must be
               returned in their original condition with all packaging, accessories, manuals, and packaging materials.
@@ -188,7 +188,7 @@ export default function TermsPage() {
             </p>
             <p>
               For complete details, please visit our{' '}
-              <Link href="/returns" className="text-blue-600 hover:underline">Returns & Exchange Policy</Link> page.
+              <Link href="/returns" className="text-amber-600 hover:underline">Returns & Exchange Policy</Link> page.
             </p>
           </div>
         </div>
@@ -196,7 +196,7 @@ export default function TermsPage() {
         {/* Intellectual Property */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-4">8. Intellectual Property</h2>
-          <div className="space-y-4 text-gray-700">
+          <div className="space-y-4 text-slate-600">
             <p>
               All content on this website, including text, graphics, logos, images, and software, is the property of
               Urbandec or its content suppliers and is protected by Indian and international intellectual property laws.
@@ -215,8 +215,8 @@ export default function TermsPage() {
         {/* User Conduct */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-4">9. User Conduct</h2>
-          <p className="text-gray-700 mb-4">When using our website, you agree not to:</p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700">
+          <p className="text-slate-600 mb-4">When using our website, you agree not to:</p>
+          <ul className="list-disc list-inside space-y-2 text-slate-600">
             <li>Violate any applicable laws or regulations</li>
             <li>Infringe on the rights of others</li>
             <li>Upload malicious software or harmful content</li>
@@ -231,7 +231,7 @@ export default function TermsPage() {
         {/* Limitation of Liability */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-4">10. Limitation of Liability</h2>
-          <div className="space-y-4 text-gray-700">
+          <div className="space-y-4 text-slate-600">
             <p>
               To the fullest extent permitted by law, Urbandec shall not be liable for any indirect, incidental,
               special, consequential, or punitive damages arising from your use of our website or products.
@@ -250,7 +250,7 @@ export default function TermsPage() {
         {/* Indemnification */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-4">11. Indemnification</h2>
-          <p className="text-gray-700">
+          <p className="text-slate-600">
             You agree to indemnify, defend, and hold harmless Urbandec, its officers, directors, employees, and
             agents from any claims, damages, losses, liabilities, and expenses (including legal fees) arising from
             your use of our website, violation of these terms, or infringement of any rights of third parties.
@@ -260,10 +260,10 @@ export default function TermsPage() {
         {/* Privacy */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-4">12. Privacy</h2>
-          <p className="text-gray-700">
+          <p className="text-slate-600">
             Your privacy is important to us. Our collection and use of personal information is governed by our
             Privacy Policy, which is incorporated into these Terms and Conditions by reference. Please review our{' '}
-            <Link href="/privacy" className="text-blue-600 hover:underline">Privacy Policy</Link> to understand
+            <Link href="/privacy" className="text-amber-600 hover:underline">Privacy Policy</Link> to understand
             how we collect, use, and protect your information.
           </p>
         </div>
@@ -271,7 +271,7 @@ export default function TermsPage() {
         {/* Governing Law */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-4">13. Governing Law and Jurisdiction</h2>
-          <div className="space-y-4 text-gray-700">
+          <div className="space-y-4 text-slate-600">
             <p>
               These Terms and Conditions shall be governed by and construed in accordance with the laws of India,
               without regard to its conflict of law provisions.
@@ -286,7 +286,7 @@ export default function TermsPage() {
         {/* Severability */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-4">14. Severability</h2>
-          <p className="text-gray-700">
+          <p className="text-slate-600">
             If any provision of these Terms and Conditions is found to be invalid or unenforceable, the remaining
             provisions shall continue in full force and effect. The invalid or unenforceable provision shall be
             modified to the minimum extent necessary to make it valid and enforceable.
@@ -296,25 +296,25 @@ export default function TermsPage() {
         {/* Contact Information */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 className="text-2xl font-bold mb-4">15. Contact Information</h2>
-          <p className="text-gray-700 mb-4">
+          <p className="text-slate-600 mb-4">
             If you have any questions about these Terms and Conditions, please contact us:
           </p>
-          <div className="bg-gray-50 p-6 rounded-lg">
-            <p className="text-gray-700 mb-2"><strong>Urbandec</strong></p>
-            <p className="text-gray-700 mb-2">Xrbia Hinjewadi Township, Marunji, Pune, Maharashtra, 411057</p>
-            <p className="text-gray-700 mb-2">Email: urbandec.in@gmail.com</p>
-            <p className="text-gray-700">Phone: +91 8105663269</p>
+          <div className="bg-stone-50 p-6 rounded-lg">
+            <p className="text-slate-600 mb-2"><strong>Urbandec</strong></p>
+            <p className="text-slate-600 mb-2">Xrbia Hinjewadi Township, Marunji, Pune, Maharashtra, 411057</p>
+            <p className="text-slate-600 mb-2">Email: urbandec.in@gmail.com</p>
+            <p className="text-slate-600">Phone: +91 8105663269</p>
           </div>
         </div>
 
         {/* CTA */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg p-8 text-center">
+        <div className="bg-slate-800 text-white rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold mb-4">Have Questions?</h2>
           <p className="mb-6 opacity-90">
             Our team is here to help you understand our terms and policies
           </p>
           <div className="flex justify-center">
-            <Link href="/contact" className="px-6 py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition font-semibold">
+            <Link href="/contact" className="px-6 py-3 bg-white text-amber-600 rounded-lg hover:bg-gray-100 transition font-semibold">
               Contact Us
             </Link>
           </div>

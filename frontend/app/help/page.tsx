@@ -91,7 +91,7 @@ export default function HelpCenterPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-stone-50">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div className="container mx-auto px-4 py-12">
@@ -105,7 +105,7 @@ export default function HelpCenterPage() {
               <input
                 type="text"
                 placeholder="Search for help articles..."
-                className="w-full pl-12 pr-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                className="w-full pl-12 pr-4 py-3 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
               />
             </div>
           </div>
@@ -123,7 +123,7 @@ export default function HelpCenterPage() {
               <ul className="space-y-2">
                 {category.topics.map((topic) => (
                   <li key={topic}>
-                    <Link href="#" className="text-gray-600 hover:text-blue-600 flex items-center text-sm">
+                    <Link href="#" className="text-slate-500 hover:text-amber-600 flex items-center text-sm">
                       <ChevronRight size={14} className="mr-1" />
                       {topic}
                     </Link>
@@ -140,8 +140,8 @@ export default function HelpCenterPage() {
           <div className="space-y-4">
             {popularQuestions.map((item, index) => (
               <div key={index} className="bg-white rounded-lg shadow-sm p-6">
-                <h3 className="font-semibold text-lg mb-2 text-gray-800">{item.question}</h3>
-                <p className="text-gray-600">{item.answer}</p>
+                <h3 className="font-semibold text-lg mb-2 text-slate-700">{item.question}</h3>
+                <p className="text-slate-500">{item.answer}</p>
               </div>
             ))}
           </div>
@@ -150,16 +150,16 @@ export default function HelpCenterPage() {
         {/* Contact Support */}
         <div className="mt-16 bg-white rounded-lg shadow-sm p-8">
           <h2 className="text-2xl font-bold mb-6 text-center">Still Need Help?</h2>
-          <p className="text-center text-gray-600 mb-8">Our customer support team is here to assist you</p>
+          <p className="text-center text-slate-500 mb-8">Our customer support team is here to assist you</p>
           
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <div className="text-center">
               <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Phone className="text-blue-600" size={24} />
+                <Phone className="text-amber-600" size={24} />
               </div>
               <h3 className="font-semibold mb-2">Call Us</h3>
-              <p className="text-gray-600 text-sm">+91 98765 43210</p>
-              <p className="text-gray-500 text-xs mt-1">Mon-Sat, 9AM-6PM</p>
+              <p className="text-slate-500 text-sm">+91 98765 43210</p>
+              <p className="text-slate-400 text-xs mt-1">Mon-Sat, 9AM-6PM</p>
             </div>
             
             <div className="text-center">
@@ -167,8 +167,8 @@ export default function HelpCenterPage() {
                 <Mail className="text-green-600" size={24} />
               </div>
               <h3 className="font-semibold mb-2">Email Support</h3>
-              <p className="text-gray-600 text-sm">urbandec.in@gmail.com</p>
-              <p className="text-gray-500 text-xs mt-1">24-48 hour response</p>
+              <p className="text-slate-500 text-sm">urbandec.in@gmail.com</p>
+              <p className="text-slate-400 text-xs mt-1">24-48 hour response</p>
             </div>
             
             <div className="text-center">
@@ -176,21 +176,21 @@ export default function HelpCenterPage() {
                 <MessageCircle className="text-purple-600" size={24} />
               </div>
               <h3 className="font-semibold mb-2">Live Chat</h3>
-              <p className="text-gray-600 text-sm">Chat with our team</p>
-              <p className="text-gray-500 text-xs mt-1">Available 24/7</p>
+              <p className="text-slate-500 text-sm">Chat with our team</p>
+              <p className="text-slate-400 text-xs mt-1">Available 24/7</p>
             </div>
           </div>
         </div>
 
         {/* Quick Links */}
         <div className="mt-12 text-center">
-          <p className="text-gray-600 mb-4">Quick Links:</p>
+          <p className="text-slate-500 mb-4">Quick Links:</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/returns" className="text-blue-600 hover:underline">Return Policy</Link>
-            <Link href="/warranty" className="text-blue-600 hover:underline">Warranty Info</Link>
-            <Link href="/shipping" className="text-blue-600 hover:underline">Shipping Info</Link>
-            <Link href="/orders" className="text-blue-600 hover:underline">Track Order</Link>
-            <Link href="/contact" className="text-blue-600 hover:underline">Contact Us</Link>
+            <Link href="/returns" className="text-amber-600 hover:underline">Return Policy</Link>
+            <Link href="/warranty" className="text-amber-600 hover:underline">Warranty Info</Link>
+            <Link href="/shipping" className="text-amber-600 hover:underline">Shipping Info</Link>
+            <Link href="/orders" className="text-amber-600 hover:underline">Track Order</Link>
+            <Link href="/contact" className="text-amber-600 hover:underline">Contact Us</Link>
           </div>
         </div>
       </div>

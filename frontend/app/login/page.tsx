@@ -104,12 +104,12 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex">
       {/* Left Side - Branding & Features */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 p-12 flex-col justify-between relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 bg-slate-800 p-12 flex-col justify-between relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-72 h-72 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full translate-x-1/3 translate-y-1/3"></div>
-          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute top-0 left-0 w-72 h-72 bg-amber-500 rounded-full -translate-x-1/2 -translate-y-1/2 filter blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-amber-500 rounded-full translate-x-1/3 translate-y-1/3 filter blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-amber-500 rounded-full -translate-x-1/2 -translate-y-1/2 filter blur-3xl"></div>
         </div>
 
         {/* Content */}
@@ -144,9 +144,9 @@ export default function LoginPage() {
           {/* Headline */}
           <h1 className="text-4xl font-bold text-white mb-4 leading-tight">
             Transform Your Memories<br />
-            <span className="text-yellow-300">Into Timeless Art</span>
+            <span className="text-amber-400">Into Timeless Art</span>
           </h1>
-          <p className="text-blue-100 text-lg mb-12 max-w-md">
+          <p className="text-slate-300 text-lg mb-12 max-w-md">
             Discover our premium collection of digital photo frames designed to showcase your most cherished moments.
           </p>
 
@@ -154,12 +154,12 @@ export default function LoginPage() {
           <div className="grid grid-cols-2 gap-6">
             {features.map((feature, index) => (
               <div key={index} className="flex items-start space-x-3 group">
-                <div className="flex-shrink-0 w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center text-yellow-300 group-hover:bg-white/20 transition-colors">
+                <div className="flex-shrink-0 w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center text-amber-400 group-hover:bg-white/20 transition-colors">
                   {feature.icon}
                 </div>
                 <div>
                   <h3 className="text-white font-semibold text-sm">{feature.title}</h3>
-                  <p className="text-blue-200 text-xs mt-1">{feature.description}</p>
+                  <p className="text-slate-400 text-xs mt-1">{feature.description}</p>
                 </div>
               </div>
             ))}
@@ -170,16 +170,16 @@ export default function LoginPage() {
         <div className="relative z-10 flex items-center space-x-8 pt-8 border-t border-white/20">
           <div>
             <div className="text-3xl font-bold text-white">1000+</div>
-            <div className="text-blue-200 text-sm">Happy Customers</div>
+            <div className="text-slate-400 text-sm">Happy Customers</div>
           </div>
           <div className="w-px h-12 bg-white/20"></div>
           <div>
             <div className="text-3xl font-bold text-white">4.9</div>
-            <div className="text-blue-200 text-sm flex items-center">
+            <div className="text-slate-400 text-sm flex items-center">
               <span>Rating</span>
               <div className="flex ml-2">
                 {[1,2,3,4,5].map(i => (
-                  <svg key={i} className="w-4 h-4 text-yellow-300" fill="currentColor" viewBox="0 0 20 20">
+                  <svg key={i} className="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                 ))}
@@ -189,21 +189,21 @@ export default function LoginPage() {
           <div className="w-px h-12 bg-white/20"></div>
           <div>
             <div className="text-3xl font-bold text-white">100%</div>
-            <div className="text-blue-200 text-sm">Secure Checkout</div>
+            <div className="text-slate-400 text-sm">Secure Checkout</div>
           </div>
         </div>
       </div>
 
       {/* Right Side - Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gray-50">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-stone-50">
         <div className="w-full max-w-md">
           {/* Mobile Logo */}
           <div className="lg:hidden flex justify-center mb-8">
             <svg viewBox="0 0 220 70" xmlns="http://www.w3.org/2000/svg" className="h-14 w-auto">
               <defs>
                 <linearGradient id="mobileGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style={{stopColor:'#3B82F6',stopOpacity:1}} />
-                  <stop offset="100%" style={{stopColor:'#2563EB',stopOpacity:1}} />
+                  <stop offset="0%" style={{stopColor:'#f59e0b',stopOpacity:1}} />
+                  <stop offset="100%" style={{stopColor:'#d97706',stopOpacity:1}} />
                 </linearGradient>
               </defs>
               <text x="10" y="40"
@@ -239,7 +239,7 @@ export default function LoginPage() {
             {/* Google Sign In */}
             <div className="flex flex-col items-center">
               <div className="mb-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-lg">
+                <div className="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center shadow-lg">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
@@ -297,11 +297,11 @@ export default function LoginPage() {
           {/* Terms */}
           <p className="text-center text-xs text-gray-500 mt-6">
             By signing in, you agree to our{' '}
-            <Link href="/terms" className="text-blue-600 hover:underline">
+            <Link href="/terms" className="text-amber-600 hover:underline">
               Terms of Service
             </Link>{' '}
             and{' '}
-            <Link href="/privacy" className="text-blue-600 hover:underline">
+            <Link href="/privacy" className="text-amber-600 hover:underline">
               Privacy Policy
             </Link>
           </p>
@@ -310,7 +310,7 @@ export default function LoginPage() {
           <div className="text-center mt-6">
             <Link
               href="/products"
-              className="inline-flex items-center text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium"
+              className="inline-flex items-center text-gray-600 hover:text-amber-600 transition-colors text-sm font-medium"
             >
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
