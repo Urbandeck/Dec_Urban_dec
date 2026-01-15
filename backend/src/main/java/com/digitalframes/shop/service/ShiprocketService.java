@@ -297,6 +297,56 @@ public class ShiprocketService {
         return createErrorResponse("Failed to cancel shipment");
     }
 
+    /**
+     * Cancel order by Shiprocket Order ID (for orders without AWB assigned yet)
+     */
+    public Map<String, Object> cancelOrderById(String shiprocketOrderId) {
+        try {
+            if (authToken == null) {
+                authToken = authenticateAndGetToken();
+            }
+
+            if (authToken == null) {
+                logger.error("Failed to get auth token for order cancellation");
+                return createErrorResponse("Authentication failed");
+            }
+
+            String cancelUrl = apiBaseUrl + "/orders/cancel";
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setBearerAuth(authToken);
+
+            Map<String, Object> requestBody = new HashMap<>();
+            List<Integer> idsList = new ArrayList<>();
+            idsList.add(Integer.parseInt(shiprocketOrderId));
+            requestBody.put("ids", idsList);
+
+            logger.info("Cancelling Shiprocket order by ID: {}", shiprocketOrderId);
+
+            HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
+
+            ResponseEntity<Map> response = restTemplate.exchange(
+                cancelUrl,
+                HttpMethod.POST,
+                request,
+                Map.class
+            );
+
+            if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+                logger.info("Order cancelled successfully in Shiprocket. Order ID: {}, Response: {}",
+                    shiprocketOrderId, response.getBody());
+                return response.getBody();
+            }
+
+        } catch (Exception e) {
+            logger.error("Failed to cancel order by ID {}: {}", shiprocketOrderId, e.getMessage(), e);
+            return createErrorResponse(e.getMessage());
+        }
+
+        return createErrorResponse("Failed to cancel order in Shiprocket");
+    }
+
     private ShiprocketOrderRequest convertToShiprocketOrder(Order order) {
         ShiprocketOrderRequest request = new ShiprocketOrderRequest();
 

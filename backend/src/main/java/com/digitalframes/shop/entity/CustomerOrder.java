@@ -67,4 +67,8 @@ public class CustomerOrder {
     private String courierName;
     private String trackingUrl;
     private String shiprocketStatus;
+
+    // Cancellation/failure details
+    @Column(columnDefinition = "TEXT")
+    private String failureReason;
 }

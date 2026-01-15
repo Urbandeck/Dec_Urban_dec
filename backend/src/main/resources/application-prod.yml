@@ -63,6 +63,7 @@ razorpay:
 
 server:
   port: ${PORT:8080}
+  forward-headers-strategy: native  # Enable processing of X-Forwarded-* headers from nginx
   compression:
     enabled: true
     mime-types: application/json,application/xml,text/html,text/xml,text/plain
@@ -72,13 +73,13 @@ server:
     include-binding-errors: always
   servlet:
     session:
-      timeout: 30m
+      timeout: 7d          # 7 days session timeout
       cookie:
         name: SESSIONID
         http-only: true
         secure: true
         same-site: none
-        max-age: 1800
+        max-age: 604800    # 7 days in seconds (7 * 24 * 60 * 60)
 
 management:
   endpoints:

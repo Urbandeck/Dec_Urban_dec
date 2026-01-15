@@ -161,6 +161,39 @@ public class CustomerOrderController {
         }
     }
 
+    @PostMapping("/{orderId}/cancel")
+    public ResponseEntity<?> cancelOrder(
+            @PathVariable String orderId,
+            @RequestBody(required = false) Map<String, String> request,
+            java.security.Principal principal) {
+        try {
+            // Optional: Verify user owns this order
+            String userEmail = principal != null ? principal.getName() : null;
+            if (userEmail != null) {
+                var orderOpt = orderService.getOrderByOrderId(orderId);
+                if (orderOpt.isPresent()) {
+                    var order = orderOpt.get();
+                    // Check if user is the purchaser or recipient
+                    if (!userEmail.equals(order.getPurchaserEmail()) && !userEmail.equals(order.getCustomerEmail())) {
+                        log.warn("User {} attempted to cancel order {} they don't own", userEmail, orderId);
+                        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                            .body(Map.of("error", "You don't have permission to cancel this order"));
+                    }
+                }
+            }
+
+            String reason = request != null ? request.get("reason") : null;
+            Map<String, Object> response = orderService.cancelOrder(orderId, reason);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error("Order cancellation failed for order {}: ", orderId, e);
+            Map<String, Object> error = new java.util.HashMap<>();
+            error.put("success", false);
+            error.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        }
+    }
+
     @GetMapping("/{id}/can-refund")
     public ResponseEntity<?> checkRefundEligibility(@PathVariable Long id) {
         try {

@@ -11,7 +11,7 @@ import Notification from '@/components/ui/notification';
 
 export default function OrdersPage() {
   const router = useRouter();
-  const { user, isAuthenticated } = useAuthStore();
+  const { user, isAuthenticated, _hasHydrated } = useAuthStore();
   const [orders, setOrders] = useState<any[]>([]);
   const [filteredOrders, setFilteredOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -20,6 +20,9 @@ export default function OrdersPage() {
   const [selectedOrder, setSelectedOrder] = useState<any>(null);
   const [shareEmail, setShareEmail] = useState('');
   const [sharing, setSharing] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
+  const [cancellingOrder, setCancellingOrder] = useState(false);
+  const [cancelReason, setCancelReason] = useState('');
   const [filterPeriod, setFilterPeriod] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [orderStatus, setOrderStatus] = useState('all');
@@ -31,8 +34,8 @@ export default function OrdersPage() {
   }, []);
 
   useEffect(() => {
-    // Wait for hydration before checking auth
-    if (!isHydrated) return;
+    // Wait for both React hydration AND Zustand store hydration
+    if (!isHydrated || !_hasHydrated) return;
 
     if (!isAuthenticated) {
       router.push('/login');
@@ -91,7 +94,7 @@ export default function OrdersPage() {
     };
 
     fetchOrders();
-  }, [isHydrated, isAuthenticated, user, router]);
+  }, [isHydrated, _hasHydrated, isAuthenticated, user, router]);
 
   // Filter orders based on search and filters
   useEffect(() => {
@@ -191,6 +194,94 @@ export default function OrdersPage() {
     }
   };
 
+  const openCancelModal = (order: any) => {
+    setSelectedOrder(order);
+    setCancelReason('');
+    setShowCancelModal(true);
+  };
+
+  // Helper to get order ID (handles both orderId and id fields)
+  const getOrderId = (order: any): string => {
+    return order?.orderId || order?.id || '';
+  };
+
+  const handleCancelOrder = async () => {
+    if (!selectedOrder) return;
+
+    const orderId = getOrderId(selectedOrder);
+    if (!orderId) {
+      setNotification({
+        type: 'error',
+        title: 'Error',
+        message: 'Order ID not found'
+      });
+      setCancellingOrder(false);
+      return;
+    }
+
+    setCancellingOrder(true);
+    try {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/orders/${orderId}/cancel`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ reason: cancelReason || 'Cancelled by customer' }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setNotification({
+          type: 'success',
+          title: 'Order cancelled successfully',
+          message: data.shiprocketCancelled
+            ? 'Order and shipment have been cancelled'
+            : 'Order has been cancelled'
+        });
+        setShowCancelModal(false);
+        setSelectedOrder(null);
+        setCancelReason('');
+
+        // Update the order in the local state
+        const cancelledOrderId = getOrderId(selectedOrder);
+        setOrders(prevOrders =>
+          prevOrders.map(order =>
+            getOrderId(order) === cancelledOrderId
+              ? { ...order, status: 'CANCELLED', failureReason: cancelReason || 'Cancelled by customer' }
+              : order
+          )
+        );
+
+        // Show refund info if applicable
+        if (data.refundEligible) {
+          setTimeout(() => {
+            setNotification({
+              type: 'info',
+              title: 'Refund Available',
+              message: data.refundMessage || 'You may be eligible for a refund. Please contact support.'
+            });
+          }, 3000);
+        }
+      } else {
+        setNotification({
+          type: 'error',
+          title: 'Failed to cancel order',
+          message: data.error || 'Unknown error occurred'
+        });
+      }
+    } catch (error) {
+      setNotification({
+        type: 'error',
+        title: 'Failed to cancel order',
+        message: 'Please try again later'
+      });
+    } finally {
+      setCancellingOrder(false);
+    }
+  };
+
   const getStatusDisplay = (status: string) => {
     const statusConfig: { [key: string]: { label: string, color: string } } = {
       'PENDING': { label: 'Order Placed', color: 'text-yellow-600' },
@@ -221,8 +312,8 @@ export default function OrdersPage() {
     }
   };
 
-  // Show loading during hydration
-  if (!isHydrated) {
+  // Show loading during hydration (both React and Zustand)
+  if (!isHydrated || !_hasHydrated) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-500"></div>
@@ -464,7 +555,10 @@ export default function OrdersPage() {
                       {!['CANCELLED', 'FAILED', 'DELIVERED'].includes(order.status) && (
                         <>
                           <span className="text-gray-300">|</span>
-                          <button className="text-sm text-blue-600 hover:text-blue-700 hover:underline">
+                          <button
+                            onClick={() => openCancelModal(order)}
+                            className="text-sm text-blue-600 hover:text-blue-700 hover:underline"
+                          >
                             Cancel items
                           </button>
                         </>
@@ -560,6 +654,77 @@ export default function OrdersPage() {
                 className="flex-1 border border-gray-300 text-gray-700 px-4 py-2 rounded-md font-medium hover:bg-gray-50 transition-colors"
               >
                 Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Cancel Order Modal */}
+      {showCancelModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg max-w-md w-full p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-medium text-gray-900">Cancel Order</h2>
+              <button
+                onClick={() => {
+                  setShowCancelModal(false);
+                  setSelectedOrder(null);
+                  setCancelReason('');
+                }}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-md">
+              <p className="text-sm text-yellow-800">
+                <strong>Warning:</strong> This action cannot be undone. The order and any associated shipment will be cancelled.
+              </p>
+            </div>
+
+            <p className="text-sm text-gray-600 mb-4">
+              Are you sure you want to cancel Order #{getOrderId(selectedOrder).slice(0, 16).toUpperCase()}?
+            </p>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Reason for cancellation (optional)
+              </label>
+              <select
+                value={cancelReason}
+                onChange={(e) => setCancelReason(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-yellow-500 focus:border-yellow-500"
+              >
+                <option value="">Select a reason...</option>
+                <option value="Changed my mind">Changed my mind</option>
+                <option value="Found better price elsewhere">Found better price elsewhere</option>
+                <option value="Ordered by mistake">Ordered by mistake</option>
+                <option value="Delivery time too long">Delivery time too long</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={handleCancelOrder}
+                disabled={cancellingOrder}
+                className="flex-1 bg-red-500 hover:bg-red-600 disabled:bg-gray-300 text-white px-4 py-2 rounded-md font-medium disabled:cursor-not-allowed transition-colors"
+              >
+                {cancellingOrder ? 'Cancelling...' : 'Yes, Cancel Order'}
+              </button>
+              <button
+                onClick={() => {
+                  setShowCancelModal(false);
+                  setSelectedOrder(null);
+                  setCancelReason('');
+                }}
+                className="flex-1 border border-gray-300 text-gray-700 px-4 py-2 rounded-md font-medium hover:bg-gray-50 transition-colors"
+              >
+                No, Keep Order
               </button>
             </div>
           </div>

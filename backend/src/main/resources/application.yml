@@ -63,6 +63,7 @@ razorpay:
 
 server:
   port: 8080
+  forward-headers-strategy: native  # Enable processing of X-Forwarded-* headers
   error:
     include-message: always
     include-binding-errors: always

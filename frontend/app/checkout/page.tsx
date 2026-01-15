@@ -409,9 +409,10 @@ export default function CheckoutPage() {
 
             const createdOrder = JSON.parse(responseText);
 
-            // Also store in localStorage as backup
+            // Also store in localStorage as backup (include orderId from backend)
             const order = {
-              id: response.razorpay_payment_id,
+              id: createdOrder.id,
+              orderId: createdOrder.orderId,
               ...orderData,
               paymentId: response.razorpay_payment_id,
               paymentStatus: 'SUCCESS',

@@ -62,12 +62,22 @@ public class SessionConfig {
 
             // Authorization rules
             .authorizeHttpRequests(auth -> auth
-                // Public endpoints
-                .requestMatchers("/api/auth/**", "/api/products/**", "/api/site-settings/**").permitAll()
+                // Public auth endpoints (login, register, etc.) - but NOT /me
+                .requestMatchers("/api/auth/login", "/api/auth/register", "/api/auth/google",
+                                "/api/auth/logout", "/api/auth/forgot-password", "/api/auth/reset-password",
+                                "/api/auth/session-expired").permitAll()
+
+                // /api/auth/me requires authentication to load security context properly
+                .requestMatchers("/api/auth/me").authenticated()
+
+                // Other public endpoints
+                .requestMatchers("/api/products/**", "/api/site-settings/**").permitAll()
                 .requestMatchers("/api/orders/guest/**").permitAll()
                 .requestMatchers("/api/orders/webhook").permitAll() // Razorpay webhook
                 .requestMatchers("/api/payments/webhook").permitAll() // Razorpay webhook (legacy)
                 .requestMatchers("/actuator/health").permitAll()
+                .requestMatchers("/api/contact").permitAll()
+                .requestMatchers("/api/shiprocket/**").permitAll()
 
                 // Allow order creation for both authenticated and guest users
                 .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/orders").permitAll()

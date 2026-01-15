@@ -19,7 +19,8 @@ public class ShiprocketServiceAdapter {
 
         ShiprocketOrderRequest request = new ShiprocketOrderRequest();
 
-        request.setOrderId(order.getId().toString());
+        // Use the ORD... format order ID so it matches what's shown on the website
+        request.setOrderId(order.getOrderId());
         request.setOrderDate(Timestamp.valueOf(order.getCreatedAt()));
         request.setPickupLocation(defaultPickupLocation);
         request.setChannelId(channelId.isEmpty() ? "CUSTOM" : channelId);

@@ -279,6 +279,124 @@ public class OrderService {
     }
 
     @Transactional
+    public Map<String, Object> cancelOrder(String orderId, String reason) {
+        try {
+            // Try to find order by string orderId first, then by numeric id
+            Optional<CustomerOrder> orderOpt = orderRepository.findByOrderId(orderId);
+            if (!orderOpt.isPresent()) {
+                // Try to parse as numeric ID
+                try {
+                    Long numericId = Long.parseLong(orderId);
+                    orderOpt = orderRepository.findById(numericId);
+                } catch (NumberFormatException e) {
+                    // Not a numeric ID, ignore
+                }
+            }
+            if (!orderOpt.isPresent()) {
+                throw new RuntimeException("Order not found: " + orderId);
+            }
+
+            CustomerOrder order = orderOpt.get();
+            String currentStatus = order.getStatus();
+
+            // Check if order can be cancelled
+            if ("CANCELLED".equals(currentStatus)) {
+                throw new RuntimeException("Order is already cancelled");
+            }
+            if ("DELIVERED".equals(currentStatus)) {
+                throw new RuntimeException("Cannot cancel a delivered order");
+            }
+
+            // Cancel Shiprocket shipment if AWB exists
+            boolean shiprocketCancelled = false;
+            String shiprocketMessage = null;
+            if (order.getAwbNumber() != null && !order.getAwbNumber().isEmpty()) {
+                try {
+                    log.info("Cancelling Shiprocket shipment for AWB: {}", order.getAwbNumber());
+                    Map<String, Object> shiprocketResponse = shiprocketService.cancelShipment(order.getAwbNumber());
+                    if (shiprocketResponse != null && !Boolean.FALSE.equals(shiprocketResponse.get("success"))) {
+                        shiprocketCancelled = true;
+                        log.info("Shiprocket shipment cancelled successfully for order: {}", orderId);
+                    } else {
+                        shiprocketMessage = "Shiprocket cancellation may have failed: " + shiprocketResponse;
+                        log.warn(shiprocketMessage);
+                    }
+                } catch (Exception e) {
+                    shiprocketMessage = "Failed to cancel Shiprocket shipment: " + e.getMessage();
+                    log.error(shiprocketMessage, e);
+                    // Continue with order cancellation even if Shiprocket fails
+                }
+            } else if (order.getShiprocketOrderId() != null && !order.getShiprocketOrderId().isEmpty()) {
+                // Cancel by Shiprocket order ID when AWB is not yet assigned
+                try {
+                    log.info("No AWB found, cancelling by Shiprocket Order ID: {}", order.getShiprocketOrderId());
+                    Map<String, Object> shiprocketResponse = shiprocketService.cancelOrderById(order.getShiprocketOrderId());
+                    if (shiprocketResponse != null && !Boolean.FALSE.equals(shiprocketResponse.get("success"))) {
+                        shiprocketCancelled = true;
+                        shiprocketMessage = "Order cancelled in Shiprocket using Order ID";
+                        log.info("Shiprocket order cancelled successfully using Order ID for order: {}", orderId);
+                    } else {
+                        shiprocketMessage = "Shiprocket cancellation may have failed: " + shiprocketResponse;
+                        log.warn(shiprocketMessage);
+                    }
+                } catch (Exception e) {
+                    shiprocketMessage = "Failed to cancel in Shiprocket: " + e.getMessage();
+                    log.error(shiprocketMessage, e);
+                    // Continue with order cancellation even if Shiprocket fails
+                }
+            }
+
+            // Update order status
+            order.setStatus("CANCELLED");
+            if (reason != null && !reason.isEmpty()) {
+                order.setFailureReason(reason);
+            } else {
+                order.setFailureReason("Cancelled by customer");
+            }
+            order = orderRepository.save(order);
+
+            // Send cancellation notification
+            try {
+                if (order.getCustomerPhone() != null && !order.getCustomerPhone().isEmpty()) {
+                    String message = String.format(
+                        "Your order #%s has been cancelled. If you have any questions, please contact support.",
+                        order.getOrderId()
+                    );
+                    smsService.sendSms(order.getCustomerPhone(), message);
+                    log.info("Cancellation SMS sent for order: {}", orderId);
+                }
+            } catch (Exception e) {
+                log.error("Failed to send cancellation SMS for order {}: {}", orderId, e.getMessage());
+            }
+
+            // Prepare response
+            Map<String, Object> response = new java.util.HashMap<>();
+            response.put("success", true);
+            response.put("message", "Order cancelled successfully");
+            response.put("orderId", orderId);
+            response.put("status", "CANCELLED");
+            response.put("shiprocketCancelled", shiprocketCancelled);
+            if (shiprocketMessage != null) {
+                response.put("shiprocketMessage", shiprocketMessage);
+            }
+
+            // Check if refund is needed for prepaid orders
+            boolean isCOD = order.getPaymentId() != null && order.getPaymentId().startsWith("COD_");
+            if (!isCOD && "SUCCESS".equals(order.getPaymentStatus())) {
+                response.put("refundEligible", true);
+                response.put("refundMessage", "This is a prepaid order. Refund can be processed separately.");
+            }
+
+            log.info("Order {} cancelled successfully", orderId);
+            return response;
+
+        } catch (Exception e) {
+            log.error("Error cancelling order {}: ", orderId, e);
+            throw new RuntimeException("Failed to cancel order: " + e.getMessage(), e);
+        }
+    }
+
+    @Transactional
     public Map<String, Object> processRefund(Long orderId, String reason) {
         try {
             // Get the customer order

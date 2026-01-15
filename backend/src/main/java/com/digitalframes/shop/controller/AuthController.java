@@ -62,11 +62,11 @@ public class AuthController {
             session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
                                SecurityContextHolder.getContext());
 
-            // Set session timeout (30 minutes if no remember me, 30 days if remember me)
+            // Set session timeout (7 days default, 30 days with remember me)
             if ("true".equals(rememberMe)) {
                 session.setMaxInactiveInterval(30 * 24 * 60 * 60); // 30 days
             } else {
-                session.setMaxInactiveInterval(30 * 60); // 30 minutes
+                session.setMaxInactiveInterval(7 * 24 * 60 * 60); // 7 days
             }
 
             return ResponseEntity.ok(userInfo);
@@ -176,15 +176,18 @@ public class AuthController {
             return ResponseEntity.status(401).body(Map.of("message", "Not authenticated"));
         }
 
-        // Get user details from authentication
+        // Get user email from authentication principal
         Object principal = authentication.getPrincipal();
+        String email = null;
 
         if (principal instanceof org.springframework.security.core.userdetails.UserDetails) {
-            org.springframework.security.core.userdetails.UserDetails userDetails =
-                (org.springframework.security.core.userdetails.UserDetails) principal;
+            email = ((org.springframework.security.core.userdetails.UserDetails) principal).getUsername();
+        } else if (principal instanceof String) {
+            // For Google auth, principal is just the email string
+            email = (String) principal;
+        }
 
-            // Get full user info from database
-            String email = userDetails.getUsername();
+        if (email != null) {
             var userOpt = userRepository.findByEmail(email);
 
             if (userOpt.isPresent()) {
