@@ -105,8 +105,8 @@ export default function Home() {
         </div>
 
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative z-10">
-          <div className="container mx-auto px-4 pt-20">
-            <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[90vh]">
+          <div className="container mx-auto px-4 pt-16 md:pt-20">
+            <div className="grid lg:grid-cols-2 gap-6 md:gap-8 items-center min-h-[85vh] lg:min-h-[90vh]">
               {/* Left: Content */}
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
@@ -118,7 +118,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
-                  className="inline-block px-4 py-2 rounded-full bg-amber-500/20 text-amber-400 text-sm font-medium mb-6 border border-amber-500/30"
+                  className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-amber-500/20 text-amber-400 text-xs sm:text-sm font-medium mb-4 md:mb-6 border border-amber-500/30"
                 >
                   Premium Handcrafted Frames
                 </motion.span>
@@ -127,7 +127,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
-                  className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+                  className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 md:mb-6 leading-tight"
                 >
                   Frame Your
                   <span className="block text-amber-500">Precious Moments</span>
@@ -137,7 +137,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.5 }}
-                  className="text-lg md:text-xl text-slate-300 mb-8 max-w-lg"
+                  className="text-base md:text-xl text-slate-300 mb-6 md:mb-8 max-w-md md:max-w-lg pr-4"
                 >
                   Transform your cherished memories into stunning displays with our premium digital photo frames.
                 </motion.p>
@@ -146,20 +146,20 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.6 }}
-                  className="flex flex-wrap gap-4"
+                  className="flex flex-wrap gap-3 sm:gap-4"
                 >
                   <Link
                     href="/products"
-                    className="group inline-flex items-center gap-2 bg-amber-500 text-slate-900 px-8 py-4 rounded-full font-semibold hover:bg-amber-400 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/25"
+                    className="group inline-flex items-center gap-2 bg-amber-500 text-slate-900 px-5 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-sm sm:text-base hover:bg-amber-400 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/25"
                   >
                     Shop Collection
-                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
                   </Link>
                   <Link
                     href="/about"
-                    className="inline-flex items-center gap-2 bg-transparent text-white px-8 py-4 rounded-full font-semibold border border-slate-600 hover:border-slate-400 transition-all duration-300"
+                    className="inline-flex items-center gap-2 bg-transparent text-white px-5 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-sm sm:text-base border border-slate-600 hover:border-slate-400 transition-all duration-300"
                   >
                     Learn More
                   </Link>
@@ -170,16 +170,16 @@ export default function Home() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.8 }}
-                  className="flex items-center gap-8 mt-12 pt-8 border-t border-slate-700"
+                  className="flex items-center justify-between sm:justify-start gap-4 sm:gap-8 mt-8 md:mt-12 pt-6 md:pt-8 border-t border-slate-700"
                 >
                   {[
-                    { value: '10K+', label: 'Happy Customers' },
+                    { value: '100+', label: 'Happy Customers' },
                     { value: '4.9', label: 'Rating' },
                     { value: 'Free', label: 'Shipping' },
                   ].map((stat, i) => (
                     <div key={i} className="text-center">
-                      <div className="text-2xl font-bold text-amber-500">{stat.value}</div>
-                      <div className="text-sm text-slate-400">{stat.label}</div>
+                      <div className="text-xl sm:text-2xl font-bold text-amber-500">{stat.value}</div>
+                      <div className="text-xs sm:text-sm text-slate-400">{stat.label}</div>
                     </div>
                   ))}
                 </motion.div>
@@ -190,7 +190,7 @@ export default function Home() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="h-[500px] lg:h-[600px] relative"
+                className="h-[280px] sm:h-[350px] md:h-[450px] lg:h-[600px] relative"
               >
                 <Frame3D />
               </motion.div>
@@ -198,12 +198,12 @@ export default function Home() {
           </div>
         </motion.div>
 
-        {/* Scroll indicator */}
+        {/* Scroll indicator - hidden on mobile */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20"
+          className="hidden md:block absolute bottom-24 left-1/2 -translate-x-1/2 z-20"
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
@@ -298,14 +298,14 @@ export default function Home() {
           </AnimatedSection>
 
           <AnimatedSection>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-8">
               {featuredProducts.map((product, index) => (
                 <motion.div key={product.id} variants={scaleIn}>
                   <Link href={`/products/${product.slug}`} className="group block h-full">
                     <motion.div
                       whileHover={{ y: -8 }}
                       transition={{ duration: 0.3 }}
-                      className="bg-white rounded-2xl h-full overflow-hidden border border-stone-200 hover:border-amber-300 hover:shadow-xl transition-all duration-300"
+                      className="bg-white rounded-xl sm:rounded-2xl h-full overflow-hidden border border-stone-200 hover:border-amber-300 hover:shadow-xl transition-all duration-300"
                     >
                       <div className="aspect-square relative bg-stone-100 overflow-hidden">
                         <HoverImageSwap
@@ -314,27 +314,27 @@ export default function Home() {
                           priority={index === 0}
                         />
                         {index === 0 && (
-                          <div className="absolute top-4 left-4 bg-amber-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                          <div className="absolute top-2 left-2 sm:top-4 sm:left-4 bg-amber-500 text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-semibold">
                             BESTSELLER
                           </div>
                         )}
                       </div>
-                      <div className="p-6">
-                        <h3 className="font-semibold text-slate-800 text-lg mb-2 group-hover:text-amber-600 transition-colors">
+                      <div className="p-3 sm:p-4 md:p-6">
+                        <h3 className="font-semibold text-slate-800 text-sm sm:text-base md:text-lg mb-1 sm:mb-2 group-hover:text-amber-600 transition-colors truncate">
                           {product.name}
                         </h3>
-                        <p className="text-slate-500 text-sm mb-4 line-clamp-2">{product.description}</p>
+                        <p className="text-slate-500 text-xs sm:text-sm mb-2 sm:mb-4 hidden sm:block" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{product.description}</p>
                         <div className="flex items-center justify-between">
                           <div>
-                            <span className="text-xs text-slate-400 block">Starting at</span>
-                            <span className="text-2xl font-bold text-slate-800">{formatPrice(product.basePrice)}</span>
+                            <span className="text-[10px] sm:text-xs text-slate-400 block">Starting at</span>
+                            <span className="text-base sm:text-xl md:text-2xl font-bold text-slate-800">{formatPrice(product.basePrice)}</span>
                           </div>
                           {product.rating > 0 && (
-                            <div className="flex items-center gap-1">
-                              <svg className="w-5 h-5 text-amber-500 fill-current" viewBox="0 0 20 20">
+                            <div className="flex items-center gap-0.5 sm:gap-1">
+                              <svg className="w-3 h-3 sm:w-5 sm:h-5 text-amber-500 fill-current" viewBox="0 0 20 20">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                               </svg>
-                              <span className="font-medium text-slate-600">{product.rating}</span>
+                              <span className="font-medium text-slate-600 text-xs sm:text-base">{product.rating}</span>
                             </div>
                           )}
                         </div>
@@ -390,9 +390,9 @@ export default function Home() {
           </AnimatedSection>
 
           <AnimatedSection>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
               {[
-                { value: '10,000+', label: 'Happy Customers' },
+                { value: '100+', label: 'Happy Customers' },
                 { value: '50+', label: 'Frame Designs' },
                 { value: '4.9/5', label: 'Customer Rating' },
                 { value: '24/7', label: 'Support' },
@@ -401,10 +401,10 @@ export default function Home() {
                   key={index}
                   variants={scaleIn}
                   whileHover={{ scale: 1.05 }}
-                  className="text-center p-8 rounded-2xl bg-slate-700/50 border border-slate-600"
+                  className="text-center p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl bg-slate-700/50 border border-slate-600"
                 >
-                  <div className="text-4xl md:text-5xl font-bold text-amber-500 mb-2">{stat.value}</div>
-                  <div className="text-slate-300">{stat.label}</div>
+                  <div className="text-2xl sm:text-3xl md:text-5xl font-bold text-amber-500 mb-1 sm:mb-2">{stat.value}</div>
+                  <div className="text-slate-300 text-xs sm:text-sm md:text-base">{stat.label}</div>
                 </motion.div>
               ))}
             </div>

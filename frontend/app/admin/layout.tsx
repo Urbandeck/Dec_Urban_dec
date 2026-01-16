@@ -92,6 +92,7 @@ export default function AdminLayout({
     { name: 'Products', href: '/admin/products', icon: '📦' },
     { name: 'Custom Products', href: '/admin/custom-products', icon: '🎨' },
     { name: 'Orders', href: '/admin/orders', icon: '🛒' },
+    { name: 'Returns', href: '/admin/returns', icon: '↩️' },
     { name: 'Carousel', href: '/admin/carousel', icon: '🖼️' },
     { name: 'Video Manager', href: '/admin/video-manager', icon: '🎥' },
     { name: 'Analytics', href: '/admin/analytics', icon: '📈' },

@@ -23,7 +23,9 @@ public class CorsConfig {
             "http://127.0.0.1:3001",
             "https://frontend-tawny-psi-67.vercel.app",
             "https://www.urbandec.in",
-            "https://urbandec.in"
+            "https://urbandec.in",
+            "https://app.shiprocket.in",
+            "https://apiv2.shiprocket.in"
         ));
         corsConfiguration.setAllowedHeaders(Arrays.asList(
             "Origin",

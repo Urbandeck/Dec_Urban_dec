@@ -13,4 +13,6 @@ public interface CustomerOrderRepository extends JpaRepository<CustomerOrder, Lo
     List<CustomerOrder> findByPurchaserEmailOrCustomerEmailOrderByCreatedAtDesc(String purchaserEmail, String customerEmail);
     Optional<CustomerOrder> findByOrderId(String orderId);
     List<CustomerOrder> findAllByOrderByCreatedAtDesc();
+    Optional<CustomerOrder> findByAwbNumber(String awbNumber);
+    Optional<CustomerOrder> findByShiprocketOrderId(String shiprocketOrderId);
 }

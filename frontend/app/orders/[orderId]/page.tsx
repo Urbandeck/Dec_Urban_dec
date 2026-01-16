@@ -76,6 +76,13 @@ export default function OrderDetailsPage() {
   const [showCancelModal, setShowCancelModal] = useState(false)
   const [cancelReason, setCancelReason] = useState('')
   const [cancellingOrder, setCancellingOrder] = useState(false)
+  const [showReturnModal, setShowReturnModal] = useState(false)
+  const [returnEligibility, setReturnEligibility] = useState<{ eligible: boolean; remainingDays: number } | null>(null)
+  const [selectedReturnItem, setSelectedReturnItem] = useState<OrderItem | null>(null)
+  const [returnReason, setReturnReason] = useState('')
+  const [returnDetails, setReturnDetails] = useState('')
+  const [submittingReturn, setSubmittingReturn] = useState(false)
+  const [existingReturns, setExistingReturns] = useState<any[]>([])
 
   useEffect(() => {
     setIsHydrated(true)
@@ -129,6 +136,83 @@ export default function OrderDetailsPage() {
       setError('Order not found')
       setLoading(false)
     }
+  }
+
+  const checkReturnEligibility = async (orderIdStr: string) => {
+    try {
+      const response = await axios.get(`${ENV_CONFIG.API_URL}/api/returns/eligibility/${orderIdStr}`, {
+        withCredentials: true
+      })
+      setReturnEligibility(response.data)
+    } catch (err) {
+      console.error('Failed to check return eligibility', err)
+    }
+  }
+
+  const fetchExistingReturns = async (orderIdStr: string) => {
+    try {
+      const response = await axios.get(`${ENV_CONFIG.API_URL}/api/returns/order/${orderIdStr}`, {
+        withCredentials: true
+      })
+      setExistingReturns(response.data)
+    } catch (err) {
+      console.error('Failed to fetch existing returns', err)
+    }
+  }
+
+  useEffect(() => {
+    if (order?.orderId && order.status === 'DELIVERED') {
+      checkReturnEligibility(order.orderId)
+      fetchExistingReturns(order.orderId)
+    }
+  }, [order?.orderId, order?.status])
+
+  const handleReturnRequest = async () => {
+    if (!order || !selectedReturnItem) return
+
+    setSubmittingReturn(true)
+    try {
+      const response = await axios.post(
+        `${ENV_CONFIG.API_URL}/api/returns`,
+        {
+          orderId: order.orderId,
+          productId: selectedReturnItem.productId,
+          productName: selectedReturnItem.productName || selectedReturnItem.name,
+          quantity: selectedReturnItem.quantity,
+          reason: returnReason,
+          reasonDetails: returnDetails
+        },
+        { withCredentials: true }
+      )
+
+      setNotification({
+        type: 'success',
+        title: 'Return request submitted',
+        message: `Return ID: ${response.data.returnId}. We'll review your request within 24-48 hours.`
+      })
+      setShowReturnModal(false)
+      setSelectedReturnItem(null)
+      setReturnReason('')
+      setReturnDetails('')
+      fetchExistingReturns(order.orderId)
+    } catch (err: any) {
+      setNotification({
+        type: 'error',
+        title: 'Failed to submit return request',
+        message: err.response?.data?.error || 'Please try again later'
+      })
+    } finally {
+      setSubmittingReturn(false)
+    }
+  }
+
+  const isItemReturnRequested = (productId: string) => {
+    return existingReturns.some(r => String(r.productId) === String(productId))
+  }
+
+  const getItemReturnStatus = (productId: string) => {
+    const returnReq = existingReturns.find(r => String(r.productId) === String(productId))
+    return returnReq?.status || null
   }
 
   const handleCancelOrder = async () => {
@@ -333,6 +417,32 @@ export default function OrderDetailsPage() {
                             {formatPrice(item.total || (item.price * item.quantity))}
                           </span>
                         </div>
+                        {/* Return Status / Button */}
+                        {order.status === 'DELIVERED' && (
+                          <div className="mt-3 pt-3 border-t">
+                            {isItemReturnRequested(item.productId) ? (
+                              <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium ${
+                                getItemReturnStatus(item.productId) === 'REFUNDED' ? 'bg-green-100 text-green-700' :
+                                getItemReturnStatus(item.productId) === 'REJECTED' ? 'bg-red-100 text-red-700' :
+                                'bg-amber-100 text-amber-700'
+                              }`}>
+                                Return {getItemReturnStatus(item.productId)?.replace('_', ' ')}
+                              </span>
+                            ) : returnEligibility?.eligible && item.productId && item.productId !== '0' ? (
+                              <button
+                                onClick={() => {
+                                  setSelectedReturnItem(item)
+                                  setShowReturnModal(true)
+                                }}
+                                className="text-sm text-amber-600 hover:text-amber-700 font-medium"
+                              >
+                                Request Return
+                              </button>
+                            ) : item.productId === '0' || !item.productId ? (
+                              <span className="text-xs text-slate-400">Custom items not returnable</span>
+                            ) : null}
+                          </div>
+                        )}
                       </div>
                     </div>
                   )
@@ -428,6 +538,24 @@ export default function OrderDetailsPage() {
                     Cancel Order
                   </button>
                 )}
+                {order.status === 'DELIVERED' && returnEligibility?.eligible && (
+                  <div className="pt-3 border-t">
+                    <p className="text-sm text-green-600 mb-2">
+                      Return eligible for {returnEligibility.remainingDays} more day(s)
+                    </p>
+                    <button
+                      onClick={() => setShowReturnModal(true)}
+                      className="w-full px-4 py-2 border border-amber-500 hover:bg-amber-50 text-amber-600 font-medium rounded-md transition-colors"
+                    >
+                      Request Return
+                    </button>
+                  </div>
+                )}
+                {order.status === 'DELIVERED' && returnEligibility && !returnEligibility.eligible && (
+                  <p className="text-sm text-slate-500 pt-3 border-t">
+                    Return window has expired
+                  </p>
+                )}
               </div>
             </div>
 
@@ -511,6 +639,169 @@ export default function OrderDetailsPage() {
                 No, Keep Order
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Return Request Modal */}
+      {showReturnModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg max-w-md w-full p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-medium text-slate-800">Request Return</h2>
+              <button
+                onClick={() => {
+                  setShowReturnModal(false)
+                  setSelectedReturnItem(null)
+                  setReturnReason('')
+                  setReturnDetails('')
+                }}
+                className="text-gray-400 hover:text-slate-500"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {selectedReturnItem ? (
+              <>
+                {/* Selected Item */}
+                <div className="mb-4 p-3 bg-stone-50 rounded-lg flex gap-3">
+                  {selectedReturnItem.imageUrl && (
+                    <img
+                      src={selectedReturnItem.imageUrl.startsWith('/api/')
+                        ? `${ENV_CONFIG.API_URL}${selectedReturnItem.imageUrl}`
+                        : selectedReturnItem.imageUrl}
+                      alt={selectedReturnItem.productName || selectedReturnItem.name}
+                      className="w-16 h-16 object-cover rounded"
+                    />
+                  )}
+                  <div>
+                    <p className="font-medium text-slate-800">{selectedReturnItem.productName || selectedReturnItem.name}</p>
+                    <p className="text-sm text-slate-500">Qty: {selectedReturnItem.quantity}</p>
+                    <p className="text-sm font-medium text-slate-700">
+                      {formatPrice(selectedReturnItem.total || (selectedReturnItem.price * selectedReturnItem.quantity))}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Return Reason */}
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-slate-600 mb-2">
+                    Reason for return <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    value={returnReason}
+                    onChange={(e) => setReturnReason(e.target.value)}
+                    className="w-full px-3 py-2 border border-stone-200 rounded-md focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500"
+                    required
+                  >
+                    <option value="">Select a reason...</option>
+                    <option value="DEFECTIVE">Product is defective or damaged</option>
+                    <option value="WRONG_ITEM">Received wrong item</option>
+                    <option value="NOT_AS_DESCRIBED">Product not as described</option>
+                    <option value="QUALITY_ISSUE">Quality not satisfactory</option>
+                    <option value="CHANGED_MIND">Changed my mind</option>
+                    <option value="SIZE_ISSUE">Size/dimensions not suitable</option>
+                    <option value="OTHER">Other reason</option>
+                  </select>
+                </div>
+
+                {/* Additional Details */}
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-slate-600 mb-2">
+                    Additional details (optional)
+                  </label>
+                  <textarea
+                    value={returnDetails}
+                    onChange={(e) => setReturnDetails(e.target.value)}
+                    placeholder="Please describe the issue in detail..."
+                    rows={3}
+                    className="w-full px-3 py-2 border border-stone-200 rounded-md focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500"
+                  />
+                </div>
+
+                {/* Return Policy Note */}
+                <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
+                  <p className="text-sm text-blue-800">
+                    Our team will review your request within 24-48 hours. If approved, we'll schedule a pickup from your address.
+                  </p>
+                </div>
+
+                {/* Actions */}
+                <div className="flex gap-3">
+                  <button
+                    onClick={handleReturnRequest}
+                    disabled={submittingReturn || !returnReason}
+                    className="flex-1 bg-amber-500 hover:bg-amber-600 disabled:bg-gray-300 text-white px-4 py-2 rounded-md font-medium disabled:cursor-not-allowed transition-colors"
+                  >
+                    {submittingReturn ? 'Submitting...' : 'Submit Return Request'}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowReturnModal(false)
+                      setSelectedReturnItem(null)
+                      setReturnReason('')
+                      setReturnDetails('')
+                    }}
+                    className="flex-1 border border-stone-200 text-slate-600 px-4 py-2 rounded-md font-medium hover:bg-stone-50 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                {/* Select Item to Return */}
+                <p className="text-sm text-slate-500 mb-4">Select an item to return:</p>
+                <div className="space-y-3 max-h-64 overflow-y-auto">
+                  {(order?.items || []).map((item, index) => {
+                    const isRequested = isItemReturnRequested(item.productId)
+                    const isCustom = !item.productId || item.productId === '0'
+
+                    return (
+                      <button
+                        key={index}
+                        onClick={() => !isRequested && !isCustom && setSelectedReturnItem(item)}
+                        disabled={isRequested || isCustom}
+                        className={`w-full p-3 rounded-lg border text-left flex gap-3 transition-colors ${
+                          isRequested || isCustom
+                            ? 'bg-stone-50 border-stone-200 cursor-not-allowed opacity-60'
+                            : 'border-stone-200 hover:border-amber-500 hover:bg-amber-50'
+                        }`}
+                      >
+                        {item.imageUrl && (
+                          <img
+                            src={item.imageUrl.startsWith('/api/')
+                              ? `${ENV_CONFIG.API_URL}${item.imageUrl}`
+                              : item.imageUrl}
+                            alt={item.productName || item.name}
+                            className="w-12 h-12 object-cover rounded"
+                          />
+                        )}
+                        <div className="flex-1">
+                          <p className="font-medium text-slate-800 text-sm">{item.productName || item.name}</p>
+                          <p className="text-xs text-slate-500">Qty: {item.quantity}</p>
+                          {isRequested && (
+                            <span className="text-xs text-amber-600">Return already requested</span>
+                          )}
+                          {isCustom && (
+                            <span className="text-xs text-slate-400">Not eligible for return</span>
+                          )}
+                        </div>
+                      </button>
+                    )
+                  })}
+                </div>
+                <button
+                  onClick={() => setShowReturnModal(false)}
+                  className="w-full mt-4 border border-stone-200 text-slate-600 px-4 py-2 rounded-md font-medium hover:bg-stone-50 transition-colors"
+                >
+                  Cancel
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}

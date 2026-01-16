@@ -78,6 +78,7 @@ public class SessionConfig {
                 .requestMatchers("/actuator/health").permitAll()
                 .requestMatchers("/api/contact").permitAll()
                 .requestMatchers("/api/shiprocket/**").permitAll()
+                .requestMatchers("/api/shipping/**").permitAll() // Shipping webhook
 
                 // Allow order creation for both authenticated and guest users
                 .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/orders").permitAll()
@@ -117,7 +118,9 @@ public class SessionConfig {
             "http://localhost:3002",
             "https://frontend-tawny-psi-67.vercel.app",
             "https://www.urbandec.in",
-            "https://urbandec.in"
+            "https://urbandec.in",
+            "https://app.shiprocket.in",
+            "https://apiv2.shiprocket.in"
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));

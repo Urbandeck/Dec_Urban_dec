@@ -418,38 +418,38 @@ export default function CustomProductCheckout() {
       <ScrollAnimationWrapper animation="scale" threshold={0.2} delay={100}>
         <div
           onClick={() => setShowModal(true)}
-          className="bg-white rounded-2xl transition-all duration-300 cursor-pointer group border border-stone-200 hover:border-amber-300 overflow-hidden h-full hover:shadow-lg"
+          className="bg-white rounded-xl sm:rounded-2xl transition-all duration-300 cursor-pointer group border border-stone-200 hover:border-amber-300 overflow-hidden h-full hover:shadow-lg"
         >
-          <div className="aspect-square relative bg-slate-800 overflow-hidden flex flex-col items-center justify-center p-6">
+          <div className="aspect-square relative bg-slate-800 overflow-hidden flex flex-col items-center justify-center p-3 sm:p-6">
             {/* Icon */}
-            <div className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-10 h-10 sm:w-16 sm:h-16 bg-amber-500 rounded-full flex items-center justify-center mb-2 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
+              <svg className="w-5 h-5 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-white mb-2 text-center">Create Custom Frame</h3>
-            <p className="text-sm text-slate-300 text-center">Upload your photos for a personalized frame</p>
+            <h3 className="text-sm sm:text-xl font-bold text-white mb-1 sm:mb-2 text-center">Create Custom Frame</h3>
+            <p className="text-[10px] sm:text-sm text-slate-300 text-center line-clamp-2">Upload your photos for a personalized frame</p>
             {/* Badge */}
-            <div className="absolute top-3 left-3 bg-amber-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+            <div className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-amber-500 text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-semibold">
               CUSTOM
             </div>
           </div>
-          <div className="p-5">
-            <div className="flex items-center justify-between mb-4">
+          <div className="p-3 sm:p-5">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 sm:mb-4 gap-1 sm:gap-0">
               <div>
-                <span className="text-xs text-slate-400">Starting from</span>
-                <p className="text-xl font-bold text-slate-800">
+                <span className="text-[10px] sm:text-xs text-slate-400">Starting from</span>
+                <p className="text-base sm:text-xl font-bold text-slate-800">
                   {formatPrice(1)}
                 </p>
               </div>
-              <div className="flex items-center gap-1">
-                <svg className="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex items-center gap-0.5 sm:gap-1">
+                <svg className="w-3 h-3 sm:w-4 sm:h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                 </svg>
-                <span className="text-sm font-medium text-slate-600">Personalized</span>
+                <span className="text-xs sm:text-sm font-medium text-slate-600">Personalized</span>
               </div>
             </div>
-            <button className="w-full bg-amber-500 text-white py-3 rounded-lg hover:bg-amber-600 transition-colors font-semibold">
+            <button className="w-full bg-amber-500 text-white py-2 sm:py-3 rounded-lg hover:bg-amber-600 transition-colors font-semibold text-sm sm:text-base">
               Get Started
             </button>
           </div>
@@ -459,19 +459,19 @@ export default function CustomProductCheckout() {
       {/* Multi-step Modal */}
       <Modal isOpen={showModal} onClose={() => { setShowModal(false); resetForm(); }}>
             {/* Header */}
-            <div className="bg-white border-b px-6 py-4 flex justify-between items-center flex-shrink-0">
-              <div>
-                <h2 className="text-2xl font-bold">Create Your Custom Frame</h2>
-                <div className="flex items-center gap-2 mt-2">
+            <div className="bg-white border-b px-3 sm:px-6 py-3 sm:py-4 flex justify-between items-start flex-shrink-0">
+              <div className="flex-1 min-w-0">
+                <h2 className="text-lg sm:text-2xl font-bold">Create Your Custom Frame</h2>
+                <div className="flex items-center gap-1 sm:gap-2 mt-2">
                   {[1, 2, 3, 4, 5].map((step) => (
                     <div key={step} className="flex items-center">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                        currentStep >= step ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+                      <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-medium ${
+                        currentStep >= step ? 'bg-amber-500 text-white' : 'bg-gray-200 text-gray-600'
                       }`}>
                         {step}
                       </div>
                       {step < 5 && (
-                        <div className={`w-12 h-1 ${currentStep > step ? 'bg-blue-600' : 'bg-gray-200'}`} />
+                        <div className={`w-4 sm:w-12 h-0.5 sm:h-1 ${currentStep > step ? 'bg-amber-500' : 'bg-gray-200'}`} />
                       )}
                     </div>
                   ))}
@@ -482,9 +482,9 @@ export default function CustomProductCheckout() {
                   setShowModal(false);
                   resetForm();
                 }}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-gray-500 hover:text-gray-700 ml-2 flex-shrink-0"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
@@ -509,7 +509,7 @@ export default function CustomProductCheckout() {
                     </svg>
                     <button
                       onClick={() => fileInputRef.current?.click()}
-                      className="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold text-lg mb-4"
+                      className="bg-amber-500 text-white px-8 py-4 rounded-lg hover:bg-amber-600 transition-colors font-semibold text-lg mb-4"
                     >
                       Select Images
                     </button>
@@ -610,8 +610,8 @@ export default function CustomProductCheckout() {
 
                   {/* Show info box for logged-in users */}
                   {isAuthenticated && user && (
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
-                      <p className="text-sm text-blue-800">
+                    <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4">
+                      <p className="text-sm text-amber-800">
                         We've pre-filled your information from your account. Please verify and update if needed.
                       </p>
                     </div>
@@ -666,7 +666,7 @@ export default function CustomProductCheckout() {
                   {/* Show saved addresses for logged-in users */}
                   {isAuthenticated && savedAddresses.length > 0 && (
                     <div className="mb-6">
-                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
                         <div className="flex items-center mb-3">
                           <input
                             type="checkbox"
@@ -692,7 +692,7 @@ export default function CustomProductCheckout() {
                                 key={addr.id}
                                 className={`block p-3 border rounded-lg cursor-pointer transition-colors ${
                                   selectedAddressId === addr.id
-                                    ? 'border-blue-500 bg-blue-50'
+                                    ? 'border-amber-500 bg-amber-50'
                                     : 'border-gray-200 hover:border-gray-300'
                                 }`}
                               >
@@ -713,7 +713,7 @@ export default function CustomProductCheckout() {
                                   {addr.city}, {addr.state} - {addr.pincode}
                                 </span>
                                 {addr.isDefault && (
-                                  <span className="ml-2 text-xs text-blue-600 font-medium">Default</span>
+                                  <span className="ml-2 text-xs text-amber-600 font-medium">Default</span>
                                 )}
                               </label>
                             ))}
@@ -831,7 +831,7 @@ export default function CustomProductCheckout() {
                       <hr className="my-2" />
                       <div className="flex justify-between text-lg font-semibold">
                         <span>Total Amount:</span>
-                        <span className="text-blue-600">{formatPrice(calculateTotalPrice())}</span>
+                        <span className="text-amber-600">{formatPrice(calculateTotalPrice())}</span>
                       </div>
                     </div>
                   </div>
@@ -866,7 +866,7 @@ export default function CustomProductCheckout() {
                   <button
                     onClick={initiatePayment}
                     disabled={isProcessing}
-                    className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold disabled:bg-gray-400"
+                    className="w-full bg-amber-500 text-white py-3 rounded-lg hover:bg-amber-600 transition-colors font-semibold disabled:bg-gray-400"
                   >
                     {isProcessing ? 'Processing...' : `Pay ${formatPrice(calculateTotalPrice())} with Razorpay`}
                   </button>
@@ -890,7 +890,7 @@ export default function CustomProductCheckout() {
               {currentStep < 5 && (
                 <button
                   onClick={handleNext}
-                  className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+                  className="px-8 py-3 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors font-semibold"
                 >
                   Next
                 </button>
