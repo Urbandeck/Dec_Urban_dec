@@ -119,11 +119,11 @@ export default function AdminOrders() {
   const getStatusColor = (status: OrderStatus) => {
     switch (status) {
       case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'processing': return 'bg-blue-100 text-blue-800';
+      case 'processing': return 'bg-amber-100 text-blue-800';
       case 'shipped': return 'bg-purple-100 text-purple-800';
       case 'delivered': return 'bg-green-100 text-green-800';
       case 'cancelled': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      default: return 'bg-stone-100 text-slate-700';
     }
   };
 
@@ -133,7 +133,7 @@ export default function AdminOrders() {
       case 'success': return 'bg-emerald-100 text-emerald-800 border-emerald-200';
       case 'failed': return 'bg-red-100 text-red-800 border-red-200';
       case 'refunded': return 'bg-purple-100 text-purple-800 border-purple-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      default: return 'bg-stone-100 text-slate-700 border-stone-200';
     }
   };
 
@@ -200,7 +200,7 @@ export default function AdminOrders() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-lg text-gray-600">Loading orders...</div>
+        <div className="text-lg text-slate-500">Loading orders...</div>
       </div>
     );
   }
@@ -216,7 +216,7 @@ export default function AdminOrders() {
   return (
     <div>
       {/* Header with filters */}
-      <div className="bg-white p-6 rounded-lg shadow mb-6">
+      <div className="bg-white p-6 rounded-2xl border border-stone-200 mb-6">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
             <input
@@ -224,13 +224,13 @@ export default function AdminOrders() {
               placeholder="Search by order number, customer name or email..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value as OrderStatus | 'all')}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="all">All Status</option>
             <option value="pending">Pending</option>
@@ -239,52 +239,52 @@ export default function AdminOrders() {
             <option value="delivered">Delivered</option>
             <option value="cancelled">Cancelled</option>
           </select>
-          <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+          <button className="px-6 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors">
             Export Orders
           </button>
         </div>
       </div>
 
       {/* Orders Table */}
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+      <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-200">
+            <thead className="bg-stone-100 border-b border-stone-200">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Order Details
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Customer
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Payment Info
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Amount
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Order Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-stone-200">
               {filteredOrders.map((order) => (
-                <tr key={order.id} className="hover:bg-gray-50">
+                <tr key={order.id} className="hover:bg-stone-100">
                   <td className="px-6 py-4">
-                    <div className="text-sm font-semibold text-gray-900">{order.orderNumber}</div>
-                    <div className="text-xs text-gray-500 mt-1">{new Date(order.createdAt).toLocaleDateString()}</div>
-                    <div className="text-xs text-gray-500">
+                    <div className="text-sm font-semibold text-slate-800">{order.orderNumber}</div>
+                    <div className="text-xs text-slate-400 mt-1">{new Date(order.createdAt).toLocaleDateString()}</div>
+                    <div className="text-xs text-slate-400">
                       {order.items.length} item{order.items.length > 1 ? 's' : ''}
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm font-medium text-gray-900">{order.customer.name}</div>
-                    <div className="text-xs text-gray-500">{order.customer.email}</div>
-                    <div className="text-xs text-gray-500">{order.customer.phone}</div>
+                    <div className="text-sm font-medium text-slate-800">{order.customer.name}</div>
+                    <div className="text-xs text-slate-400">{order.customer.email}</div>
+                    <div className="text-xs text-slate-400">{order.customer.phone}</div>
                   </td>
                   <td className="px-6 py-4">
                     <div className="space-y-1.5">
@@ -294,18 +294,18 @@ export default function AdminOrders() {
                         {order.paymentStatus === 'failed' && '✗ Failed'}
                         {order.paymentStatus === 'refunded' && '↺ Refunded'}
                       </div>
-                      <div className="text-xs text-gray-500">
+                      <div className="text-xs text-slate-400">
                         {order.paymentMethod}
                       </div>
                       {order.paymentId && (
-                        <div className="text-xs text-gray-400 font-mono truncate max-w-[150px]" title={order.paymentId}>
+                        <div className="text-xs text-slate-400 font-mono truncate max-w-[150px]" title={order.paymentId}>
                           ID: {order.paymentId.substring(0, 16)}...
                         </div>
                       )}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-base font-bold text-gray-900">{formatPrice(order.total)}</div>
+                    <div className="text-base font-bold text-slate-800">{formatPrice(order.total)}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <select
@@ -327,7 +327,7 @@ export default function AdminOrders() {
                           setSelectedOrder(order);
                           setShowViewModal(true);
                         }}
-                        className="text-blue-600 hover:text-blue-900 font-medium"
+                        className="text-amber-600 hover:text-blue-900 font-medium"
                       >
                         View
                       </button>
@@ -336,7 +336,7 @@ export default function AdminOrders() {
                           setSelectedOrder(order);
                           setShowInvoiceModal(true);
                         }}
-                        className="text-gray-600 hover:text-gray-900 font-medium"
+                        className="text-slate-500 hover:text-slate-800 font-medium"
                       >
                         Invoice
                       </button>
@@ -362,24 +362,24 @@ export default function AdminOrders() {
 
       {/* Order Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
-        <div className="bg-white p-4 rounded-lg shadow">
-          <p className="text-sm text-gray-600">Total Orders</p>
-          <p className="text-2xl font-bold text-gray-900">{orders.length}</p>
+        <div className="bg-white p-4 rounded-2xl border border-stone-200">
+          <p className="text-sm text-slate-500">Total Orders</p>
+          <p className="text-2xl font-bold text-slate-800">{orders.length}</p>
         </div>
-        <div className="bg-white p-4 rounded-lg shadow">
-          <p className="text-sm text-gray-600">Pending Orders</p>
+        <div className="bg-white p-4 rounded-2xl border border-stone-200">
+          <p className="text-sm text-slate-500">Pending Orders</p>
           <p className="text-2xl font-bold text-yellow-600">
             {orders.filter(o => o.status === 'pending').length}
           </p>
         </div>
-        <div className="bg-white p-4 rounded-lg shadow">
-          <p className="text-sm text-gray-600">Processing</p>
-          <p className="text-2xl font-bold text-blue-600">
+        <div className="bg-white p-4 rounded-2xl border border-stone-200">
+          <p className="text-sm text-slate-500">Processing</p>
+          <p className="text-2xl font-bold text-amber-600">
             {orders.filter(o => o.status === 'processing').length}
           </p>
         </div>
-        <div className="bg-white p-4 rounded-lg shadow">
-          <p className="text-sm text-gray-600">Delivered</p>
+        <div className="bg-white p-4 rounded-2xl border border-stone-200">
+          <p className="text-sm text-slate-500">Delivered</p>
           <p className="text-2xl font-bold text-green-600">
             {orders.filter(o => o.status === 'delivered').length}
           </p>
@@ -393,10 +393,10 @@ export default function AdminOrders() {
             <div className="p-6">
               {/* Modal Header */}
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold text-gray-900">Order Details</h2>
+                <h2 className="text-xl font-bold text-slate-800">Order Details</h2>
                 <button
                   onClick={() => setShowViewModal(false)}
-                  className="text-gray-400 hover:text-gray-500"
+                  className="text-slate-400 hover:text-slate-400"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -406,24 +406,24 @@ export default function AdminOrders() {
 
               {/* Order Information */}
               <div className="space-y-4">
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <h3 className="font-semibold text-gray-900 mb-3">Order Information</h3>
+                <div className="bg-stone-100 p-4 rounded-lg">
+                  <h3 className="font-semibold text-slate-800 mb-3">Order Information</h3>
                   <div className="grid grid-cols-2 gap-3 text-sm">
                     <div>
-                      <span className="text-gray-600">Order Number:</span>
-                      <div className="font-medium text-gray-900">{selectedOrder.orderNumber}</div>
+                      <span className="text-slate-500">Order Number:</span>
+                      <div className="font-medium text-slate-800">{selectedOrder.orderNumber}</div>
                     </div>
                     <div>
-                      <span className="text-gray-600">Order Date:</span>
-                      <div className="font-medium text-gray-900">{new Date(selectedOrder.createdAt).toLocaleDateString()}</div>
+                      <span className="text-slate-500">Order Date:</span>
+                      <div className="font-medium text-slate-800">{new Date(selectedOrder.createdAt).toLocaleDateString()}</div>
                     </div>
                     <div>
-                      <span className="text-gray-600">Order Status:</span>
+                      <span className="text-slate-500">Order Status:</span>
                       <div><span className={`${getStatusColor(selectedOrder.status)} px-3 py-1 rounded-full text-xs font-semibold`}>{selectedOrder.status.toUpperCase()}</span></div>
                     </div>
                     <div>
-                      <span className="text-gray-600">Items Count:</span>
-                      <div className="font-medium text-gray-900">{selectedOrder.items.length} item(s)</div>
+                      <span className="text-slate-500">Items Count:</span>
+                      <div className="font-medium text-slate-800">{selectedOrder.items.length} item(s)</div>
                     </div>
                   </div>
                 </div>
@@ -437,7 +437,7 @@ export default function AdminOrders() {
                   </h3>
                   <div className="grid grid-cols-2 gap-3 text-sm">
                     <div>
-                      <span className="text-blue-700">Payment Status:</span>
+                      <span className="text-amber-700">Payment Status:</span>
                       <div>
                         <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border ${getPaymentStatusColor(selectedOrder.paymentStatus)} mt-1`}>
                           {selectedOrder.paymentStatus === 'success' && '✓ Payment Successful'}
@@ -448,12 +448,12 @@ export default function AdminOrders() {
                       </div>
                     </div>
                     <div>
-                      <span className="text-blue-700">Payment Method:</span>
+                      <span className="text-amber-700">Payment Method:</span>
                       <div className="font-medium text-blue-900">{selectedOrder.paymentMethod}</div>
                     </div>
                     {selectedOrder.paymentId && (
                       <div className="col-span-2">
-                        <span className="text-blue-700">Transaction ID:</span>
+                        <span className="text-amber-700">Transaction ID:</span>
                         <div className="font-mono text-xs bg-white px-3 py-2 rounded border border-blue-200 mt-1 break-all">
                           {selectedOrder.paymentId}
                         </div>
@@ -462,18 +462,18 @@ export default function AdminOrders() {
                   </div>
                 </div>
 
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <h3 className="font-semibold text-gray-900 mb-2">Customer Information</h3>
+                <div className="bg-stone-100 p-4 rounded-lg">
+                  <h3 className="font-semibold text-slate-800 mb-2">Customer Information</h3>
                   <div className="text-sm space-y-1">
-                    <div><span className="text-gray-600">Name:</span> <span className="font-medium">{selectedOrder.customer.name}</span></div>
-                    <div><span className="text-gray-600">Email:</span> {selectedOrder.customer.email}</div>
-                    <div><span className="text-gray-600">Phone:</span> {selectedOrder.customer.phone}</div>
-                    <div><span className="text-gray-600">Address:</span> {selectedOrder.shippingAddress}</div>
+                    <div><span className="text-slate-500">Name:</span> <span className="font-medium">{selectedOrder.customer.name}</span></div>
+                    <div><span className="text-slate-500">Email:</span> {selectedOrder.customer.email}</div>
+                    <div><span className="text-slate-500">Phone:</span> {selectedOrder.customer.phone}</div>
+                    <div><span className="text-slate-500">Address:</span> {selectedOrder.shippingAddress}</div>
                   </div>
                 </div>
 
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <h3 className="font-semibold text-gray-900 mb-2">Order Items</h3>
+                <div className="bg-stone-100 p-4 rounded-lg">
+                  <h3 className="font-semibold text-slate-800 mb-2">Order Items</h3>
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b">
@@ -506,7 +506,7 @@ export default function AdminOrders() {
               <div className="mt-6 flex justify-end gap-3">
                 <button
                   onClick={() => setShowViewModal(false)}
-                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300"
+                  className="px-4 py-2 bg-stone-200 text-slate-700 rounded-lg hover:bg-gray-300"
                 >
                   Close
                 </button>
@@ -523,10 +523,10 @@ export default function AdminOrders() {
             <div className="p-6">
               {/* Modal Header */}
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold text-gray-900">Invoice</h2>
+                <h2 className="text-xl font-bold text-slate-800">Invoice</h2>
                 <button
                   onClick={() => setShowInvoiceModal(false)}
-                  className="text-gray-400 hover:text-gray-500"
+                  className="text-slate-400 hover:text-slate-400"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -535,7 +535,7 @@ export default function AdminOrders() {
               </div>
 
               {/* Shipping Controls */}
-              <div className="bg-gray-50 p-4 rounded-lg mb-4 border border-gray-200">
+              <div className="bg-stone-100 p-4 rounded-lg mb-4 border border-stone-200">
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
                     <label className="flex items-center gap-2 cursor-pointer">
@@ -543,47 +543,47 @@ export default function AdminOrders() {
                         type="checkbox"
                         checked={includeShipping}
                         onChange={(e) => setIncludeShipping(e.target.checked)}
-                        className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                        className="w-4 h-4 text-amber-600 rounded focus:ring-2 focus:ring-blue-500"
                       />
-                      <span className="text-sm font-medium text-gray-700">Include Shipping Charges</span>
+                      <span className="text-sm font-medium text-slate-600">Include Shipping Charges</span>
                     </label>
                   </div>
                   {includeShipping && (
                     <div className="flex items-center gap-2">
-                      <label className="text-sm text-gray-600">Amount:</label>
+                      <label className="text-sm text-slate-500">Amount:</label>
                       <input
                         type="number"
                         value={shippingCharge}
                         onChange={(e) => setShippingCharge(Number(e.target.value))}
-                        className="w-24 px-3 py-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-24 px-3 py-1 border border-stone-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                         min="0"
                         step="10"
                       />
-                      <span className="text-sm text-gray-600">₹</span>
+                      <span className="text-sm text-slate-500">₹</span>
                     </div>
                   )}
                 </div>
               </div>
 
               {/* Invoice Content */}
-              <div className="border-2 border-gray-200 rounded-lg p-6 bg-white">
+              <div className="border-2 border-stone-200 rounded-lg p-6 bg-white">
                 {/* Company Header */}
                 <div className="text-center mb-6">
-                  <h1 className="text-2xl font-bold text-blue-600">Urbandec</h1>
-                  <p className="text-sm text-gray-600">Premium Digital Photo Frames</p>
-                  <p className="text-sm text-gray-600">urbandec.in@gmail.com | +91 8105663269</p>
+                  <h1 className="text-2xl font-bold text-amber-600">Urbandec</h1>
+                  <p className="text-sm text-slate-500">Premium Digital Photo Frames</p>
+                  <p className="text-sm text-slate-500">urbandec.in@gmail.com | +91 8105663269</p>
                 </div>
 
-                <div className="border-t border-gray-200 pt-4">
+                <div className="border-t border-stone-200 pt-4">
                   <h2 className="text-lg font-bold mb-4">TAX INVOICE</h2>
                   
                   <div className="grid grid-cols-2 gap-4 mb-6">
                     <div>
-                      <h3 className="font-semibold text-gray-700 mb-2">Bill To:</h3>
+                      <h3 className="font-semibold text-slate-600 mb-2">Bill To:</h3>
                       <p className="text-sm">{selectedOrder.customer.name}</p>
-                      <p className="text-sm text-gray-600">{selectedOrder.customer.email}</p>
-                      <p className="text-sm text-gray-600">{selectedOrder.customer.phone}</p>
-                      <p className="text-sm text-gray-600">{selectedOrder.shippingAddress}</p>
+                      <p className="text-sm text-slate-500">{selectedOrder.customer.email}</p>
+                      <p className="text-sm text-slate-500">{selectedOrder.customer.phone}</p>
+                      <p className="text-sm text-slate-500">{selectedOrder.shippingAddress}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-sm"><span className="font-semibold">Invoice No:</span> {selectedOrder.orderNumber}</p>
@@ -593,7 +593,7 @@ export default function AdminOrders() {
                   </div>
 
                   <table className="w-full mb-6">
-                    <thead className="bg-gray-100">
+                    <thead className="bg-stone-100">
                       <tr>
                         <th className="text-left py-2 px-4 text-sm">Item Description</th>
                         <th className="text-center py-2 px-4 text-sm">Qty</th>
@@ -624,14 +624,14 @@ export default function AdminOrders() {
                       )}
                       <tr className="border-t font-bold">
                         <td colSpan={3} className="text-right py-2 px-4">Grand Total:</td>
-                        <td className="text-right py-2 px-4 text-lg text-blue-600">
+                        <td className="text-right py-2 px-4 text-lg text-amber-600">
                           {formatPrice(selectedOrder.total + (includeShipping ? shippingCharge : 0))}
                         </td>
                       </tr>
                     </tfoot>
                   </table>
 
-                  <div className="border-t pt-4 text-center text-xs text-gray-500">
+                  <div className="border-t pt-4 text-center text-xs text-slate-400">
                     <p>Thank you for your business!</p>
                     <p>This is a computer generated invoice and does not require signature.</p>
                   </div>
@@ -648,7 +648,7 @@ export default function AdminOrders() {
                         toast.success(`Invoice sent to ${email}`);
                       }
                     }}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
+                    className="px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 flex items-center gap-2"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -667,7 +667,7 @@ export default function AdminOrders() {
                 </div>
                 <button
                   onClick={() => setShowInvoiceModal(false)}
-                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300"
+                  className="px-4 py-2 bg-stone-200 text-slate-700 rounded-lg hover:bg-gray-300"
                 >
                   Close
                 </button>
@@ -684,13 +684,13 @@ export default function AdminOrders() {
             <div className="p-6">
               {/* Modal Header */}
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold text-gray-900">Process Refund</h2>
+                <h2 className="text-xl font-bold text-slate-800">Process Refund</h2>
                 <button
                   onClick={() => {
                     setShowRefundModal(false);
                     setRefundReason('');
                   }}
-                  className="text-gray-400 hover:text-gray-500"
+                  className="text-slate-400 hover:text-slate-400"
                   disabled={refundingOrderId !== null}
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -716,7 +716,7 @@ export default function AdminOrders() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-slate-600 mb-2">
                     Reason for Refund (Optional)
                   </label>
                   <textarea
@@ -724,23 +724,23 @@ export default function AdminOrders() {
                     onChange={(e) => setRefundReason(e.target.value)}
                     placeholder="Enter reason for refund..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                    className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                     disabled={refundingOrderId !== null}
                   />
                 </div>
 
-                <div className="bg-gray-50 p-3 rounded-lg">
+                <div className="bg-stone-100 p-3 rounded-lg">
                   <div className="text-sm">
                     <div className="flex justify-between mb-1">
-                      <span className="text-gray-600">Customer:</span>
+                      <span className="text-slate-500">Customer:</span>
                       <span className="font-medium">{selectedOrder.customer.name}</span>
                     </div>
                     <div className="flex justify-between mb-1">
-                      <span className="text-gray-600">Email:</span>
+                      <span className="text-slate-500">Email:</span>
                       <span className="font-medium">{selectedOrder.customer.email}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Refund Amount:</span>
+                      <span className="text-slate-500">Refund Amount:</span>
                       <span className="font-bold text-red-600">{formatPrice(selectedOrder.total)}</span>
                     </div>
                   </div>
@@ -754,7 +754,7 @@ export default function AdminOrders() {
                     setShowRefundModal(false);
                     setRefundReason('');
                   }}
-                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 disabled:opacity-50"
+                  className="px-4 py-2 bg-stone-200 text-slate-700 rounded-lg hover:bg-gray-300 disabled:opacity-50"
                   disabled={refundingOrderId !== null}
                 >
                   Cancel

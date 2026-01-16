@@ -161,7 +161,7 @@ export default function VideoManagerPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="text-gray-500">Loading videos...</div>
+        <div className="text-slate-400">Loading videos...</div>
       </div>
     );
   }
@@ -170,12 +170,12 @@ export default function VideoManagerPage() {
     <div className="p-6">
       <div className="mb-6 flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">CTA Video Manager</h1>
-          <p className="text-sm text-gray-600 mt-1">Manage advertisement videos for the homepage CTA section</p>
+          <h1 className="text-2xl font-bold text-slate-800">CTA Video Manager</h1>
+          <p className="text-sm text-slate-500 mt-1">Manage advertisement videos for the homepage CTA section</p>
         </div>
         <button
           onClick={() => setShowForm(true)}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+          className="bg-amber-500 text-white px-4 py-2 rounded-lg hover:bg-amber-600"
         >
           Add New Video
         </button>
@@ -183,52 +183,52 @@ export default function VideoManagerPage() {
 
       {/* Video Form */}
       {showForm && (
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <div className="bg-white rounded-2xl border border-stone-200-sm p-6 mb-6">
           <h2 className="text-lg font-semibold mb-4">
             {editingVideo ? 'Edit Video' : 'Add New Video'}
           </h2>
           <form onSubmit={handleSubmit}>
             <div className="grid md:grid-cols-2 gap-4">
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-600 mb-2">
                   Video URL <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="url"
                   value={formData.videoUrl}
                   onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                  className="w-full border border-stone-200 rounded-lg px-3 py-2"
                   placeholder="https://www.youtube.com/watch?v=... or direct video URL"
                   required
                 />
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-slate-400 mt-1">
                   Supports YouTube, Vimeo, or direct video file URLs (MP4, WebM)
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-600 mb-2">
                   Title <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                  className="w-full border border-stone-200 rounded-lg px-3 py-2"
                   placeholder="Video title"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-600 mb-2">
                   Description
                 </label>
                 <input
                   type="text"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                  className="w-full border border-stone-200 rounded-lg px-3 py-2"
                   placeholder="Brief description"
                 />
               </div>
@@ -241,7 +241,7 @@ export default function VideoManagerPage() {
                   onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
                   className="mr-2"
                 />
-                <label htmlFor="isActive" className="text-sm text-gray-700">
+                <label htmlFor="isActive" className="text-sm text-slate-600">
                   Active (Show on homepage)
                 </label>
               </div>
@@ -250,14 +250,14 @@ export default function VideoManagerPage() {
             <div className="mt-4 flex gap-2">
               <button
                 type="submit"
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                className="bg-amber-500 text-white px-4 py-2 rounded-lg hover:bg-amber-600"
               >
                 {editingVideo ? 'Update Video' : 'Add Video'}
               </button>
               <button
                 type="button"
                 onClick={resetForm}
-                className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400"
+                className="bg-gray-300 text-slate-600 px-4 py-2 rounded-lg hover:bg-gray-400"
               >
                 Cancel
               </button>
@@ -267,33 +267,33 @@ export default function VideoManagerPage() {
       )}
 
       {/* Videos List */}
-      <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl border border-stone-200-sm overflow-hidden">
         {videos.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">
+          <div className="p-8 text-center text-slate-400">
             No videos added yet. Click "Add New Video" to get started.
           </div>
         ) : (
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="min-w-full divide-y divide-stone-200">
+            <thead className="bg-stone-100">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Preview
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Title
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   URL
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white divide-y divide-stone-200">
               {videos.map((video) => (
                 <tr key={video.id}>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -304,21 +304,21 @@ export default function VideoManagerPage() {
                         className="w-20 h-12 object-cover rounded"
                       />
                     ) : (
-                      <div className="w-20 h-12 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">
+                      <div className="w-20 h-12 bg-stone-200 rounded flex items-center justify-center text-xs text-slate-400">
                         Video
                       </div>
                     )}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div>
-                      <div className="text-sm font-medium text-gray-900">{video.title}</div>
+                      <div className="text-sm font-medium text-slate-800">{video.title}</div>
                       {video.description && (
-                        <div className="text-sm text-gray-500">{video.description}</div>
+                        <div className="text-sm text-slate-400">{video.description}</div>
                       )}
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-gray-500 truncate max-w-xs" title={video.videoUrl}>
+                    <div className="text-sm text-slate-400 truncate max-w-xs" title={video.videoUrl}>
                       {video.videoUrl}
                     </div>
                   </td>
@@ -328,7 +328,7 @@ export default function VideoManagerPage() {
                       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                         video.isActive
                           ? 'bg-green-100 text-green-800'
-                          : 'bg-gray-100 text-gray-800'
+                          : 'bg-stone-100 text-slate-700'
                       }`}
                     >
                       {video.isActive ? 'Active' : 'Inactive'}
@@ -357,7 +357,7 @@ export default function VideoManagerPage() {
 
       <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
         <h3 className="text-sm font-semibold text-blue-900 mb-2">Video Guidelines:</h3>
-        <ul className="text-sm text-blue-700 space-y-1">
+        <ul className="text-sm text-amber-700 space-y-1">
           <li>• Only one video can be active at a time on the homepage</li>
           <li>• Recommended video aspect ratio: 16:9</li>
           <li>• YouTube and Vimeo URLs will be automatically embedded</li>

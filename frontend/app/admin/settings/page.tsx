@@ -97,7 +97,7 @@ export default function AdminSettings() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="text-gray-500">Loading settings...</div>
+        <div className="text-slate-400">Loading settings...</div>
       </div>
     );
   }
@@ -123,13 +123,13 @@ export default function AdminSettings() {
     <div>
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Store Settings</h1>
-        <p className="text-sm text-gray-600 mt-1">Manage your store configuration and preferences</p>
+        <h1 className="text-2xl font-bold text-slate-800">Store Settings</h1>
+        <p className="text-sm text-slate-500 mt-1">Manage your store configuration and preferences</p>
       </div>
 
       <div className="flex gap-6">
         {/* Sidebar */}
-        <div className="w-64 bg-white rounded-lg shadow p-4">
+        <div className="w-64 bg-white rounded-2xl border border-stone-200 p-4">
           <nav className="space-y-1">
             {tabs.map((tab) => (
               <button
@@ -137,8 +137,8 @@ export default function AdminSettings() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`w-full text-left px-3 py-2 rounded-lg transition-colors flex items-center ${
                   activeTab === tab.id
-                    ? 'bg-blue-50 text-blue-600 font-medium'
-                    : 'text-gray-700 hover:bg-gray-50'
+                    ? 'bg-blue-50 text-amber-600 font-medium'
+                    : 'text-slate-600 hover:bg-stone-100'
                 }`}
               >
                 <span className="mr-2">{tab.icon}</span>
@@ -149,55 +149,55 @@ export default function AdminSettings() {
         </div>
 
         {/* Content */}
-        <div className="flex-1 bg-white rounded-lg shadow">
+        <div className="flex-1 bg-white rounded-2xl border border-stone-200">
           <div className="p-6">
             {/* General Settings */}
             {activeTab === 'general' && (
               <div className="space-y-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">General Settings</h2>
+                <h2 className="text-lg font-semibold text-slate-800 mb-4">General Settings</h2>
                 
                 <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-600 mb-1">
                       Store Name
                     </label>
                     <input
                       type="text"
                       value={settings.storeName}
                       onChange={(e) => setSettings({ ...settings, storeName: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-600 mb-1">
                       Contact Email
                     </label>
                     <input
                       type="email"
                       value={settings.email}
                       onChange={(e) => setSettings({ ...settings, email: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-600 mb-1">
                       Phone Number
                     </label>
                     <input
                       type="tel"
                       value={settings.phone}
                       onChange={(e) => setSettings({ ...settings, phone: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-600 mb-1">
                       Currency
                     </label>
                     <select
                       value={settings.currency}
                       onChange={(e) => setSettings({ ...settings, currency: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="INR">INR (₹)</option>
                       <option value="USD">USD ($)</option>
@@ -207,26 +207,26 @@ export default function AdminSettings() {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     Tagline
                   </label>
                   <input
                     type="text"
                     value={settings.tagline}
                     onChange={(e) => setSettings({ ...settings, tagline: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     Store Address
                   </label>
                   <textarea
                     value={settings.address}
                     onChange={(e) => setSettings({ ...settings, address: e.target.value })}
                     rows={2}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
@@ -235,13 +235,13 @@ export default function AdminSettings() {
             {/* Payment Settings */}
             {activeTab === 'payment' && (
               <div className="space-y-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Payment Settings</h2>
+                <h2 className="text-lg font-semibold text-slate-800 mb-4">Payment Settings</h2>
                 
                 <div className="space-y-4">
                   <div className="flex items-center justify-between py-3 border-b">
                     <div>
-                      <p className="font-medium text-gray-900">Razorpay</p>
-                      <p className="text-sm text-gray-500">Accept online payments via Razorpay</p>
+                      <p className="font-medium text-slate-800">Razorpay</p>
+                      <p className="text-sm text-slate-400">Accept online payments via Razorpay</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -250,14 +250,14 @@ export default function AdminSettings() {
                         onChange={(e) => setSettings({ ...settings, razorpayEnabled: e.target.checked })}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      <div className="w-11 h-6 bg-stone-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
                     </label>
                   </div>
                   
                   <div className="flex items-center justify-between py-3 border-b">
                     <div>
-                      <p className="font-medium text-gray-900">Cash on Delivery</p>
-                      <p className="text-sm text-gray-500">Allow customers to pay on delivery</p>
+                      <p className="font-medium text-slate-800">Cash on Delivery</p>
+                      <p className="text-sm text-slate-400">Allow customers to pay on delivery</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -266,43 +266,43 @@ export default function AdminSettings() {
                         onChange={(e) => setSettings({ ...settings, codEnabled: e.target.checked })}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      <div className="w-11 h-6 bg-stone-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
                     </label>
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-3 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-600 mb-1">
                       Min Order Value (₹)
                     </label>
                     <input
                       type="number"
                       value={settings.minOrderValue}
                       onChange={(e) => setSettings({ ...settings, minOrderValue: parseInt(e.target.value) })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-600 mb-1">
                       Max Order Value (₹)
                     </label>
                     <input
                       type="number"
                       value={settings.maxOrderValue}
                       onChange={(e) => setSettings({ ...settings, maxOrderValue: parseInt(e.target.value) })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-600 mb-1">
                       Tax Rate (%)
                     </label>
                     <input
                       type="number"
                       value={settings.taxRate}
                       onChange={(e) => setSettings({ ...settings, taxRate: parseInt(e.target.value) })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                 </div>
@@ -312,51 +312,51 @@ export default function AdminSettings() {
             {/* Shipping Settings */}
             {activeTab === 'shipping' && (
               <div className="space-y-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Shipping Settings</h2>
+                <h2 className="text-lg font-semibold text-slate-800 mb-4">Shipping Settings</h2>
                 
                 <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-600 mb-1">
                       Free Shipping Above (₹)
                     </label>
                     <input
                       type="number"
                       value={settings.freeShippingThreshold}
                       onChange={(e) => setSettings({ ...settings, freeShippingThreshold: parseInt(e.target.value) })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-600 mb-1">
                       Standard Shipping Cost (₹)
                     </label>
                     <input
                       type="number"
                       value={settings.standardShippingCost}
                       onChange={(e) => setSettings({ ...settings, standardShippingCost: parseInt(e.target.value) })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-600 mb-1">
                       Express Shipping Cost (₹)
                     </label>
                     <input
                       type="number"
                       value={settings.expressShippingCost}
                       onChange={(e) => setSettings({ ...settings, expressShippingCost: parseInt(e.target.value) })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-600 mb-1">
                       Estimated Delivery (Days)
                     </label>
                     <input
                       type="number"
                       value={settings.estimatedDeliveryDays}
                       onChange={(e) => setSettings({ ...settings, estimatedDeliveryDays: parseInt(e.target.value) })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                 </div>
@@ -366,13 +366,13 @@ export default function AdminSettings() {
             {/* Email Settings */}
             {activeTab === 'email' && (
               <div className="space-y-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Email Notifications</h2>
+                <h2 className="text-lg font-semibold text-slate-800 mb-4">Email Notifications</h2>
                 
                 <div className="space-y-4">
                   <div className="flex items-center justify-between py-3 border-b">
                     <div>
-                      <p className="font-medium text-gray-900">Email Notifications</p>
-                      <p className="text-sm text-gray-500">Send system emails to customers</p>
+                      <p className="font-medium text-slate-800">Email Notifications</p>
+                      <p className="text-sm text-slate-400">Send system emails to customers</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -381,14 +381,14 @@ export default function AdminSettings() {
                         onChange={(e) => setSettings({ ...settings, emailNotifications: e.target.checked })}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      <div className="w-11 h-6 bg-stone-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
                     </label>
                   </div>
                   
                   <div className="flex items-center justify-between py-3 border-b">
                     <div>
-                      <p className="font-medium text-gray-900">Order Confirmations</p>
-                      <p className="text-sm text-gray-500">Send order confirmation emails</p>
+                      <p className="font-medium text-slate-800">Order Confirmations</p>
+                      <p className="text-sm text-slate-400">Send order confirmation emails</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -397,14 +397,14 @@ export default function AdminSettings() {
                         onChange={(e) => setSettings({ ...settings, orderConfirmations: e.target.checked })}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      <div className="w-11 h-6 bg-stone-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
                     </label>
                   </div>
                   
                   <div className="flex items-center justify-between py-3 border-b">
                     <div>
-                      <p className="font-medium text-gray-900">Shipment Updates</p>
-                      <p className="text-sm text-gray-500">Notify customers about shipment status</p>
+                      <p className="font-medium text-slate-800">Shipment Updates</p>
+                      <p className="text-sm text-slate-400">Notify customers about shipment status</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -413,14 +413,14 @@ export default function AdminSettings() {
                         onChange={(e) => setSettings({ ...settings, shipmentUpdates: e.target.checked })}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      <div className="w-11 h-6 bg-stone-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
                     </label>
                   </div>
                   
                   <div className="flex items-center justify-between py-3 border-b">
                     <div>
-                      <p className="font-medium text-gray-900">Marketing Emails</p>
-                      <p className="text-sm text-gray-500">Send promotional and marketing emails</p>
+                      <p className="font-medium text-slate-800">Marketing Emails</p>
+                      <p className="text-sm text-slate-400">Send promotional and marketing emails</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -429,7 +429,7 @@ export default function AdminSettings() {
                         onChange={(e) => setSettings({ ...settings, marketingEmails: e.target.checked })}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      <div className="w-11 h-6 bg-stone-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
                     </label>
                   </div>
                 </div>
@@ -439,34 +439,34 @@ export default function AdminSettings() {
             {/* SEO Settings */}
             {activeTab === 'seo' && (
               <div className="space-y-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">SEO Settings</h2>
+                <h2 className="text-lg font-semibold text-slate-800 mb-4">SEO Settings</h2>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     Meta Title
                   </label>
                   <input
                     type="text"
                     value={settings.metaTitle}
                     onChange={(e) => setSettings({ ...settings, metaTitle: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     Meta Description
                   </label>
                   <textarea
                     value={settings.metaDescription}
                     onChange={(e) => setSettings({ ...settings, metaDescription: e.target.value })}
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     Meta Keywords
                   </label>
                   <input
@@ -474,7 +474,7 @@ export default function AdminSettings() {
                     value={settings.metaKeywords}
                     onChange={(e) => setSettings({ ...settings, metaKeywords: e.target.value })}
                     placeholder="Comma separated keywords"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
@@ -483,11 +483,11 @@ export default function AdminSettings() {
             {/* Social Media Settings */}
             {activeTab === 'social' && (
               <div className="space-y-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Social Media Links</h2>
+                <h2 className="text-lg font-semibold text-slate-800 mb-4">Social Media Links</h2>
                 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-600 mb-1">
                       Facebook
                     </label>
                     <input
@@ -495,12 +495,12 @@ export default function AdminSettings() {
                       value={settings.facebook}
                       onChange={(e) => setSettings({ ...settings, facebook: e.target.value })}
                       placeholder="https://facebook.com/yourstore"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-600 mb-1">
                       Instagram
                     </label>
                     <input
@@ -508,12 +508,12 @@ export default function AdminSettings() {
                       value={settings.instagram}
                       onChange={(e) => setSettings({ ...settings, instagram: e.target.value })}
                       placeholder="https://instagram.com/yourstore"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-600 mb-1">
                       Twitter
                     </label>
                     <input
@@ -521,12 +521,12 @@ export default function AdminSettings() {
                       value={settings.twitter}
                       onChange={(e) => setSettings({ ...settings, twitter: e.target.value })}
                       placeholder="https://twitter.com/yourstore"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-slate-600 mb-1">
                       YouTube
                     </label>
                     <input
@@ -534,7 +534,7 @@ export default function AdminSettings() {
                       value={settings.youtube}
                       onChange={(e) => setSettings({ ...settings, youtube: e.target.value })}
                       placeholder="https://youtube.com/yourstore"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                 </div>
@@ -546,7 +546,7 @@ export default function AdminSettings() {
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {saving ? 'Saving...' : 'Save Settings'}
               </button>

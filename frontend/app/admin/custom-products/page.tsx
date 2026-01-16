@@ -201,7 +201,7 @@ export default function CustomProductsPage() {
     const statusStyles: { [key: string]: string } = {
       'pending': 'bg-yellow-100 text-yellow-800',
       'paid': 'bg-green-100 text-green-800',
-      'processing': 'bg-blue-100 text-blue-800',
+      'processing': 'bg-amber-100 text-blue-800',
       'shipped': 'bg-indigo-100 text-indigo-800',
       'delivered': 'bg-green-100 text-green-800',
       'cancelled': 'bg-red-100 text-red-800'
@@ -212,7 +212,7 @@ export default function CustomProductsPage() {
     };
 
     return (
-      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusStyles[normalizedStatus] || 'bg-gray-100 text-gray-800'}`}>
+      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusStyles[normalizedStatus] || 'bg-stone-100 text-slate-700'}`}>
         {formatStatus(status)}
       </span>
     );
@@ -221,7 +221,7 @@ export default function CustomProductsPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="text-gray-500">Loading custom product requests...</div>
+        <div className="text-slate-400">Loading custom product requests...</div>
       </div>
     );
   }
@@ -229,78 +229,78 @@ export default function CustomProductsPage() {
   return (
     <div className="p-6">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Custom Product Requests</h1>
-        <p className="text-sm text-gray-600 mt-1">Manage customer-submitted custom frame requests</p>
+        <h1 className="text-2xl font-bold text-slate-800">Custom Product Requests</h1>
+        <p className="text-sm text-slate-500 mt-1">Manage customer-submitted custom frame requests</p>
       </div>
 
       {/* Requests Table */}
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+      <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden">
+        <table className="min-w-full divide-y divide-stone-200">
+          <thead className="bg-stone-100">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                 Order #
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                 Customer
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                 Frame Details
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                 Amount
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                 Images
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                 Status
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                 Date
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                 Actions
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-white divide-y divide-stone-200">
             {requests.length === 0 ? (
               <tr>
-                <td colSpan={8} className="px-6 py-4 text-center text-gray-500">
+                <td colSpan={8} className="px-6 py-4 text-center text-slate-400">
                   No custom product requests yet
                 </td>
               </tr>
             ) : (
               requests.map((request) => (
-                <tr key={request.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <tr key={request.id} className="hover:bg-stone-100">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-800">
                     <div className="font-medium">{request.customerOrderId || `REQ-${request.id}`}</div>
-                    <div className="text-xs text-gray-500">ID: {request.id}</div>
+                    <div className="text-xs text-slate-400">ID: {request.id}</div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-800">
                     <div>
                       {request.customerEmail || 'Guest'}
                       {request.customerPhone && (
-                        <div className="text-xs text-gray-500">{request.customerPhone}</div>
+                        <div className="text-xs text-slate-400">{request.customerPhone}</div>
                       )}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-800">
                     <div>
                       <div>Size: {request.frameSize}</div>
                       <div>Color: {request.frameColor}</div>
                       <div>Qty: {request.quantity}</div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-800">
                     {request.totalAmount ? (
                       <span className="font-medium">₹{request.totalAmount.toLocaleString()}</span>
                     ) : (
-                      <span className="text-gray-400">-</span>
+                      <span className="text-slate-400">-</span>
                     )}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-800">
                     <div className="flex -space-x-2">
                       {request.images.slice(0, 3).map((image, index) => (
                         <div key={image.id} className="relative w-10 h-10 rounded-full border-2 border-white overflow-hidden">
@@ -311,14 +311,14 @@ export default function CustomProductsPage() {
                               className="w-full h-full object-cover"
                             />
                           ) : (
-                            <div className="w-full h-full bg-gray-200 flex items-center justify-center text-xs">
+                            <div className="w-full h-full bg-stone-200 flex items-center justify-center text-xs">
                               No img
                             </div>
                           )}
                         </div>
                       ))}
                       {request.images.length > 3 && (
-                        <div className="w-10 h-10 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-xs font-medium text-gray-600">
+                        <div className="w-10 h-10 rounded-full bg-stone-200 border-2 border-white flex items-center justify-center text-xs font-medium text-slate-500">
                           +{request.images.length - 3}
                         </div>
                       )}
@@ -327,7 +327,7 @@ export default function CustomProductsPage() {
                   <td className="px-6 py-4 whitespace-nowrap">
                     {getStatusBadge(request.status)}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-400">
                     {new Date(request.createdAt).toLocaleDateString()}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -363,7 +363,7 @@ export default function CustomProductsPage() {
                   {selectedRequest.customerOrderId || `Custom Request #${selectedRequest.id}`}
                 </h2>
                 {selectedRequest.customerOrderId && (
-                  <p className="text-sm text-gray-500">Request ID: {selectedRequest.id}</p>
+                  <p className="text-sm text-slate-400">Request ID: {selectedRequest.id}</p>
                 )}
               </div>
               <button
@@ -371,7 +371,7 @@ export default function CustomProductsPage() {
                   setShowModal(false);
                   setSelectedRequest(null);
                 }}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-slate-400 hover:text-slate-600"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -386,15 +386,15 @@ export default function CustomProductsPage() {
                   <h3 className="font-semibold mb-3">Customer Information</h3>
                   <div className="space-y-2 text-sm">
                     <div>
-                      <span className="text-gray-500">Email:</span>{' '}
+                      <span className="text-slate-400">Email:</span>{' '}
                       <span className="font-medium">{selectedRequest.customerEmail || 'Not provided'}</span>
                     </div>
                     <div>
-                      <span className="text-gray-500">Phone:</span>{' '}
+                      <span className="text-slate-400">Phone:</span>{' '}
                       <span className="font-medium">{selectedRequest.customerPhone || 'Not provided'}</span>
                     </div>
                     <div>
-                      <span className="text-gray-500">Submitted:</span>{' '}
+                      <span className="text-slate-400">Submitted:</span>{' '}
                       <span className="font-medium">
                         {new Date(selectedRequest.createdAt).toLocaleString()}
                       </span>
@@ -406,20 +406,20 @@ export default function CustomProductsPage() {
                   <h3 className="font-semibold mb-3">Frame Specifications</h3>
                   <div className="space-y-2 text-sm">
                     <div>
-                      <span className="text-gray-500">Size:</span>{' '}
+                      <span className="text-slate-400">Size:</span>{' '}
                       <span className="font-medium">{selectedRequest.frameSize}</span>
                     </div>
                     <div>
-                      <span className="text-gray-500">Color:</span>{' '}
+                      <span className="text-slate-400">Color:</span>{' '}
                       <span className="font-medium">{selectedRequest.frameColor}</span>
                     </div>
                     <div>
-                      <span className="text-gray-500">Quantity:</span>{' '}
+                      <span className="text-slate-400">Quantity:</span>{' '}
                       <span className="font-medium">{selectedRequest.quantity}</span>
                     </div>
                     {selectedRequest.totalAmount && (
                       <div>
-                        <span className="text-gray-500">Total Amount:</span>{' '}
+                        <span className="text-slate-400">Total Amount:</span>{' '}
                         <span className="font-medium text-green-600">₹{selectedRequest.totalAmount.toLocaleString()}</span>
                       </div>
                     )}
@@ -431,7 +431,7 @@ export default function CustomProductsPage() {
               {selectedRequest.specialInstructions && (
                 <div className="mb-6">
                   <h3 className="font-semibold mb-2">Special Instructions</h3>
-                  <p className="text-sm text-gray-700 bg-gray-50 p-3 rounded">
+                  <p className="text-sm text-slate-600 bg-stone-100 p-3 rounded">
                     {selectedRequest.specialInstructions}
                   </p>
                 </div>
@@ -450,25 +450,25 @@ export default function CustomProductsPage() {
                   </div>
                   <div className="grid md:grid-cols-2 gap-3 text-sm">
                     <div>
-                      <span className="text-gray-600">Shiprocket Order ID:</span>{' '}
-                      <span className="font-medium text-gray-900">{selectedRequest.shiprocketOrderId}</span>
+                      <span className="text-slate-500">Shiprocket Order ID:</span>{' '}
+                      <span className="font-medium text-slate-800">{selectedRequest.shiprocketOrderId}</span>
                     </div>
                     {selectedRequest.shiprocketShipmentId && (
                       <div>
-                        <span className="text-gray-600">Shipment ID:</span>{' '}
-                        <span className="font-medium text-gray-900">{selectedRequest.shiprocketShipmentId}</span>
+                        <span className="text-slate-500">Shipment ID:</span>{' '}
+                        <span className="font-medium text-slate-800">{selectedRequest.shiprocketShipmentId}</span>
                       </div>
                     )}
                     {selectedRequest.awbNumber && (
                       <div>
-                        <span className="text-gray-600">AWB Number:</span>{' '}
-                        <span className="font-medium text-gray-900">{selectedRequest.awbNumber}</span>
+                        <span className="text-slate-500">AWB Number:</span>{' '}
+                        <span className="font-medium text-slate-800">{selectedRequest.awbNumber}</span>
                       </div>
                     )}
                     {selectedRequest.courierName && (
                       <div>
-                        <span className="text-gray-600">Courier:</span>{' '}
-                        <span className="font-medium text-gray-900">{selectedRequest.courierName}</span>
+                        <span className="text-slate-500">Courier:</span>{' '}
+                        <span className="font-medium text-slate-800">{selectedRequest.courierName}</span>
                       </div>
                     )}
                     {selectedRequest.trackingUrl && (
@@ -477,7 +477,7 @@ export default function CustomProductsPage() {
                           href={selectedRequest.trackingUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium"
+                          className="inline-flex items-center text-amber-600 hover:text-amber-800 font-medium"
                         >
                           Track Shipment
                           <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -501,7 +501,7 @@ export default function CustomProductsPage() {
                           <img
                             src={`data:${image.mimeType};base64,${image.imageData}`}
                             alt={image.fileName}
-                            className="w-full h-48 object-cover rounded-lg shadow-sm cursor-pointer"
+                            className="w-full h-48 object-cover rounded-2xl border border-stone-200-sm cursor-pointer"
                             onClick={() => window.open(`data:${image.mimeType};base64,${image.imageData}`, '_blank')}
                           />
                           <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -523,7 +523,7 @@ export default function CustomProductsPage() {
                                     document.body.removeChild(a);
                                   })
                               }}
-                              className="bg-white text-gray-700 p-2 rounded-lg shadow-lg hover:bg-gray-100 transition-colors"
+                              className="bg-white text-slate-600 p-2 rounded-2xl border border-stone-200-lg hover:bg-stone-100 transition-colors"
                               title="Download Original"
                             >
                               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -533,8 +533,8 @@ export default function CustomProductsPage() {
                           </div>
                         </>
                       ) : (
-                        <div className="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center">
-                          <span className="text-gray-500">No image data</span>
+                        <div className="w-full h-48 bg-stone-200 rounded-lg flex items-center justify-center">
+                          <span className="text-slate-400">No image data</span>
                         </div>
                       )}
                       <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white p-2 rounded-b-lg opacity-0 group-hover:opacity-100 transition-opacity">
@@ -554,13 +554,13 @@ export default function CustomProductsPage() {
                 <h3 className="font-semibold mb-3">Update Status</h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-slate-600 mb-2">
                       Status
                     </label>
                     <select
                       value={statusUpdate.status}
                       onChange={(e) => setStatusUpdate(prev => ({ ...prev, status: e.target.value }))}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full border border-stone-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     >
                       <option value="pending">Pending</option>
                       <option value="processing">Processing</option>
@@ -571,14 +571,14 @@ export default function CustomProductsPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-slate-600 mb-2">
                       Admin Notes
                     </label>
                     <textarea
                       value={statusUpdate.notes}
                       onChange={(e) => setStatusUpdate(prev => ({ ...prev, notes: e.target.value }))}
                       rows={2}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full border border-stone-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="Add notes about this request..."
                     />
                   </div>
@@ -597,7 +597,7 @@ export default function CustomProductsPage() {
                         setShowModal(false);
                         setSelectedRequest(null);
                       }}
-                      className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                      className="px-4 py-2 border border-stone-200 rounded-lg hover:bg-stone-100"
                     >
                       Cancel
                     </button>
@@ -638,12 +638,12 @@ export default function CustomProductsPage() {
                 </svg>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">Delete Custom Request</h3>
-                <p className="text-sm text-gray-500">Request #{requestToDelete}</p>
+                <h3 className="text-lg font-semibold text-slate-800">Delete Custom Request</h3>
+                <p className="text-sm text-slate-400">Request #{requestToDelete}</p>
               </div>
             </div>
 
-            <p className="text-gray-600 mb-6">
+            <p className="text-slate-500 mb-6">
               Are you sure you want to delete this custom product request? This action cannot be undone and will permanently remove all associated images and data.
             </p>
 
@@ -653,7 +653,7 @@ export default function CustomProductsPage() {
                   setShowDeleteConfirm(false);
                   setRequestToDelete(null);
                 }}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                className="px-4 py-2 border border-stone-200 rounded-lg hover:bg-stone-100"
                 disabled={isDeleting}
               >
                 Cancel

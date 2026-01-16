@@ -145,7 +145,7 @@ export default function AdminCustomers() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="text-gray-500">Loading customers...</div>
+        <div className="text-slate-400">Loading customers...</div>
       </div>
     );
   }
@@ -162,26 +162,26 @@ export default function AdminCustomers() {
     <div>
       {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-white p-6 rounded-lg shadow">
+        <div className="bg-white p-6 rounded-2xl border border-stone-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Total Customers</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.totalCustomers}</p>
-              <p className="text-xs text-gray-500">+{stats.newCustomersThisMonth} this month</p>
+              <p className="text-sm text-slate-500">Total Customers</p>
+              <p className="text-2xl font-bold text-slate-800">{stats.totalCustomers}</p>
+              <p className="text-xs text-slate-400">+{stats.newCustomersThisMonth} this month</p>
             </div>
-            <div className="bg-blue-100 p-3 rounded-full">
-              <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-amber-100 p-3 rounded-full">
+              <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
             </div>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow">
+        <div className="bg-white p-6 rounded-2xl border border-stone-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Active Customers</p>
+              <p className="text-sm text-slate-500">Active Customers</p>
               <p className="text-2xl font-bold text-green-600">{stats.activeCustomers}</p>
-              <p className="text-xs text-gray-500">{stats.inactiveCustomers} inactive</p>
+              <p className="text-xs text-slate-400">{stats.inactiveCustomers} inactive</p>
             </div>
             <div className="bg-green-100 p-3 rounded-full">
               <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -190,11 +190,11 @@ export default function AdminCustomers() {
             </div>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow">
+        <div className="bg-white p-6 rounded-2xl border border-stone-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Total Revenue</p>
-              <p className="text-2xl font-bold text-gray-900">{formatPrice(stats.totalRevenue)}</p>
+              <p className="text-sm text-slate-500">Total Revenue</p>
+              <p className="text-2xl font-bold text-slate-800">{formatPrice(stats.totalRevenue)}</p>
             </div>
             <div className="bg-purple-100 p-3 rounded-full">
               <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -203,11 +203,11 @@ export default function AdminCustomers() {
             </div>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow">
+        <div className="bg-white p-6 rounded-2xl border border-stone-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Avg Lifetime Value</p>
-              <p className="text-2xl font-bold text-gray-900">{formatPrice(Math.round(stats.avgLifetimeValue))}</p>
+              <p className="text-sm text-slate-500">Avg Lifetime Value</p>
+              <p className="text-2xl font-bold text-slate-800">{formatPrice(Math.round(stats.avgLifetimeValue))}</p>
             </div>
             <div className="bg-yellow-100 p-3 rounded-full">
               <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -219,7 +219,7 @@ export default function AdminCustomers() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white p-6 rounded-lg shadow mb-6">
+      <div className="bg-white p-6 rounded-2xl border border-stone-200 mb-6">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
             <input
@@ -227,80 +227,80 @@ export default function AdminCustomers() {
               placeholder="Search by name, email, or phone..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value as 'all' | 'active' | 'inactive')}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="all">All Status</option>
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>
           </select>
-          <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+          <button className="px-6 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors">
             Export Customers
           </button>
         </div>
       </div>
 
       {/* Customers Table */}
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+      <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-200">
+            <thead className="bg-stone-100 border-b border-stone-200">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Customer
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Contact
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Location
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Orders
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Total Spent
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-stone-200">
               {customers.map((customer) => (
-                <tr key={customer.id} className="hover:bg-gray-50">
+                <tr key={customer.id} className="hover:bg-stone-100">
                   <td className="px-6 py-4">
-                    <div className="text-sm font-medium text-gray-900">{customer.name}</div>
-                    <div className="text-sm text-gray-500">Joined {new Date(customer.joinDate).toLocaleDateString()}</div>
+                    <div className="text-sm font-medium text-slate-800">{customer.name}</div>
+                    <div className="text-sm text-slate-400">Joined {new Date(customer.joinDate).toLocaleDateString()}</div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-gray-900">{customer.email}</div>
-                    <div className="text-sm text-gray-500">{customer.phone}</div>
+                    <div className="text-sm text-slate-800">{customer.email}</div>
+                    <div className="text-sm text-slate-400">{customer.phone}</div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-gray-900">{customer.city}, {customer.state}</div>
-                    <div className="text-sm text-gray-500">{customer.pincode}</div>
+                    <div className="text-sm text-slate-800">{customer.city}, {customer.state}</div>
+                    <div className="text-sm text-slate-400">{customer.pincode}</div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm font-semibold text-gray-900">{customer.totalOrders}</div>
-                    <div className="text-sm text-gray-500">Last: {new Date(customer.lastOrderDate).toLocaleDateString()}</div>
+                    <div className="text-sm font-semibold text-slate-800">{customer.totalOrders}</div>
+                    <div className="text-sm text-slate-400">Last: {new Date(customer.lastOrderDate).toLocaleDateString()}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-semibold text-gray-900">{formatPrice(customer.totalSpent)}</div>
+                    <div className="text-sm font-semibold text-slate-800">{formatPrice(customer.totalSpent)}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-3 py-1 text-xs rounded-full font-semibold ${
                       customer.status === 'active' 
                         ? 'bg-green-100 text-green-800' 
-                        : 'bg-gray-100 text-gray-800'
+                        : 'bg-stone-100 text-slate-700'
                     }`}>
                       {customer.status}
                     </span>
@@ -308,13 +308,13 @@ export default function AdminCustomers() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
                     <button 
                       onClick={() => handleViewCustomer(customer)}
-                      className="text-blue-600 hover:text-blue-900 mr-3"
+                      className="text-amber-600 hover:text-blue-900 mr-3"
                     >
                       View
                     </button>
                     <button 
                       onClick={() => handleEditCustomer(customer)}
-                      className="text-gray-600 hover:text-gray-900"
+                      className="text-slate-500 hover:text-slate-800"
                     >
                       Edit
                     </button>
@@ -330,28 +330,28 @@ export default function AdminCustomers() {
       {showViewModal && selectedCustomer && (
         <div className="fixed inset-0 z-50 overflow-y-auto">
           <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onClick={() => setShowViewModal(false)}></div>
+            <div className="fixed inset-0 bg-stone-1000 bg-opacity-75 transition-opacity" onClick={() => setShowViewModal(false)}></div>
             
             <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="flex items-start">
                   <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
+                    <h3 className="text-lg leading-6 font-medium text-slate-800 mb-4">
                       Customer Details
                     </h3>
                     
                     <div className="space-y-4">
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-sm font-medium text-gray-700">Name</label>
-                          <p className="mt-1 text-sm text-gray-900">{selectedCustomer.name}</p>
+                          <label className="block text-sm font-medium text-slate-600">Name</label>
+                          <p className="mt-1 text-sm text-slate-800">{selectedCustomer.name}</p>
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700">Status</label>
+                          <label className="block text-sm font-medium text-slate-600">Status</label>
                           <span className={`mt-1 inline-flex px-2 py-1 text-xs rounded-full font-semibold ${
                             selectedCustomer.status === 'active' 
                               ? 'bg-green-100 text-green-800' 
-                              : 'bg-gray-100 text-gray-800'
+                              : 'bg-stone-100 text-slate-700'
                           }`}>
                             {selectedCustomer.status}
                           </span>
@@ -360,18 +360,18 @@ export default function AdminCustomers() {
                       
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-sm font-medium text-gray-700">Email</label>
-                          <p className="mt-1 text-sm text-gray-900">{selectedCustomer.email}</p>
+                          <label className="block text-sm font-medium text-slate-600">Email</label>
+                          <p className="mt-1 text-sm text-slate-800">{selectedCustomer.email}</p>
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700">Phone</label>
-                          <p className="mt-1 text-sm text-gray-900">{selectedCustomer.phone}</p>
+                          <label className="block text-sm font-medium text-slate-600">Phone</label>
+                          <p className="mt-1 text-sm text-slate-800">{selectedCustomer.phone}</p>
                         </div>
                       </div>
                       
                       <div>
-                        <label className="block text-sm font-medium text-gray-700">Address</label>
-                        <p className="mt-1 text-sm text-gray-900">
+                        <label className="block text-sm font-medium text-slate-600">Address</label>
+                        <p className="mt-1 text-sm text-slate-800">
                           {selectedCustomer.address}<br />
                           {selectedCustomer.city}, {selectedCustomer.state} - {selectedCustomer.pincode}
                         </p>
@@ -379,26 +379,26 @@ export default function AdminCustomers() {
                       
                       <div className="grid grid-cols-3 gap-4">
                         <div>
-                          <label className="block text-sm font-medium text-gray-700">Total Orders</label>
-                          <p className="mt-1 text-sm font-semibold text-gray-900">{selectedCustomer.totalOrders}</p>
+                          <label className="block text-sm font-medium text-slate-600">Total Orders</label>
+                          <p className="mt-1 text-sm font-semibold text-slate-800">{selectedCustomer.totalOrders}</p>
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700">Total Spent</label>
-                          <p className="mt-1 text-sm font-semibold text-gray-900">{formatPrice(selectedCustomer.totalSpent)}</p>
+                          <label className="block text-sm font-medium text-slate-600">Total Spent</label>
+                          <p className="mt-1 text-sm font-semibold text-slate-800">{formatPrice(selectedCustomer.totalSpent)}</p>
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700">Join Date</label>
-                          <p className="mt-1 text-sm text-gray-900">{new Date(selectedCustomer.joinDate).toLocaleDateString()}</p>
+                          <label className="block text-sm font-medium text-slate-600">Join Date</label>
+                          <p className="mt-1 text-sm text-slate-800">{new Date(selectedCustomer.joinDate).toLocaleDateString()}</p>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+              <div className="bg-stone-100 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                 <button
                   type="button"
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                  className="mt-3 w-full inline-flex justify-center rounded-md border border-stone-200 shadow-sm px-4 py-2 bg-white text-base font-medium text-slate-600 hover:bg-stone-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={() => setShowViewModal(false)}
                 >
                   Close
@@ -413,35 +413,35 @@ export default function AdminCustomers() {
       {showEditModal && selectedCustomer && (
         <div className="fixed inset-0 z-50 overflow-y-auto">
           <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onClick={() => setShowEditModal(false)}></div>
+            <div className="fixed inset-0 bg-stone-1000 bg-opacity-75 transition-opacity" onClick={() => setShowEditModal(false)}></div>
             
             <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
               <form onSubmit={handleSaveCustomer}>
                 <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                   <div className="flex items-start">
                     <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
-                      <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
+                      <h3 className="text-lg leading-6 font-medium text-slate-800 mb-4">
                         Edit Customer
                       </h3>
                       
                       <div className="space-y-4">
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <label className="block text-sm font-medium text-gray-700">Name</label>
+                            <label className="block text-sm font-medium text-slate-600">Name</label>
                             <input
                               type="text"
                               name="name"
                               defaultValue={selectedCustomer.name}
-                              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              className="mt-1 block w-full border border-stone-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                               required
                             />
                           </div>
                           <div>
-                            <label className="block text-sm font-medium text-gray-700">Status</label>
+                            <label className="block text-sm font-medium text-slate-600">Status</label>
                             <select
                               name="status"
                               defaultValue={selectedCustomer.status}
-                              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              className="mt-1 block w-full border border-stone-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
                               <option value="active">Active</option>
                               <option value="inactive">Inactive</option>
@@ -451,31 +451,31 @@ export default function AdminCustomers() {
                         
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <label className="block text-sm font-medium text-gray-700">Email</label>
+                            <label className="block text-sm font-medium text-slate-600">Email</label>
                             <input
                               type="email"
                               defaultValue={selectedCustomer.email}
-                              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              className="mt-1 block w-full border border-stone-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                               required
                             />
                           </div>
                           <div>
-                            <label className="block text-sm font-medium text-gray-700">Phone</label>
+                            <label className="block text-sm font-medium text-slate-600">Phone</label>
                             <input
                               type="tel"
                               name="phone"
                               defaultValue={selectedCustomer.phone}
-                              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              className="mt-1 block w-full border border-stone-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                               required
                             />
                           </div>
                         </div>
                         
                         <div>
-                          <label className="block text-sm font-medium text-gray-700">Address</label>
+                          <label className="block text-sm font-medium text-slate-600">Address</label>
                           <textarea
                             defaultValue={selectedCustomer.address}
-                            className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="mt-1 block w-full border border-stone-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             rows={2}
                             required
                           />
@@ -483,29 +483,29 @@ export default function AdminCustomers() {
                         
                         <div className="grid grid-cols-3 gap-4">
                           <div>
-                            <label className="block text-sm font-medium text-gray-700">City</label>
+                            <label className="block text-sm font-medium text-slate-600">City</label>
                             <input
                               type="text"
                               defaultValue={selectedCustomer.city}
-                              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              className="mt-1 block w-full border border-stone-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                               required
                             />
                           </div>
                           <div>
-                            <label className="block text-sm font-medium text-gray-700">State</label>
+                            <label className="block text-sm font-medium text-slate-600">State</label>
                             <input
                               type="text"
                               defaultValue={selectedCustomer.state}
-                              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              className="mt-1 block w-full border border-stone-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                               required
                             />
                           </div>
                           <div>
-                            <label className="block text-sm font-medium text-gray-700">Pincode</label>
+                            <label className="block text-sm font-medium text-slate-600">Pincode</label>
                             <input
                               type="text"
                               defaultValue={selectedCustomer.pincode}
-                              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              className="mt-1 block w-full border border-stone-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                               required
                             />
                           </div>
@@ -514,16 +514,16 @@ export default function AdminCustomers() {
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <div className="bg-stone-100 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                   <button
                     type="submit"
-                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-amber-500 text-base font-medium text-white hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
                   >
                     Save Changes
                   </button>
                   <button
                     type="button"
-                    className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                    className="mt-3 w-full inline-flex justify-center rounded-md border border-stone-200 shadow-sm px-4 py-2 bg-white text-base font-medium text-slate-600 hover:bg-stone-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={() => setShowEditModal(false)}
                   >
                     Cancel

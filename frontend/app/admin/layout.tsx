@@ -81,8 +81,8 @@ export default function AdminLayout({
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="min-h-screen bg-stone-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-500"></div>
       </div>
     );
   }
@@ -100,30 +100,30 @@ export default function AdminLayout({
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-stone-50">
       <div className="flex">
         {/* Sidebar */}
-        <div className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-gray-800 min-h-screen transition-all duration-300 flex flex-col`}>
+        <div className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-slate-800 min-h-screen transition-all duration-300 flex flex-col`}>
           <div className="p-4 flex flex-col h-full">
             <div className="flex items-center justify-between mb-8">
               {sidebarOpen ? (
                 <div className="flex items-center space-x-2">
-                  <div className="w-10 h-10 bg-blue-600 rounded flex items-center justify-center">
+                  <div className="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center">
                     <span className="text-white font-bold text-lg">UD</span>
                   </div>
                   <div>
                     <h1 className="text-white font-bold text-lg">Admin Panel</h1>
-                    <p className="text-xs text-gray-400">UrbanDec Dashboard</p>
+                    <p className="text-xs text-slate-400">UrbanDec Dashboard</p>
                   </div>
                 </div>
               ) : (
-                <div className="w-10 h-10 bg-blue-600 rounded flex items-center justify-center mx-auto">
+                <div className="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center mx-auto">
                   <span className="text-white font-bold text-lg">UD</span>
                 </div>
               )}
               <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="text-white hover:bg-gray-700 p-2 rounded"
+                className="text-white hover:bg-slate-700 p-2 rounded-lg transition-colors"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -139,8 +139,8 @@ export default function AdminLayout({
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded mb-1 transition-colors ${
-                      isActive ? 'bg-gray-700 text-white' : ''
+                    className={`flex items-center px-4 py-3 text-slate-300 hover:bg-slate-700 hover:text-white rounded-lg mb-1 transition-colors ${
+                      isActive ? 'bg-amber-500/20 text-amber-400 border-l-4 border-amber-500' : ''
                     }`}
                   >
                     <span className="text-xl">{item.icon}</span>
@@ -157,14 +157,14 @@ export default function AdminLayout({
 
             {/* User Info - Fixed at bottom */}
             {sidebarOpen && (
-              <div className="mt-auto pt-4 border-t border-gray-700">
-                <div className="text-gray-300 text-sm mb-3">
+              <div className="mt-auto pt-4 border-t border-slate-700">
+                <div className="text-slate-300 text-sm mb-3">
                   <p className="font-semibold">{user?.name}</p>
-                  <p className="text-gray-500">{user?.email}</p>
+                  <p className="text-slate-500">{user?.email}</p>
                 </div>
                 <Link
                   href="/"
-                  className="block text-center bg-gray-700 text-gray-300 py-2 rounded hover:bg-gray-600 transition-colors"
+                  className="block text-center bg-slate-700 text-slate-300 py-2 rounded-lg hover:bg-slate-600 transition-colors"
                 >
                   Back to Store
                 </Link>
@@ -175,10 +175,10 @@ export default function AdminLayout({
 
         {/* Main Content */}
         <div className="flex-1">
-          <header className="bg-white shadow-sm">
+          <header className="bg-white shadow-sm border-b border-stone-200">
             <div className="px-4 sm:px-6 lg:px-8 py-4">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold text-gray-900">
+                <h2 className="text-2xl font-bold text-slate-800">
                   {pathname === '/admin' ? 'Dashboard' : ''}
                   {pathname === '/admin/products' ? 'Product Management' : ''}
                   {pathname === '/admin/custom-products' ? 'Custom Product Requests' : ''}
@@ -190,12 +190,12 @@ export default function AdminLayout({
                   {pathname === '/admin/settings' ? 'Settings' : ''}
                 </h2>
                 <div className="flex items-center space-x-4">
-                  <span className="text-sm text-gray-600">
+                  <span className="text-sm text-slate-500">
                     Welcome, {user?.name}
                   </span>
                   <button
                     onClick={handleLogout}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                    className="bg-amber-500 text-white px-4 py-2 rounded-full hover:bg-amber-600 transition-colors font-medium shadow-lg shadow-amber-500/25"
                   >
                     Logout
                   </button>
