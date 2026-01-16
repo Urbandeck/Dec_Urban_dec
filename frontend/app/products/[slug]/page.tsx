@@ -122,7 +122,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
                         className={`w-5 h-5 ${
                           i < Math.floor(product.rating)
                             ? 'text-yellow-400 fill-current'
-                            : 'text-gray-300'
+                            : 'text-slate-300'
                         }`}
                         viewBox="0 0 20 20"
                       >
@@ -257,7 +257,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
         {params.slug === 'sods' && (
           <div className="mt-16 space-y-12">
             {/* Perfect For Section */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8">
+            <div className="bg-gradient-to-r from-amber-50 to-stone-100 rounded-2xl p-8">
               <h2 className="text-2xl font-bold text-slate-800 mb-6">Perfect For:</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm">
@@ -297,7 +297,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
             <div>
               <h2 className="text-2xl font-bold text-slate-800 mb-6">Frame Specifications</h2>
               <div className="bg-white rounded-xl border border-stone-200 overflow-hidden">
-                <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-200">
+                <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-stone-200">
                   <div className="p-6 space-y-4">
                     <div className="flex justify-between items-center">
                       <span className="text-slate-500 font-medium">Display Size</span>
@@ -358,7 +358,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <div className="flex-shrink-0 w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
                       </svg>
@@ -564,7 +564,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
             <div>
               <h2 className="text-2xl font-bold text-slate-800 mb-6">Frame Specifications</h2>
               <div className="bg-white rounded-xl border border-stone-200 overflow-hidden">
-                <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-200">
+                <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-stone-200">
                   <div className="p-6 space-y-4">
                     <div className="flex justify-between items-center">
                       <span className="text-slate-500 font-medium">Display Size</span>
@@ -831,7 +831,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
             <div>
               <h2 className="text-2xl font-bold text-slate-800 mb-6">Frame Specifications</h2>
               <div className="bg-white rounded-xl border border-stone-200 overflow-hidden">
-                <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-200">
+                <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-stone-200">
                   <div className="p-6 space-y-4">
                     <div className="flex justify-between items-center">
                       <span className="text-slate-500 font-medium">Display Size</span>
@@ -948,7 +948,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
 
                 <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <div className="flex-shrink-0 w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                       </svg>
@@ -1104,7 +1104,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
             <div>
               <h2 className="text-2xl font-bold text-slate-800 mb-6">Frame Specifications</h2>
               <div className="bg-white rounded-xl border border-stone-200 overflow-hidden">
-                <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-200">
+                <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-stone-200">
                   <div className="p-6 space-y-4">
                     <div className="flex justify-between items-center">
                       <span className="text-slate-500 font-medium">Display Size</span>
@@ -1221,7 +1221,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
 
                 <div className="bg-white p-6 rounded-xl border border-stone-200 hover:shadow-lg transition-shadow">
                   <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <div className="flex-shrink-0 w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
                       <svg className="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                       </svg>

@@ -90,7 +90,7 @@ export default function ProductActions({ product, quantity = 1 }: ProductActions
         <button
           onClick={handleBuyNow}
           disabled={isBuying || !product.active}
-          className="flex-1 bg-orange-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-orange-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
+          className="flex-1 bg-amber-500 text-slate-900 py-3 px-6 rounded-lg font-semibold hover:bg-amber-400 transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed flex items-center justify-center"
         >
           {isBuying ? (
             <>
@@ -114,7 +114,7 @@ export default function ProductActions({ product, quantity = 1 }: ProductActions
         <button
           onClick={handleAddToCart}
           disabled={isAdding || !product.active}
-          className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
+          className="flex-1 bg-slate-800 text-white py-3 px-6 rounded-lg font-semibold hover:bg-slate-700 transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed flex items-center justify-center"
         >
           {isAdding ? (
             <>
@@ -149,7 +149,7 @@ export default function ProductActions({ product, quantity = 1 }: ProductActions
       )}
 
       {/* Additional Info */}
-      <div className="flex items-center justify-center gap-4 text-sm text-gray-600">
+      <div className="flex items-center justify-center gap-4 text-sm text-slate-600">
         <div className="flex items-center gap-1">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />

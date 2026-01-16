@@ -203,7 +203,7 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+          className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20"
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
@@ -216,6 +216,13 @@ export default function Home() {
             </svg>
           </motion.div>
         </motion.div>
+
+        {/* Wave divider - Hero to Features */}
+        <div className="absolute bottom-0 left-0 right-0 z-10">
+          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto" preserveAspectRatio="none">
+            <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
+          </svg>
+        </div>
       </section>
 
       {/* Features Section */}
@@ -361,7 +368,13 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-24 bg-slate-800 relative overflow-hidden">
+      <section className="pt-32 pb-24 bg-slate-800 relative overflow-hidden">
+        {/* Wave divider - Top (from stone-50) */}
+        <div className="absolute top-0 left-0 right-0 z-10">
+          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto" preserveAspectRatio="none">
+            <path d="M0 0L60 15C120 30 240 60 360 67.5C480 75 600 60 720 52.5C840 45 960 45 1080 52.5C1200 60 1320 75 1380 82.5L1440 90V0H1380C1320 0 1200 0 1080 0C960 0 840 0 720 0C600 0 480 0 360 0C240 0 120 0 60 0H0Z" fill="#fafaf9"/>
+          </svg>
+        </div>
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500 rounded-full filter blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-500 rounded-full filter blur-3xl" />

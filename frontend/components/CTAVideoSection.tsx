@@ -37,20 +37,26 @@ export default function CTAVideoSection() {
   };
 
   return (
-    <section className="bg-gray-100 py-16">
+    <section className="bg-stone-100 pt-32 pb-16 relative">
+      {/* Wave divider - Top (from slate-800) */}
+      <div className="absolute top-0 left-0 right-0 z-10">
+        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto" preserveAspectRatio="none">
+          <path d="M0 0L48 10C96 20 192 40 288 50C384 60 480 60 576 50C672 40 768 20 864 15C960 10 1056 20 1152 35C1248 50 1344 70 1392 80L1440 90V0H1392C1344 0 1248 0 1152 0C1056 0 960 0 864 0C768 0 672 0 576 0C480 0 384 0 288 0C192 0 96 0 48 0H0Z" fill="#1e293b"/>
+        </svg>
+      </div>
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           {/* Text Content */}
           <ScrollAnimationWrapper animation="slide-right" threshold={0.2} delay={100}>
             <div className={`${videoData ? 'text-left' : 'text-center md:text-left'} ${!videoData && 'md:col-span-2 max-w-4xl mx-auto'}`}>
-              <h2 className="text-3xl font-bold mb-4">Ready to Display Your Memories?</h2>
-              <p className="text-gray-600 mb-8">
+              <h2 className="text-3xl font-bold text-slate-800 mb-4">Ready to Display Your Memories?</h2>
+              <p className="text-slate-600 mb-8">
                 Join thousands of happy customers who have transformed their homes with our
                 premium digital photo frames. Free shipping on all orders over ₹5,000.
               </p>
               <Link
                 href="/products"
-                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-block"
+                className="bg-amber-500 text-slate-900 px-8 py-3 rounded-full font-semibold hover:bg-amber-400 transition-colors inline-block"
               >
                 Start Shopping
               </Link>
@@ -101,9 +107,9 @@ export default function CTAVideoSection() {
                 </div>
                 {videoData.title && (
                   <div className="mt-4">
-                    <h3 className="text-lg font-semibold text-gray-800">{videoData.title}</h3>
+                    <h3 className="text-lg font-semibold text-slate-800">{videoData.title}</h3>
                     {videoData.description && (
-                      <p className="text-sm text-gray-600 mt-1">{videoData.description}</p>
+                      <p className="text-sm text-slate-600 mt-1">{videoData.description}</p>
                     )}
                   </div>
                 )}
