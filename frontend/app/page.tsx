@@ -179,7 +179,7 @@ export default function Home() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1, delay: 0.3 }}
-                className="h-[280px] sm:h-[350px] md:h-[450px] lg:h-[600px] relative flex items-center justify-center"
+                className="h-[180px] sm:h-[350px] md:h-[450px] lg:h-[600px] relative flex items-center justify-center"
               >
                 {/* Glowing backdrop */}
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -191,7 +191,7 @@ export default function Home() {
                 </div>
 
                 {/* Main stacked card layout */}
-                <div className="relative w-full max-w-[380px] lg:max-w-[420px] aspect-[3/4]">
+                <div className="relative w-full max-w-[220px] sm:max-w-[380px] lg:max-w-[420px] aspect-[3/4]">
                   {/* Back card - tilted left */}
                   <motion.div
                     initial={{ opacity: 0, x: -30, rotate: -8 }}
