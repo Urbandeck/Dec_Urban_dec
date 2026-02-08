@@ -258,6 +258,49 @@ public class ShiprocketService {
         return createErrorResponse("Failed to track shipment");
     }
 
+    /**
+     * Get order details from Shiprocket by order ID
+     * This is useful when AWB is not yet assigned
+     */
+    public Map<String, Object> getOrderDetails(String shiprocketOrderId) {
+        try {
+            if (authToken == null) {
+                authToken = authenticateAndGetToken();
+            }
+
+            if (authToken == null) {
+                logger.error("Failed to get auth token for order details");
+                return createErrorResponse("Authentication failed");
+            }
+
+            String orderUrl = apiBaseUrl + "/orders/show/" + shiprocketOrderId;
+            logger.info("Fetching order details from Shiprocket: {}", orderUrl);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(authToken);
+
+            HttpEntity<Void> request = new HttpEntity<>(headers);
+
+            ResponseEntity<Map> response = restTemplate.exchange(
+                orderUrl,
+                HttpMethod.GET,
+                request,
+                Map.class
+            );
+
+            if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+                logger.info("Order details fetched successfully for order ID: {}", shiprocketOrderId);
+                return response.getBody();
+            }
+
+        } catch (Exception e) {
+            logger.error("Failed to get order details for order {}: {}", shiprocketOrderId, e.getMessage(), e);
+            return createErrorResponse(e.getMessage());
+        }
+
+        return createErrorResponse("Failed to get order details");
+    }
+
     public Map<String, Object> cancelShipment(String awb) {
         try {
             if (authToken == null) {
