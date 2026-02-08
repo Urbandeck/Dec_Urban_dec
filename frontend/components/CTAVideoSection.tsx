@@ -74,8 +74,9 @@ export default function CTAVideoSection() {
                       <iframe
                         src={getYouTubeEmbedUrl(videoData.videoUrl)}
                         title={videoData.title || "Advertisement Video"}
-                        className="w-full h-full"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        className="w-full h-full border-0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
                         allowFullScreen
                       />
                     </div>
@@ -124,12 +125,12 @@ export default function CTAVideoSection() {
 
 // Helper function to extract YouTube video ID and create embed URL
 function getYouTubeEmbedUrl(url: string): string {
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|&v=)([^#&?]*).*/;
   const match = url.match(regExp);
   const videoId = (match && match[2].length === 11) ? match[2] : null;
 
   if (videoId) {
-    return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}`;
+    return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`;
   }
   return url;
 }

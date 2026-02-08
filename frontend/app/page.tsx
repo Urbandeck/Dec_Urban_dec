@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import { formatPrice } from '@/lib/utils';
 import HoverImageSwap from '@/components/HoverImageSwap';
 import CustomProductCheckout from '@/components/CustomProductCheckout';
@@ -9,16 +8,6 @@ import CTAVideoSection from '@/components/CTAVideoSection';
 import { useEffect, useState, useRef } from 'react';
 import { useProductStore } from '@/store/products';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-
-// Dynamic import for 3D component (client-side only)
-const Frame3D = dynamic(() => import('@/components/Frame3D'), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="w-16 h-16 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
-    </div>
-  ),
-});
 
 // Animation variants
 const fadeInUp = {
@@ -185,14 +174,128 @@ export default function Home() {
                 </motion.div>
               </motion.div>
 
-              {/* Right: 3D Frame */}
+              {/* Right: Hero Visual */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
+                initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="h-[280px] sm:h-[350px] md:h-[450px] lg:h-[600px] relative"
+                transition={{ duration: 1, delay: 0.3 }}
+                className="h-[280px] sm:h-[350px] md:h-[450px] lg:h-[600px] relative flex items-center justify-center"
               >
-                <Frame3D />
+                {/* Glowing backdrop */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <motion.div
+                    animate={{ scale: [1, 1.1, 1], opacity: [0.15, 0.25, 0.15] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                    className="w-[70%] h-[70%] rounded-full bg-amber-500/20 blur-[80px]"
+                  />
+                </div>
+
+                {/* Main stacked card layout */}
+                <div className="relative w-full max-w-[380px] lg:max-w-[420px] aspect-[3/4]">
+                  {/* Back card - tilted left */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -30, rotate: -8 }}
+                    animate={{ opacity: 1, x: 0, rotate: -8 }}
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                    className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600/50 shadow-2xl -translate-x-6 sm:-translate-x-8 translate-y-2"
+                  >
+                    <div className="absolute inset-[6px] sm:inset-[10px] rounded-xl sm:rounded-2xl bg-gradient-to-br from-amber-900/40 to-slate-900 overflow-hidden">
+                      <div className="absolute inset-0 bg-[linear-gradient(135deg,transparent_40%,rgba(245,158,11,0.08)_50%,transparent_60%)]" />
+                    </div>
+                  </motion.div>
+
+                  {/* Middle card - tilted right */}
+                  <motion.div
+                    initial={{ opacity: 0, x: 30, rotate: 6 }}
+                    animate={{ opacity: 1, x: 0, rotate: 6 }}
+                    transition={{ duration: 0.8, delay: 0.5 }}
+                    className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-slate-600 to-slate-700 border border-slate-500/50 shadow-2xl translate-x-6 sm:translate-x-8 -translate-y-2"
+                  >
+                    <div className="absolute inset-[6px] sm:inset-[10px] rounded-xl sm:rounded-2xl bg-gradient-to-br from-amber-800/30 to-slate-800 overflow-hidden">
+                      <div className="absolute inset-0 bg-[linear-gradient(225deg,transparent_40%,rgba(245,158,11,0.1)_50%,transparent_60%)]" />
+                    </div>
+                  </motion.div>
+
+                  {/* Front card - main */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.7 }}
+                    whileHover={{ y: -5, transition: { duration: 0.3 } }}
+                    className="relative rounded-2xl sm:rounded-3xl bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900 border border-amber-500/30 shadow-[0_20px_60px_-15px_rgba(245,158,11,0.2)] overflow-hidden"
+                  >
+                    {/* Shimmer effect */}
+                    <motion.div
+                      animate={{ x: ['-100%', '200%'] }}
+                      transition={{ duration: 3, repeat: Infinity, repeatDelay: 4, ease: 'easeInOut' }}
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12 z-10"
+                    />
+
+                    {/* Frame border */}
+                    <div className="absolute inset-[6px] sm:inset-[10px] rounded-xl sm:rounded-2xl border border-amber-500/20 overflow-hidden">
+                      {/* Inner content area */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-slate-800 via-slate-900 to-black flex flex-col items-center justify-center p-4 sm:p-8">
+                        {/* Decorative icon */}
+                        <motion.div
+                          animate={{ rotate: [0, 360] }}
+                          transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+                          className="w-12 h-12 sm:w-16 sm:h-16 mb-4 sm:mb-6 rounded-full border border-amber-500/30 flex items-center justify-center"
+                        >
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-amber-500/50 flex items-center justify-center">
+                            <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-amber-500/60" />
+                          </div>
+                        </motion.div>
+
+                        {/* Grid pattern */}
+                        <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-4 sm:mb-6 w-full max-w-[200px] sm:max-w-[240px]">
+                          {[...Array(9)].map((_, i) => (
+                            <motion.div
+                              key={i}
+                              initial={{ opacity: 0, scale: 0 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ delay: 1 + i * 0.08, duration: 0.4 }}
+                              className={`aspect-square rounded-lg sm:rounded-xl ${
+                                i === 4
+                                  ? 'bg-amber-500/30 border border-amber-500/50'
+                                  : 'bg-slate-700/50 border border-slate-600/30'
+                              }`}
+                            />
+                          ))}
+                        </div>
+
+                        {/* Bottom lines */}
+                        <div className="space-y-1.5 sm:space-y-2 w-full max-w-[200px] sm:max-w-[240px]">
+                          <div className="h-1.5 sm:h-2 bg-slate-700/60 rounded-full w-full" />
+                          <div className="h-1.5 sm:h-2 bg-slate-700/40 rounded-full w-3/4" />
+                          <div className="h-1.5 sm:h-2 bg-amber-500/20 rounded-full w-1/2" />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Corner accents */}
+                    <div className="absolute top-3 left-3 sm:top-4 sm:left-4 w-4 h-4 sm:w-6 sm:h-6 border-t-2 border-l-2 border-amber-500/50 rounded-tl-lg" />
+                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 w-4 h-4 sm:w-6 sm:h-6 border-t-2 border-r-2 border-amber-500/50 rounded-tr-lg" />
+                    <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 w-4 h-4 sm:w-6 sm:h-6 border-b-2 border-l-2 border-amber-500/50 rounded-bl-lg" />
+                    <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 w-4 h-4 sm:w-6 sm:h-6 border-b-2 border-r-2 border-amber-500/50 rounded-br-lg" />
+                  </motion.div>
+                </div>
+
+                {/* Floating accent dots */}
+                <motion.div
+                  animate={{ y: [-5, 5, -5], opacity: [0.4, 0.8, 0.4] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                  className="absolute top-[10%] right-[5%] w-2 h-2 rounded-full bg-amber-400"
+                />
+                <motion.div
+                  animate={{ y: [5, -5, 5], opacity: [0.3, 0.7, 0.3] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+                  className="absolute bottom-[15%] left-[8%] w-1.5 h-1.5 rounded-full bg-amber-300"
+                />
+                <motion.div
+                  animate={{ y: [-3, 7, -3], opacity: [0.5, 0.9, 0.5] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+                  className="absolute top-[30%] left-[3%] w-1 h-1 rounded-full bg-amber-500"
+                />
               </motion.div>
             </div>
           </div>

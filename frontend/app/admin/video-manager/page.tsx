@@ -9,7 +9,7 @@ interface CTAVideo {
   videoUrl: string;
   title: string;
   description: string;
-  isActive: boolean;
+  active: boolean;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -23,7 +23,7 @@ export default function VideoManagerPage() {
     videoUrl: '',
     title: '',
     description: '',
-    isActive: true
+    active: true
   });
 
   useEffect(() => {
@@ -54,8 +54,8 @@ export default function VideoManagerPage() {
 
     try {
       const url = editingVideo
-        ? `http://localhost:8080/api/site-settings/cta-video/${editingVideo.id}`
-        : 'http://localhost:8080/api/site-settings/cta-video';
+        ? `${ENV_CONFIG.API_URL}/api/site-settings/cta-video/${editingVideo.id}`
+        : `${ENV_CONFIG.API_URL}/api/site-settings/cta-video`;
 
       const method = editingVideo ? 'PUT' : 'POST';
 
@@ -127,7 +127,7 @@ export default function VideoManagerPage() {
       videoUrl: '',
       title: '',
       description: '',
-      isActive: true
+      active: true
     });
     setEditingVideo(null);
     setShowForm(false);
@@ -139,7 +139,7 @@ export default function VideoManagerPage() {
       videoUrl: video.videoUrl,
       title: video.title,
       description: video.description,
-      isActive: video.isActive
+      active: video.active
     });
     setShowForm(true);
   };
@@ -153,7 +153,7 @@ export default function VideoManagerPage() {
   };
 
   const extractYouTubeId = (url: string) => {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|shorts\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
     return (match && match[2].length === 11) ? match[2] : null;
   };
@@ -196,7 +196,15 @@ export default function VideoManagerPage() {
                 <input
                   type="url"
                   value={formData.videoUrl}
-                  onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })}
+                  onChange={(e) => {
+                    let url = e.target.value;
+                    // Auto-convert YouTube Shorts URL to regular watch URL for better embed support
+                    const shortsMatch = url.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/);
+                    if (shortsMatch) {
+                      url = `https://www.youtube.com/watch?v=${shortsMatch[1]}`;
+                    }
+                    setFormData({ ...formData, videoUrl: url });
+                  }}
                   className="w-full border border-stone-200 rounded-lg px-3 py-2"
                   placeholder="https://www.youtube.com/watch?v=... or direct video URL"
                   required
@@ -204,6 +212,11 @@ export default function VideoManagerPage() {
                 <p className="text-xs text-slate-400 mt-1">
                   Supports YouTube, Vimeo, or direct video file URLs (MP4, WebM)
                 </p>
+                {formData.videoUrl.includes('/shorts/') && (
+                  <p className="text-xs text-amber-600 mt-1 font-medium">
+                    YouTube Shorts URLs will be auto-converted to regular format for embedding.
+                  </p>
+                )}
               </div>
 
               <div>
@@ -236,12 +249,12 @@ export default function VideoManagerPage() {
               <div className="flex items-center">
                 <input
                   type="checkbox"
-                  id="isActive"
-                  checked={formData.isActive}
-                  onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
+                  id="active"
+                  checked={formData.active}
+                  onChange={(e) => setFormData({ ...formData, active: e.target.checked })}
                   className="mr-2"
                 />
-                <label htmlFor="isActive" className="text-sm text-slate-600">
+                <label htmlFor="active" className="text-sm text-slate-600">
                   Active (Show on homepage)
                 </label>
               </div>
@@ -326,12 +339,12 @@ export default function VideoManagerPage() {
                     <button
                       onClick={() => handleToggleActive(video)}
                       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        video.isActive
+                        video.active
                           ? 'bg-green-100 text-green-800'
                           : 'bg-stone-100 text-slate-700'
                       }`}
                     >
-                      {video.isActive ? 'Active' : 'Inactive'}
+                      {video.active ? 'Active' : 'Inactive'}
                     </button>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -361,6 +374,7 @@ export default function VideoManagerPage() {
           <li>• Only one video can be active at a time on the homepage</li>
           <li>• Recommended video aspect ratio: 16:9</li>
           <li>• YouTube and Vimeo URLs will be automatically embedded</li>
+          <li>• <strong>YouTube Shorts:</strong> Shorts URLs are auto-converted to regular format. Make sure "Allow embedding" is enabled in YouTube Studio for the video</li>
           <li>• For direct video files, use MP4 or WebM format for best compatibility</li>
           <li>• Keep videos under 100MB for direct uploads</li>
         </ul>
