@@ -30,6 +30,7 @@ export default function AdminProducts() {
   });
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [existingImages, setExistingImages] = useState<any[]>([]);
 
   useEffect(() => {
     fetchProducts();
@@ -113,6 +114,8 @@ export default function AdminProducts() {
   const uploadImages = async (productId: number) => {
     if (selectedImages.length === 0) return;
 
+    const hasExistingImages = existingImages.length > 0;
+
     try {
       // Upload each image
       for (let i = 0; i < selectedImages.length; i++) {
@@ -132,6 +135,9 @@ export default function AdminProducts() {
         reader.readAsDataURL(image);
         const base64Data = await base64Promise;
 
+        // Only mark first image as primary if there are no existing images
+        const shouldBePrimary = i === 0 && !hasExistingImages;
+
         // Upload to backend
         const response = await fetch(`${ENV_CONFIG.API_URL}/api/products/${productId}/images/base64`, {
           method: 'POST',
@@ -142,8 +148,8 @@ export default function AdminProducts() {
           body: JSON.stringify({
             base64Data,
             fileName: image.name,
-            altText: `${formData.name} - Image ${i + 1}`,
-            isPrimary: i === 0, // First image is primary
+            altText: `${formData.name} - Image ${existingImages.length + i + 1}`,
+            isPrimary: shouldBePrimary,
           }),
         });
 
@@ -174,6 +180,7 @@ export default function AdminProducts() {
     setEditingProduct(null);
     setSelectedImages([]);
     setImagePreviews([]);
+    setExistingImages([]);
   };
 
   const handleEdit = (product: Product) => {
@@ -194,6 +201,10 @@ export default function AdminProducts() {
         features: specs.features || '',
       },
     });
+    // Load existing images for this product
+    setExistingImages(product.images || []);
+    setSelectedImages([]);
+    setImagePreviews([]);
     setShowAddModal(true);
   };
 
@@ -540,9 +551,9 @@ export default function AdminProducts() {
                     onChange={(e) => {
                       const files = Array.from(e.target.files || []);
                       if (files.length > 0) {
-                        setSelectedImages(files);
+                        setSelectedImages(prev => [...prev, ...files]);
                         const urls = files.map(file => URL.createObjectURL(file));
-                        setImagePreviews(urls);
+                        setImagePreviews(prev => [...prev, ...urls]);
                       }
                     }}
                   />
@@ -569,34 +580,59 @@ export default function AdminProducts() {
                   Recommended: 800x800px, white background
                 </p>
 
-                {/* Preview */}
-                {imagePreviews.length > 0 && (
+                {/* Preview - Existing Images + New Uploads */}
+                {(existingImages.length > 0 || imagePreviews.length > 0) && (
                   <div className="mt-2">
                     <div className="flex gap-2 flex-wrap">
-                      {imagePreviews.map((preview, index) => (
-                        <div key={index} className="relative">
+                      {/* Existing images */}
+                      {existingImages.map((image: any, index: number) => (
+                        <div key={`existing-${image.id || index}`} className="relative">
                           <div className="w-16 h-16 bg-stone-100 rounded border overflow-hidden">
                             <img
-                              src={preview}
-                              alt={`Preview ${index + 1}`}
+                              src={image.base64Data || '/images/placeholder.jpg'}
+                              alt={image.altText || `Image ${index + 1}`}
                               className="w-full h-full object-cover"
                               onError={(e) => {
                                 (e.target as HTMLImageElement).src = '/images/placeholder.jpg';
                               }}
                             />
                           </div>
-                          {index === 0 && (
+                          {image.isPrimary && (
                             <span className="absolute -top-1 -right-1 text-xs bg-amber-500 text-white px-1 rounded">Primary</span>
+                          )}
+                        </div>
+                      ))}
+                      {/* New uploads */}
+                      {imagePreviews.map((preview, index) => (
+                        <div key={`new-${index}`} className="relative">
+                          <div className="w-16 h-16 bg-stone-100 rounded border overflow-hidden">
+                            <img
+                              src={preview}
+                              alt={`New ${index + 1}`}
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).src = '/images/placeholder.jpg';
+                              }}
+                            />
+                          </div>
+                          {index === 0 && existingImages.length === 0 && (
+                            <span className="absolute -top-1 -right-1 text-xs bg-amber-500 text-white px-1 rounded">Primary</span>
+                          )}
+                          {existingImages.length > 0 && (
+                            <span className="absolute -top-1 -right-1 text-xs bg-blue-500 text-white px-1 rounded">New</span>
                           )}
                         </div>
                       ))}
                     </div>
                     <p className="text-xs text-slate-500 mt-1">
-                      {selectedImages.length} image{selectedImages.length > 1 ? 's' : ''} selected
+                      {existingImages.length > 0 && `${existingImages.length} existing`}
+                      {existingImages.length > 0 && selectedImages.length > 0 && ' + '}
+                      {selectedImages.length > 0 && `${selectedImages.length} new`}
+                      {' '}image{(existingImages.length + selectedImages.length) !== 1 ? 's' : ''}
                     </p>
                   </div>
                 )}
-                {!imagePreviews.length && formData.imageUrl && (
+                {!imagePreviews.length && !existingImages.length && formData.imageUrl && (
                   <div className="mt-2 flex items-center gap-2">
                     <div className="w-16 h-16 bg-stone-100 rounded border overflow-hidden">
                       <img
