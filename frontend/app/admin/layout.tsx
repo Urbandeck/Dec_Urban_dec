@@ -93,8 +93,7 @@ export default function AdminLayout({
     { name: 'Custom Products', href: '/admin/custom-products', icon: '🎨' },
     { name: 'Orders', href: '/admin/orders', icon: '🛒' },
     { name: 'Returns', href: '/admin/returns', icon: '↩️' },
-    { name: 'Carousel', href: '/admin/carousel', icon: '🖼️' },
-    { name: 'Video Manager', href: '/admin/video-manager', icon: '🎥' },
+{ name: 'Video Manager', href: '/admin/video-manager', icon: '🎥' },
     { name: 'Analytics', href: '/admin/analytics', icon: '📈' },
     { name: 'Customers', href: '/admin/customers', icon: '👥' },
     { name: 'Settings', href: '/admin/settings', icon: '⚙️' },
@@ -184,8 +183,7 @@ export default function AdminLayout({
                   {pathname === '/admin/products' ? 'Product Management' : ''}
                   {pathname === '/admin/custom-products' ? 'Custom Product Requests' : ''}
                   {pathname === '/admin/orders' ? 'Order Management' : ''}
-                  {pathname === '/admin/carousel' ? 'Carousel Management' : ''}
-                  {pathname === '/admin/video-manager' ? 'CTA Video Manager' : ''}
+{pathname === '/admin/video-manager' ? 'CTA Video Manager' : ''}
                   {pathname === '/admin/analytics' ? 'Analytics' : ''}
                   {pathname === '/admin/customers' ? 'Customer Management' : ''}
                   {pathname === '/admin/settings' ? 'Settings' : ''}
