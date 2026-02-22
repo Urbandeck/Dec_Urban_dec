@@ -91,7 +91,8 @@ public class ProductController {
         dto.put("rating", product.getRating());
         dto.put("reviewCount", product.getReviewCount());
         dto.put("isLive", product.getIsLive());
-        // Removed imageUrl - using byte arrays instead
+        dto.put("stock", product.getStock());
+        dto.put("imageUrl", product.getImageUrl());
 
         // Fetch and include images
         List<ProductImage> images = productImageService.getProductImages(product.getId());

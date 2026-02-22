@@ -65,6 +65,7 @@ export default function AdminProducts() {
       imageUrl: formData.imageUrl || '/images/placeholder.jpg',
       active: true,
       isLive: formData.isLive,
+      stock: parseInt(formData.stock) || 0,
       specsJson: JSON.stringify(formData.specs),
       skus: [],
       rating: editingProduct?.rating || 0,
@@ -192,7 +193,7 @@ export default function AdminProducts() {
       category: product.category || 'Digital Frames',
       brand: product.brand || 'Urbandec',
       basePrice: product.basePrice.toString(),
-      stock: '50',
+      stock: (product.stock ?? 50).toString(),
       imageUrl: product.imageUrl || '',
       isLive: product.isLive || false,
       specs: {
@@ -278,15 +279,15 @@ export default function AdminProducts() {
         </div>
         <div className="bg-white rounded-2xl border border-stone-200 p-4">
           <p className="text-sm text-slate-500">In Stock</p>
-          <p className="text-2xl font-bold text-green-600">{products.length}</p>
+          <p className="text-2xl font-bold text-green-600">{products.filter(p => (p.stock ?? 0) > 0).length}</p>
         </div>
         <div className="bg-white rounded-2xl border border-stone-200 p-4">
           <p className="text-sm text-slate-500">Out of Stock</p>
-          <p className="text-2xl font-bold text-red-600">0</p>
+          <p className="text-2xl font-bold text-red-600">{products.filter(p => (p.stock ?? 0) === 0).length}</p>
         </div>
         <div className="bg-white rounded-2xl border border-stone-200 p-4">
           <p className="text-sm text-slate-500">Categories</p>
-          <p className="text-2xl font-bold text-amber-600">3</p>
+          <p className="text-2xl font-bold text-amber-600">{new Set(products.map(p => p.category)).size}</p>
         </div>
       </div>
 
@@ -384,7 +385,7 @@ export default function AdminProducts() {
                       <div className="text-sm font-medium text-slate-800">{formatPrice(product.basePrice)}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-slate-800">50 units</div>
+                      <div className="text-sm text-slate-800">{product.stock ?? 0} units</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {product.isLive ? (

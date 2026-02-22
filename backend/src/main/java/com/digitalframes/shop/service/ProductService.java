@@ -92,6 +92,9 @@ public class ProductService {
             if (productDetails.getSpecsJson() != null) {
                 product.setSpecsJson(productDetails.getSpecsJson());
             }
+            if (productDetails.getStock() != null) {
+                product.setStock(productDetails.getStock());
+            }
             
             product.setActive(productDetails.isActive());
             product.setUpdatedAt(LocalDateTime.now());

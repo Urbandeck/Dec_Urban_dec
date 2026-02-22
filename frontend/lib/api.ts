@@ -34,6 +34,7 @@ export interface Product {
   imageUrl?: string; // Legacy field, kept for backwards compatibility
   images?: ProductImage[]; // New field for multiple images
   isLive?: boolean; // Product visibility status
+  stock?: number;
 }
 
 export interface ApiResponse<T> {

@@ -50,6 +50,8 @@ public class Product {
     private Integer reviewCount = 0;
     private String imageUrl;
 
+    private Integer stock = 50;
+
     @Column(nullable = false)
     private Boolean isLive = false; // Default to draft status
     
@@ -102,6 +104,9 @@ public class Product {
 
     public List<ProductImage> getImages() { return images; }
     public void setImages(List<ProductImage> images) { this.images = images; }
+
+    public Integer getStock() { return stock; }
+    public void setStock(Integer stock) { this.stock = stock; }
 
     public Boolean getIsLive() { return isLive; }
     public void setIsLive(Boolean isLive) { this.isLive = isLive; }
