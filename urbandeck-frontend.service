@@ -1,5 +1,5 @@
 [Unit]
-Description=UrbanDeck Next.js Frontend
+Description=Urbandec Next.js Frontend
 After=network.target
 
 [Service]

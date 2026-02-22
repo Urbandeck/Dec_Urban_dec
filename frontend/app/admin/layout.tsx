@@ -114,7 +114,7 @@ export default function AdminLayout({
                   </div>
                   <div>
                     <h1 className="text-white font-bold text-lg">Admin Panel</h1>
-                    <p className="text-xs text-slate-400">UrbanDec Dashboard</p>
+                    <p className="text-xs text-slate-400">Urbandec Dashboard</p>
                   </div>
                 </div>
               ) : (

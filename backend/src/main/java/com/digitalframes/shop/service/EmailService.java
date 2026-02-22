@@ -81,7 +81,7 @@ public class EmailService {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             
-            helper.setFrom(fromEmail, "UrbanDec - Digital Frames Shop");
+            helper.setFrom(fromEmail, "Urbandec - Digital Frames Shop");
             helper.setTo(email);
             helper.setSubject(subject);
             helper.setText(htmlContent, true);
@@ -99,7 +99,7 @@ public class EmailService {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             
-            helper.setFrom(fromEmail, "UrbanDec - Digital Frames Shop");
+            helper.setFrom(fromEmail, "Urbandec - Digital Frames Shop");
             helper.setTo(email);
             helper.setSubject(subject);
             helper.setText(htmlContent, true);
@@ -152,9 +152,9 @@ public class EmailService {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             
-            helper.setFrom(fromEmail, "UrbanDec - Digital Frames Shop");
+            helper.setFrom(fromEmail, "Urbandec - Digital Frames Shop");
             helper.setTo(user.getEmail());
-            helper.setSubject("Welcome to UrbanDec - Digital Frames Shop");
+            helper.setSubject("Welcome to Urbandec - Digital Frames Shop");
             
             String htmlContent = buildWelcomeEmailHtml(user);
             helper.setText(htmlContent, true);
@@ -172,9 +172,9 @@ public class EmailService {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             
-            helper.setFrom(fromEmail, "UrbanDec - Digital Frames Shop");
+            helper.setFrom(fromEmail, "Urbandec - Digital Frames Shop");
             helper.setTo(email);
-            helper.setSubject("Password Reset Request - UrbanDec");
+            helper.setSubject("Password Reset Request - Urbandec");
             
             String htmlContent = buildPasswordResetHtml(resetToken);
             helper.setText(htmlContent, true);
@@ -303,7 +303,7 @@ public class EmailService {
         html.append("<div style=\"text-align: center;\">");
         html.append("<a href=\"").append(frontendUrl).append("/orders\" class=\"btn\">Track Your Package</a>");
         html.append("</div>");
-        html.append("<p>We'll notify you again when your order is delivered. Thank you for shopping with UrbanDec!</p>");
+        html.append("<p>We'll notify you again when your order is delivered. Thank you for shopping with Urbandec!</p>");
         html.append("</div>");
         html.append("</div>");
         html.append("</body>");
@@ -318,7 +318,7 @@ public class EmailService {
         html.append("<html>");
         html.append("<head>");
         html.append("<meta charset=\"UTF-8\">");
-        html.append("<title>Welcome to UrbanDec</title>");
+        html.append("<title>Welcome to Urbandec</title>");
         html.append("<style>");
         html.append("body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; }");
         html.append(".container { max-width: 600px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }");
@@ -330,12 +330,12 @@ public class EmailService {
         html.append("<body>");
         html.append("<div class=\"container\">");
         html.append("<div class=\"header\">");
-        html.append("<h1>Welcome to UrbanDec!</h1>");
+        html.append("<h1>Welcome to Urbandec!</h1>");
         html.append("<p>We're excited to have you join our community of digital frame enthusiasts.</p>");
         html.append("</div>");
         html.append("<div class=\"content\">");
         html.append("<p>Hello ").append(user.getName()).append(",</p>");
-        html.append("<p>Thank you for creating an account with UrbanDec! We're your premier destination for high-quality digital photo frames.</p>");
+        html.append("<p>Thank you for creating an account with Urbandec! We're your premier destination for high-quality digital photo frames.</p>");
         html.append("<div style=\"text-align: center;\">");
         html.append("<a href=\"").append(frontendUrl).append("/products\" class=\"btn\">Shop Digital Frames</a>");
         html.append("</div>");
@@ -372,7 +372,7 @@ public class EmailService {
         html.append("<p>We received a request to reset your password.</p>");
         html.append("</div>");
         html.append("<div class=\"content\">");
-        html.append("<p>Someone requested a password reset for your UrbanDec account.</p>");
+        html.append("<p>Someone requested a password reset for your Urbandec account.</p>");
         html.append("<p>Click the button below to reset your password:</p>");
         html.append("<div style=\"text-align: center;\">");
         html.append("<a href=\"").append(resetUrl).append("\" class=\"btn\">Reset Password</a>");
@@ -413,7 +413,7 @@ public class EmailService {
         html.append("<div class=\"container\">");
         html.append("<div class=\"header\">");
         html.append("<h1>Invoice</h1>");
-        html.append("<p>UrbanDec - Digital Frames Shop</p>");
+        html.append("<p>Urbandec - Digital Frames Shop</p>");
         html.append("</div>");
         html.append("<div class=\"content\">");
         

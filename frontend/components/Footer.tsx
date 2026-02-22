@@ -152,7 +152,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-slate-700 mt-8 pt-8 text-center">
-          <p className="text-sm text-slate-400">&copy; 2025 UrbanDec. All rights reserved.</p>
+          <p className="text-sm text-slate-400">&copy; 2025 Urbandec. All rights reserved.</p>
           <p className="mt-2 text-sm text-slate-400">
             Secure payments powered by{' '}
             <span className="text-amber-400 font-medium">Razorpay</span>

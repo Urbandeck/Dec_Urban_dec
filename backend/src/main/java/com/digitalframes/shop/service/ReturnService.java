@@ -336,9 +336,9 @@ public class ReturnService {
                         "Product: %s\n" +
                         "Reason: %s\n\n" +
                         "Our team will review your request and get back to you within 24-48 hours.\n\n" +
-                        "Thank you for shopping with UrbanDec!\n\n" +
+                        "Thank you for shopping with Urbandec!\n\n" +
                         "Best regards,\n" +
-                        "UrbanDec Team",
+                        "Urbandec Team",
                 returnRequest.getCustomerName(),
                 order.getOrderId(),
                 returnRequest.getReturnId(),
@@ -359,7 +359,7 @@ public class ReturnService {
                         "%s\n\n" +
                         "Thank you for your patience!\n\n" +
                         "Best regards,\n" +
-                        "UrbanDec Team",
+                        "Urbandec Team",
                 returnRequest.getCustomerName(),
                 returnRequest.getReturnId(),
                 returnRequest.getProductName(),
