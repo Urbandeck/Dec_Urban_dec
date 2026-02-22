@@ -154,7 +154,7 @@ export default function Home() {
 
         {/* Hero content - centered over starfield */}
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative z-10">
-          <div className="container mx-auto px-4 pt-16 md:pt-20">
+          <div className="container mx-auto px-4">
             <div className="flex items-center justify-center min-h-[85vh] lg:min-h-[90vh]">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
