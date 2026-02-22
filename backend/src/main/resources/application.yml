@@ -46,8 +46,8 @@ spring:
   servlet:
     multipart:
       enabled: true
-      max-file-size: 10MB
-      max-request-size: 50MB
+      max-file-size: 500MB
+      max-request-size: 500MB
       file-size-threshold: 2KB
 
   security:
@@ -102,6 +102,10 @@ app:
     url: ${FRONTEND_URL:http://localhost:3000}
   email:
     enabled: ${MAIL_ENABLED:true}
+
+video:
+  upload:
+    directory: ${VIDEO_UPLOAD_DIR:/var/www/videos/cta-videos}
 
 shiprocket:
   email: ${SHIPROCKET_EMAIL:}

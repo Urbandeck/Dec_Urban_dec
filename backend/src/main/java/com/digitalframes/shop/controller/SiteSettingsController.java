@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +51,27 @@ public class SiteSettingsController {
             return ResponseEntity.status(HttpStatus.CREATED).body(createdVideo);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    // Upload video file
+    @PostMapping("/cta-video/upload")
+    public ResponseEntity<?> uploadVideo(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("title") String title,
+            @RequestParam(value = "description", required = false, defaultValue = "") String description,
+            @RequestParam(value = "isActive", required = false, defaultValue = "true") boolean isActive) {
+        try {
+            CTAVideo createdVideo = ctaVideoService.uploadVideo(file, title, description, isActive);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdVideo);
+        } catch (IllegalArgumentException e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.badRequest().body(error);
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "Failed to upload video: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
         }
     }
 

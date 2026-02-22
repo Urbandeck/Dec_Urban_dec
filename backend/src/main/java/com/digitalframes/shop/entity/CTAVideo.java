@@ -26,6 +26,18 @@ public class CTAVideo {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    @Column(name = "storage_type", nullable = false, length = 20)
+    private String storageType = "URL";
+
+    @Column(name = "file_name", length = 500)
+    private String fileName;
+
+    @Column(name = "mime_type", length = 100)
+    private String mimeType;
+
+    @Column(name = "file_size")
+    private Long fileSize;
+
     @Column(name = "updated_at")
     private LocalDateTime updatedAt = LocalDateTime.now();
 
@@ -84,6 +96,38 @@ public class CTAVideo {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getStorageType() {
+        return storageType;
+    }
+
+    public void setStorageType(String storageType) {
+        this.storageType = storageType;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
+    }
+
+    public Long getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(Long fileSize) {
+        this.fileSize = fileSize;
     }
 
     @PreUpdate
