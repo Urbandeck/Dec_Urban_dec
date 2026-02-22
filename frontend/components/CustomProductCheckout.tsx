@@ -417,6 +417,7 @@ export default function CustomProductCheckout() {
       {/* Card Button */}
       <ScrollAnimationWrapper animation="scale" threshold={0.2} delay={100}>
         <div
+          id="custom-product-card"
           onClick={() => setShowModal(true)}
           className="bg-white rounded-xl sm:rounded-2xl transition-all duration-300 cursor-pointer group border border-stone-200 hover:border-amber-300 overflow-hidden h-full hover:shadow-lg"
         >
