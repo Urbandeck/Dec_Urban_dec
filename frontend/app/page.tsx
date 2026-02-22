@@ -5,10 +5,7 @@ import { formatPrice } from '@/lib/utils';
 import HoverImageSwap from '@/components/HoverImageSwap';
 import CustomProductCheckout from '@/components/CustomProductCheckout';
 import CTAVideoSection from '@/components/CTAVideoSection';
-import dynamic from 'next/dynamic';
-import { useEffect, useState, useRef } from 'react';
-
-const Frame3D = dynamic(() => import('@/components/Frame3D'), { ssr: false });
+import { useEffect, useState, useRef, useMemo } from 'react';
 import { useProductStore } from '@/store/products';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 
@@ -177,14 +174,127 @@ export default function Home() {
                 </motion.div>
               </motion.div>
 
-              {/* Right: 3D Hero Visual */}
+              {/* Right: Starfield Space */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1, delay: 0.3 }}
-                className="h-[280px] sm:h-[400px] md:h-[500px] lg:h-[600px] relative"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1.5, delay: 0.3 }}
+                className="h-[280px] sm:h-[400px] md:h-[500px] lg:h-[600px] relative rounded-2xl overflow-hidden"
               >
-                <Frame3D />
+                {/* Deep space background */}
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#0f172a_0%,_#020617_70%,_#000000_100%)]" />
+
+                {/* Nebula glow - center */}
+                <motion.div
+                  animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.25, 0.15] }}
+                  transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[40%] rounded-full bg-amber-500/20 blur-[80px]"
+                />
+                {/* Nebula glow - secondary */}
+                <motion.div
+                  animate={{ scale: [1.1, 0.9, 1.1], opacity: [0.1, 0.18, 0.1] }}
+                  transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+                  className="absolute top-[30%] left-[60%] w-[40%] h-[30%] rounded-full bg-blue-500/10 blur-[60px]"
+                />
+
+                {/* Stars - small twinkling */}
+                {[...Array(60)].map((_, i) => {
+                  const size = i < 10 ? 'w-1.5 h-1.5' : i < 25 ? 'w-1 h-1' : 'w-[3px] h-[3px]';
+                  const brightness = i < 10 ? 'bg-white' : i < 25 ? 'bg-white/80' : 'bg-white/50';
+                  // Deterministic positions based on index
+                  const top = ((i * 17 + 13) % 100);
+                  const left = ((i * 23 + 7) % 100);
+                  const delay = (i * 0.37) % 5;
+                  const duration = 2 + (i % 4);
+                  return (
+                    <motion.div
+                      key={i}
+                      className={`absolute ${size} ${brightness} rounded-full`}
+                      style={{ top: `${top}%`, left: `${left}%` }}
+                      animate={{ opacity: [0.2, 1, 0.2], scale: [0.8, 1.2, 0.8] }}
+                      transition={{ duration, repeat: Infinity, ease: 'easeInOut', delay }}
+                    />
+                  );
+                })}
+
+                {/* A few brighter accent stars with glow */}
+                {[
+                  { top: '20%', left: '30%', color: 'bg-amber-300', glow: 'shadow-amber-300/50' },
+                  { top: '60%', left: '70%', color: 'bg-amber-400', glow: 'shadow-amber-400/50' },
+                  { top: '35%', left: '80%', color: 'bg-blue-200', glow: 'shadow-blue-200/50' },
+                  { top: '75%', left: '25%', color: 'bg-amber-200', glow: 'shadow-amber-200/50' },
+                  { top: '15%', left: '65%', color: 'bg-white', glow: 'shadow-white/50' },
+                ].map((star, i) => (
+                  <motion.div
+                    key={`accent-${i}`}
+                    className={`absolute w-2 h-2 ${star.color} rounded-full shadow-lg ${star.glow}`}
+                    style={{ top: star.top, left: star.left }}
+                    animate={{
+                      opacity: [0.4, 1, 0.4],
+                      scale: [1, 1.5, 1],
+                      boxShadow: [
+                        '0 0 4px 1px rgba(255,255,255,0.2)',
+                        '0 0 12px 4px rgba(255,255,255,0.4)',
+                        '0 0 4px 1px rgba(255,255,255,0.2)',
+                      ],
+                    }}
+                    transition={{ duration: 3 + i * 0.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.8 }}
+                  />
+                ))}
+
+                {/* Shooting star */}
+                <motion.div
+                  className="absolute w-[2px] h-[2px] bg-white rounded-full"
+                  style={{ top: '10%', left: '0%' }}
+                  animate={{
+                    top: ['10%', '50%'],
+                    left: ['10%', '90%'],
+                    opacity: [0, 1, 1, 0],
+                  }}
+                  transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 8, ease: 'easeIn', delay: 3 }}
+                >
+                  {/* Shooting star trail */}
+                  <div className="absolute top-0 right-0 w-16 h-[1px] bg-gradient-to-l from-transparent to-white/60 -rotate-[27deg] origin-right" />
+                </motion.div>
+
+                {/* Second shooting star */}
+                <motion.div
+                  className="absolute w-[2px] h-[2px] bg-amber-200 rounded-full"
+                  style={{ top: '5%', left: '60%' }}
+                  animate={{
+                    top: ['5%', '40%'],
+                    left: ['60%', '100%'],
+                    opacity: [0, 1, 1, 0],
+                  }}
+                  transition={{ duration: 1.2, repeat: Infinity, repeatDelay: 12, ease: 'easeIn', delay: 7 }}
+                >
+                  <div className="absolute top-0 right-0 w-12 h-[1px] bg-gradient-to-l from-transparent to-amber-200/60 -rotate-[40deg] origin-right" />
+                </motion.div>
+
+                {/* Subtle center text */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1.5, delay: 1 }}
+                    className="text-center"
+                  >
+                    <motion.div
+                      animate={{ rotate: [0, 360] }}
+                      transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+                      className="w-20 h-20 sm:w-28 sm:h-28 mx-auto mb-4 rounded-full border border-amber-500/20 flex items-center justify-center"
+                    >
+                      <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-full border border-amber-500/30 flex items-center justify-center">
+                        <motion.div
+                          animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0.9, 0.5] }}
+                          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                          className="w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-amber-500/50 shadow-lg shadow-amber-500/30"
+                        />
+                      </div>
+                    </motion.div>
+                    <p className="text-amber-500/40 text-xs sm:text-sm font-light tracking-[0.3em] uppercase">Digital Frames</p>
+                  </motion.div>
+                </div>
               </motion.div>
             </div>
           </div>
