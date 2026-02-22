@@ -52,7 +52,7 @@ export default function CTAVideoSection() {
               <h2 className="text-3xl font-bold text-slate-800 mb-4">Ready to Display Your Memories?</h2>
               <p className="text-slate-600 mb-8">
                 Join thousands of happy customers who have transformed their homes with our
-                premium digital photo frames. Free shipping on all orders over ₹5,000.
+                premium digital photo frames.
               </p>
               <Link
                 href="/products"
