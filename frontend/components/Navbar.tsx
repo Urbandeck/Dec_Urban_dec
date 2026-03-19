@@ -70,55 +70,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <svg viewBox="0 0 220 70" xmlns="http://www.w3.org/2000/svg" className="h-14 w-auto">
-              <defs>
-                <linearGradient id="mainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style={{stopColor:'#f59e0b',stopOpacity:1}} />
-                  <stop offset="100%" style={{stopColor:'#d97706',stopOpacity:1}} />
-                </linearGradient>
-              </defs>
-
-              <text x="10" y="40"
-                    fontFamily="'Poppins', 'Segoe UI', Arial, sans-serif"
-                    fontSize="32"
-                    fontWeight="900"
-                    fill="#1E293B"
-                    letterSpacing="1.5"
-                    stroke="#1E293B"
-                    strokeWidth="1.5">
-                Urban
-              </text>
-
-              <g>
-                <text x="112" y="37"
-                      fontFamily="'Montserrat', 'Helvetica Neue', Arial, sans-serif"
-                      fontSize="32"
-                      fontWeight="700"
-                      fill="url(#mainGrad)"
-                      letterSpacing="1.5">
-                  Dec.
-                  <animateTransform
-                    attributeName="transform"
-                    attributeType="XML"
-                    type="translate"
-                    values="0 0; 0 -3; 0 0"
-                    dur="2s"
-                    repeatCount="indefinite"
-                    additive="sum"/>
-                </text>
-
-                <rect x="112" y="43" width="72" height="3.5" fill="url(#mainGrad)" rx="1.75">
-                  <animateTransform
-                    attributeName="transform"
-                    attributeType="XML"
-                    type="translate"
-                    values="0 0; 0 -3; 0 0"
-                    dur="2s"
-                    repeatCount="indefinite"
-                    additive="sum"/>
-                </rect>
-              </g>
-            </svg>
+            <img src="/logo.png" alt="Urbandec" className="h-12 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
