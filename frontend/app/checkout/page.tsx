@@ -376,7 +376,7 @@ export default function CheckoutPage() {
         currency: 'INR',
         name: 'Urbandec',
         description: 'Purchase of Digital Photo Frames',
-        image: '/logo.png',
+        // image: '/logo.png', // Commented out - no logo file available
         handler: async function (response: any) {
           // Payment successful - show loading state
           setPaymentSuccess(true);

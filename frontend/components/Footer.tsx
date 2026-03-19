@@ -8,7 +8,55 @@ export default function Footer() {
           {/* Company Info */}
           <div>
             <div className="flex items-center mb-4">
-              <img src="/logo.png" alt="Urbandec" className="h-14 w-auto" />
+              <svg viewBox="0 0 220 70" xmlns="http://www.w3.org/2000/svg" className="h-14 w-auto">
+                <defs>
+                  <linearGradient id="footerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style={{stopColor:'#f59e0b',stopOpacity:1}} />
+                    <stop offset="100%" style={{stopColor:'#d97706',stopOpacity:1}} />
+                  </linearGradient>
+                </defs>
+
+                <text x="10" y="40"
+                      fontFamily="'Poppins', 'Segoe UI', Arial, sans-serif"
+                      fontSize="32"
+                      fontWeight="900"
+                      fill="#FFFFFF"
+                      letterSpacing="1.5"
+                      stroke="#FFFFFF"
+                      strokeWidth="1.5">
+                  Urban
+                </text>
+
+                <g>
+                  <text x="112" y="37"
+                        fontFamily="'Montserrat', 'Helvetica Neue', Arial, sans-serif"
+                        fontSize="32"
+                        fontWeight="700"
+                        fill="url(#footerGrad)"
+                        letterSpacing="1.5">
+                    Dec.
+                    <animateTransform
+                      attributeName="transform"
+                      attributeType="XML"
+                      type="translate"
+                      values="0 0; 0 -3; 0 0"
+                      dur="2s"
+                      repeatCount="indefinite"
+                      additive="sum"/>
+                  </text>
+
+                  <rect x="112" y="43" width="72" height="3.5" fill="url(#footerGrad)" rx="1.75">
+                    <animateTransform
+                      attributeName="transform"
+                      attributeType="XML"
+                      type="translate"
+                      values="0 0; 0 -3; 0 0"
+                      dur="2s"
+                      repeatCount="indefinite"
+                      additive="sum"/>
+                  </rect>
+                </g>
+              </svg>
             </div>
             <p className="text-sm text-slate-400 leading-relaxed">
               Your trusted source for premium digital photo frames. Bringing memories to life.
