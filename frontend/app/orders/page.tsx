@@ -24,6 +24,12 @@ export default function OrdersPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [orderStatus, setOrderStatus] = useState('all');
   const [notification, setNotification] = useState<{ type: 'success' | 'error' | 'info' | 'warning'; title: string; message?: string } | null>(null);
+  const [showReturnModal, setShowReturnModal] = useState(false);
+  const [returnOrder, setReturnOrder] = useState<any>(null);
+  const [returnReason, setReturnReason] = useState('');
+  const [returnReasonDetails, setReturnReasonDetails] = useState('');
+  const [returnProductIndex, setReturnProductIndex] = useState(0);
+  const [submittingReturn, setSubmittingReturn] = useState(false);
 
   // Handle hydration
   useEffect(() => {
@@ -231,6 +237,65 @@ export default function OrdersPage() {
     }
   };
 
+  const openReturnModal = (order: any) => {
+    setReturnOrder(order);
+    setReturnReason('');
+    setReturnReasonDetails('');
+    setReturnProductIndex(0);
+    setShowReturnModal(true);
+  };
+
+  const handleSubmitReturn = async () => {
+    if (!returnOrder || !returnReason) return;
+
+    const orderId = getOrderId(returnOrder);
+    const item = returnOrder.items?.[returnProductIndex];
+    if (!item) return;
+
+    setSubmittingReturn(true);
+    try {
+      const response = await fetch(`${ENV_CONFIG.API_URL}/api/returns`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          orderId,
+          productId: item.productId || 0,
+          productName: item.productName || item.name,
+          quantity: item.quantity || 1,
+          reason: returnReason,
+          reasonDetails: returnReasonDetails || null,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setNotification({
+          type: 'success',
+          title: 'Return request submitted',
+          message: `Return ID: ${data.returnId || 'Pending'}. We'll process your request shortly.`,
+        });
+        setShowReturnModal(false);
+        setReturnOrder(null);
+      } else {
+        setNotification({
+          type: 'error',
+          title: 'Return request failed',
+          message: data.error || 'Please try again later',
+        });
+      }
+    } catch (error) {
+      setNotification({
+        type: 'error',
+        title: 'Return request failed',
+        message: 'Please try again later',
+      });
+    } finally {
+      setSubmittingReturn(false);
+    }
+  };
+
   const getStatusDisplay = (status: string) => {
     const statusConfig: { [key: string]: { label: string, color: string } } = {
       'PENDING': { label: 'Order Placed', color: 'text-yellow-600' },
@@ -417,7 +482,10 @@ export default function OrdersPage() {
                           Track package
                         </button>
                         {order.status === 'DELIVERED' && (
-                          <button className="px-4 py-2 border border-stone-200 hover:bg-stone-100 text-slate-600 text-sm font-medium rounded-md transition-colors">
+                          <button
+                            onClick={() => openReturnModal(order)}
+                            className="px-4 py-2 border border-stone-200 hover:bg-stone-100 text-slate-600 text-sm font-medium rounded-md transition-colors"
+                          >
                             Return items
                           </button>
                         )}
@@ -578,6 +646,110 @@ export default function OrdersPage() {
           </div>
         )}
       </div>
+
+      {/* Return Items Modal */}
+      {showReturnModal && returnOrder && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg max-w-md w-full p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-medium text-slate-800">Return Items</h2>
+              <button
+                onClick={() => { setShowReturnModal(false); setReturnOrder(null); }}
+                className="text-gray-400 hover:text-slate-500"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <p className="text-sm text-slate-500 mb-4">
+              Order #{getOrderId(returnOrder).slice(0, 16).toUpperCase()}
+            </p>
+
+            {/* Select item to return */}
+            {returnOrder.items?.length > 1 && (
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-slate-600 mb-2">Select item to return</label>
+                <select
+                  value={returnProductIndex}
+                  onChange={(e) => setReturnProductIndex(Number(e.target.value))}
+                  className="w-full px-3 py-2 border border-stone-200 rounded-md focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500"
+                >
+                  {returnOrder.items.map((item: any, idx: number) => (
+                    <option key={idx} value={idx}>
+                      {item.productName || item.name} (Qty: {item.quantity})
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            {/* Selected item preview */}
+            {returnOrder.items?.[returnProductIndex] && (
+              <div className="mb-4 p-3 bg-stone-50 rounded-md flex items-center gap-3">
+                <div className="text-sm">
+                  <p className="font-medium text-slate-800">{returnOrder.items[returnProductIndex].productName || returnOrder.items[returnProductIndex].name}</p>
+                  <p className="text-slate-500">Qty: {returnOrder.items[returnProductIndex].quantity} &middot; {formatPrice(returnOrder.items[returnProductIndex].total || returnOrder.items[returnProductIndex].price)}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Reason */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-slate-600 mb-2">Reason for return *</label>
+              <select
+                value={returnReason}
+                onChange={(e) => setReturnReason(e.target.value)}
+                className="w-full px-3 py-2 border border-stone-200 rounded-md focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500"
+              >
+                <option value="">Select a reason...</option>
+                <option value="DEFECTIVE">Product is defective or damaged</option>
+                <option value="WRONG_ITEM">Received wrong item</option>
+                <option value="NOT_AS_DESCRIBED">Product not as described</option>
+                <option value="QUALITY_ISSUE">Quality not satisfactory</option>
+                <option value="CHANGED_MIND">Changed my mind</option>
+                <option value="SIZE_ISSUE">Size/dimensions not suitable</option>
+                <option value="OTHER">Other reason</option>
+              </select>
+            </div>
+
+            {/* Additional details */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-slate-600 mb-2">Additional details (optional)</label>
+              <textarea
+                value={returnReasonDetails}
+                onChange={(e) => setReturnReasonDetails(e.target.value)}
+                placeholder="Please describe the issue..."
+                rows={3}
+                className="w-full px-3 py-2 border border-stone-200 rounded-md focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500"
+              />
+            </div>
+
+            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
+              <p className="text-sm text-blue-800">
+                Returns are accepted within 7 days of delivery. Once submitted, our team will review your request and get back to you.
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={handleSubmitReturn}
+                disabled={submittingReturn || !returnReason}
+                className="flex-1 bg-amber-500 hover:bg-amber-600 disabled:bg-gray-300 text-slate-800 px-4 py-2 rounded-md font-medium disabled:cursor-not-allowed transition-colors"
+              >
+                {submittingReturn ? 'Submitting...' : 'Submit Return Request'}
+              </button>
+              <button
+                onClick={() => { setShowReturnModal(false); setReturnOrder(null); }}
+                className="flex-1 border border-stone-200 text-slate-600 px-4 py-2 rounded-md font-medium hover:bg-stone-100 transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Cancel Order Modal */}
       {showCancelModal && (
