@@ -68,6 +68,9 @@ public class CustomerOrder {
     private String trackingUrl;
     private String shiprocketStatus;
 
+    // Delivery tracking
+    private LocalDateTime deliveredAt;
+
     // Cancellation/failure details
     @Column(columnDefinition = "TEXT")
     private String failureReason;

@@ -14,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.digitalframes.shop.entity.Product;
+import com.digitalframes.shop.repository.ProductRepository;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -34,6 +37,9 @@ public class ReturnService {
     private CustomerOrderRepository customerOrderRepository;
 
     @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
     private EmailService emailService;
 
     /**
@@ -52,12 +58,11 @@ public class ReturnService {
             return false;
         }
 
-        // Check if within return window (7 days from order creation for now)
-        // In production, you'd track actual delivery date
-        LocalDateTime orderDate = order.getCreatedAt();
-        long daysSinceOrder = ChronoUnit.DAYS.between(orderDate, LocalDateTime.now());
+        // Check if within return window (7 days from delivery date)
+        LocalDateTime deliveryDate = order.getDeliveredAt() != null ? order.getDeliveredAt() : order.getCreatedAt();
+        long daysSinceDelivery = ChronoUnit.DAYS.between(deliveryDate, LocalDateTime.now());
 
-        return daysSinceOrder <= RETURN_WINDOW_DAYS;
+        return daysSinceDelivery <= RETURN_WINDOW_DAYS;
     }
 
     /**
@@ -70,9 +75,9 @@ public class ReturnService {
         }
 
         CustomerOrder order = orderOpt.get();
-        LocalDateTime orderDate = order.getCreatedAt();
-        long daysSinceOrder = ChronoUnit.DAYS.between(orderDate, LocalDateTime.now());
-        int remaining = RETURN_WINDOW_DAYS - (int) daysSinceOrder;
+        LocalDateTime deliveryDate = order.getDeliveredAt() != null ? order.getDeliveredAt() : order.getCreatedAt();
+        long daysSinceDelivery = ChronoUnit.DAYS.between(deliveryDate, LocalDateTime.now());
+        int remaining = RETURN_WINDOW_DAYS - (int) daysSinceDelivery;
 
         return Math.max(0, remaining);
     }
@@ -234,6 +239,26 @@ public class ReturnService {
             String timestamp = LocalDateTime.now().toString();
             String newNote = "[" + timestamp + "] " + adminNotes;
             returnRequest.setAdminNotes(existingNotes != null ? existingNotes + "\n" + newNote : newNote);
+        }
+
+        // Restore stock when returned product is received at warehouse
+        if (newStatus == ReturnStatus.RECEIVED) {
+            try {
+                Long productId = returnRequest.getProductId();
+                if (productId != null && productId > 0) {
+                    Optional<Product> productOpt = productRepository.findById(productId);
+                    if (productOpt.isPresent()) {
+                        Product product = productOpt.get();
+                        int currentStock = product.getStock() != null ? product.getStock() : 0;
+                        int restoredStock = currentStock + returnRequest.getQuantity();
+                        product.setStock(restoredStock);
+                        productRepository.save(product);
+                        logger.info("Stock restored for product {} on return received: {} -> {}", productId, currentStock, restoredStock);
+                    }
+                }
+            } catch (Exception e) {
+                logger.error("Failed to restore stock for return {}: {}", returnRequest.getReturnId(), e.getMessage());
+            }
         }
 
         // Mark as resolved if final status

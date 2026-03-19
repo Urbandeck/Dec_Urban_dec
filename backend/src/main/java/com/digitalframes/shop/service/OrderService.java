@@ -107,7 +107,23 @@ public class OrderService {
         }
         
         order.setItems(orderItems);
-        
+
+        // Decrement stock for each ordered product
+        for (CustomerOrderItem orderItem : orderItems) {
+            Long productId = orderItem.getProductId();
+            if (productId != null && productId > 0) {
+                Optional<Product> productOpt = productRepository.findById(productId);
+                if (productOpt.isPresent()) {
+                    Product product = productOpt.get();
+                    int currentStock = product.getStock() != null ? product.getStock() : 0;
+                    int newStock = Math.max(0, currentStock - orderItem.getQuantity());
+                    product.setStock(newStock);
+                    productRepository.save(product);
+                    log.info("Stock decremented for product {}: {} -> {}", productId, currentStock, newStock);
+                }
+            }
+        }
+
         CustomerOrder savedOrder = orderRepository.save(order);
         log.info("Order created successfully with ID: {}, Status: {}", savedOrder.getOrderId(), savedOrder.getStatus());
 
@@ -231,6 +247,12 @@ public class OrderService {
             CustomerOrder order = orderOpt.get();
             String oldStatus = order.getStatus();
             order.setStatus(newStatus.toUpperCase());
+
+            // Record delivery timestamp
+            if ("DELIVERED".equalsIgnoreCase(newStatus)) {
+                order.setDeliveredAt(LocalDateTime.now());
+            }
+
             CustomerOrder savedOrder = orderRepository.save(order);
 
             // Send SMS notification for status updates
@@ -343,6 +365,24 @@ public class OrderService {
                     shiprocketMessage = "Failed to cancel in Shiprocket: " + e.getMessage();
                     log.error(shiprocketMessage, e);
                     // Continue with order cancellation even if Shiprocket fails
+                }
+            }
+
+            // Restore stock for each item in the cancelled order
+            if (order.getItems() != null) {
+                for (CustomerOrderItem item : order.getItems()) {
+                    Long productId = item.getProductId();
+                    if (productId != null && productId > 0) {
+                        Optional<Product> productOpt = productRepository.findById(productId);
+                        if (productOpt.isPresent()) {
+                            Product product = productOpt.get();
+                            int currentStock = product.getStock() != null ? product.getStock() : 0;
+                            int restoredStock = currentStock + item.getQuantity();
+                            product.setStock(restoredStock);
+                            productRepository.save(product);
+                            log.info("Stock restored for product {}: {} -> {}", productId, currentStock, restoredStock);
+                        }
+                    }
                 }
             }
 
@@ -560,6 +600,135 @@ public class OrderService {
         } catch (Exception e) {
             log.error("Error handling payment webhook: ", e);
         }
+    }
+
+    /**
+     * Sync order statuses from Shiprocket tracking data.
+     * Maps Shiprocket statuses to internal order statuses.
+     */
+    @Transactional
+    public Map<String, Object> syncShiprocketStatuses() {
+        int synced = 0;
+        int failed = 0;
+        int skipped = 0;
+
+        // Only sync orders that are in active states (not DELIVERED, CANCELLED, FAILED)
+        List<CustomerOrder> activeOrders = orderRepository.findAll().stream()
+            .filter(o -> o.getAwbNumber() != null && !o.getAwbNumber().isEmpty())
+            .filter(o -> {
+                String status = o.getStatus();
+                return !"DELIVERED".equals(status) && !"CANCELLED".equals(status) && !"FAILED".equals(status);
+            })
+            .toList();
+
+        log.info("Syncing Shiprocket statuses for {} active orders", activeOrders.size());
+
+        for (CustomerOrder order : activeOrders) {
+            try {
+                Map<String, Object> trackingData = shiprocketService.trackShipment(order.getAwbNumber());
+                if (trackingData == null || Boolean.FALSE.equals(trackingData.get("success"))) {
+                    skipped++;
+                    continue;
+                }
+
+                // Extract current status from Shiprocket tracking response
+                String shiprocketStatus = extractShiprocketStatus(trackingData);
+                if (shiprocketStatus == null) {
+                    skipped++;
+                    continue;
+                }
+
+                // Save the raw Shiprocket status
+                order.setShiprocketStatus(shiprocketStatus);
+
+                // Map Shiprocket status to internal status
+                String mappedStatus = mapShiprocketToInternalStatus(shiprocketStatus);
+                if (mappedStatus != null && !mappedStatus.equals(order.getStatus())) {
+                    String oldStatus = order.getStatus();
+                    order.setStatus(mappedStatus);
+
+                    // Set deliveredAt timestamp
+                    if ("DELIVERED".equals(mappedStatus)) {
+                        order.setDeliveredAt(LocalDateTime.now());
+                    }
+
+                    orderRepository.save(order);
+                    log.info("Order {} status synced: {} -> {} (Shiprocket: {})",
+                        order.getOrderId(), oldStatus, mappedStatus, shiprocketStatus);
+
+                    // Send SMS notifications
+                    try {
+                        if (order.getCustomerPhone() != null && !order.getCustomerPhone().isEmpty()) {
+                            if ("SHIPPED".equals(mappedStatus)) {
+                                smsService.sendShippingSms(order.getCustomerPhone(), order.getOrderId(),
+                                    order.getAwbNumber() != null ? order.getAwbNumber() : "");
+                            } else if ("DELIVERED".equals(mappedStatus)) {
+                                smsService.sendDeliverySms(order.getCustomerPhone(), order.getOrderId());
+                            }
+                        }
+                    } catch (Exception e) {
+                        log.error("Failed to send SMS for order {} during sync: {}", order.getOrderId(), e.getMessage());
+                    }
+
+                    synced++;
+                } else {
+                    skipped++;
+                }
+            } catch (Exception e) {
+                log.error("Failed to sync order {}: {}", order.getOrderId(), e.getMessage());
+                failed++;
+            }
+        }
+
+        Map<String, Object> result = new java.util.HashMap<>();
+        result.put("synced", synced);
+        result.put("failed", failed);
+        result.put("skipped", skipped);
+        result.put("total", activeOrders.size());
+        log.info("Shiprocket sync complete: synced={}, failed={}, skipped={}", synced, failed, skipped);
+        return result;
+    }
+
+    private String extractShiprocketStatus(Map<String, Object> trackingData) {
+        try {
+            // Shiprocket tracking response structure varies
+            // Try common paths for current status
+            if (trackingData.containsKey("tracking_data")) {
+                Map<String, Object> td = (Map<String, Object>) trackingData.get("tracking_data");
+                if (td.containsKey("track_status")) {
+                    return String.valueOf(((Number) td.get("track_status")).intValue());
+                }
+                if (td.containsKey("shipment_track")) {
+                    List<Map<String, Object>> tracks = (List<Map<String, Object>>) td.get("shipment_track");
+                    if (tracks != null && !tracks.isEmpty()) {
+                        Map<String, Object> latest = tracks.get(0);
+                        if (latest.containsKey("current_status")) {
+                            return (String) latest.get("current_status");
+                        }
+                    }
+                }
+            }
+            if (trackingData.containsKey("current_status")) {
+                return (String) trackingData.get("current_status");
+            }
+        } catch (Exception e) {
+            log.error("Failed to extract Shiprocket status: {}", e.getMessage());
+        }
+        return null;
+    }
+
+    private String mapShiprocketToInternalStatus(String shiprocketStatus) {
+        if (shiprocketStatus == null) return null;
+        String status = shiprocketStatus.toLowerCase().trim();
+
+        // Shiprocket status codes/strings mapping
+        if (status.contains("delivered")) return "DELIVERED";
+        if (status.contains("out for delivery") || status.equals("7")) return "OUT_FOR_DELIVERY";
+        if (status.contains("in transit") || status.contains("shipped") || status.equals("6")) return "SHIPPED";
+        if (status.contains("picked up") || status.equals("5")) return "SHIPPED";
+        if (status.contains("cancelled") || status.contains("rto")) return "CANCELLED";
+
+        return null;
     }
 
     private void handleRefundWebhook(String event, Map<String, Object> payload) {

@@ -220,6 +220,21 @@ public class AdminOrderController {
     }
 
     /**
+     * Sync order statuses from Shiprocket tracking data
+     */
+    @PostMapping("/sync-shiprocket")
+    public ResponseEntity<?> syncShiprocketStatuses() {
+        try {
+            Map<String, Object> result = orderService.syncShiprocketStatuses();
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            log.error("Error syncing Shiprocket statuses: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("error", "Failed to sync: " + e.getMessage()));
+        }
+    }
+
+    /**
      * Update all existing order items with product images from the database
      */
     @PostMapping("/update-images")
