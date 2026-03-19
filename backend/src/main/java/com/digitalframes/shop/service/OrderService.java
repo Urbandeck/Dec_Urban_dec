@@ -253,6 +253,56 @@ public class OrderService {
                 order.setDeliveredAt(LocalDateTime.now());
             }
 
+            // Cancel Shiprocket shipment when order is cancelled
+            if ("CANCELLED".equalsIgnoreCase(newStatus) && !"CANCELLED".equals(oldStatus)) {
+                // Cancel in Shiprocket
+                if (order.getAwbNumber() != null && !order.getAwbNumber().isEmpty()) {
+                    try {
+                        log.info("Cancelling Shiprocket shipment for AWB: {}", order.getAwbNumber());
+                        Map<String, Object> shiprocketResponse = shiprocketService.cancelShipment(order.getAwbNumber());
+                        if (shiprocketResponse != null && !Boolean.FALSE.equals(shiprocketResponse.get("success"))) {
+                            log.info("Shiprocket shipment cancelled successfully for order: {}", orderId);
+                        } else {
+                            log.warn("Shiprocket cancellation may have failed for order {}: {}", orderId, shiprocketResponse);
+                        }
+                    } catch (Exception e) {
+                        log.error("Failed to cancel Shiprocket shipment for order {}: {}", orderId, e.getMessage(), e);
+                    }
+                } else if (order.getShiprocketOrderId() != null && !order.getShiprocketOrderId().isEmpty()) {
+                    try {
+                        log.info("No AWB found, cancelling by Shiprocket Order ID: {}", order.getShiprocketOrderId());
+                        Map<String, Object> shiprocketResponse = shiprocketService.cancelOrderById(order.getShiprocketOrderId());
+                        if (shiprocketResponse != null && !Boolean.FALSE.equals(shiprocketResponse.get("success"))) {
+                            log.info("Shiprocket order cancelled using Order ID for order: {}", orderId);
+                        } else {
+                            log.warn("Shiprocket cancellation may have failed for order {}: {}", orderId, shiprocketResponse);
+                        }
+                    } catch (Exception e) {
+                        log.error("Failed to cancel Shiprocket order for order {}: {}", orderId, e.getMessage(), e);
+                    }
+                }
+
+                // Restore stock for cancelled items
+                if (order.getItems() != null) {
+                    for (CustomerOrderItem item : order.getItems()) {
+                        Long productId = item.getProductId();
+                        if (productId != null && productId > 0) {
+                            Optional<Product> productOpt = productRepository.findById(productId);
+                            if (productOpt.isPresent()) {
+                                Product product = productOpt.get();
+                                int currentStock = product.getStock() != null ? product.getStock() : 0;
+                                int restoredStock = currentStock + item.getQuantity();
+                                product.setStock(restoredStock);
+                                productRepository.save(product);
+                                log.info("Stock restored for product {}: {} -> {}", productId, currentStock, restoredStock);
+                            }
+                        }
+                    }
+                }
+
+                order.setFailureReason("Cancelled by admin");
+            }
+
             CustomerOrder savedOrder = orderRepository.save(order);
 
             // Send SMS notification for status updates
