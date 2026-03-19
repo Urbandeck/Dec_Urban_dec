@@ -76,7 +76,7 @@ export default function AdminOrders() {
         status: mapBackendStatus(order.status),
         paymentStatus: mapPaymentStatus(order.paymentStatus),
         paymentId: order.paymentId || '',
-        paymentMethod: 'Razorpay',
+        paymentMethod: order.paymentId && order.paymentId.startsWith('COD_') ? 'COD' : 'Razorpay',
         shippingAddress: `${order.shippingAddress || ''}, ${order.city || ''}, ${order.state || ''} ${order.pincode || ''}`.trim(),
         createdAt: order.createdAt,
         updatedAt: order.createdAt,
@@ -288,11 +288,15 @@ export default function AdminOrders() {
                   </td>
                   <td className="px-6 py-4">
                     <div className="space-y-1.5">
-                      <div className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${getPaymentStatusColor(order.paymentStatus)}`}>
-                        {order.paymentStatus === 'success' && '✓ Paid'}
-                        {order.paymentStatus === 'pending' && '⏱ Pending'}
-                        {order.paymentStatus === 'failed' && '✗ Failed'}
-                        {order.paymentStatus === 'refunded' && '↺ Refunded'}
+                      <div className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${order.paymentMethod === 'COD' ? 'bg-blue-100 text-blue-800 border-blue-200' : getPaymentStatusColor(order.paymentStatus)}`}>
+                        {order.paymentMethod === 'COD' ? '💵 COD' : (
+                          <>
+                            {order.paymentStatus === 'success' && '✓ Paid'}
+                            {order.paymentStatus === 'pending' && '⏱ Pending'}
+                            {order.paymentStatus === 'failed' && '✗ Failed'}
+                            {order.paymentStatus === 'refunded' && '↺ Refunded'}
+                          </>
+                        )}
                       </div>
                       <div className="text-xs text-slate-400">
                         {order.paymentMethod}
@@ -439,11 +443,15 @@ export default function AdminOrders() {
                     <div>
                       <span className="text-amber-700">Payment Status:</span>
                       <div>
-                        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border ${getPaymentStatusColor(selectedOrder.paymentStatus)} mt-1`}>
-                          {selectedOrder.paymentStatus === 'success' && '✓ Payment Successful'}
-                          {selectedOrder.paymentStatus === 'pending' && '⏱ Payment Pending'}
-                          {selectedOrder.paymentStatus === 'failed' && '✗ Payment Failed'}
-                          {selectedOrder.paymentStatus === 'refunded' && '↺ Payment Refunded'}
+                        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border ${selectedOrder.paymentMethod === 'COD' ? 'bg-blue-100 text-blue-800 border-blue-200' : getPaymentStatusColor(selectedOrder.paymentStatus)} mt-1`}>
+                          {selectedOrder.paymentMethod === 'COD' ? '💵 Cash on Delivery' : (
+                            <>
+                              {selectedOrder.paymentStatus === 'success' && '✓ Payment Successful'}
+                              {selectedOrder.paymentStatus === 'pending' && '⏱ Payment Pending'}
+                              {selectedOrder.paymentStatus === 'failed' && '✗ Payment Failed'}
+                              {selectedOrder.paymentStatus === 'refunded' && '↺ Payment Refunded'}
+                            </>
+                          )}
                         </span>
                       </div>
                     </div>
