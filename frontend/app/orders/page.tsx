@@ -102,7 +102,9 @@ export default function OrdersPage() {
     // Fetch return requests for the user
     const fetchReturns = async () => {
       try {
-        const returnsResponse = await fetch(`${ENV_CONFIG.API_URL}/api/returns/my-returns`, {
+        const userEmail = user?.email;
+        if (!userEmail) return;
+        const returnsResponse = await fetch(`${ENV_CONFIG.API_URL}/api/returns?email=${encodeURIComponent(userEmail)}`, {
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
         });
