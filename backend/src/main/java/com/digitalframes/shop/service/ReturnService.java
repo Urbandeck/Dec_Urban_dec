@@ -42,6 +42,9 @@ public class ReturnService {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private ShiprocketService shiprocketService;
+
     /**
      * Check if an order is eligible for return
      */
@@ -280,11 +283,38 @@ public class ReturnService {
     }
 
     /**
-     * Approve return request
+     * Approve return request and create Shiprocket return order
      */
     @Transactional
     public ReturnRequestDTO approveReturn(Long id, String adminNotes) {
-        return updateReturnStatus(id, ReturnStatus.APPROVED, adminNotes);
+        ReturnRequestDTO result = updateReturnStatus(id, ReturnStatus.APPROVED, adminNotes);
+
+        // Create reverse pickup in Shiprocket
+        try {
+            ReturnRequest returnRequest = returnRequestRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Return request not found"));
+            CustomerOrder order = returnRequest.getOrder();
+
+            java.util.Map<String, Object> shiprocketResponse = shiprocketService.createReturnOrder(
+                    order,
+                    returnRequest.getProductName(),
+                    returnRequest.getQuantity(),
+                    returnRequest.getRefundAmount()
+            );
+
+            if (shiprocketResponse != null && !Boolean.FALSE.equals(shiprocketResponse.get("success"))) {
+                logger.info("Shiprocket return order created for return: {}", returnRequest.getReturnId());
+                // Update status to PICKUP_SCHEDULED
+                updateReturnStatus(id, ReturnStatus.PICKUP_SCHEDULED, "Shiprocket reverse pickup created");
+            } else {
+                logger.warn("Shiprocket return order creation may have failed: {}", shiprocketResponse);
+            }
+        } catch (Exception e) {
+            logger.error("Failed to create Shiprocket return order for return {}: {}", id, e.getMessage(), e);
+            // Don't fail the approval if Shiprocket fails
+        }
+
+        return result;
     }
 
     /**

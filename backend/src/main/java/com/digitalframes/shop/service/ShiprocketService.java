@@ -16,6 +16,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -523,6 +524,71 @@ public class ShiprocketService {
         }
 
         return createErrorResponse("Failed to create order in Shiprocket");
+    }
+
+    /**
+     * Create a return/reverse pickup order in Shiprocket
+     */
+    public Map<String, Object> createReturnOrder(CustomerOrder order, String productName, int quantity, BigDecimal refundAmount) {
+        try {
+            String token = authenticateAndGetToken();
+            if (token == null) {
+                return createErrorResponse("Authentication failed");
+            }
+
+            String returnUrl = apiBaseUrl + "/orders/create/return";
+
+            Map<String, Object> returnRequest = new HashMap<>();
+            returnRequest.put("order_id", order.getOrderId());
+            returnRequest.put("order_date", order.getCreatedAt().toLocalDate().toString());
+            returnRequest.put("channel_id", channelId != null && !channelId.isEmpty() ? channelId : "");
+            returnRequest.put("pickup_customer_name", order.getCustomerName());
+            returnRequest.put("pickup_last_name", "");
+            returnRequest.put("pickup_address", order.getShippingAddress());
+            returnRequest.put("pickup_city", order.getCity());
+            returnRequest.put("pickup_state", order.getState());
+            returnRequest.put("pickup_country", "India");
+            returnRequest.put("pickup_pincode", order.getPincode());
+            returnRequest.put("pickup_email", order.getCustomerEmail());
+            returnRequest.put("pickup_phone", order.getCustomerPhone());
+
+            // Order items
+            List<Map<String, Object>> items = new java.util.ArrayList<>();
+            Map<String, Object> item = new HashMap<>();
+            item.put("name", productName);
+            item.put("sku", "RET-" + order.getOrderId());
+            item.put("units", quantity);
+            item.put("selling_price", refundAmount.doubleValue() / quantity);
+            items.add(item);
+            returnRequest.put("order_items", items);
+
+            returnRequest.put("payment_method", "Prepaid");
+            returnRequest.put("sub_total", refundAmount.doubleValue());
+            returnRequest.put("length", 30);
+            returnRequest.put("breadth", 25);
+            returnRequest.put("height", 5);
+            returnRequest.put("weight", 0.5);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setBearerAuth(token);
+
+            HttpEntity<Map<String, Object>> entity = new HttpEntity<>(returnRequest, headers);
+            ResponseEntity<Map> response = restTemplate.exchange(
+                returnUrl, HttpMethod.POST, entity, Map.class
+            );
+
+            if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+                logger.info("Shiprocket return order created for order: {}", order.getOrderId());
+                return response.getBody();
+            } else {
+                logger.error("Shiprocket return API returned status: {}, body: {}", response.getStatusCode(), response.getBody());
+            }
+        } catch (Exception e) {
+            logger.error("Failed to create Shiprocket return order for {}: {}", order.getOrderId(), e.getMessage(), e);
+            return createErrorResponse(e.getMessage());
+        }
+        return createErrorResponse("Failed to create return order in Shiprocket");
     }
 
     private Map<String, Object> createErrorResponse(String message) {
