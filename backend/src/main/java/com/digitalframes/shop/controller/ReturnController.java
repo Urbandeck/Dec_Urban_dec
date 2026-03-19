@@ -18,7 +18,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/returns")
-@CrossOrigin(origins = "*")
 public class ReturnController {
 
     private static final Logger logger = LoggerFactory.getLogger(ReturnController.class);
