@@ -27,6 +27,9 @@ interface Order {
   paymentId: string;
   paymentMethod: string;
   shippingAddress: string;
+  city: string;
+  state: string;
+  pincode: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -77,7 +80,10 @@ export default function AdminOrders() {
         paymentStatus: mapPaymentStatus(order.paymentStatus),
         paymentId: order.paymentId || '',
         paymentMethod: order.paymentId && order.paymentId.startsWith('COD_') ? 'COD' : 'Razorpay',
-        shippingAddress: `${order.shippingAddress || ''}, ${order.city || ''}, ${order.state || ''} ${order.pincode || ''}`.trim(),
+        shippingAddress: order.shippingAddress || '',
+        city: order.city || '',
+        state: order.state || '',
+        pincode: order.pincode || '',
         createdAt: order.createdAt,
         updatedAt: order.createdAt,
       }));
@@ -275,8 +281,15 @@ export default function AdminOrders() {
               {filteredOrders.map((order) => (
                 <tr key={order.id} className="hover:bg-stone-100">
                   <td className="px-6 py-4">
-                    <div className="text-sm font-semibold text-slate-800">{order.orderNumber}</div>
-                    <div className="text-xs text-slate-400 mt-1">{new Date(order.createdAt).toLocaleDateString()}</div>
+                    <div className="flex items-center gap-2">
+                      <div className="text-sm font-semibold text-slate-800">{order.orderNumber}</div>
+                      {(new Date().getTime() - new Date(order.createdAt).getTime()) < 24 * 60 * 60 * 1000 && (
+                        <span className="px-1.5 py-0.5 text-[10px] font-bold bg-red-500 text-white rounded animate-pulse">NEW</span>
+                      )}
+                    </div>
+                    <div className="text-xs text-slate-400 mt-1">
+                      {new Date(order.createdAt).toLocaleDateString()} at {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </div>
                     <div className="text-xs text-slate-400">
                       {order.items.length} item{order.items.length > 1 ? 's' : ''}
                     </div>
@@ -418,8 +431,8 @@ export default function AdminOrders() {
                       <div className="font-medium text-slate-800">{selectedOrder.orderNumber}</div>
                     </div>
                     <div>
-                      <span className="text-slate-500">Order Date:</span>
-                      <div className="font-medium text-slate-800">{new Date(selectedOrder.createdAt).toLocaleDateString()}</div>
+                      <span className="text-slate-500">Order Date & Time:</span>
+                      <div className="font-medium text-slate-800">{new Date(selectedOrder.createdAt).toLocaleDateString()} at {new Date(selectedOrder.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                     </div>
                     <div>
                       <span className="text-slate-500">Order Status:</span>
@@ -476,7 +489,38 @@ export default function AdminOrders() {
                     <div><span className="text-slate-500">Name:</span> <span className="font-medium">{selectedOrder.customer.name}</span></div>
                     <div><span className="text-slate-500">Email:</span> {selectedOrder.customer.email}</div>
                     <div><span className="text-slate-500">Phone:</span> {selectedOrder.customer.phone}</div>
-                    <div><span className="text-slate-500">Address:</span> {selectedOrder.shippingAddress}</div>
+                  </div>
+                </div>
+
+                <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                  <h3 className="font-semibold text-green-900 mb-3 flex items-center">
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    Shipping Address
+                  </h3>
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div className="col-span-2">
+                      <span className="text-green-700">Address:</span>
+                      <div className="font-medium text-green-900">{selectedOrder.shippingAddress}</div>
+                    </div>
+                    <div>
+                      <span className="text-green-700">City:</span>
+                      <div className="font-medium text-green-900">{selectedOrder.city}</div>
+                    </div>
+                    <div>
+                      <span className="text-green-700">State:</span>
+                      <div className="font-medium text-green-900">{selectedOrder.state}</div>
+                    </div>
+                    <div>
+                      <span className="text-green-700">Pincode:</span>
+                      <div className="font-medium text-green-900">{selectedOrder.pincode}</div>
+                    </div>
+                    <div>
+                      <span className="text-green-700">Phone:</span>
+                      <div className="font-medium text-green-900">{selectedOrder.customer.phone}</div>
+                    </div>
                   </div>
                 </div>
 
@@ -592,6 +636,7 @@ export default function AdminOrders() {
                       <p className="text-sm text-slate-500">{selectedOrder.customer.email}</p>
                       <p className="text-sm text-slate-500">{selectedOrder.customer.phone}</p>
                       <p className="text-sm text-slate-500">{selectedOrder.shippingAddress}</p>
+                      <p className="text-sm text-slate-500">{selectedOrder.city}, {selectedOrder.state} {selectedOrder.pincode}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-sm"><span className="font-semibold">Invoice No:</span> {selectedOrder.orderNumber}</p>
