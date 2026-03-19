@@ -145,11 +145,24 @@ export default async function ProductPage({ params }: { params: { slug: string }
                 <span className="text-3xl font-bold text-slate-800">
                   {formatPrice(product.basePrice)}
                 </span>
-                {product.category && (
-                  <span className="bg-stone-100 text-slate-600 px-3 py-1 rounded-full text-sm">
-                    {product.category}
-                  </span>
-                )}
+                <div className="flex items-center gap-2">
+                  {product.stock !== undefined && product.stock !== null && (
+                    product.stock > 0 ? (
+                      <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
+                        In Stock ({product.stock})
+                      </span>
+                    ) : (
+                      <span className="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-medium">
+                        Out of Stock
+                      </span>
+                    )
+                  )}
+                  {product.category && (
+                    <span className="bg-stone-100 text-slate-600 px-3 py-1 rounded-full text-sm">
+                      {product.category}
+                    </span>
+                  )}
+                </div>
               </div>
 
               <ProductActions product={product} />

@@ -14,6 +14,8 @@ export default function AddToCartButton({ product, quantity = 1 }: AddToCartButt
   const [showSuccess, setShowSuccess] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
 
+  const isOutOfStock = product.stock !== undefined && product.stock !== null && product.stock <= 0;
+
   const handleAddToCart = async () => {
     setIsAdding(true);
     
@@ -57,7 +59,7 @@ export default function AddToCartButton({ product, quantity = 1 }: AddToCartButt
     <div className="space-y-3">
       <button
         onClick={handleAddToCart}
-        disabled={isAdding || !product.active}
+        disabled={isAdding || !product.active || isOutOfStock}
         className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center"
       >
         {isAdding ? (
@@ -87,7 +89,13 @@ export default function AddToCartButton({ product, quantity = 1 }: AddToCartButt
         </div>
       )}
       
-      {!product.active && (
+      {isOutOfStock && (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-center font-semibold">
+          Out of Stock
+        </div>
+      )}
+
+      {!product.active && !isOutOfStock && (
         <p className="text-red-600 text-sm text-center">This product is currently unavailable</p>
       )}
     </div>

@@ -19,6 +19,8 @@ export default function ProductActions({ product, quantity = 1 }: ProductActions
   const { isAuthenticated } = useAuthStore();
   const router = useRouter();
 
+  const isOutOfStock = product.stock !== undefined && product.stock !== null && product.stock <= 0;
+
   const handleAddToCart = async () => {
     setIsAdding(true);
 
@@ -89,7 +91,7 @@ export default function ProductActions({ product, quantity = 1 }: ProductActions
         {/* Buy Now Button */}
         <button
           onClick={handleBuyNow}
-          disabled={isBuying || !product.active}
+          disabled={isBuying || !product.active || isOutOfStock}
           className="flex-1 bg-amber-500 text-slate-900 py-3 px-6 rounded-lg font-semibold hover:bg-amber-400 transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed flex items-center justify-center"
         >
           {isBuying ? (
@@ -113,7 +115,7 @@ export default function ProductActions({ product, quantity = 1 }: ProductActions
         {/* Add to Cart Button */}
         <button
           onClick={handleAddToCart}
-          disabled={isAdding || !product.active}
+          disabled={isAdding || !product.active || isOutOfStock}
           className="flex-1 bg-slate-800 text-white py-3 px-6 rounded-lg font-semibold hover:bg-slate-700 transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed flex items-center justify-center"
         >
           {isAdding ? (
@@ -144,7 +146,13 @@ export default function ProductActions({ product, quantity = 1 }: ProductActions
         </div>
       )}
 
-      {!product.active && (
+      {isOutOfStock && (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-center font-semibold">
+          Out of Stock
+        </div>
+      )}
+
+      {!product.active && !isOutOfStock && (
         <p className="text-red-600 text-sm text-center">This product is currently unavailable</p>
       )}
 

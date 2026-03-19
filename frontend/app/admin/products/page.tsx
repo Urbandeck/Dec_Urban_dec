@@ -385,7 +385,11 @@ export default function AdminProducts() {
                       <div className="text-sm font-medium text-slate-800">{formatPrice(product.basePrice)}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-slate-800">{product.stock ?? 0} units</div>
+                      <div className={`text-sm font-medium ${(product.stock ?? 0) === 0 ? 'text-red-600' : (product.stock ?? 0) <= 5 ? 'text-amber-600' : 'text-slate-800'}`}>
+                        {product.stock ?? 0} units
+                        {(product.stock ?? 0) === 0 && <span className="ml-1 text-xs bg-red-100 text-red-700 px-1.5 py-0.5 rounded">Out of Stock</span>}
+                        {(product.stock ?? 0) > 0 && (product.stock ?? 0) <= 5 && <span className="ml-1 text-xs bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded">Low</span>}
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {product.isLive ? (

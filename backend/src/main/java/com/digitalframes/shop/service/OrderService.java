@@ -108,6 +108,22 @@ public class OrderService {
         
         order.setItems(orderItems);
 
+        // Validate stock before placing the order
+        for (CustomerOrderItem orderItem : orderItems) {
+            Long productId = orderItem.getProductId();
+            if (productId != null && productId > 0) {
+                Optional<Product> productOpt = productRepository.findById(productId);
+                if (productOpt.isPresent()) {
+                    Product product = productOpt.get();
+                    int currentStock = product.getStock() != null ? product.getStock() : 0;
+                    if (currentStock < orderItem.getQuantity()) {
+                        throw new RuntimeException("Insufficient stock for " + product.getName()
+                            + ". Available: " + currentStock + ", Requested: " + orderItem.getQuantity());
+                    }
+                }
+            }
+        }
+
         // Decrement stock for each ordered product
         for (CustomerOrderItem orderItem : orderItems) {
             Long productId = orderItem.getProductId();
@@ -116,10 +132,9 @@ public class OrderService {
                 if (productOpt.isPresent()) {
                     Product product = productOpt.get();
                     int currentStock = product.getStock() != null ? product.getStock() : 0;
-                    int newStock = Math.max(0, currentStock - orderItem.getQuantity());
-                    product.setStock(newStock);
+                    product.setStock(currentStock - orderItem.getQuantity());
                     productRepository.save(product);
-                    log.info("Stock decremented for product {}: {} -> {}", productId, currentStock, newStock);
+                    log.info("Stock decremented for product {}: {} -> {}", productId, currentStock, currentStock - orderItem.getQuantity());
                 }
             }
         }
