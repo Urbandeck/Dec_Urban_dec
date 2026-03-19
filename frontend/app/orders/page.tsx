@@ -30,6 +30,7 @@ export default function OrdersPage() {
   const [returnReasonDetails, setReturnReasonDetails] = useState('');
   const [returnProductIndex, setReturnProductIndex] = useState(0);
   const [submittingReturn, setSubmittingReturn] = useState(false);
+  const [orderReturns, setOrderReturns] = useState<{ [orderId: string]: any[] }>({});
 
   // Handle hydration
   useEffect(() => {
@@ -97,6 +98,28 @@ export default function OrdersPage() {
     };
 
     fetchOrders();
+
+    // Fetch return requests for the user
+    const fetchReturns = async () => {
+      try {
+        const returnsResponse = await fetch(`${ENV_CONFIG.API_URL}/api/returns/my-returns`, {
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        if (returnsResponse.ok) {
+          const returnsData = await returnsResponse.json();
+          const returnsMap: { [orderId: string]: any[] } = {};
+          returnsData.forEach((ret: any) => {
+            if (!returnsMap[ret.orderId]) returnsMap[ret.orderId] = [];
+            returnsMap[ret.orderId].push(ret);
+          });
+          setOrderReturns(returnsMap);
+        }
+      } catch (e) {
+        // Silently fail
+      }
+    };
+    fetchReturns();
   }, [isHydrated, _hasHydrated, isAuthenticated, user, router]);
 
   // Filter orders based on search and filters
@@ -278,6 +301,12 @@ export default function OrdersPage() {
         });
         setShowReturnModal(false);
         setReturnOrder(null);
+        // Update return status in local state
+        const orderId = getOrderId(returnOrder);
+        setOrderReturns(prev => ({
+          ...prev,
+          [orderId]: [...(prev[orderId] || []), data],
+        }));
       } else {
         setNotification({
           type: 'error',
@@ -481,14 +510,38 @@ export default function OrdersPage() {
                         >
                           Track package
                         </button>
-                        {order.status === 'DELIVERED' && (
-                          <button
-                            onClick={() => openReturnModal(order)}
-                            className="px-4 py-2 border border-stone-200 hover:bg-stone-100 text-slate-600 text-sm font-medium rounded-md transition-colors"
-                          >
-                            Return items
-                          </button>
-                        )}
+                        {order.status === 'DELIVERED' && (() => {
+                          const orderId = order.orderId || order.id;
+                          const returns = orderReturns[orderId];
+                          if (returns && returns.length > 0) {
+                            const ret = returns[0];
+                            const statusLabels: { [key: string]: { label: string; color: string } } = {
+                              REQUESTED: { label: 'Return Requested', color: 'bg-amber-100 text-amber-800 border-amber-200' },
+                              APPROVED: { label: 'Return Approved', color: 'bg-blue-100 text-blue-800 border-blue-200' },
+                              PICKUP_SCHEDULED: { label: 'Pickup Scheduled', color: 'bg-blue-100 text-blue-800 border-blue-200' },
+                              PICKED_UP: { label: 'Picked Up', color: 'bg-purple-100 text-purple-800 border-purple-200' },
+                              RECEIVED: { label: 'Return Received', color: 'bg-purple-100 text-purple-800 border-purple-200' },
+                              REFUND_INITIATED: { label: 'Refund Initiated', color: 'bg-green-100 text-green-800 border-green-200' },
+                              REFUNDED: { label: 'Refunded', color: 'bg-green-100 text-green-800 border-green-200' },
+                              REJECTED: { label: 'Return Rejected', color: 'bg-red-100 text-red-800 border-red-200' },
+                              CLOSED: { label: 'Return Closed', color: 'bg-stone-100 text-slate-700 border-stone-200' },
+                            };
+                            const info = statusLabels[ret.status] || { label: ret.status, color: 'bg-stone-100 text-slate-700 border-stone-200' };
+                            return (
+                              <span className={`px-3 py-2 text-sm font-medium rounded-md border ${info.color}`}>
+                                {info.label}
+                              </span>
+                            );
+                          }
+                          return (
+                            <button
+                              onClick={() => openReturnModal(order)}
+                              className="px-4 py-2 border border-stone-200 hover:bg-stone-100 text-slate-600 text-sm font-medium rounded-md transition-colors"
+                            >
+                              Return items
+                            </button>
+                          );
+                        })()}
                       </div>
                     </div>
 
